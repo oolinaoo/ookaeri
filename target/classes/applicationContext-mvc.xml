@@ -11,9 +11,8 @@
 		http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan
-		base-package="web.*.controller" />
+		base-package="tw.idv.tfa104.okaeri.web.*.controller" />
 
-<!-- tw.idv.tfa104. -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/" />
