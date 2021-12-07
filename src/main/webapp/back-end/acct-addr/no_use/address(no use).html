@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/adminStyle.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+        integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+        crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="sidenav">
+        <div class="sidenav-cont">
+            <div class="menu">
+                <span>
+                    <img class="logo" src="images/logo2.png" />管理員專區
+                </span>
+            </div>
+            <div>
+                <hr />
+                <button class="dropdown-btn">
+                    帳號管理
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="mem-acct.html">住戶帳號管理</a>
+                    <a href="admin.html">後端帳號管理</a>
+                    <a href="address.html">地址資料管理</a>
+                </div>
+                <button class="dropdown-btn">
+                    社區交流
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="#">社區公告</a>
+                    <a href="#">社區公約</a>
+                    <a href="#">社區論壇</a>
+                </div>
+                <button class="dropdown-btn">
+                    公設管理
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a href="#">公設列表</a>
+                    <a href="#">公設租借紀錄</a>
+                    <a href="#">公設編輯</a>
+                </div>
+                <a href="#services">聊天室</a>
+                <a href="#clients">管理費用</a>
+                <a href="#contact">管理包裹</a>
+                <a href="#contact">管理地圖</a>
+                <a href="#contact">登出</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/adminScript.js" charset="UTF-8"></script>
+    <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script>
+        // let re = /^[1-5]{1}$/;
+        // if(re.test("3")){
+        //     console.log("y");
+        // }else{
+        //     console.log("n");
+        // }
+        
+        //100以內
+        let re2 = /^[1-9]{1,2}$|^[1][0]{2}$/;
+        if(re2.test("10")){
+            console.log("y");
+        }else{
+            console.log("n");
+        }
+    </script>
+</body>
+
+</html>
