@@ -13,13 +13,19 @@
 	<context:component-scan
 		base-package="web.*.controller" />
 
-<!-- tw.idv.tfa104. -->
+	<!-- tw.idv.tfa104. -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
 </beans>
