@@ -19,13 +19,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/map_tab.css" />
+	href="<%=request.getContextPath()%>map/css/map_tab.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/map.css" />
+	href="<%=request.getContextPath()%>map/css/map.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/mapInfo.css" />
+	href="<%=request.getContextPath()%>map/css/mapInfo.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/header_footer_style.css" />
+	href="<%=request.getContextPath()%>map/css/header_footer_style.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>美食地圖</title>
