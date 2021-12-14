@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Document</title>
+<link rel="stylesheet" href="style.css" />
+<script defer
+	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+	crossorigin="anonymous"></script>
+<link
+	href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+	rel="stylesheet" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	<div class="circle1"></div>
+	<!-- <div class="circle2"></div> -->
+	<div id="header">
+		<p class="header_logo">
+			<a href=""> <img src="images/logo2.png" alt="logo" width="80" />
+			</a>
+		</p>
+		<ul class="navbar_list">
+			<li class="navbar_list_open"><a href="">社區交流</a>
+				<ol class="navbar_list_open_sub">
+					<li><a href="">- 社區公告</a></li>
+					<li><a href="">- 社區公約</a></li>
+					<li><a href="">- 社區論壇</a></li>
+				</ol></li>
+			<li class="navbar_list_open"><a href="">管理費</a>
+				<ol class="navbar_list_open_sub">
+					<li><a href="">- 繳費</a></li>
+					<li><a href="">- 繳費記錄</a></li>
+				</ol></li>
+			<li class="navbar_list_open"><a href="">我的包裹</a>
+				<ol class="navbar_list_open_sub">
+					<li><a href="">- 我的包裹</a></li>
+					<li><a href="">- 包裹記錄</a></li>
+				</ol></li>
+			<li class="navbar_list_open"><a href="">公設預約</a>
+				<ol class="navbar_list_open_sub">
+					<li><a href="">- 我要預約</a></li>
+					<li><a href="">- 預約記錄</a></li>
+				</ol></li>
+			<li class="navbar_list_open"><a href="">美食地圖</a></li>
+			<li class="navbar_icon"><a href=""><img class="alert_icon"
+					src="images/alert.png" alt="alert" /></a></li>
+			<li class="navbar_icon"><a href=""><img class="user_icon"
+					src="images/user.png" alt="" /></a></li>
+		</ul>
+	</div>
+	<div class="forum-category">
+		<ul class="forum-type-all">
+			<li ><button type="button" class="forum-type" value="1">社區</button></li>
+			<li ><button type="button" class="forum-type" value="2">美食</button></li>
+			<li ><button type="button" class="forum-type" value="3">旅遊</button></li>
+			<li ><button type="button" class="forum-type" value="4">家電</button></li>
+			<li ><button type="button" class="forum-type" value="5">水電</button></li>
+			<li ><button type="button" class="forum-type" value="6">其他</button></li>
+		</ul>
+	</div>
+	<section class="forum">
+		<div class="forum-sub-bar">
+			<a href="#" class="forum-button">New Post</a>
+			<div id="wrap">
+				<form autocomplete="off">
+					<input id="search" name="search" type="text"
+						placeholder="What're you looking for ?" /><input
+						id="search_submit" value="Rechercher" type="submit" />
+				</form>
+			</div>
+		</div>
+		<!-- RETURNED CASES -->
+		<div class="modal-returned hidden">
+			<div class="modal-container">
+				<button class="btn--close-modal-returned">&times;</button>
+				<div class="newPost">
+					<h3>Add New Post</h3>
+					<input type="text" placeholder="請輸入標題" /> <select id="type"
+						required>
+						<option value="" disabled selected>文章類別</option>
+						<option value="1">社區</option>
+						<option value="2">美食</option>
+						<option value="3">旅遊</option>
+						<option value="4">家電</option>
+						<option value="5">水電</option>
+						<option value="6">其他</option>
+					</select>
+					<div class="editor" contenteditable></div>
+					<div class="buttons">
+						<!--<button type="button">save draft</button>-->
+						<button data-func="clear" type="button">clear</button>
+						<button data-func="save" type="button">post</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="overlay-returned hidden"></div>
+		<div class="forum-page" id="clear">
+			<!-- <div class="forum-row">
+          <div class="forum-row-box">
+            <div class="forum-title">
+              <h3>
+                <a href="../comment/comment.html" target="_blank"> What is HTML?</a>
+              </h3>
+            </div>
+            <div class="forum-content">
+              <p>
+                Duis dapibus aliquam mi, eget euismod sem scelerisque ut.
+                Vivamus at elit quis urna adipiscing iaculis.Duis dapibus
+                aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit
+                quis urna adipiscing iaculis.
+              </p>
+            </div>
+            <hr />
+            <div class="forum-icon">
+              <span><i class="fa fa-clock"></i>時間</span>&emsp;
+              <span><i class="fa fa-eye"></i>觀看數</span>&emsp;
+              <a href="../comment/comment.html"
+                ><i class="fa fa-comment-dots"></i>留言</a
+              >&emsp;
+              <a href="#"><i class="fa fa-times"></i>檢舉</a>
+            </div>
+          </div>
+        </div> -->
+		</div>
+	</section>
+	<div class="footer">
+		<a class="footer_link" href="#">サイトついて</a> <a class="footer_link"
+			href="#">最新情報</a> <a class="footer_link" href="#">トッポページ</a>
+		<p class="copyright">© 2021 okaeri</p>
+	</div>
+	<script src="script.js" charset="UTF-8"></script>
+	<script src="typeList.js" charset="UTF-8"></script>
+</body>
+</html>

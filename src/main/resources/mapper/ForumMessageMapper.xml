@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.forumMessage.mapper.ForumMessageMapper">
+
+	<select id="listAll" resultType="ForumMessage">
+		select * from FORUM_MESSAGE
+	</select>
+
+	<select id="findByPk" resultType="ForumMessage">
+		select * from FORUM_MESSAGE
+		where = #{forMsgNo}
+	</select>
+
+	<insert id="add">
+		insert into FORUM_MESSAGE
+		(MEM_ACCT, FOR_ART_NO, FOR_MSG_CONTENT)
+		values
+		(#{memAcctMsg}, #{forArtNo}, #{forMsgContent})
+	</insert>
+
+	<update id="update">
+		update FORUM_MESSAGE
+			MEM_ACCT = #{memAcctMsg},
+			FOR_ART_NO = #{forArtNo},
+			FOR_MSG_CONTENT = #{forMsgContent},
+			FOR_MSG_STATE = #{forMsgState}
+		where FOR_MSG_NO = #{forMsgNo}
+	</update>
+
+</mapper>
