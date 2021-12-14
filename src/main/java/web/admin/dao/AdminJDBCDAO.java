@@ -21,7 +21,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 	private static final String GET_ONE_STMT = 
 			"SELECT ADMIN_ACCT, ADMIN_PWD, ADMIN_NAME, ADMIN_POS, ADMIN_STATE, ADMIN_PHONE FROM OKAERI.ADMIN where ADMIN_ACCT = ?";
 	private static final String GET_ALL_STMT = 
-			"SELECT ADMIN_ACCT, ADMIN_PWD, ADMIN_NAME, ADMIN_POS, ADMIN_STATE, ADMIN_PHONE FROM OKAERI.ADMIN order by ADMIN_STATE";
+			"SELECT ADMIN_ACCT, ADMIN_PWD, ADMIN_NAME, ADMIN_POS, ADMIN_STATE, ADMIN_PHONE FROM OKAERI.ADMIN order by ADMIN_ACCT";
 	
 	@Override
 	public void insert(AdminVO adminVO) {
@@ -108,9 +108,10 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 	}
 	
 	@Override
-	public void delete(String admin_acct) {
+	public Integer delete(String admin_acct) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		Integer affectedRows = null;
 		
 		try {
 			Class.forName(Util.DRIVER);
@@ -118,7 +119,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, admin_acct);
-			pstmt.executeUpdate();
+			affectedRows = pstmt.executeUpdate();
 			
 		} catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
@@ -141,6 +142,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 				}
 			}
 		}
+		return affectedRows;
 		
 	}
 	

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>mem-profile</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/front-all.css" />
+    <link rel="stylesheet" href="css/mem-profile.css" />
+    <link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div id="header">
+        <p class="header_logo">
+            <a href="">
+                <img src="images/logo2.png" alt="logo" width="80" />
+            </a>
+        </p>
+        <ul class="navbar_list">
+            <li class="navbar_list_open">
+                <a href="">社區交流</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 社區公告</a>
+                    </li>
+                    <li>
+                        <a href="">- 社區公約</a>
+                    </li>
+                    <li>
+                        <a href="">- 社區論壇</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">管理費</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 繳費</a>
+                    </li>
+                    <li>
+                        <a href="">- 繳費記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">我的包裹</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 我的包裹</a>
+                    </li>
+                    <li>
+                        <a href="">- 包裹記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">公設預約</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 我要預約</a>
+                    </li>
+                    <li>
+                        <a href="">- 預約記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open"><a href="">美食地圖</a></li>
+            <li class="navbar_icon">
+                <a href=""><img class="alert_icon" src="images/alert.png" alt="alert" /></a>
+            </li>
+            <li class="navbar_icon">
+                <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="center_tab_container">
+        <div class="tab_list_block">
+            <ul class="tab_list">
+                <li><a href="mem-Index.html" data-target="tab1" class="tab">住戶中心首頁</a></li>
+                <li><a href="mem-profile.html" data-target="tab2" class="tab -on">住戶資料管理</a></li>
+                <li><a href="mem-pwd.html" data-target="tab3" class="tab">修改密碼</a></li>
+                <li><a href="mem-article.html" data-target="tab4" class="tab">我的貼文</a></li>
+            </ul>
+        </div>
+        <div class="tab_contents">
+            <div class="tab tab1">
+                頁籤一的內容<br />
+                內容
+            </div>
+            <div class="tab tab2 -on">
+                <div class="memProfile_form_container">
+                    <form action="#" method="#" id="memProfile_form">
+                        <div class="mem_change_profile">
+
+                            <div class="mem_photo">
+                                <div class="profilePic_preview">
+                                    <!-- <div class="mem_uploadPic"></div> -->
+                                    <!-- <img src="images/mug-shot/man-hair.png" class="mem_uploadPic"> -->
+                                </div>
+                                <div class="memUploadPic_btn_block">
+                                    <input type="file" id="memUploadPic_file">
+                                </div>
+                            </div>
+                            <div class="memProfile_table_container">
+                                <table id="memPwd_table">
+                                    <tbody>
+                                        <tr>
+                                            <th>住戶帳號</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <input type="text" value="" id="memAcct" disabled>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <input type="text" value="" id="memName">
+                                                    </div>
+                                                    <div class="col-2" id="errName">
+                                                        <!-- <span class="errorMsg">錯誤訊息</span> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>姓別</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <input type="radio" id="male" class="memSex" name="mem_sex" value="男">
+                                                        <label for="male">男</label>
+                                                        <!-- <input type="radio" id="female" name="mem_sex" value="女" checked> -->
+                                                        <input type="radio" id="female" class="memSex" name="mem_sex" value="女">
+                                                        <label for="female">女</label>
+                                                        <input type="radio" id="other" class="memSex" name="mem_sex" value="其他">
+                                                        <label for="other">其他</label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>生日</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <!-- <input type="text" value="2000-01-01"> -->
+                                                        <input name="memBirthday" id="memBirthday" type="text" autocomplete="off">
+                                                    </div>
+                                                    <div class="col-2" id="errBirth">
+                                                        <!-- <span class="errorMsg">錯誤訊息</span> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>電子信箱</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <input type="text" value="" id="memEmail">
+                                                    </div>
+                                                    <div class="col-2" id="errEmail">
+                                                        <!-- <span class="errorMsg">錯誤訊息</span> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>聯絡電話</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <input type="text" value="" id="memPhone">
+                                                    </div>
+                                                    <div class="col-2" id="errPhone">
+                                                        <!-- <span class="errorMsg">錯誤訊息</span> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>住戶地址</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <span>台北市大安區某某街11-1號某某社區</span>
+                                                        <input type="text" value="" style="width:35px" id="addrBuild" disabled>
+                                                        <span>棟</span>
+                                                        <input type="text" value="" style="width:35px" id="addrFloor" disabled>
+                                                        <span>樓</span>
+                                                        <input type="text" value="" style="width:35px" id="addrRoom" disabled>
+                                                        <span>房</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>同住家人</th>
+                                            <td>
+                                                <div class="flex">
+                                                    <div class="col-1">
+                                                        <div class="famMemList">
+                                                            <!-- <div class="famMem_block">
+                                                                <div class="plus_minus_btn">
+                                                                    <span class="minus">-</span>
+                                                                    <span class="plus">+</span>
+                                                                </div>
+                                                                <input type="text" class="famMems" value=""style="width:75px;" >
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2" style="margin-top:20px" id="errFams">
+                                                        <!-- <span class="errorMsg">錯誤訊息</span> -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="comfirm_block">
+                            <!-- <div class="comfirm_error" style="margin-top:20px" id="errPwd">
+                                <span class="comfirmErrorMsg">錯誤訊息</span>
+                            </div> -->
+                            <div class="memProfile_comfirm_btn">
+                                <div class="mem_updateComfirm">
+                                    資料修改確認：請輸入密碼<input type="password" id="memPwd">
+                                </div>
+                                <div class="memProfile_btn">
+                                    <button type="button" id="memProfile_btn_submit">確定修改</button>
+                                    <!-- <input type="hidden" name="action" value="update_profile"> -->
+                                    <!-- <input type="submit" id="memProfile_btn_submit" value="確定修改"> -->
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab tab3">
+                頁籤三的內容<br />
+                內容
+            </div>
+            <div class="tab tab4">
+                頁籤四的內容<br />
+                內容
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer">
+        <a class="footer_link" href="#">サイトついて</a>
+        <a class="footer_link" href="#">最新情報</a>
+        <a class="footer_link" href="#">トッポページ</a>
+        <p class="copyright">© 2021 okaeri</p>
+    </div>
+
+    <script src="./vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="datetimepicker/jquery.js"></script>
+    <script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="./js/mem-profile-ajax.js"></script>
+</body>
+
+</html>

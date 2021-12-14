@@ -1,0 +1,129 @@
+a {
+  text-decoration: none;
+}
+body {
+  margin: 0px;
+  background-color: #e4ded0;
+}
+/* header
+=============================================*/
+#header {
+  font-size: 1.05rem;
+  font-weight: bold;
+  /* border-style: solid; */
+}
+.header_logo {
+  display: inline-block;
+  margin-left: 60px;
+  margin-top: 10px;
+  margin-bottom: 0;
+  /* border-style: solid; */
+}
+.navbar_list {
+  float: right;
+  margin-right: 50px;
+  margin-top: 35px;
+  /* border: solid brown; */
+}
+.navbar_list_open {
+  width: 90px;
+  text-align: center;
+  /* border: solid; */
+}
+.navbar_list > li {
+  display: inline-block;
+  position: relative;
+  padding: 0 20px;
+  /* border: solid; */
+}
+.navbar_list_open > a {
+  display: block;
+  color: #5b6d5b;
+  padding-bottom: 5px;
+  transition: border-bottom 0.5s;
+}
+.navbar_list_open > a:hover {
+  color: #dac9a6;
+  border-bottom: solid;
+}
+.navbar_list > li > ol {
+  display: none;
+  position: absolute;
+  width: 90px;
+  text-align: left;
+  padding-left: 0;
+  list-style: none;
+  padding-top: 5px;
+  /* border-style: solid; */
+}
+.navbar_list li:hover > ol {
+  display: block;
+}
+.navbar_list_open_sub > li {
+  line-height: 30px;
+}
+.navbar_list_open_sub > li > a {
+  color: #8d742a;
+}
+.navbar_list_open_sub > li > a:hover {
+  color: #dac9a6;
+}
+.navbar_icon {
+  width: 10px;
+}
+.navbar_icon > a {
+  display: block;
+  /* border: solid; */
+}
+.alert_icon {
+  width: 25px;
+}
+.user_icon {
+  width: 25px;
+}
+
+/* background
+=============================================*/
+.circle1 {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  height: 100%;
+  background: rgba(159, 127, 104, 0.4);
+  clip-path: circle(25% at 105%);
+  z-index: -100;
+}
+.circle2 {
+  position: absolute;
+  top: 80%;
+  width: 100%;
+  height: 100%;
+  background: rgba(211, 192, 175, 0.7);
+  clip-path: circle(20%);
+  z-index: -100;
+}
+/* footer
+=============================================*/
+.footer {
+  margin-top: 100%;
+  background-color: #dac9a6;
+  padding: 20px 0px 5px;
+  text-align: center;
+}
+.footer_link {
+  color: #5b6d5b;
+  font-family: "Montserrat", sans-serif;
+  margin: 10px 20px;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.footer_link:hover {
+  color: cornsilk;
+}
+.copyright {
+  color: white;
+  font-size: 0.9rem;
+  font-family: "Montserrat", sans-serif;
+  padding: 2px 0px 0px;
+  font-weight: bold;
+}

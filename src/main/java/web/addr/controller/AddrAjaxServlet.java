@@ -20,12 +20,15 @@ import web.addr.service.AddressService;
 public class AddrAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
 		doPost(req, res);
 	}
 
 
-	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse res) 
+			throws ServletException, IOException {
+		//給瀏覽器看的
 		//這行有寫charset="UTF-8" 下面那行res.setCharacterEncoding("UTF-8")就可以不用寫了 通常只會寫res.setContentType(...)
 		res.setContentType("text/plain; charset=UTF-8"); 
 		//res.setCharacterEncoding("UTF-8");
@@ -45,7 +48,7 @@ public class AddrAjaxServlet extends HttpServlet {
 			//System.out.println(data);
 			//String str = new JSONArray(list).toString();
 			//System.out.println(str);
-			res.getWriter().write(data);
+			res.getWriter().write(data); // res.getWriter() -> 取得PrintWriter物件 -> 使用PrintWriter物件的write()，輸出資料給前端
 			return; // 回傳資料給前端後，要中斷程式，不然仍會繼續往下執行
 			
 		}
@@ -124,8 +127,8 @@ public class AddrAjaxServlet extends HttpServlet {
 				}
 			}
 			
-			//****************** 檢查完成開始新增資料 ******************//
-			//當資料庫新增成功，會回傳AddressVO的物件
+			//****************** 檢查完成開始修改資料 ******************//
+			//當資料庫修改成功，會回傳AddressVO的物件
 			AddressVO addrVO = addrSvc.updateAddr(addrBuild, addrFloor, addrRoom, addrNo);
 			if(addrVO != null) {
 				addrJsonObject.addProperty("msg", "success");
@@ -156,10 +159,12 @@ public class AddrAjaxServlet extends HttpServlet {
 				obj.addProperty("addrNo", addrNo);
 				obj.addProperty("affectedRows", affectedRows.toString());
 				res.getWriter().write(obj.toString());
+				return;
 			}else {
 				JsonObject obj = new JsonObject();
 				obj.addProperty("msg", "fail");
-				
+				res.getWriter().write(obj.toString());
+				return;
 			}
 			
 		}

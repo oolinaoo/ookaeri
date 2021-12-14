@@ -1,0 +1,180 @@
+/* mem_update_profile.html
+=============================================*/
+div.mem_change_profile {
+  display: flex;
+  justify-content: center;
+}
+
+div.mem_change_profile div.mem_photo {
+  /* border: 1px solid black; */
+  margin-right: 30px;
+}
+
+div.mem_photo div.profilePic_preview{
+  position: relative;
+  margin-top: 60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #fffcf0;
+  /* background-image: url("../images/profile_png/Gina2.png"); */
+  /* background-repeat: no-repeat; */
+  /* 背景圖的寬度會變成佔 div 區域寬度的 80%。 */
+  /* background-size: 80%; */
+  /* background-position: center center; 水平方向：置中；垂直方向：置中 */
+}
+
+div.mem_photo div.profilePic_preview img.mem_uploadPic{
+  max-height: 80%;  
+  max-width: 80%; 
+  border-radius: 50%;
+  width: auto;
+  height: auto;
+  position: absolute;  
+  top: 0;  
+  bottom: 0;  
+  left: 0;  
+  right: 0;  
+  margin: auto;
+  
+}
+
+
+div.memUploadPic_btn_block #memUploadPic_file {
+  display: block;
+  cursor: pointer;
+  border: 1px solid #fffcf0;
+  border-radius: 0.2rem;
+  font-size: 8.75px;
+  /* min-height: calc(1.5em + 0.5rem + 2px); */
+  color: #524f4f;
+  /* padding: 0.25rem 0.5rem; */
+  font-weight: 400;
+  line-height: 1.5;
+  width: 85%;
+  margin-top: 15px;
+}
+
+div.mem_updateComfirm {
+  /* position: relative; */
+  color: #524f4f;
+  font-size: 16px;
+  margin-right: 30px;
+}
+
+div.mem_updateComfirm input {
+  display: inline-block;
+  color: #524f4f;
+  border: 1px solid #fffcf0;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  margin-left: 10px;
+}
+
+/* div.comfirm_error{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+} */
+
+/* span.comfirmErrorMsg{
+  display: inline-block;
+  color: red;
+} */
+div.comfirm_block{
+  margin-top: 45px;
+}
+
+div.memProfile_comfirm_btn {
+  display: flex;
+  /* 透過 justify-content 來設定 Flex Items 在 Main Axis 中該如何排列 */
+  justify-content: center;
+}
+
+#memProfile_btn_submit {
+  display: block;
+  color: #524f4f;
+  background-color: #fffcf0;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+  /* left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0; */
+  /* margin: auto; */
+}
+
+#memProfile_form {
+  /* border: 1px dashed red; */
+  margin: 10px 10px;
+  display: block;
+}
+
+#memPwd_table {
+  display: block;
+  border-collapse: separate;
+  border-spacing: 10px 10px;
+  /* border: 1px solid rebeccapurple; */
+}
+
+/* 錯誤訊息顯示  start */
+div.flex{
+  display: flex;
+}
+
+span.errorMsg{
+  font-size: 14px;
+  margin-left: 15px;
+  color: red;
+}
+/* 錯誤訊息顯示 end */
+
+
+div.memProfile_table_container {
+  /* border: 1px solid green; */
+}
+
+div.memProfile_table_container input {
+  border: 1px solid #dce7f1;
+  border-radius: 0.25rem;
+  padding: 5px 10px;
+}
+
+div.memProfile_table_container th {
+  text-align: right;
+  color: #504b4b;
+  background-color: #fffcf0;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+}
+
+div.memProfile_table_container div.col-1 {
+  padding-left: 10px;
+}
+
+div.memProfile_table_container div.plus_minus_btn {
+  width: 72px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2px;
+}
+
+div.memProfile_table_container div.plus_minus_btn > span {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: #fffcf0;
+  border-radius: 50%;
+  /* border:1px solid #ddd; */
+  display: inline-block;
+  text-align: center;
+  margin-left: 2px;
+}
+
+div.memProfile_table_container div.famMem_block {
+  display: inline-block;
+}

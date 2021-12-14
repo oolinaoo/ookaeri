@@ -142,6 +142,57 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		
 	}
 	
+	
+	
+	@Override
+	public void updateFamsWithMemAcct(String memAcct, List<String> famMemAryList, Connection con) {
+		PreparedStatement pstmt = null;
+		
+		try {
+			/*傳過來的famMemAryList可能為空陣列，
+			 * 若為空陣列就直接將所有家人資料刪除，若資料庫中本來就沒有家人資料，執行這行指令也不會錯！
+			 */
+			/*傳過來的famMemAryList可能若不為空陣列，則先刪除資料庫中所有家人資料，
+			 * 再將更新過的家人資料存入資料庫
+			 */
+			pstmt = con.prepareStatement("DELETE FROM OKAERI.FAMILY_MEMBER where MEM_ACCT = ?");
+			pstmt.setString(1, memAcct);
+			pstmt.executeUpdate();
+			
+			if(!famMemAryList.isEmpty()) {
+				for(String aFamName : famMemAryList) {
+					pstmt = con.prepareStatement(INSERT_STMT);
+					pstmt.setString(1, memAcct);
+					pstmt.setString(2, aFamName);
+					pstmt.executeUpdate();
+				}	
+			}
+			
+		}catch (SQLException se) {
+			if( con!=null ) {
+				try {
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-FamMem");
+					con.rollback();
+				}catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
 	@Override
 	public void delete(Integer fam_mem_no) {
 		Connection con = null;
@@ -235,7 +286,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		}
 		return family_memberVO;		
 	}
-	
+
 	@Override
 	public List<FamilyMemberVO> getAll() {
 		List<FamilyMemberVO> list = new ArrayList<FamilyMemberVO>();

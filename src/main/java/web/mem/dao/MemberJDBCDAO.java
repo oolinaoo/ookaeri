@@ -79,7 +79,82 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		}
 		
 	}
-
+	
+	
+	@Override
+	public void insertMemWithFams(MemberVO memberVO, List<FamilyMemberVO> famMemVOList) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(Util.DRIVER);
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			
+			con.setAutoCommit(false);
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt.setString(1, memberVO.getMemAcct());
+			pstmt.setString(2, memberVO.getMemPwd());
+			pstmt.setString(3, memberVO.getMemName());
+			pstmt.setString(4, memberVO.getMemId());
+			pstmt.setString(5, memberVO.getMemSex());
+			pstmt.setString(6, memberVO.getMemEmail());
+			pstmt.setDate(7, memberVO.getMemBirthday());
+			pstmt.setInt(8, memberVO.getAddrNo());
+			pstmt.setBytes(9, memberVO.getMemPhoto());
+			pstmt.setString(10, memberVO.getMemPhone());
+			pstmt.setTimestamp(11, memberVO.getAcctCreatetime());
+			pstmt.executeUpdate();
+			
+//			FamilyMemberJDBCDAO dao = new FamilyMemberJDBCDAO();
+//			for(FamilyMemberVO aFam : famMemVOList) {
+//				//aFam.setMemAcct(memberVO.getMemAcct());
+//				dao.insertFamsWithMemAcct(aFam, con);
+//			}
+			
+			FamilyMemberService famMemSvc = new FamilyMemberService();
+			famMemSvc.addFamsWithMemAcct(famMemVOList, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("新增住戶帳號" + memberVO.getMemAcct() + "時,共有同住家人" + famMemVOList.size()
+			+ "人同時被新增");
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			if(con != null) {
+				try {
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-Member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
 	@Override
 	public void update(MemberVO memberVO) {
 		
@@ -128,6 +203,117 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		}
 		
 	}
+	
+	
+	
+	
+	@Override
+	public Integer updatePwd(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		Integer affectedRows = null;
+		try {
+			Class.forName(Util.DRIVER);
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			pstmt = con.prepareStatement("UPDATE OKAERI.MEMBER set MEM_PWD=? where MEM_ACCT = ?");
+			
+			pstmt.setString(1, memberVO.getMemPwd());
+			pstmt.setString(2, memberVO.getMemAcct());
+			affectedRows = pstmt.executeUpdate();
+			//System.out.println("更新成功");
+			
+		} catch (ClassNotFoundException ce) {
+			ce.printStackTrace();
+		} catch (SQLException se) {
+			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+				
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return affectedRows;
+	}
+
+
+	@Override
+	public void updateMemWithFamMems(MemberVO memberVO, List<String> famMemAryList) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(Util.DRIVER);
+			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			
+			con.setAutoCommit(false);
+			
+			pstmt = con.prepareStatement(UPDATE);
+			pstmt.setString(1, memberVO.getMemPwd());
+			pstmt.setString(2, memberVO.getMemName());
+			pstmt.setString(3, memberVO.getMemId());
+			pstmt.setString(4, memberVO.getMemSex());
+			pstmt.setString(5, memberVO.getMemEmail());
+			pstmt.setDate(6, memberVO.getMemBirthday());
+			pstmt.setInt(7, memberVO.getAddrNo());
+			pstmt.setBytes(8, memberVO.getMemPhoto());
+			pstmt.setString(9, memberVO.getMemPhone());
+			pstmt.setInt(10, memberVO.getMemState());
+			pstmt.setString(11, memberVO.getMemAcct());
+			pstmt.executeUpdate();
+			
+			FamilyMemberService famMemSvc = new FamilyMemberService();
+			famMemSvc.updateFamsWithMemAcct(memberVO.getMemAcct(), famMemAryList, con);
+			
+			con.commit();
+			con.setAutoCommit(true);
+			System.out.println("更新住戶帳號" + memberVO.getMemAcct() + "時,共有同住家人" + famMemAryList.size()
+			+ "人同時被新增");
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			if(con != null) {
+				try {
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-Member");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 
 	@Override
 	public void delete(String mem_acct) {
@@ -299,80 +485,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		return list;	
 		
 	}
-
-
-	@Override
-	public void insertMemWithFams(MemberVO memberVO, List<FamilyMemberVO> famMemVOList) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
-			
-			con.setAutoCommit(false);
-			
-			pstmt = con.prepareStatement(INSERT_STMT);
-			pstmt.setString(1, memberVO.getMemAcct());
-			pstmt.setString(2, memberVO.getMemPwd());
-			pstmt.setString(3, memberVO.getMemName());
-			pstmt.setString(4, memberVO.getMemId());
-			pstmt.setString(5, memberVO.getMemSex());
-			pstmt.setString(6, memberVO.getMemEmail());
-			pstmt.setDate(7, memberVO.getMemBirthday());
-			pstmt.setInt(8, memberVO.getAddrNo());
-			pstmt.setBytes(9, memberVO.getMemPhoto());
-			pstmt.setString(10, memberVO.getMemPhone());
-			pstmt.setTimestamp(11, memberVO.getAcctCreatetime());
-			pstmt.executeUpdate();
-			
-//			FamilyMemberJDBCDAO dao = new FamilyMemberJDBCDAO();
-//			for(FamilyMemberVO aFam : famMemVOList) {
-//				//aFam.setMemAcct(memberVO.getMemAcct());
-//				dao.insertFamsWithMemAcct(aFam, con);
-//			}
-			
-			FamilyMemberService famMemSvc = new FamilyMemberService();
-			famMemSvc.addFamsWithMemAcct(famMemVOList, con);
-			
-			con.commit();
-			con.setAutoCommit(true);
-			System.out.println("新增住戶帳號" + memberVO.getMemAcct() + "時,共有同住家人" + famMemVOList.size()
-			+ "人同時被新增");
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-		} catch (SQLException se) {
-			if(con != null) {
-				try {
-					System.err.print("Transaction is being ");
-					System.err.println("rolled back-由-Member");
-					con.rollback();
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. "
-							+ excep.getMessage());
-				}
-			}
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-	}
 	
 	
 	public static byte[] getPictureByteArray(String path) throws IOException{
@@ -384,85 +496,86 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	}
 	
 //	public static void main(String[] args) {
-//		MemberJDBCDAO dao = new MemberJDBCDAO();
+////		MemberJDBCDAO dao = new MemberJDBCDAO();
 //		
-//		//新增
-//		MemberVO memberVO1 = new MemberVO();
-//		memberVO1.setMemAcct("emily2");
-//		memberVO1.setMemPwd("ppaasswword");
-//		memberVO1.setMemName("王大明");
-//		memberVO1.setMemId("B000000000");
-//		memberVO1.setMemSex("男");
-//		memberVO1.setMemEmail("emily1111@gmail.com");
-//		memberVO1.setMemBirthday(java.sql.Date.valueOf("1997-11-19"));
-//		memberVO1.setAddrNo(3);
-//		try {
-//			byte[] pic = getPictureByteArray("items/Gru.png");
-//			memberVO1.setMemPhoto(pic);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		memberVO1.setMemPhone("0998765082");
-//		memberVO1.setAcctCreatetime(Timestamp.valueOf(LocalDateTime.now()));
-//		//memberVO1.setMemState(0);  //這個不需要寫，資料庫會有預設值
-//		dao.insert(memberVO1);
+////		//新增
+////		MemberVO memberVO1 = new MemberVO();
+////		memberVO1.setMemAcct("emily2");
+////		memberVO1.setMemPwd("ppaasswword");
+////		memberVO1.setMemName("王大明");
+////		memberVO1.setMemId("B000000000");
+////		memberVO1.setMemSex("男");
+////		memberVO1.setMemEmail("emily1111@gmail.com");
+////		memberVO1.setMemBirthday(java.sql.Date.valueOf("1997-11-19"));
+////		memberVO1.setAddrNo(3);
+////		try {
+////			byte[] pic = getPictureByteArray("items/Gru.png");
+////			memberVO1.setMemPhoto(pic);
+////		} catch (IOException e) {
+////			e.printStackTrace();
+////		}
+////		memberVO1.setMemPhone("0998765082");
+////		memberVO1.setAcctCreatetime(Timestamp.valueOf(LocalDateTime.now()));
+////		//memberVO1.setMemState(0);  //這個不需要寫，資料庫會有預設值
+////		dao.insert(memberVO1);
 //		
-//		//修改
-//		MemberVO memberVO2 = new MemberVO();
-//		memberVO2.setMemAcct("gina8665");
-//		memberVO2.setMemPwd("passworddd66666");
-//		memberVO2.setMemName("居家瑜");
-//		memberVO2.setMemId("B123456789");
-//		memberVO2.setMemSex("女");
-//		memberVO2.setMemEmail("gina123@gmail.com");
-//		memberVO2.setMemBirthday(java.sql.Date.valueOf("1997-10-28"));
-//		memberVO2.setAddrNo(1);
-//		try {
-//			byte[] pic = getPictureByteArray("items/FC_Barcelona.png");
-//			memberVO2.setMemPhoto(pic);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		memberVO2.setMemPhone("0912345678");
-//		memberVO2.setMemState(0);
-//		dao.update(memberVO2);
+////		//修改
+////		MemberVO memberVO2 = new MemberVO();
+////		memberVO2.setMemAcct("gina8665");
+////		memberVO2.setMemPwd("passworddd66666");
+////		memberVO2.setMemName("居家瑜");
+////		memberVO2.setMemId("B123456789");
+////		memberVO2.setMemSex("女");
+////		memberVO2.setMemEmail("gina123@gmail.com");
+////		memberVO2.setMemBirthday(java.sql.Date.valueOf("1997-10-28"));
+////		memberVO2.setAddrNo(1);
+////		try {
+////			byte[] pic = getPictureByteArray("items/FC_Barcelona.png");
+////			memberVO2.setMemPhoto(pic);
+////		} catch (IOException e) {
+////			e.printStackTrace();
+////		}
+////		memberVO2.setMemPhone("0912345678");
+////		memberVO2.setMemState(0);
+////		dao.update(memberVO2);
 //		
-//		//刪除
-//		dao.delete("emily1234");
+////		//刪除
+////		dao.delete("emily1234");
 //		
-//		//查詢單筆
-//		MemberVO memberVO3 = dao.findByPrimaryKey("gina8665");;
-//		System.out.print(memberVO3.getMemAcct() + ",");
-//		System.out.print(memberVO3.getMemPwd() + ",");
-//		System.out.print(memberVO3.getMemName() + ",");
-//		System.out.print(memberVO3.getMemId() + ",");
-//		System.out.print(memberVO3.getMemSex() + ",");
-//		System.out.print(memberVO3.getMemEmail() + ",");
-//		System.out.print(memberVO3.getMemBirthday() + ",");
-//		System.out.print(memberVO3.getAddrNo() + ",");
-//		System.out.print(memberVO3.getMemPhoto() + ",");
-//		System.out.print(memberVO3.getMemPhone() + ",");
-//		System.out.print(memberVO3.getAcctCreatetime() + ",");
-//		System.out.println(memberVO3.getMemState());
-//		System.out.println("---------------------");
+////		//查詢單筆
+////		MemberVO memberVO3 = dao.findByPrimaryKey("abc");;
+////		System.out.println(memberVO3 == null);
+////		System.out.print(memberVO3.getMemAcct() + ",");
+////		System.out.print(memberVO3.getMemPwd() + ",");
+////		System.out.print(memberVO3.getMemName() + ",");
+////		System.out.print(memberVO3.getMemId() + ",");
+////		System.out.print(memberVO3.getMemSex() + ",");
+////		System.out.print(memberVO3.getMemEmail() + ",");
+////		System.out.print(memberVO3.getMemBirthday() + ",");
+////		System.out.print(memberVO3.getAddrNo() + ",");
+////		System.out.print(memberVO3.getMemPhoto() + ",");
+////		System.out.print(memberVO3.getMemPhone() + ",");
+////		System.out.print(memberVO3.getAcctCreatetime() + ",");
+////		System.out.println(memberVO3.getMemState());
+////		System.out.println("---------------------");
 //		
-//		//查詢全部
-//		List<MemberVO> list = dao.getAll();
-//		for(MemberVO aMem : list) {
-//			System.out.print(aMem.getMemAcct() + ",");
-//			System.out.print(aMem.getMemPwd() + ",");
-//			System.out.print(aMem.getMemName() + ",");
-//			System.out.print(aMem.getMemId() + ",");
-//			System.out.print(aMem.getMemSex() + ",");
-//			System.out.print(aMem.getMemEmail() + ",");
-//			System.out.print(aMem.getMemBirthday() + ",");
-//			System.out.print(aMem.getAddrNo() + ",");
-//			System.out.print(aMem.getMemPhoto() + ",");
-//			System.out.print(aMem.getMemPhone() + ",");
-//			System.out.print(aMem.getAcctCreatetime() + ",");
-//			System.out.println(aMem.getMemState());
-//			
-//		}
+////		//查詢全部
+////		List<MemberVO> list = dao.getAll();
+////		for(MemberVO aMem : list) {
+////			System.out.print(aMem.getMemAcct() + ",");
+////			System.out.print(aMem.getMemPwd() + ",");
+////			System.out.print(aMem.getMemName() + ",");
+////			System.out.print(aMem.getMemId() + ",");
+////			System.out.print(aMem.getMemSex() + ",");
+////			System.out.print(aMem.getMemEmail() + ",");
+////			System.out.print(aMem.getMemBirthday() + ",");
+////			System.out.print(aMem.getAddrNo() + ",");
+////			System.out.print(aMem.getMemPhoto() + ",");
+////			System.out.print(aMem.getMemPhone() + ",");
+////			System.out.print(aMem.getAcctCreatetime() + ",");
+////			System.out.println(aMem.getMemState());
+////			
+////		}
 //		
 //		
 //	}

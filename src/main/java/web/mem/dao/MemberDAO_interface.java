@@ -7,9 +7,11 @@ import web.mem.entity.MemberVO;
 public interface MemberDAO_interface {
 	public void insert(MemberVO memberVO);
     public void update(MemberVO memberVO);
+    public Integer updatePwd(MemberVO memberVO);
     public void delete(String memAcct);
     public MemberVO findByPrimaryKey(String memAcct);
     public List<MemberVO> getAll();
     public void insertMemWithFams(MemberVO memberVO, List<FamilyMemberVO> list);
+    public void updateMemWithFamMems(MemberVO memberVO, List<String> list);
     
 }
