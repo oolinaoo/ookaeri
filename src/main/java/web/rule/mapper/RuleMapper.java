@@ -7,5 +7,6 @@ import web.rule.entity.Rule;
 public interface RuleMapper {
 	
 	List<Rule> listAll();
+	Integer update(Rule rule);
 
 }
