@@ -1,0 +1,304 @@
+/*左邊欄位---地標資訊欄框
+===========================*/
+#mapInfodialog {
+	
+}
+
+.mapInfodialog-layout {
+	height: 715px;
+	width: 328px;
+	position: relative;
+	background-color: rgba(255, 249, 244, 0.7);
+	display: inline-block;
+	margin: 0pt;
+	border-right: solid 5px #ebe8e8;
+}
+
+/*左邊欄位---地標資訊
+==============================*/
+.mapInfo {
+	height: 429px;
+	width: 327px;
+	display: inline-block;
+	margin: 0px;
+}
+
+/*左邊欄位---留言
+==============================*/
+.message {
+	border-top: dashed rgb(245, 240, 231) 2px;
+	height: 286px;
+	width: 327px;
+	display: inline-block;
+	margin: 0px;
+}
+
+/*左邊欄位---最愛商店
+==============================*/
+#mapfav {
+	height: 715px;
+	width: 250px;
+	position: relative;
+	background-color: aqua;
+	display: inline-block;
+	margin: 0pt;
+}
+
+/*地圖搜尋
+================================*/
+* {
+	box-sizing: border-box;
+}
+
+form.searchForm input[type=text] {
+	padding: 10px;
+	font-size: 17px;
+	border: 1px solid grey;
+	float: left;
+	width: 80%;
+	background: rgb(255, 249, 244);
+	border-top-left-radius: 100px;
+	border-bottom-left-radius: 100px;
+}
+
+form.searchForm button {
+	float: left;
+	width: 20%;
+	padding: 10px;
+	background: #d68f62;
+	color: white;
+	font-size: 17px;
+	border: 1px solid grey;
+	border-left: none;
+	cursor: pointer;
+	border-top-right-radius: 100px;
+	border-bottom-right-radius: 100px;
+}
+
+form.searchForm button:hover {
+	background: #ffab76;
+}
+
+form.searchForm input:hover {
+	background: white;
+}
+
+form.searchForm::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+/*商家資訊標題
+=============================================*/
+.mapInfoHead {
+	font-size: 25px;
+	display: inline-block;
+	position: relative;
+	left: 113px;
+	top: 1px;
+	font-weight: lighter;
+}
+
+/*商家資訊內容
+============================================*/
+.mapInfoContent {
+	display: inline-block;
+	height: 150px;
+	width: 300px;
+	margin: 0px;
+	position: relative;
+	left: 12px;
+}
+
+/* 增加至我的最愛
+=============================================*/
+.buttonFavForm {
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	top: 65px;
+	left: 35px;
+}
+
+.buttonFav {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	padding: 7px 10px;
+	border: 1px solid #d68f62;
+	border-radius: 100px;
+	background: #d68f62;
+	font: normal normal bold 5px arial;
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.buttonFav:hover {
+	border: 1px solid #ffab76;
+	background: #ffab76;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/* 從我的最愛刪除
+=============================================*/
+.buttonDelteFavForm {
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	top: 65px;
+	left: 99px;
+}
+
+.buttonDelteFav {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	padding: 7px 10px;
+	border: 1px solid #d68f62;
+	border-radius: 100px;
+	background: #d68f62;
+	font: normal normal bold 5px arial;
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.buttonDelteFav:hover {
+	border: 1px solid #ffab76;
+	background: #ffab76;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/*留言區標題
+=========================================*/
+.mapcommentHead {
+	font-size: 25px;
+	display: inline-block;
+	position: relative;
+	left: 125px;
+	font-weight: lighter;
+	bottom: 50px;
+}
+
+/*留言區域
+=========================================*/
+.comment-area {
+	position: relative;
+	left: 25px;
+	bottom: 50px;
+}
+
+table thead, tbody tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+
+table thead {
+	width: calc(100% - 1em)
+}
+
+table thead th {
+	background: #d68f62;
+	color: white;
+}
+
+.content td {
+	width: 220px;
+}
+
+table tbody {
+	display: block;
+	height: 95px;
+	overflow-y: scroll;
+}
+
+table tbody::-webkit-scrollbar {
+	/*隱藏滾輪*/
+	display: none;
+}
+
+/*檢舉
+============================================*/
+.reportCommentForm {
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	left: 12px;
+}
+
+.report {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	padding: 1px 10px;
+	border: 1px solid #d68f62;
+	border-radius: 100px;
+	background: #d68f62;
+	font: normal normal bold 5px arial;
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 9px;
+}
+
+.report:hover {
+	border: 1px solid #ffab76;
+	background: #ffab76;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+/* 輸入留言
+==========================================*/
+* {
+	box-sizing: border-box;
+}
+
+form.inputcomment input[type=text] {
+	padding: 10px;
+	font-size: 17px;
+	border: 1px solid grey;
+	float: left;
+	width: 90%;
+	background: rgb(255, 249, 244);
+	border-top-left-radius: 100px;
+	border-bottom-left-radius: 100px;
+	height: 24px;
+	position: relative;
+	top: 205px;
+}
+
+form.inputcomment button {
+	float: left;
+	width: 10%;
+	padding: 10px;
+	background: #d68f62;
+	color: white;
+	font-size: 17px;
+	border: 1px solid grey;
+	border-left: none;
+	cursor: pointer;
+	border-top-right-radius: 100px;
+	border-bottom-right-radius: 100px;
+	height: 24px;
+	position: relative;
+	top: 205px;
+}
+
+form.inputcomment button:hover {
+	background: #ffab76;
+}
+
+form.inputcomment input:hover {
+	background: white;
+}
+
+form.inputcomment::after {
+	content: "";
+	clear: both;
+	display: table;
+}

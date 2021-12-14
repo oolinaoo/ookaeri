@@ -1,0 +1,56 @@
+/* mem_center_tab.css
+=============================================*/
+div.map_tab_container{
+    box-sizing: border-box;
+    margin: 50px 100px;
+    
+}
+
+/* 頁籤區塊 */      
+div.map_tab_container div.tab_list_block ul.tab_list>li>a {
+    text-decoration: none;
+    display: inline-block;
+    /* border: 1px solid #ccc; */
+    border-bottom: none;
+    font-size:16px;
+    color: #ccc;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+div.map_tab_container div.tab_list_block ul.tab_list>li>a.-on {
+    background-color: #dac9a6;
+    border: 1px solid #ccc;
+    color: #9c6644;
+    /* border: 1px solid #ccc; */
+}
+
+/* 頁籤列表 */
+div.map_tab_container div.tab_list_block ul.tab_list {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size:0;
+}
+
+div.map_tab_container div.tab_list_block ul.tab_list>li {
+    display: inline-block;
+}
+
+ /* 頁籤內容區塊 */
+div.map_tab_container div.tab_contents {
+    border: 1px solid #ccc;
+}
+
+div.map_tab_container div.tab_contents div.tab {
+    /* padding: 10px; */
+    display: none;
+    /* border: 1px solid red; */
+
+}
+
+div.map_tab_container div.tab_contents div.tab.-on {
+    display: block;
+}

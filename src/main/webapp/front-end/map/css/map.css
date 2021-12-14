@@ -1,0 +1,14 @@
+
+    /*地圖物件*
+=========================*/
+    #map {}
+
+
+    .map-layout {
+
+      height: 715px;
+      width: 732px;
+      position: absolute;
+      left: 430px;
+      display: inline-block;
+    }
