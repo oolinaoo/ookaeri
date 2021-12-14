@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.rule.mapper.RuleMapper">
-<!-- 	<resultMap id="EmpMap" type="Emp">
-		<id property="empno" column="EMPNO" javaType="Integer" jdbcType="INTEGER" />
-		<result property="ename" column="ENAME" javaType="String" jdbcType="VARCHAR" />
-		<result property="job" column="JOB" javaType="String" jdbcType="VARCHAR" />
-		<result property="mgr" column="MGR" javaType="Integer" jdbcType="INTEGER" />
-		<result property="hiredate" column="HIREDATE" javaType="Timestamp" jdbcType="TIMESTAMP" />
-		<result property="sal" column="SAL" javaType="Double" jdbcType="DOUBLE" />
-		<result property="comm" column="COMM" javaType="Double" jdbcType="DOUBLE" />
-		<result property="deptno" column="DEPTNO" javaType="Integer" jdbcType="INTEGER" />
-	</resultMap> -->
-	
+
 	<select id="listAll" resultType="Rule">
-		select * from Rule
+		select * from RULE
 	</select>
-	
+
+	<select id="findByPk" resultType="Rule">
+		select * from RULE where ID =
+		#{ruleNo}
+	</select>
+
+	<update id="update">
+		update RULE SET
+		RULE_TITLE = #{ruleTitle},
+		RULE_CONTENT = #{ruleContent},
+		RULE_POSTTIME = #{rulePosttime},
+		ADMIN_ACCT = #{adminAcct}
+ 	</update>
+
 </mapper>

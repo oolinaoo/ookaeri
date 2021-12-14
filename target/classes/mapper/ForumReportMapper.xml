@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.forumReport.mapper.ForumReportMapper">
+
+	<select id="listAll" resultType="ForumReport">
+		select * from FORUM_REPORT
+	</select>
+
+	<select id="findByPk" resultType="ForumReport">
+		select * from FORUM_REPORT
+		where = #{forReptNo}
+	</select>
+
+	<insert id="add">
+		insert into FORUM_REPORT
+		(MEM_ACCT, ADMIN_ACCT, FOR_ART_NO, FOR_MSG_NO, FOR_REPT_CONTENT)
+		values
+		(#{memAcct}, #{adminAcct}, #{forArtNo}, #{forMsgNo}, #{forReptContent})
+	</insert>
+
+	<update id="update">
+		update FORUM_REPORT
+			MEM_ACCT = #{memAcct},
+			FOR_REPT_STATE = #{forReptState}
+		where FOR_REPT_NO = #{forReptNo}
+	</update>
+
+</mapper>

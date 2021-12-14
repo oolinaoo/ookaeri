@@ -3,11 +3,14 @@ package web.rule.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Rule implements Serializable{
 	
 	private Integer ruleNo;
 	private String ruleTitle;
 	private String ruleContent;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date rulePosttime;
 	private String adminAcct;
 	
