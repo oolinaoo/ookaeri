@@ -62,7 +62,7 @@ hr {
 }
 
 .active {
-  /* background-color: #3a8fb7; */
+  background-color: #3a8fb7;
   color: white;
   border-top-left-radius: 40px;
 }
@@ -94,12 +94,7 @@ hr {
   border-bottom-left-radius: 40px;
   opacity: 1;
 }
-
-/* 
-   原本是寫「.active:hover」，這樣寫，background-color會影響到彈窗中的日曆的樣式，
-   所以改寫成 button.active:hover
-*/
-button.active:hover {
+.active:hover {
   background-color: #81c7d4b8;
   border-top-left-radius: 40px;
   border-bottom-left-radius: 0;
@@ -159,7 +154,6 @@ div.addr_table_container>table>tbody>tr>td {
   height: 40px;
   width: 60px;
   text-align: center;
-  font-size: 14px;
 }
 
 div.addr_table_container>table>tbody>tr:last-child>td{
@@ -282,7 +276,6 @@ div.addr_table_container>table>tbody>tr>td:hover{
   width: 90%;
   margin: 0 auto;
   margin-bottom: 20px;
-  text-align: right;
   /* margin-left: 60%; */
 }
 .search-bar label {

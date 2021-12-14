@@ -144,6 +144,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
   }
 });
 
+var original_list = Array(4);
 //編輯
 $("#addr_table").on("click", ".fa-edit", function () {
   //將article區塊放入 點擊編輯的那列資料 的燈箱中
@@ -167,15 +168,15 @@ $("#addr_table").on("click", ".fa-edit", function () {
   $(this).closest("td").children("div.member_overlay").fadeIn();
 
   //點擊編輯的該筆資料，將該筆資料放入陣列
-  let row_list = new Array(4);
+  //let row_list = new Array(4);
   for (var i = 0; i <= 3; i++) {
-    row_list[i] = $(this).closest("tr").children().eq(i).text();
+    original_list[i] = $(this).closest("tr").children().eq(i).text();
   }
 
   //將點擊編輯的該筆資料放入燈箱的表單中
   //console.log($(this).closest("td").find("td").eq(0).children("input").val());
   for (var i = 0; i <= 3; i++) {
-    $(this).closest("td").find("td").eq(i).children("input").val(row_list[i]);
+    $(this).closest("td").find("td").eq(i).children("input").val(original_list[i]);
   }
 });
 
@@ -187,6 +188,22 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
     let update_data = new Array(4);
     for (var i = 0; i <= 3; i++) {
         update_data[i] = $(this).closest("#address_form").find("td").eq(i).children("input").val()
+    }
+
+    //如果使用者修改後的資料，跟原本的資料一樣，則直接將燈箱關閉，結束程式
+    let count = 0;
+    for (var i = 1; i <= 3; i++) {
+        if( original_list[i] === update_data[i] ){
+            count++;
+        }
+    }
+    //console.log(count);
+    if(count === 3){
+      $(this).closest("div.member_overlay").fadeOut();
+      $(this).closest("div.member_overlay").empty();
+      let msg = `地址編號${update_data[0]} 修改成功`;
+      alert(msg);
+      return;
     }
 
     //將修改好的資料放回該筆資料列

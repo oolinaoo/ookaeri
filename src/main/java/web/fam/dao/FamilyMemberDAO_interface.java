@@ -12,5 +12,5 @@ public interface FamilyMemberDAO_interface {
     public FamilyMemberVO findByPrimaryKey(Integer famMemNo);
     public List<FamilyMemberVO> getAll();
     public void insertFamsWithMemAcct(FamilyMemberVO famMemberVO, Connection con);
-    
+    public void updateFamsWithMemAcct(String memAcct, List<String> famMemAryList, Connection con);
 }

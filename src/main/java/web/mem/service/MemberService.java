@@ -92,6 +92,43 @@ public class MemberService {
 		return memberVO;
 	}
 	
+	
+	public Integer updatePwd(String memAcct, String memPwd) {
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemAcct(memAcct);
+		memberVO.setMemPwd(memPwd);
+		
+		Integer affectedRows = dao.updatePwd(memberVO);
+		
+		return affectedRows;
+	}
+	
+	
+	public MemberVO updateMemWithFamMems(String memPwd, String memName, String memId, String memSex, String memEmail,
+			Date memBirthday, Integer addrNo, byte[] memPhoto, String memPhone, Integer memState, String memAcct, List<String> famMemAryList) {
+		MemberVO memberVO = new MemberVO();
+		
+		memberVO.setMemPwd(memPwd);
+		memberVO.setMemName(memName);
+		memberVO.setMemId(memId);
+		memberVO.setMemSex(memSex);
+		memberVO.setMemEmail(memEmail);
+		memberVO.setMemBirthday(memBirthday);
+		memberVO.setAddrNo(addrNo);
+		memberVO.setMemPhoto(memPhoto);
+		memberVO.setMemPhone(memPhone);
+		memberVO.setMemState(memState);
+		memberVO.setMemAcct(memAcct);
+		
+		dao.updateMemWithFamMems(memberVO, famMemAryList);
+		
+		return memberVO;
+	}
+	
+	
+	
+	
 	public void deleteMem(String memAcct) {
 		dao.delete(memAcct);
 	}
