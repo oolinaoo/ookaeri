@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.news.mapper.NewsMapper">
+
+	<select id="listAllA" resultType="News">
+		select * from NEWS order by NEWS_NO
+	</select>
+	
+	<select id="listAllD" resultType="News">
+		select * from NEWS order by NEWS_NO desc
+	</select>
+	
+	<select id="listAllInAdmin" resultType="News">
+		select NEWS.*, ADMIN.ADMIN_NAME from NEWS 
+		inner join ADMIN using(ADMIN_ACCT)
+		order by NEWS_NO desc
+	</select>
+
+	<select id="findByPk" resultType="News">
+		select * from NEWS where = #{newsNo}
+	</select>
+
+	<insert id="add">
+		insert into NEWS
+		(ADMIN_ACCT, NEWS_TYPE_NO, NEWS_TITLE, NEWS_CONTENT)
+		values
+		(#{adminAcct}, #{newsTypeNo}, #{newsTitle}, #{newsContent})
+	</insert>
+	
+	<update id="update">
+		update NEWS SET
+			ADMIN_ACCT = #{adminAcct},
+			NEWS_TYPE_NO = #{newsTypeNo},
+			NEWS_TITLE = #{newsTitle},
+			NEWS_CONTENT = #{newsContent},
+			NEWS_STATE_NO = #{newsStateNo}
+		where NEWS_NO = #{newsNo}
+	</update>
+	
+</mapper>

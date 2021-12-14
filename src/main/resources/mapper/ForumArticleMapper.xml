@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.forumArticle.mapper.ForumArticleMapper">
+
+	<resultMap id="ArtJoinMap" type="ForumArticle">
+		<id property="forArtNo" column="FOR_ART_NO" javaType="Integer" jdbcType="INTEGER" />
+		<result property="forTypeNo" column="FOR_TYPE_NO" javaType="Integer" jdbcType="INTEGER" />
+		<result property="artStateNo" column="ART_STATE_NO" javaType="Integer" jdbcType="INTEGER" />
+		<result property="forArtPosttime" column="FOR_ART_POSTTIME" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="forArtEdittime" column="FOR_ART_EDITTIME" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="forArtTitle" column="FOR_ART_TITLE" javaType="String" jdbcType="VARCHAR" />
+		<result property="forArtContent" column="FOR_ART_CONTENT" javaType="String" jdbcType="VARCHAR" />
+		<result property="forArtView" column="FOR_ART_VIEW" javaType="Integer" jdbcType="INTEGER" />
+		<result property="memAcctArt" column="MEM_ACCT" javaType="String" jdbcType="VARCHAR" />
+
+		<collection property="message" javaType="ArrayList" ofType="ForumMessage">
+			<id property="forMsgNo" column="FOR_MSG_NO" />
+			<result property="forArtNo" column="FOR_ART_NO" />
+			<result property="memAcctMsg" column="MEM_ACCT" />
+			<result property="forMsgPosttime" column="FOR_MSG_POSTTIME" />
+			<result property="forMsgEdittime" column="FOR_MSG_EDITTIME" />
+			<result property="forMsgContent" column="FOR_MSG_CONTENT" />
+			<result property="forMsgState" column="FOR_MSG_STATE" />
+		</collection>
+		
+	</resultMap>
+	
+	<select id="listAll" resultType="ForumArticle">
+		select * from FORUM_ARTICLE
+	</select>
+
+	<!-- <select id="typeList" resultMap="ForumArticle"> select * from FORUM_ARTICLE 
+		where 1 = 1 <if test="forTypeNo != null">and FOR_TYPE_NO = #{forTypeNo}</if> 
+		</select> -->
+
+	<select id="typeList" resultType="ForumArticle">
+		select * from FORUM_ARTICLE
+		where FOR_TYPE_NO = #{forTypeNo}
+	</select>
+
+	<select id="findByPk" resultType="ForumArticle">
+		select * from FORUM_ARTICLE
+		where FOR_ART_NO = #{forArtNo}
+	</select>
+
+	<select id="artNoJoinMsg" resultMap="ArtJoinMap">
+		select *
+		from FORUM_ARTICLE A
+		inner join FORUM_MESSAGE M
+		on A.FOR_ART_NO = M.FOR_ART_NO
+		where A.FOR_ART_NO = #{forArtNo}
+		order by FOR_MSG_NO;
+	</select>
+
+	<insert id="add">
+		insert into FORUM_ARTICLE
+		(MEM_ACCT, FOR_TYPE_NO,
+		FOR_ART_TITLE, FOR_ART_CONTENT)
+		values
+		(#{memAcctArt}, #{forTypeNo},
+		#{forArtTitle}, #{forArtContent})
+	</insert>
+
+	<update id="update">
+		update FORUM_ARTICLE
+		MEM_ACCT = #{memAcctArt},
+		FOR_TYPE_NO = #{forTypeNo},
+		FOR_ART_TITLE = #{forArtTitle},
+		FOR_ART_CONTENT = #{forArtContent}
+		where FOR_ART_NO = #{forArtNo}
+	</update>
+
+</mapper>

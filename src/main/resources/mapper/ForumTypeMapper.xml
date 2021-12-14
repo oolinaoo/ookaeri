@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.forumType.mapper.ForumTypeMapper">
+
+	<select id="listAll" resultType="ForumType">
+		select * from FORUM_TYPE
+	</select>
+
+	<insert id="add">
+		insert into FORUM_TYPE
+		(FOR_TYPE_NO, FOR_TYPE)
+		values
+		(#{forTypeNo}, #{forType})
+	</insert>
+
+	<update id="update">
+		update FORUM_TYPE
+			FOR_TYPE = #{forType}
+		where FOR_TYPE_NO = #{forTypeNo}
+	</update>
+
+</mapper>
