@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./images/logo2.png" />
+    <title>我要預約</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/lightbox.css" />
+    <link rel="stylesheet" href="./css/calendar.css" />
+    <link rel="stylesheet" href="./css/facilities.css" />
+  </head>
+
+  <body>
+    <!-- =============================== background =============================== -->
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+
+    <!-- =============================== header =============================== -->
+    <div id="header">
+      <p class="header_logo">
+        <a href="">
+          <img src="./images/logo2.png" alt="logo" width="80" />
+        </a>
+      </p>
+      <ul class="navbar_list">
+        <li class="navbar_list_open">
+          <a href="">社區交流</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 社區公告</a>
+            </li>
+            <li>
+              <a href="">- 社區公約</a>
+            </li>
+            <li>
+              <a href="">- 社區論壇</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="">管理費</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 繳費</a>
+            </li>
+            <li>
+              <a href="">- 繳費記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="">我的包裹</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 我的包裹</a>
+            </li>
+            <li>
+              <a href="">- 包裹記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="./facilities_index.html">公設預約</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="./facilities_index.html">- 我要預約</a>
+            </li>
+            <li>
+              <a href="./facilities_history.html">- 預約記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open"><a href="">美食地圖</a></li>
+        <li class="navbar_icon">
+          <a href=""
+            ><img class="alert_icon" src="images/alert.png" alt="alert"
+          /></a>
+        </li>
+        <li class="navbar_icon">
+          <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- =============================== body facility =============================== -->
+    <div id="facs_body">
+      <h1 class="fac_title">設施列表</h1>
+      <!-- 底下有儲存按的設施是哪一個，如果這邊結構要搬，到時候可能要一起搬 -->
+      <div class="floor_plan">
+        <div class="floor">A - 1</div>
+        <div class="hidden_door">
+          <div class="door"></div>
+        </div>
+        <div class="facility">
+          <a
+            href="./images/meeting_room.jpg"
+            class="facs_top"
+            data-lightbox="fac_photo"
+            data-title="會議室（大）"
+            data-alt="會議室（大）"
+            data-value="1"
+          >
+            <div class="factop">會議室（大）</div>
+          </a>
+          <a href="#" class="facs_top">
+            <div class="factop"></div>
+          </a>
+          <a href="#" class="facs_top">
+            <div class="factop"></div>
+          </a>
+          <a
+            href="./images/gym.jpg"
+            class="facs_top"
+            data-lightbox="fac_photo"
+            data-title="健身房"
+            data-alt="健身房"
+            data-value="3"
+          >
+            <div class="factop">健身房</div>
+          </a>
+
+          <a href="#" class="facs_bot">
+            <div class="facbot"></div>
+          </a>
+          <a href="#" class="facs_bot">
+            <div class="facbot"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- =============================== body reserve =============================== -->
+      <!-- <div class="fac_reserve"></div> -->
+    </div>
+
+    <!-- =============================== body calendar =============================== -->
+    <div id="facs_calendar">
+      <h1 id="calendar_title">設施預約</h1>
+      <div class="monthly" id="mycalendar"></div>
+      <div class="go_top">Top</div>
+    </div>
+
+    <!-- =============================== footer =============================== -->
+    <div class="footer">
+      <a class="footer_link" href="#">サイトついて</a>
+      <a class="footer_link" href="#">最新情報</a>
+      <a class="footer_link" href="#">トッポページ</a>
+      <p class="copyright">© 2021 okaeri</p>
+    </div>
+
+    <!-- =============================== Script =============================== -->
+
+    <script src="./vendor/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./vendor/jquery.js"></script>
+    <script type="text/javascript" src="./js/calendar.js"></script>
+
+    <script src="./js/facilities.js"></script>
+    <script src="./js/lightbox.js"></script>
+
+    <script type="text/javascript">
+      var sampleEvents = {
+        monthly: [
+          // {
+          // 	"id": 1,
+          // 	"name": "Whole month event",
+          // 	"startdate": "2016-10-01",
+          // 	"enddate": "2016-10-31",
+          // 	"starttime": "12:00",
+          // 	"endtime": "2:00",
+          // 	"color": "#99CCCC",
+          // 	"url": ""
+          // },
+          // {
+          // 	"id": 2,
+          // 	"name": "Test encompasses month",
+          // 	"startdate": "2016-10-29",
+          // 	"enddate": "2016-12-02",
+          // 	"starttime": "12:00",
+          // 	"endtime": "2:00",
+          // 	"color": "#CC99CC",
+          // 	"url": ""
+          // }
+        ],
+      };
+
+      $(window).load(function () {
+        $("#mycalendar").monthly({
+          mode: "event",
+          dataType: "json",
+          events: sampleEvents,
+        });
+      });
+
+      // 儲存按的設施是哪一個設施
+      localStorage.removeItem("facNumber");
+      $("#facs_body").on("click", "a", function(){
+        var facNumber = $(this).attr("data-value");
+        console.log(facNumber);
+        localStorage.setItem("facNumber", facNumber);
+      });
+
+    </script>
+  </body>
+</html>

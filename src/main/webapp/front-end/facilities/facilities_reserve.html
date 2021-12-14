@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./images/logo2.png" />
+    <title>設施預約</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/facilities.css" />
+  </head>
+  <body>
+    <!-- =============================== background =============================== -->
+    <div class="circle1"></div>
+    <!-- <div class="circle2"></div> -->
+
+    <!-- ============================= header ============================= -->
+    <div id="header">
+      <p class="header_logo">
+        <a href="">
+          <img src="./images/logo2.png" alt="logo" width="80" />
+        </a>
+      </p>
+      <ul class="navbar_list">
+        <li class="navbar_list_open">
+          <a href="">社區交流</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 社區公告</a>
+            </li>
+            <li>
+              <a href="">- 社區公約</a>
+            </li>
+            <li>
+              <a href="">- 社區論壇</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="">管理費</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 繳費</a>
+            </li>
+            <li>
+              <a href="">- 繳費記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="">我的包裹</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 我的包裹</a>
+            </li>
+            <li>
+              <a href="">- 包裹記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="./facilities_index.html">公設預約</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="./facilities_index.html">- 我要預約</a>
+            </li>
+            <li>
+              <a href="./facilities_history.html">- 預約記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open"><a href="">美食地圖</a></li>
+        <li class="navbar_icon">
+          <a href=""
+            ><img class="alert_icon" src="images/alert.png" alt="alert"
+          /></a>
+        </li>
+        <li class="navbar_icon">
+          <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ============================= body ============================= -->
+    <div id="facs_body">
+      <h1 class="fac_title">設施預約</h1>
+
+      <div id="reserve_title">
+        <div id="reserve_fac">健身房</div>
+        <a href="#" class="prev_reserve_day">
+          <img src="./images/prev.png" alt="前一日" title="前一日">
+        </a>
+        <a href="#" class="next_reserve_day">
+          <img src="./images/next.png" alt="後一日" title="後一日">
+        </a>
+      </div>
+
+      <table id="reserve_list">
+        <thead>
+          <tr>
+            <th>預約日期</th>
+            <th>預約時段</th>
+            <th>剩餘人數</th>
+            <th>預約人數</th>
+            <th>預約狀態</th>
+            <th>編輯</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">08:00 ~ 10:00</td>
+            <td id="remain1"></td>
+            <td>
+              <select name="ammount1" id="amount1"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck active">
+                <div class="checkitem itemactive"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">10:00 ~ 12:00</td>
+            <td id="remain2"></td>
+            <td>
+              <select name="ammount2" id="amount2"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck">
+                <div class="checkitem"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">12:00 ~ 14:00</td>
+            <td id="remain3"></td>
+            <td>
+              <select name="ammount3" id="amount3"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck">
+                <div class="checkitem"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">14:00 ~ 16:00</td>
+            <td id="remain4"></td>
+            <td>
+              <select name="ammount4" id="amount4"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck">
+                <div class="checkitem"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">16:00 ~ 18:00</td>
+            <td id="remain5"></td>
+            <td>
+              <select name="ammount5" id="amount5"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck">
+                <div class="checkitem"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">18:00 ~ 20:00</td>
+            <td id="remain6"></td>
+            <td>
+              <select name="ammount6" id="amount6"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck active">
+                <div class="checkitem itemactive"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+          <tr class="reserve_info">
+            <td class="fac_open_date">12/19</td>
+            <td class="fac_open_time">20:00 ~ 22:00</td>
+            <td id="remain7"></td>
+            <td>
+              <select name="ammount7" id="amount7"></select>
+            </td>
+            <td>
+              <input type="checkbox" name="switch"/>
+              <div class="customcheck">
+                <div class="checkitem"></div>
+              </div>
+            </td>
+            <td class="edit"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <br>
+    <div class="go_top">Top</div>
+
+
+    <!-- ============================= footer ============================= -->
+    <div class="footer">
+      <a class="footer_link" href="#">サイトついて</a>
+      <a class="footer_link" href="#">最新情報</a>
+      <a class="footer_link" href="#">トッポページ</a>
+      <p class="copyright">© 2021 okaeri</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="./vendor/jquery-3.6.0.min.js"></script>
+    <script src="./js/facilities.js"></script>
+    <script src="./js/facilities_reserve.js"></script>
+
+    <script>
+      // $(function(){
+      //   $.switcher();
+      // });
+
+    </script>
+  </body>
+</html>
