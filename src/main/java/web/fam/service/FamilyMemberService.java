@@ -25,6 +25,7 @@ public class FamilyMemberService {
 		return family_memberVO;
 	}
 	
+	
 	public void addFamsWithMemAcct(List<FamilyMemberVO> famMemVOList, Connection con) {
 		for(FamilyMemberVO aFam: famMemVOList) {
 			dao.insertFamsWithMemAcct(aFam, con);
@@ -44,6 +45,11 @@ public class FamilyMemberService {
 		dao.update(family_memberVO);
 		
 		return family_memberVO;
+	}
+	
+	public void updateFamsWithMemAcct(String memAcct, List<String> famMemAryList, Connection con) {
+		dao.updateFamsWithMemAcct(memAcct, famMemAryList, con);
+		
 	}
 	
 	public void deleteFam(Integer famMemNo) {

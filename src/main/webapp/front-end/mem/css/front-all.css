@@ -1,0 +1,70 @@
+/* mem_center_tab.css
+=============================================*/
+body {
+  /* border: 1px solid red; */
+  /* margin: 0px; */
+  /* 消除body標籤預設的margin */
+  /* box-sizing: border-box; */
+}
+
+div.center_tab_container *{
+  box-sizing: border-box;
+}
+
+div.center_tab_container {
+  margin: 50px 100px;
+}
+
+/* 頁籤區塊 */
+div.center_tab_container div.tab_list_block ul.tab_list > li > a {
+  text-decoration: none;
+  display: inline-block;
+  /* border: 1px solid #ccc; */
+  border-bottom: none;
+  font-size: 16px;
+  color: #504b4b;
+  padding: 8px 16px;
+  cursor: pointer;
+  /* border-radius: 0.25rem; */
+}
+
+div.center_tab_container div.tab_list_block ul.tab_list > li > a.-on {
+  background-color: #dac9a6;
+  border: 1px solid #ccc;
+  color: #9c6644;
+}
+
+/* 頁籤列表 */
+div.center_tab_container div.tab_list_block ul.tab_list {
+  list-style: none;
+  display: inline-block; /* 為何老師寫這個？ */
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+div.center_tab_container div.tab_list_block ul.tab_list > li {
+  display: inline-block;
+}
+
+/* 頁籤內容區塊 */
+div.center_tab_container div.tab_contents {
+  /* border: 1px solid #ccc; */
+  /* background-color: #ded7c6; */
+  background-color: #dac9a6;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  /* background-color: #ede1c6; */
+  box-shadow: 0px 0px 13px 0px rgb(82 63 105 / 5%);
+}
+
+div.center_tab_container div.tab_contents div.tab {
+  /* padding: 10px; */
+  display: none;
+  overflow: scroll;
+  /* border: 1px solid red; */
+}
+
+div.center_tab_container div.tab_contents div.tab.-on {
+  display: block;
+}

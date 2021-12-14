@@ -46,8 +46,9 @@ public class AdminService {
 		return adminVO;
 	}
 	
-	public void deleteAdmin(String adminAcct) {
-		dao.delete(adminAcct);
+	public Integer deleteAdmin(String adminAcct) {
+		Integer affectedRows =  dao.delete(adminAcct);
+		return affectedRows;
 	}
 	
 	public AdminVO getOneAdmin(String adminAcct) {
