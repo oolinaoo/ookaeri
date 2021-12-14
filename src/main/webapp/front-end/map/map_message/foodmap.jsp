@@ -1040,9 +1040,6 @@
       });
     }
   </script>
-	<script async
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
-    </script>
+  
 </body>
-
 </html>
