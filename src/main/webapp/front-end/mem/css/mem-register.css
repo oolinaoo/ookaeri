@@ -1,0 +1,168 @@
+div.register_head div.container,
+div.register_content div.container {
+    width: 600px;
+    margin: 34px auto -34px;
+    border: 3px solid #E9BF7B;
+}
+
+div.register_head div.container div.title h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 43px;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 16px 0 0 0;
+    color: white;
+}
+
+div.register_head div.container div.title {
+    background-color: #E9BF7B;
+    height: 83px;
+    margin: -29px 0 0 0;
+}
+
+div.register_content div.row {
+    margin: 12px 0 13px 20px;
+    padding: 12px 0 0 0;
+
+}
+
+div.register_content div.row_other {
+    margin: 12px 0 13px 20px;
+    padding: 12px 0 0 0;
+}
+
+div.register_content div.row label {
+    /* text-transform: capitalize; */
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #E9BF7B;
+}
+
+div.register_content div.row_other label.sex {
+    /* text-transform: capitalize; */
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #E9BF7B;
+}
+
+
+div.register_content div.row input {
+    width: 90%;
+    height: 33px;
+    margin: 11px 0 3px 0;
+    /* text-transform: capitalize; */
+    padding: 0 0 0 10px;
+    background-color: #D8D8D8;
+    border: none;
+    /* text-transform: none; */
+}
+
+div.register_content div.row_other input {
+    margin: 11px 0 3px 0;
+}
+
+div.register_content div.other_block {
+    width: 90%;
+    height: 33px;
+    margin: 11px 0 3px 0;
+    padding: 0 0 0 10px;
+    background-color: #D8D8D8;
+    border: none;
+}
+
+div.register_content div.other_block select {
+    margin-top: 7px;
+}
+
+div.register_content div.submit {
+    margin: 0 0 0 19px;
+}
+
+div.register_content div.submit button[type="button"] {
+    background-color: #E9BF7B;
+    color: white;
+    font-weight: bold;
+    margin: 0 0 20px 0;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 25px;
+    font-size: 20px;
+    /* text-transform: capitalize; */
+    width: 160px;
+    height: 33px;
+    text-align: center;
+    padding: 4px 10px 2px 10px;
+}
+
+div.register_content div.submit input[type="submit"]:hover {
+    background-color: #D8D8D8;
+}
+
+div.register_content div.famMemList{
+    margin-top: 10px;
+}
+
+div.register_content div.famMem_block {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+div.register_content div.plus_minus_btn {
+    width: 86px;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 2px;
+}
+
+div.register_content div.plus_minus_btn > span {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: #dac9a6;
+    border-radius: 50%;
+    /* border:1px solid #ddd; */
+    display: inline-block;
+    text-align: center;
+    margin-left: 2px;
+}
+
+/****** 照片預覽樣式 start ******/
+div.profilePic_preview{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 20px;
+    position: relative;
+    border: 1px solid #dac9a6;
+  }
+  
+ div.profilePic_preview img.mem_uploadPic{
+    max-height: 80%;  
+    max-width: 80%; 
+    border-radius: 50%;
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;
+    
+}
+/****** 照片預覽樣式 end ******/
+
+
+div.register_content form {
+    margin: -12px 0 0 0px;
+    background-color: white;
+}
+
+
+/****** 錯誤訊息提示 ******/ 
+span.error{
+    font-size: 14.5px;
+    color: red;
+    display: inline-block;
+    margin-left: 10px;
+}

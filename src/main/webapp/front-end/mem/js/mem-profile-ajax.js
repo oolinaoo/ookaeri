@@ -1,4 +1,7 @@
-//================載入住戶資料================//
+let path = window.location.pathname; //webapp的專案路徑
+//console.log(path); // /Okaeri/back-end/acct-addr/member.html
+var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
+
 var memAcct = "gina123test1";
 
 function famMemsList(famMemsList){
@@ -33,7 +36,7 @@ function famMemsList(famMemsList){
   }
 }
 
-
+//================載入住戶資料================//
 function init(){
 
   //讀資料庫的圖片
@@ -43,9 +46,8 @@ function init(){
   console.log(path.substring(0, path.indexOf("/mem-", 1))); // /Okaeri/front-end/mem (在Eclipse中)
   //console.log($("img.mem_uploadPic").attr("src"));
   // /Okaeri/front-end/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
-  let src = `
-    ${path.substring(0, path.indexOf("/mem-", 1))}/MemberServlet.do?action=getImage&memAcct=${memAcct}
-  `
+  let src = `${projectPath}/mem/MemberServlet.do?action=getImage&memAcct=${memAcct}`;
+
   let img_html = `
     <img src="${src}" class="mem_uploadPic">
   `;
@@ -53,7 +55,7 @@ function init(){
   //$("img.mem_uploadPic").attr("src", "images/profile_png/Cliff.png");
 
   $.ajax({
-    url: "http://localhost:8081/Okaeri/front-end/mem/MemberServlet.do",           // 資料請求的網址
+    url: `${projectPath}/mem/MemberServlet.do`,           // 資料請求的網址
     type: "GET",                  // GET | POST | PUT | DELETE | PATCH
     data: {"action": "get_one_mem", 
            "memAcct": memAcct,
@@ -153,7 +155,7 @@ $("#memProfile_btn_submit").on("click", function(){
   // `
 
   $.ajax({
-    url: "http://localhost:8081/Okaeri/front-end/mem/MemberServlet.do",
+    url: `${projectPath}/mem/MemberServlet.do`,
     type: "POST",
     data: formData,
     dataType: "json",

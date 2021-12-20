@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>mem-index</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/front-all.css" />
+    <link rel="stylesheet" href="css/mem-index.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div id="header">
+        <p class="header_logo">
+            <a href="">
+                <img src="images/logo2.png" alt="logo" width="80" />
+            </a>
+        </p>
+        <ul class="navbar_list">
+            <li class="navbar_list_open">
+                <a href="">社區交流</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 社區公告</a>
+                    </li>
+                    <li>
+                        <a href="">- 社區公約</a>
+                    </li>
+                    <li>
+                        <a href="">- 社區論壇</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">管理費</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 繳費</a>
+                    </li>
+                    <li>
+                        <a href="">- 繳費記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">我的包裹</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 我的包裹</a>
+                    </li>
+                    <li>
+                        <a href="">- 包裹記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open">
+                <a href="">公設預約</a>
+                <ol class="navbar_list_open_sub">
+                    <li>
+                        <a href="">- 我要預約</a>
+                    </li>
+                    <li>
+                        <a href="">- 預約記錄</a>
+                    </li>
+                </ol>
+            </li>
+            <li class="navbar_list_open"><a href="">美食地圖</a></li>
+            <li class="navbar_icon">
+                <a href=""><img class="alert_icon" src="images/alert.png" alt="alert" /></a>
+            </li>
+            <li class="navbar_icon">
+                <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="center_tab_container">
+        <div class="tab_list_block">
+            <ul class="tab_list">
+                <li><a href="mem-index.html" data-target="tab1" class="tab -on" ;">住戶中心首頁</a></li>
+                <li><a href="mem-profile.html" data-target="tab2" class="tab">住戶資料管理</a></li>
+                <li><a href="mem-pwd.html" data-target="tab3" class="tab">修改密碼</a></li>
+                <li><a href="mem-article.html" data-target="tab4" class="tab">我的貼文</a></li>
+            </ul>
+        </div>
+        <div class="tab_contents">
+            <div class="tab tab1 -on">
+                <div class="center_row">
+                    <div class="col_left">
+                        <div class="left_container top">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Qrcode</div>
+                                </div>
+                                <div class="card-body"><img src="images/qrcode.jpg"></div>
+                            </div>
+                        </div>
+                        <div class="left_container">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">待辦事項</div>
+                                </div>
+                                <div class="card-body">
+                                    <article class="task_container">
+                                        <button type="button" class="btn_empty">清空</button>
+                                        <h1 class="title1">任務管理</h1>
+                                        <div class="task_add_block">
+                                            <input type="text" class="task_name" placeholder="輸入待辦事項…">
+                                            <button type="button" class="task_add">新增</button>
+                                        </div>
+                                        <div class="task_list_parent">
+                                            <ul class="task_list">
+                                            </ul>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col_right">
+                        <div class="right_container top">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title" style="width: 360px;">今日天氣</div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- <img src="images/qrcode.jpg"> -->
+                                    <!-- <div style="width: 300px; height: 200px; border:orange solid 1px"></div> -->
+                                    <div class="weather_block">
+                                        <div class="weather_card">
+                                            <div class="weather_left">
+                                                <!-- <div class="district">大安區</div>
+                                                <div class="temperature">29°C</div> -->
+                                                <div class="district"></div>
+                                                <div class="temperature"></div>
+                                            </div>
+                                            <div class="weather_right">
+                                                <!-- <div class="phenomenon">多雲</div>
+                                                <div class="rain">降雨機率 20%</div> -->
+                                                <div class="phenomenon"></div>
+                                                <div class="rain"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right_container">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title" style="width: 360px;">訊息通知</div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="msg_list_block">
+                                        <ul class="msg_list">
+                                            <li>
+                                                <span class="package"><i class="fas fa-cubes"></i></span>
+                                                <a href="#">您有包裹/無包裹</a>
+                                            </li>
+                                            <li>
+                                                <span class="fee"><i class="fas fa-comments-dollar"></i></span>
+                                                <a href="#">當月管理費未繳/已繳</a>
+                                            </li>
+                                            <li>
+                                                <span class="meeting"><i class="fas fa-users"></i></span>
+                                                <a href="#">開會即將到來 (日期)/近期無會議</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab tab2">
+                頁籤二的內容<br />
+            </div>
+            <div class="tab tab3">
+                頁籤三的內容<br />
+                內容
+            </div>
+            <div class="tab tab4">
+                頁籤四的內容<br />
+                內容
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <a class="footer_link" href="#">サイトついて</a>
+        <a class="footer_link" href="#">最新情報</a>
+        <a class="footer_link" href="#">トッポページ</a>
+        <p class="copyright">© 2021 okaeri</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"></script>
+    <script src="./vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="./js/mem-index.js"></script>
+</body>
+
+</html>

@@ -16,7 +16,7 @@ import web.addr.entity.AddressVO;
 import web.addr.service.AddressService;
 
 
-@WebServlet("/back-end/acct-addr/AddrAjaxServlet.do")
+@WebServlet("/acct-addr/AddrAjaxServlet.do")
 public class AddrAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -114,7 +114,7 @@ public class AddrAjaxServlet extends HttpServlet {
 			Integer addrRoom = addrJsonObject.get("addrRoom").getAsInt();
 			
 			AddressService addrSvc = new AddressService();
-			//檢查有無新增重複的棟、樓、房，若有則回傳「重複」的訊息，並結束程式
+			//檢查有無重複的棟、樓、房，若有則回傳「重複」的訊息，並結束程式
 			List<AddressVO> addrVOList = addrSvc.getAll();
 			for(AddressVO anAddr: addrVOList) {
 				if( anAddr.getAddrBuild().equals(addrBuild) && 
@@ -153,7 +153,7 @@ public class AddrAjaxServlet extends HttpServlet {
 			//System.out.println(addrNo);
 			AddressService addrSvc = new AddressService();
 			Integer affectedRows = addrSvc.deleteAddr(new Integer(addrNo));
-			if( affectedRows != null ) {
+			if( affectedRows != null && affectedRows != 0) {
 				JsonObject obj = new JsonObject();
 				obj.addProperty("msg", "success");
 				obj.addProperty("addrNo", addrNo);

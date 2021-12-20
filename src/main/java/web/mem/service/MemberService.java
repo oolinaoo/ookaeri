@@ -1,5 +1,6 @@
 package web.mem.service;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -129,9 +130,17 @@ public class MemberService {
 	
 	
 	
-	public void deleteMem(String memAcct) {
-		dao.delete(memAcct);
+	public Integer deleteMem(String memAcct) {
+		Integer affectedRows = dao.delete(memAcct);
+		return affectedRows;
 	}
+	
+//	public void deleteMemWithFams(String memAcct, Connection con) {
+//		
+//		dao.deleteMemWithFamMems(memAcct, con);
+//		
+//	}
+	
 	
 	public MemberVO getOneMem(String memAcct) {
 		return dao.findByPrimaryKey(memAcct);

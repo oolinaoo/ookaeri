@@ -60,9 +60,9 @@ hr {
   vertical-align: middle;
   padding-right: 25px;
 }
-
-.active {
-  /* background-color: #3a8fb7; */
+/* 因為這個會影響到彈窗的日曆樣式，所以多寫了button，本來只有.active */
+button.active {
+  background-color: #3a8fb7;
   color: white;
   border-top-left-radius: 40px;
 }
@@ -302,6 +302,3 @@ div.addr_table_container>table>tbody>tr>td:hover{
 .searchTerm:focus {
   color: #00b4cc;
 }
-
-
-
