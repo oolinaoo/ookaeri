@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理費繳交</title>
+    <link rel="shortcut icon" href="./images/logo.png" />
+    <link rel="bookmark" href="./images/logo.png" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <!-- <link rel="stylesheet" href="./styleRef.css" /> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <!-- =============icon 連結================= -->
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+      integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+      crossorigin="anonymous"
+    ></script>
+    <!-- =============notify 連結================= -->
+    <link rel="stylesheet" href="./css/notify.css" />
+    <style>
+      * {
+        margin: 0;
+      }
+      /* body {
+        background-color: rgb(215, 196, 187);
+      }
+      header.header {
+        background-color: white;
+      } */
+      div.content_title {
+        margin-left: 42%;
+        font-size: 30px;
+        margin-top: 90px;
+        display: inline-block;
+      }
+      div.search-container {
+        display: inline-block;
+      }
+
+      .search-container button {
+        float: right;
+        padding: 6px 10px;
+
+        margin-right: 20px;
+        background: #ddd;
+        font-size: 15px;
+        border: none;
+        cursor: pointer;
+        width: 30px;
+        height: 25px;
+      }
+      div.search-container button:hover {
+        background: #ccc;
+      }
+      .card-body {
+        flex: 1 1 auto;
+        padding: 1.25rem;
+      }
+      .card-body {
+        padding: 0;
+        padding: 20px 30px;
+      }
+      .table-responsive::-webkit-scrollbar {
+        background-color: #f5f5f5;
+        width: 8px;
+        height: 8px;
+      }
+      .table-responsive::-webkit-scrollbar-track {
+        /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+        border-radius: 10px;
+        background-color: #f5f5f5;
+      }
+      .table-responsive::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+        background-color: #bdbdc7;
+      }
+      .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: black;
+      }
+      .table th,
+      .table td {
+        padding: 0.75rem;
+        vertical-align: top;
+        /* border-top: 1px solid #665b1e; */
+        text-align: center;
+      }
+      .table thead th {
+        vertical-align: bottom;
+        /* border-bottom: 3px solid #665b1e; */
+      }
+      div.button_area {
+        display: flex;
+        justify-content: space-evenly;
+      }
+      button.confirm,
+      button.cancel {
+        background-color: rgb(224, 209, 202);
+        border-radius: 20px;
+        border: 1px solid rgb(224, 209, 202);
+        width: 100px;
+        height: 50px;
+      }
+      /* ========================修改table樣式css=================== */
+      table {
+        text-align: left;
+      }
+      th {
+        font-size: 1.05em;
+        color: #554236;
+      }
+      td {
+        font-size: 1em;
+        color: #6a4028;
+      }
+      table tr th,
+      td {
+        height: 50px;
+        line-height: 30px;
+        border-bottom: 2px dashed #d3c0af;
+      }
+
+      /* footer {
+        width: 100%;
+        height: 100px;
+        border: 1px solid darkgoldenrod;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <!-- ==================header start ====================== -->
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+    <div id="header">
+      <p class="header_logo">
+        <a href="">
+          <img src="images/logo2.png" alt="logo" width="80" />
+        </a>
+      </p>
+      <ul class="navbar_list">
+        <li class="navbar_list_open">
+          <a href="">社區交流</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 社區公告</a>
+            </li>
+            <li>
+              <a href="">- 社區公約</a>
+            </li>
+            <li>
+              <a href="">- 社區論壇</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="./managent.html">管理費</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="./management_paypage.html">- 繳費</a>
+            </li>
+            <li>
+              <a href="./management_history.html">- 繳費記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="./package.html">我的包裹</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="./package_take.html">- 我的包裹</a>
+            </li>
+            <li>
+              <a href="./package_history.html">- 包裹記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="">公設預約</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="">- 我要預約</a>
+            </li>
+            <li>
+              <a href="">- 預約記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open"><a href="">美食地圖</a></li>
+        <!-- ==================訊息通知======================== -->
+        <div class="dropdown">
+          <div id="badge"></div>
+          <button class="dropbtn">
+            <img class="alert_icon" src="images/alert.png" alt="alert" />
+          </button>
+          <div class="dropdown-content">
+            <div class="dropdown_selector">
+              
+            </div>
+          </div>
+        </div>
+        <li class="navbar_icon">
+          <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+    <!-- ==================header end ====================== -->
+    <!-- ==================content body start ====================== -->
+    <div class="content_title">未繳費紀錄</div>
+    <div class="search-container">
+      <form action="#" class="search_area">
+        <select style="background-color: rgb(224, 209, 202)">
+          <option>期數</option>
+          <option>202101</option>
+          <option>202102</option>
+          <option>202103</option>
+          <option>202104</option>
+        </select>
+        <input
+          style="background-color: rgb(224, 209, 202)"
+          type="text"
+          placeholder="關鍵字搜尋"
+          name="search"
+          class="light-table-filter"
+          data-table="order-table"
+        />
+        <button style="background-color: rgb(224, 209, 202)" type="submit">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
+    <!-- ==================繳費燈箱位置 ====================== -->
+    <div
+      class="hidden_form"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: hsla(0, 0%, 0%, 0.5);
+        display: none;
+        z-index: 5;
+      "
+    >
+      <form
+        id="packform"
+        action=""
+        style="
+          background-color: #e4ded0;
+          width: 50%;
+          max-width: 400px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px #ddd;
+          padding: 10px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          height: 200px;
+          /*overflow: scroll;*/
+        "
+      >
+        <div class="box">
+          <label class="box1" for="select" style="margin-left:50px;">信用卡號碼:</label>
+          <br />
+          <input type="text" size="4" maxlength="4" style="margin-left:50px;" />
+          <input type="text" size="4" maxlength="4" />
+          <input type="text" size="4" maxlength="4" />
+          <input type="text" size="4" maxlength="4" />
+          <br />
+        </div>
+        <div class="box" style="margin-top:30px;">
+          <label class="box1" for="select" style="margin-left:50px;">有效期限:</label>
+          <label class="box1" style="margin-left:80px;" >安全碼:</label>
+          <br />
+          <select class="month" style="margin-left:50px;">
+            <option value="" selected>Month</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <select class="year">
+          <option value="" selected>Year</option>
+          </select>
+          
+          <input type="text" size="3" maxlength="3" style="margin-left:30px;" />
+        </div>
+        <button class="btn_confirm" style="margin-left:50px; margin-top:30px;">確定繳費</button>
+        <button class="btn_cancel">取消繳費</button>
+      </form>
+    </div>
+    <!-- ==================table 開始 ====================== -->
+    <div class="list_area">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-responsive-sm order-table">
+            <thead>
+              <tr>
+                <th>繳費編號</th>
+                <th>繳費期數</th>
+                <th>繳費金額</th>
+                <th>繳費截止日</th>
+                <th>繳費狀態</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="button_area">
+      <form action="#" method="get">
+        <button class="confirm">繳費</button>
+        <button class="cancel">取消</button>
+      </form>
+    </div>
+    <!-- ==================content body end ====================== -->
+    <!-- ==================footer start ====================== -->
+
+    <div class="footer">
+      <a class="footer_link" href="#">サイトついて</a>
+      <a class="footer_link" href="#">最新情報</a>
+      <a class="footer_link" href="#">トッポページ</a>
+      <p class="copyright">© 2021 okaeri</p>
+    </div>
+    <!-- ==================footer end ====================== -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- ========訊息通知下拉============ -->
+    <script src="./JS/notify.js"></script>
+
+    <!-- ==============搜尋功能JS===================== -->
+    <script src="./JS/search.js"></script>
+    <!-- ==============未繳費頁面JS===================== -->
+    <script src="./JS/unpaid.js"></script>
+    <!-- ==============繳費燈箱JS===================== -->
+    <script>
+      $(document).ready(function () {
+        $(".confirm").on("click", function () {
+          $("div.hidden_form").css("display", "block");
+        });
+        $(".btn_confirm").on("click", function () {
+          $("div.hidden_form").css("display", "none");
+        });
+        $(".btn_cancel").on("click", function () {
+          $("div.hidden_form").css("display", "none");
+        });
+        let startYear = new Date().getFullYear();
+        console.log(startYear);
+        let endYear = startYear + 5;
+        console.log(endYear);
+        for (i = startYear; i <= endYear; i++) {
+          $(".year").append("<option value=" + i + ">" + i + "</option>");
+        }
+      });
+    </script>
+  </body>
+</html>
