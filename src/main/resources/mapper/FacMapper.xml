@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.fac.mapper.FacMapper">
-
+	
 	<select id="listAll" resultType="FacVO">
 		select * from FACILITIES order by FAC_NO asc;
 	</select>
 	
+	<select id="listAllDate" resultType="String">
+		select FAC_OPEN_DATE from FACILITIES_DATE where FAC_NO = #{facNo};
+	</select>
+	
+	<select id="listStartTime" resultType="Integer">
+		select 
+			MIN(START_TIME)
+		from 
+			FACILITIES_TIME
+		where 
+			FAC_NO = #{facNo};
+	</select>
+	
+	<select id="listEndTime" resultType="Integer">
+		select 
+			MAX(END_TIME)
+		from 
+			FACILITIES_TIME
+		where 
+			FAC_NO = #{facNo};
+	</select>
+		
 	<select id="photoByFacno" resultType="FacVO">
 		select FAC_NO, FAC_PHOTO from FACILITIES where FAC_NO = #{facNo};
 	</select>
+		
+	<select id="listByAddr" resultType="FacVO">
+		select * from FACILITIES where FAC_ADDR = #{facAddr};
+	</select>
+		
+	<insert id="insertNewFac">	
+		insert into FACILITIES
+			(FAC_NAME, FAC_MAX, FAC_STATE, FAC_PHOTO, FAC_ADDR, FAC_FLOOR, FAC_ADDR_NO)
+		values(
+			#{facName},
+			#{facMax},
+			#{facState},
+			#{facPhoto},
+			#{facAddr},
+			#{facFloor},
+			#{facAddrNo}
+		)
+	</insert>
+	
+	<select id="findNewestFacNo" resultType="Integer">
+		select MAX(FAC_NO) from FACILITIES;
+	</select>
+	
+	<insert id="insertNewFacDate">
+		insert into FACILITIES_DATE
+			(FAC_NO, FAC_OPEN_DATE)
+		values(
+			#{facNo}, #{facOpenDate}
+		)
+	</insert>
+	
+	<insert id="insertNewFacTime">
+		insert into FACILITIES_TIME
+			(FAC_NO, FAC_OPEN_Time, START_TIME, END_TIME)
+		values(
+			#{facNo}, #{facOpenTime}, #{startTime}, #{endTime}
+		)
+	</insert>
+	
+	<select id="facDetail" resultType="FacVO">
+		select 
+			FAC_NO, FAC_NAME, FAC_MAX, FAC_STATE, FAC_PHOTO, FAC_OPEN_DATE, START_TIME
+		from 
+			v_fac_date_time 
+		where 
+			FAC_NO = #{facNo};
+	</select>
+	
 		
 </mapper>

@@ -63,7 +63,6 @@ public class FachistController extends HttpServlet{
 	@Transactional(readOnly = true)
 	public List<Map> facResDateHist(@RequestParam(value = "facNo") Integer facNo, @RequestParam(value = "month") Integer month ){
 		List<Map> facMonth = mapper.listFacDateHistByMonth(facNo, month);
-		// System.out.println(facMonth);
 		return facMonth;
 	}
 	

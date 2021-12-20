@@ -16,6 +16,7 @@ public class FachistVO {
 	private Date histDate;
 	private String histTime;
 	private Integer histAmount;
+	
 	private String facName;
 	private String addrBuild;
 	private Integer addrFloor;

@@ -152,9 +152,9 @@
       );
 
       //要透過預約按鈕做的事都放這裡！！
-      var facNumber = localStorage.getItem("facNumber");
-      var histMonth = localStorage.getItem("month");
-      var histYear = localStorage.getItem("year");
+      var facNumber = sessionStorage.getItem("facNumber");
+      var histMonth = sessionStorage.getItem("month");
+      var histYear = sessionStorage.getItem("year");
 
       console.log(facNumber);
       // if(facNumber > 2){

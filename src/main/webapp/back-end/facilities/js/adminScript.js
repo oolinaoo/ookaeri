@@ -14,39 +14,6 @@ for (i = 0; i < dropdown.length; i++) {
   });
 }
 
-// LightBox
-// returned cases //
-const modalReturned = document.querySelector(".modal-returned");
-const overlayReturned = document.querySelector(".overlay-returned");
-const btnCloseModalReturned = document.querySelector(
-  ".btn--close-modal-returned"
-);
-const btnsOpenModalReturned = document.querySelectorAll(".newPost-button");
-
-// returned cases //
-const openModalReturned = function (e) {
-  e.preventDefault();
-  modalReturned.classList.remove("hidden");
-  overlayReturned.classList.remove("hidden");
-};
-
-const closeModalReturned = function () {
-  modalReturned.classList.add("hidden");
-  overlayReturned.classList.add("hidden");
-};
-
-btnsOpenModalReturned.forEach((btn) =>
-  btn.addEventListener("click", openModalReturned)
-);
-btnCloseModalReturned.addEventListener("click", closeModalReturned);
-overlayReturned.addEventListener("click", closeModalReturned);
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && !modalReturned.classList.contains("hidden")) {
-    closeModalReturned();
-  }
-});
-
 //Search Filter
 (function (document) {
   "use strict";

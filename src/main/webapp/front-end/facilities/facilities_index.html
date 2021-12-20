@@ -90,49 +90,181 @@
 
     <!-- =============================== body facility =============================== -->
     <div id="facs_body">
+      
       <h1 class="fac_title">設施列表</h1>
-      <!-- 底下有儲存按的設施是哪一個，如果這邊結構要搬，到時候可能要一起搬 -->
-      <div class="floor_plan">
-        <div class="floor">A - 1</div>
-        <div class="hidden_door">
-          <div class="door"></div>
-        </div>
-        <div class="facility">
-          <a
-            href="./images/meeting_room.jpg"
-            class="facs_top"
-            data-lightbox="fac_photo"
-            data-title="會議室（大）"
-            data-alt="會議室（大）"
-            data-value="1"
-          >
-            <div class="factop">會議室（大）</div>
-          </a>
-          <a href="#" class="facs_top">
-            <div class="factop"></div>
-          </a>
-          <a href="#" class="facs_top">
-            <div class="factop"></div>
-          </a>
-          <a
-            href="./images/gym.jpg"
-            class="facs_top"
-            data-lightbox="fac_photo"
-            data-title="健身房"
-            data-alt="健身房"
-            data-value="3"
-          >
-            <div class="factop">健身房</div>
-          </a>
-
-          <a href="#" class="facs_bot">
-            <div class="facbot"></div>
-          </a>
-          <a href="#" class="facs_bot">
-            <div class="facbot"></div>
-          </a>
-        </div>
+      
+      <div class="floor_choose">
+        <select name="fac_map" id="fac_map">
+          <option value="A">A - B1</option>
+          <option value="B">B - B1</option>
+          <option value="C">C - B1</option>
+        </select>
       </div>
+      
+      
+        <!-- 底下有儲存按的設施是哪一個，如果這邊結構要搬，到時候可能要一起搬 -->
+        <!-- A 棟公設 -->
+        <div class="floor_plan" id="A"  style="display:none;">
+          <div class="floor" data-addr="A" data-floor="B1">A - B1</div>
+          <div class="hidden_door">
+            <div class="door"></div>
+          </div>
+          <div class="facility">
+            <!-- 以下由迴圈產生 -->
+            <a
+              href="./images/meeting_room.jpg"
+              class="facs_top A1"
+              data-addrno="1"
+              data-lightbox="fac_photo"
+              data-title="會議室（大）"
+              data-alt="會議室（大）"
+              data-facno="1"
+            >
+              <div class="factop">會議室（大）</div>
+            </a>
+            
+            <a href="#" class="facs_top A2" data-addrno="2">
+              <div class="factop"></div>
+            </a>
+            <a href="#" class="facs_top">
+              <div class="factop"></div>
+            </a>
+            <a
+              href="./images/gym.jpg"
+              class="facs_top"
+              data-addrno="4"
+              data-lightbox="fac_photo"
+              data-title="健身房"
+              data-alt="健身房"
+              data-facno="3"
+            >
+              <div class="factop">健身房</div>
+            </a>
+
+            <a href="#" class="facs_bot">
+              <div class="facbot"></div>
+            </a>
+            <a href="#" class="facs_bot">
+              <div class="facbot"></div>
+            </a>
+          </div>
+        </div>
+
+        <!-- B 棟公設 -->
+        <div class="floor_plan" id="B" style="display:none;">
+          <div class="floor" data-addr="B" data-floor="B1">B - B1</div>
+          <div class="hidden_door">
+            <div class="door"></div>
+          </div>
+          <div class="facility">
+            <!-- 以下由迴圈產生 -->
+
+            <a href="#" class="facs_top" data-addrno="1">
+              <div class="factop"></div>
+            </a>
+
+            <a 
+              href="#"
+              class="facs_top"
+              data-addrno="2"
+              data-lightbox="fac_photo"
+              data-title="健身房"
+              data-alt="健身房"
+              data-facno="3"
+            >
+              <div class="factop">健身房</div>
+            </a>
+
+            <a href="#" class="facs_top" data-addrno="3">
+              <div class="factop"></div>
+            </a>
+            
+            <a
+              href="#"
+              class="facs_top"
+              data-addrno="4"
+              data-lightbox="fac_photo"
+              data-title="桌球室"
+              data-alt="桌球室"
+              data-facno="7"
+            >
+              <div class="factop">桌球室</div>
+            </a>
+
+            <a 
+              href="#" 
+              class="facs_bot" 
+              data-addrno="5"
+              data-lightbox="fac_photo"
+              data-title="游泳池"
+              data-alt="游泳池"
+              data-facno="4"
+            >
+              <div class="facbot">游泳池</div>
+            </a>
+            <a href="#" class="facs_bot" data-addrno="6">
+              <div class="facbot"></div>
+            </a>
+          </div>
+        </div>
+
+        <!-- C 棟公設 -->
+        <div class="floor_plan" id="C" style="display:none;">
+          <div class="floor" data-addr="C" data-floor="B1">C - B1</div>
+          <div class="hidden_door">
+            <div class="door"></div>
+          </div>
+          <div class="facility">
+            <!-- 以下由迴圈產生 -->
+
+            <a
+              href="#"
+              class="facs_top"
+              data-addrno="1"
+            >
+              <div class="factop"></div>
+            </a>
+
+            <a 
+              href="#" 
+              class="facs_top" 
+              data-addrno="2"
+              data-lightbox="fac_photo"
+              data-title="卡拉OK（小）"
+              data-alt="卡拉OK（小）"
+              data-facno="6"
+            >
+              <div class="factop">卡拉OK（小）</div>
+            </a>
+
+            <a href="#" class="facs_top" data-addrno="3">
+              <div class="factop"></div>
+            </a>
+            
+            <a
+              href="#"
+              class="facs_top"
+              data-addrno="4"
+            >
+              <div class="factop"></div>
+            </a>
+
+            <a 
+              href="#"
+              class="facs_bot"
+              data-addrno="5"
+              data-lightbox="fac_photo"
+              data-title="卡拉OK（大）"
+              data-alt="卡拉OK（大）"
+              data-facno="5"
+            >
+              <div class="facbot">卡拉OK（大）</div>
+            </a>
+            <a href="#" class="facs_bot" data-addrno="6">
+              <div class="facbot"></div>
+            </a>
+          </div>
+        </div>
 
       <!-- =============================== body reserve =============================== -->
       <!-- <div class="fac_reserve"></div> -->
@@ -197,11 +329,10 @@
       });
 
       // 儲存按的設施是哪一個設施
-      localStorage.removeItem("facNumber");
       $("#facs_body").on("click", "a", function(){
-        var facNumber = $(this).attr("data-value");
+        var facNumber = $(this).attr("data-facno");
         console.log(facNumber);
-        localStorage.setItem("facNumber", facNumber);
+        sessionStorage.setItem("facNumber", facNumber);
       });
 
     </script>

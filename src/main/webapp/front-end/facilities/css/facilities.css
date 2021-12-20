@@ -29,7 +29,7 @@ div.floor_plan {
 
 div.floor_plan div.floor {
   display: block;
-  width: 120px;
+  width: 150px;
   height: 60px;
   margin: 0;
   position: absolute;
@@ -112,6 +112,27 @@ div.go_top {
   right: 50px;
   color: #999274;
 }
+
+/* Select 公設地圖選單 */
+div.floor_choose {
+  width: 105px;
+  margin: 0 auto;
+}
+
+select#fac_map {
+  font-size: 20px;
+  height: 35px;
+  width: 100px;
+  text-align: center;
+}
+
+option {
+  font-size: 18px;
+  vertical-align: bottom;
+}
+
+
+
 
 /******************************
  ****                      ****

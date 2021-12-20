@@ -139,7 +139,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 							+ attr("data-number", dayNumber)
 							+ ">" + innerMarkup + "</a>");
 					}
-					localStorage.setItem(`day${dayNumber}`, dayNumber);
+					sessionStorage.setItem(`day${dayNumber}`, dayNumber);
 				}
 
 				if (settingCurrentMonth) {
@@ -150,8 +150,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				$(parent + " .monthly-header-title").html('<a href="#" class="monthly-header-title-date" onclick="return false">' + monthNames[month - 1] + " " + year + "</a>" + (settingCurrentMonth && $(parent + " .monthly-event-list").hide() ? "" : '<a href="#" class="monthly-reset"></a>'));
 
 				// 將月份和年份資料存進 Local Storage	################################################################################################################################################################################################################################################
-				localStorage.setItem("month", month);
-				localStorage.setItem("year", year);
+				sessionStorage.setItem("month", month);
+				sessionStorage.setItem("year", year);
 
 
 				// Account for empty days at start
