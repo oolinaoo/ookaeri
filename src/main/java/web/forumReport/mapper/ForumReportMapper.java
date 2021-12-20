@@ -9,6 +9,7 @@ import web.forumReport.entity.ForumReport;
 public interface ForumReportMapper {
 	
 	List<ForumReport> listAll();
+	List<ForumReport> artJoinAll();
 	Integer add(ForumReport report);
 	Integer update(ForumReport report);
 

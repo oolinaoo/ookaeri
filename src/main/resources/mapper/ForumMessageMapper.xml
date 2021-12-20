@@ -2,6 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.forumMessage.mapper.ForumMessageMapper">
 
+	<resultMap id="MsgJoinMap" type="ForumMessageBo">
+		<id property="forArtNo" column="FOR_ART_NO" />
+		<result property="forTypeNo" column="FOR_TYPE_NO" />
+		<result property="artStateNo" column="ART_STATE_NO" />
+		<result property="forArtPosttime" column="FOR_ART_POSTTIME" />
+		<result property="forArtEdittime" column="FOR_ART_EDITTIME" />
+		<result property="forArtTitle" column="FOR_ART_TITLE" />
+		<result property="forArtContent" column="FOR_ART_CONTENT" />
+		<result property="forArtView" column="FOR_ART_VIEW" />
+		<result property="memAcct" column="MEM_ACCT" />
+		<result property="forMsgNo" column="FOR_MSG_NO" />
+		<result property="memAcctMsg" column="MAM" />
+		<result property="forMsgPosttime" column="FOR_MSG_POSTTIME" />
+		<result property="forMsgContent" column="FOR_MSG_CONTENT" />
+		<result property="forMsgState" column="FOR_MSG_STATE" />
+		<result property="forType" column="FOR_TYPE" />
+		<result property="forReptNo" column="FOR_REPT_NO" />	
+		<result property="forMsgNoRept" column="MNR" />	
+		<result property="memAcctRept" column="MAR" />	
+		<result property="adminAcct" column="ADMIN_ACCT" />	
+		<result property="forReptState" column="FOR_REPT_STATE" />	
+		<result property="forReptContent" column="FOR_Rept_Content" />	
+	</resultMap>
+
 	<select id="listAll" resultType="ForumMessage">
 		select * from FORUM_MESSAGE
 	</select>
@@ -10,6 +34,18 @@
 		select * from FORUM_MESSAGE
 		where = #{forMsgNo}
 	</select>
+	
+	<select id="msgJoinArtJoinType" resultMap="MsgJoinMap">
+    	select 
+		M.FOR_MSG_NO, M.MEM_ACCT as MAM, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT, M.FOR_MSG_STATE,
+		A.*, 
+		T.FOR_TYPE
+		from (FORUM_MESSAGE M 
+		left join FORUM_ARTICLE A
+        on M.FOR_ART_NO = A.FOR_ART_NO)
+        inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+    </select>
 
 	<insert id="add">
 		insert into FORUM_MESSAGE

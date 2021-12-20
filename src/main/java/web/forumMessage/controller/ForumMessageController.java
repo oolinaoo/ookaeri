@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import core.Core;
-import web.forumArticle.entity.ForumArticle;
+import web.forumArticle.mapper.ForumArticleMapper;
 import web.forumMessage.entity.ForumMessage;
+import web.forumMessage.entity.ForumMessageBo;
 import web.forumMessage.mapper.ForumMessageMapper;
 
 @Controller
@@ -27,6 +28,13 @@ public class ForumMessageController {
 	@ResponseBody
 	public List<ForumMessage> listAll() {
 		List<ForumMessage> message = mapper.listAll();
+		return message;
+	}
+	
+	@GetMapping("msgJoinArtJoinType")
+	@ResponseBody
+	public List<ForumMessageBo> msgJoinArtJoinType() {
+		List<ForumMessageBo> message = mapper.msgJoinArtJoinType();
 		return message;
 	}
 	

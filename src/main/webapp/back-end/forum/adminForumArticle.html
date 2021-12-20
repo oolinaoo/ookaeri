@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>社區論壇</title>
-    <link rel="stylesheet" href="./css/adminStyle.css" />
-    <link rel="stylesheet" href="./css/forum.css" />
+    <link rel="stylesheet" href="css/adminStyle.css" />
+    <link rel="stylesheet" href="css/forum.css" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
@@ -19,7 +19,7 @@
     <div class="sidenav">
       <div class="sidenav-cont">
         <div class="menu">
-          <span><img class="logo" src="./images/logo2.png" />管理員專區</span>
+          <span><img class="logo" src="images/logo2.png" />管理員專區</span>
         </div>
         <div>
           <hr />
@@ -27,22 +27,20 @@
             帳號管理 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">住戶帳號管理</a> 
-            <a href="#">後端帳號管理</a>
+            <a href="#">住戶帳號管理</a> <a href="#">後端帳號管理</a>
             <a href="#">地址資料管理</a>
           </div>
           <button class="dropdown-btn">
             社區交流 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">社區公告</a> 
-            <a href="#">社區公約</a>
+            <a href="#">社區公告</a> <a href="#">社區公約</a>
           </div>
           <button class="dropdown-btn">
             社區論壇 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="./forum_article.html">論壇</a> 
+            <a href="./forum_article.html">論壇</a>
             <a href="./forum_article.html">論壇留言</a>
             <a href="./forum_report.html">論壇檢舉</a>
           </div>
@@ -50,7 +48,7 @@
             公設管理 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="./facilities.html">公設列表</a> 
+            <a href="./facilities.html">公設列表</a>
             <a href="./facilities_history.html">公設租借紀錄</a>
             <a href="#">公設編輯</a>
           </div>
@@ -58,15 +56,10 @@
             美食地圖 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">商家資訊</a> 
-            <a href="#">地圖留言</a>
-            <a href="#">我的最愛</a> 
-            <a href="#">留言檢舉</a>
+            <a href="#">商家資訊</a> <a href="#">留言檢舉</a>
           </div>
-          <a href="#services">聊天室</a>
-          <a href="#clients">管理費用</a>
-          <a href="#contact">管理包裹</a>
-          <a href="#contact">登出</a>
+          <a href="#services">聊天室</a> <a href="#clients">管理費用</a>
+          <a href="#contact">管理包裹</a> <a href="#contact">登出</a>
         </div>
       </div>
     </div>
@@ -84,96 +77,44 @@
         />
       </div>
       <div class="report_handle">
-        <a href="./forum_article.html" class="all_article">全部文章</a>
-        <a href="./forum_report.html" class="report_article">檢舉處理</a>
+        <a href="adminForumArticle.html" class="all_article">全部文章</a>
+        <a href="adminForumMessage.html" class="all_message">全部留言</a>
+        <a href="adminForumReport.html" class="report_article">檢舉處理</a>
       </div>
       <!-- 主要內容 -->
+      <div class="overlay-returned hidden"></div>
       <div class="container">
         <table class="tableContents order-table">
           <thead>
             <tr>
-              <th>文章編號</th>
+              <th>編號</th>
               <th>文章類別</th>
               <th>文章標題</th>
               <th>文章內容</th>
-              <th>住戶帳號</th>
               <th>發布時間</th>
               <th>編輯時間</th>
+              <th>住戶帳號</th>
               <th>文章狀態</th>
               <th>留言</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>文章編號文章編號</td>
-              <td>類別</td>
-              <td>文章標題文章標題文章標題文章標題文章標題文章標題</td>
-              <td>
-                文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容
-              </td>
-              <td>住戶帳號</td>
-              <td>發布時間發布時間</td>
-              <td>編輯時間編輯時間</td>
-              <td>狀態</td>
-              <td class="whole">留言內容</td>
-            </tr>
-            <tr>
-              <td>文章編號文章編號</td>
-              <td>類別</td>
-              <td>文章標題文章標題文章標題文章標題文章標題文章標題</td>
-              <td>
-                文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容
-              </td>
-              <td>住戶帳號</td>
-              <td>發布時間發布時間</td>
-              <td>編輯時間編輯時間</td>
-              <td>狀態</td>
-              <td class="whole">留言內容</td>
-            </tr>
-            <tr>
-              <td>文章編號文章編號</td>
-              <td>類別</td>
-              <td>文章標題文章標題文章標題文章標題文章標題文章標題</td>
-              <td>
-                文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容
-              </td>
-              <td>住戶帳號</td>
-              <td>發布時間發布時間</td>
-              <td>編輯時間編輯時間</td>
-              <td>狀態</td>
-              <td class="whole">留言內容</td>
-            </tr>
-            <tr>
-              <td>文章編號文章編號</td>
-              <td>類別</td>
-              <td>文章標題文章標題文章標題文章標題文章標題文章標題</td>
-              <td>
-                文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容
-              </td>
-              <td>住戶帳號</td>
-              <td>發布時間發布時間</td>
-              <td>編輯時間編輯時間</td>
-              <td>狀態</td>
-              <td class="whole">留言內容</td>
-            </tr>
-            <tr>
-                <td>文章編號文章編號</td>
-                <td>類別</td>
-                <td>文章標題文章標題文章標題文章標題文章標題文章標題</td>
-                <td>
-                  文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容文章內容
-                </td>
-                <td>住戶帳號</td>
-                <td>發布時間發布時間</td>
-                <td>編輯時間編輯時間</td>
-                <td>狀態</td>
-                <td class="whole">留言內容</td>
-            </tr>
+            <!-- <tr>
+              <td>檢舉編號</td>
+              <td>文章編號</td>
+              <td>留言編號</td>
+              <td>檢舉人員檢舉人員</td>
+              <td>處理人員處理人員</td>
+              <td>檢舉時間檢舉時間</td>
+              <td>審核時間審核時間</td>
+              <td>處理狀態</td>
+              <td><a class="whole" href='#'>檢舉原因</a></td>
+            </tr> -->
           </tbody>
         </table>
 
         <!-- RETURNED CASES -->
-        <div class="modal-returned hidden">
+        <!-- <div class="modal-returned hidden">
           <div class="modal-container">
             <h2>文章標題</h2>
             <button class="btn--close-modal-returned">&times;</button>
@@ -184,7 +125,6 @@
             <br />
             <br />
             <br />
-
             <h3>留言</h3>
             <div class="article_message">
               <div>留言者</div>
@@ -192,30 +132,12 @@
               留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
               <div style="text-align: right; font-size: 0.8em">編輯時間</div>
             </div>
-            <div class="article_message">
-              <div>留言者</div>
-              <br />
-              留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-              <div style="text-align: right; font-size: 0.8em">編輯時間</div>
-            </div>
-            <div class="article_message">
-              <div>留言者</div>
-              <br />
-              留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-              <div style="text-align: right; font-size: 0.8em">編輯時間</div>
-            </div>
-            <div class="article_message">
-              <div>留言者</div>
-              <br />
-              留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容留言內容
-              <div style="text-align: right; font-size: 0.8em">編輯時間</div>
-            </div>
-            <br />
           </div>
         </div>
-        <div class="overlay-returned hidden"></div>
+        <div class="overlay-returned hidden"></div> -->
       </div>
     </div>
-    <script src="./js/forumScript.js" charset="UTF-8"></script>
+    <script src="js/forumScript.js" charset="UTF-8"></script>
+    <script src="js/articleScript.js" charset="UTF-8"></script>
   </body>
 </html>

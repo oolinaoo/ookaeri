@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.login.mapper.LoginMapper">
+
+	<select id="findByMemAcct" resultType="Login">
+		select MEM_ACCT, MEM_PWD, MEM_NAME from MEMBER where MEM_ACCT = #{mem_acct} and MEM_PWD = #{mem_pwd} 
+	</select>
+	
+	<select id="findByAdminAcct" resultType="Login">
+		select ADMIN_ACCT, ADMIN_PWD, ADMIN_NAME from ADMIN where ADMIN_ACCT = #{admin_acct} and ADMIN_PWD = #{admin_pwd} 
+	</select>
+	
+</mapper>

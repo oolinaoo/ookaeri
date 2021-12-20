@@ -12,7 +12,7 @@ function changCss(obj) {
 		}
 	  }
 	}
-//json from servlet
+//json from controller
 $(function () {
 	let url =
 	  "/okaeri/forumArticle/listAll";
@@ -45,8 +45,8 @@ $(function () {
 		              "<span><i class='fa fa-eye'></i>" + 
 		              	data[i].forArtView +
 		              "</span>&emsp;" +
-		              "<a href='../comment/comment.html'><i class='fa fa-comment-dots'></i>留言</a>&emsp;" +
-		              "<a href='#'><i class='fa fa-times'></i>檢舉</a>" +
+		              "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
+		              "<i class='fa fa-comment-dots'></i>留言</a>&emsp;" +
 		            "</div>" +
 		          "</div>" +
 		        "</div>"
@@ -141,8 +141,6 @@ $('.editor').keypress(function(){
     $('.editor').html('');
     localStorage.removeItem("wysiwyg");
   });
-  
-  
 } 
 
   

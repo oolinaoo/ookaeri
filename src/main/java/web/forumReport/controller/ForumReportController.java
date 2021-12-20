@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import core.Core;
+import web.forumArticle.entity.ForumArticle;
+import web.forumArticle.mapper.ForumArticleMapper;
 import web.forumReport.entity.ForumReport;
 import web.forumReport.mapper.ForumReportMapper;
 
@@ -26,6 +28,13 @@ public class ForumReportController {
 	@ResponseBody
 	public List<ForumReport> listAll() { 
 		List<ForumReport> report = mapper.listAll();
+		return report;
+	}
+	
+	@GetMapping("artJoinAll")
+	@ResponseBody
+	public List<ForumReport> artJoinAll() { 
+		List<ForumReport> report = mapper.artJoinAll();
 		return report;
 	}
 	
