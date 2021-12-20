@@ -16,7 +16,7 @@ public class Util {
 //			+ "useUnicode=true&"                // 使用Unicode編碼 (中文才不會亂碼)
 //			+ "characterEncoding=utf-8";        // 字元採用UTF-8設定
 	
-	public static final String USER = "David";
+	public static final String USER = "Okaeri";
 	
 	public static final String PASSWORD = "123456";
 }

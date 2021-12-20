@@ -21,7 +21,7 @@ $(".forum-type").click(function(e) {
 		          "<div class='forum-row-box' >" +
 		            "<div class='forum-title'>" +
 		              "<h3>" +
-		                "<a href='../comment/comment.html' target='_blank'>" +
+		                "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
 		                data[i].forArtTitle + "</a>" +
 		              "</h3>" +
 		            "</div>" +
@@ -38,8 +38,8 @@ $(".forum-type").click(function(e) {
 		              "<span><i class='fa fa-eye'></i>" + 
 		              	data[i].forArtView +
 		              "</span>&emsp;" +
-		              "<a href='../comment/comment.html'><i class='fa fa-comment-dots'></i>留言</a>&emsp;" +
-		              "<a href='#'><i class='fa fa-times'></i>檢舉</a>" +
+		              "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
+		              "<i class='fa fa-comment-dots'></i>留言</a>&emsp;" +
 		            "</div>" +
 		          "</div>" +
 		        "</div>"

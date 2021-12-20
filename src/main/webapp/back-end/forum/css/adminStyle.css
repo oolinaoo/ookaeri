@@ -156,6 +156,10 @@ td {
   text-align: center;
 }
 
+.title, .content, .artTitle, .reason {
+	text-align: left;
+}
+
 tr:last-child td {
   border-bottom: 0px;
 }

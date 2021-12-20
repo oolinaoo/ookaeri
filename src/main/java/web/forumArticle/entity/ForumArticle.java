@@ -6,32 +6,37 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import web.forumMessage.entity.ForumMessage;
+import web.forumReport.entity.ForumReport;
+import web.forumType.entity.ForumType;
 
 public class ForumArticle {
 	
 	private Integer forArtNo;
 	private Integer forTypeNo;
 	private Integer artStateNo;
-	private String memAcctArt;
-	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+	private String memAcct;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp forArtPosttime;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp forArtEdittime;
 	private String forArtTitle;
 	private String forArtContent;
 	private Integer forArtView;
 	private List<ForumMessage> message;
+	private List<ForumType> type;
+	private List<ForumReport> report;
 	
 	public ForumArticle() {
 	}
 
-	public ForumArticle(Integer forArtNo, Integer forTypeNo, Integer artStateNo, String memAcctArt,
+	public ForumArticle(Integer forArtNo, Integer forTypeNo, Integer artStateNo, String memAcct,
 			Timestamp forArtPosttime, Timestamp forArtEdittime, String forArtTitle, String forArtContent,
 			Integer forArtView) {
 		super();
 		this.forArtNo = forArtNo;
 		this.forTypeNo = forTypeNo;
 		this.artStateNo = artStateNo;
-		this.memAcctArt = memAcctArt;
+		this.memAcct = memAcct;
 		this.forArtPosttime = forArtPosttime;
 		this.forArtEdittime = forArtEdittime;
 		this.forArtTitle = forArtTitle;
@@ -63,12 +68,12 @@ public class ForumArticle {
 		this.artStateNo = artStateNo;
 	}
 
-	public String getMemAcctArt() {
-		return memAcctArt;
+	public String getMemAcct() {
+		return memAcct;
 	}
 
-	public void setMemAcctArt(String memAcctArt) {
-		this.memAcctArt = memAcctArt;
+	public void setMemAcct(String memAcct) {
+		this.memAcct = memAcct;
 	}
 
 	public Timestamp getForArtPosttime() {
@@ -118,4 +123,21 @@ public class ForumArticle {
 	public void setMessage(List<ForumMessage> message) {
 		this.message = message;
 	}
+
+	public List<ForumType> getType() {
+		return type;
+	}
+
+	public void setType(List<ForumType> type) {
+		this.type = type;
+	}
+
+	public List<ForumReport> getReport() {
+		return report;
+	}
+
+	public void setReport(List<ForumReport> report) {
+		this.report = report;
+	}
+	
 }

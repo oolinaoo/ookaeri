@@ -1,119 +1,123 @@
-/* 全部文章列表 檢舉文章列表 */
+/* 全部文章留言列表 檢舉文章列表 */
 div.report_handle {
-  width: 90%;
-  margin: 0 auto 10px;
-  text-align: right;
+	width: 90%;
+	margin: 0 auto 10px;
+	text-align: right;
 }
 
 div.report_handle a {
-  font-size: 1.1em;
-  color: #203248;
+	font-size: 1.1em;
+	color: #203248;
 }
 
 div.report_handle a.all_message {
-  padding-right: 10px;
-  padding-left: 10px;
-  border-right: 2px dashed #20324870;
-  border-left: 2px dashed #20324870;
+	padding-right: 10px;
+	padding-left: 10px;
+	border-right: 2px dashed #20324870;
+	border-left: 2px dashed #20324870;
 }
 
 div.report_handle a.all_article {
-  padding-right: 10px;
-  border-right: 2px dashed #20324870;
+	padding-right: 10px;
+	border-right: 2px dashed #20324870;
 }
+
 div.report_handle a.report_article {
-  padding-left: 10px;
-  border-left: 2px dashed #20324870;
+	padding-left: 10px;
+	border-left: 2px dashed #20324870;
 }
 
 /* 表格相關 */
 /* table 省略號 */
 td {
-  max-width: 100px;
-  min-width: 40px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+	max-width: 100px;
+	min-width: 40px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
-td.whole {
-  cursor: pointer;
+td a {
+	color: black;
 }
 
 /* 燈箱 */
 div.modal-returned {
-  width: 80%;
-  height: 80%;
-  overflow: auto;
+	width: 80%;
+	height: 80%;
+	overflow: auto;
 }
 
 div.modal-container {
-  width: 90%;
-  margin: 0 auto;
+	width: 90%;
+	margin: 0 auto;
 }
 
-div.article_content,
-div.report_content {
-  /* max-height: 200px; */
-  background-color: #fff9e1;
-  border-radius: 20px;
-  padding: 30px;
-  text-align: left;
-  font-size: 1.2em;
+div.article_content, div.report_content {
+	/* max-height: 200px; */
+	color: #6a4028;
+	background-color: #fff9e1;
+	border-radius: 20px;
+	padding: 30px;
+	text-align: left;
+	font-size: 1.2em;
+	white-space: pre-line;
+	word-wrap: break-word;
 }
 
-.modal-container h3 {
-  text-align: left;
-  color: #554236;
-  font-size: 24px;
+.modal-container h2, h3 {
+	text-align: left;
+	color: #554236;
+	font-size: 24px;
 }
 
 div.article_message {
-  text-align: left;
-  margin: 5px 5px 25px 5px;
-  background-color: #fbfff2;
-  border-radius: 20px;
-  padding: 15px;
-  font-size: 1.2em;
+	color: #6a4028;
+	text-align: left;
+	margin: 5px 5px 25px 5px;
+	background-color: #fbfff2;
+	border-radius: 20px;
+	padding:15px 25px;
+	font-size: 1.1em;
+	white-space: pre-line;
+	word-wrap: break-word;
 }
 
-div.confirm_report,
-div.cancel_report {
-  display: inline-block;
-  width: 20%;
-  font-size: 1.4em;
-  color: #554236;
+div.confirm_report, div.cancel_report {
+	display: inline-block;
+	width: 20%;
+	font-size: 1.4em;
+	color: #554236;
 }
 
-span.confirm,
-span.cancel {
-  display: inline-block;
-  padding: 8px 12px 6px;
-  /* border: 1px solid red; */
-  line-height: 1.2em;
-  border-radius: 10px;
-  background-color: #fbfff2;
+span.confirm, span.cancel {
+	display: inline-block;
+	padding: 8px 12px 6px;
+	/* border: 1px solid red; */
+	line-height: 1.2em;
+	border-radius: 10px;
+	background-color: #fbfff2;
 }
 
 /* Scrollbar */
 /* width */
 div.modal-returned::-webkit-scrollbar {
-  width: 20px;
+	width: 20px;
 }
 
 /* Track */
 div.modal-returned::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey;
-  border-radius: 8px;
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 8px;
 }
 
 /* Handle */
 div.modal-returned::-webkit-scrollbar-thumb {
-  background: rgba(238, 194, 98, 0.609);
-  border-radius: 10px;
+	background: rgba(238, 194, 98, 0.609);
+	border-radius: 10px;
 }
 
 /* Handle on hover*/
 div.modal-returned::-webkit-scrollbar-thumb:hover {
-  background: #fadb99;
+	background: #fadb99;
 }

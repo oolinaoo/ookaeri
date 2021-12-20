@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>論壇檢舉</title>
-    <link rel="stylesheet" href="./css/adminStyle.css" />
-    <link rel="stylesheet" href="./css/forum.css" />
+    <link rel="stylesheet" href="css/adminStyle.css" />
+    <link rel="stylesheet" href="css/forum.css" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
@@ -59,8 +59,6 @@
           </button>
           <div class="dropdown-container">
             <a href="#">商家資訊</a> 
-            <a href="#">地圖留言</a>
-            <a href="#">我的最愛</a> 
             <a href="#">留言檢舉</a>
           </div>
           <a href="#services">聊天室</a>
@@ -84,78 +82,44 @@
         />
       </div>
       <div class="report_handle">
-        <a href="./adminForumArticle.html" class="all_article">全部文章</a>
-        <a href="./adminForumMessage.html" class="all_message">全部留言</a>
-        <a href="./adminForumReport.html" class="report_article">檢舉處理</a>
+        <a href="adminForumArticle.html" class="all_article">全部文章</a>
+        <a href="adminForumMessage.html" class="all_message">全部留言</a>
+        <a href="adminForumReport.html" class="report_article">檢舉處理</a>
       </div>
       <!-- 主要內容 -->
+      <div class="overlay-returned hidden"></div>
       <div class="container">
         <table class="tableReports order-table">
           <thead>
             <tr>
-              <th>檢舉編號</th>
+              <th>編號</th>
               <th>文章編號</th>
               <th>留言編號</th>
+              <th>檢舉原因</th>
               <th>檢舉人員</th>
               <th>處理人員</th>
-              <th>檢舉時間</th>
-              <th>審核時間</th>
               <th>處理狀態</th>
-              <th>檢舉原因</th>
+              <th>文章留言</th>
             </tr>
           </thead>
           <tbody>
-            <!-- 整個結構從 js 添加 -->
-            <tr>
-              <td>檢舉編號檢舉編號</td>
-              <td class="whole">文章編號</td>
-              <td class="whole">留言編號</td>
-              <td>檢舉人員檢舉人員</td>
-              <td>處理人員處理人員</td>
-              <td>檢舉時間檢舉時間</td>
-              <td>審核時間審核時間</td>
-              <td>處理狀態</td>
-              <td class="whole">檢舉原因檢舉原因</td>
-            </tr>
-            <tr>
-              <td>檢舉編號檢舉編號</td>
-              <td class="whole">文章編號</td>
-              <td class="whole">留言編號</td>              
-              <td>檢舉人員檢舉人員</td>
-              <td>處理人員處理人員</td>
-              <td>檢舉時間檢舉時間</td>
-              <td>審核時間審核時間</td>
-              <td>處理狀態</td>
-              <td class="whole">檢舉原因檢舉原因</td>
-            </tr>
-            <tr>
-              <td>檢舉編號檢舉編號</td>
-              <td class="whole">文章編號</td>
-              <td class="whole">留言編號</td>              
-              <td>檢舉人員檢舉人員</td>
-              <td>處理人員處理人員</td>
-              <td>檢舉時間檢舉時間</td>
-              <td>審核時間審核時間</td>
-              <td>處理狀態</td>
-              <td class="whole">檢舉原因檢舉原因</td>
-            </tr>
           </tbody>
         </table>
 
         <!-- RETURNED CASES -->
-        <div class="modal-returned hidden">
+        <!-- <div class="modal-returned hidden">
           <div class="modal-container">
             <h2>檢舉原因</h2>
             <button class="btn--close-modal-returned">&times;</button>
             <div class="report_content">
               檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容檢舉內容
-              <!-- 內容從 js 添加 -->
+              內容從 js 添加
             </div>
             <br />
             <br />
 
-            <!-- 被檢舉的文章或留言到時先二擇一呈現就好 -->
-            <!-- 整個從 js 添加 -->
+            被檢舉的文章或留言到時先二擇一呈現就好
+            整個從 js 添加
             <h3>文章標題</h3>
             <div class="article_content">
               <div>發文者</div>
@@ -164,7 +128,7 @@
               <div style="text-align: right; font-size: 0.8em">編輯時間</div>
             </div>
 
-            <!-- 整個從 js 添加 -->
+            整個從 js 添加
             <h3>留言</h3>
             <div class="article_message">
               <div>留言者</div>
@@ -177,10 +141,11 @@
             <div class="cancel_report"><span class="cancel">取消檢舉</span></div>
           </div>
         </div>
-        <div class="overlay-returned hidden"></div>
+        <div class="overlay-returned hidden"></div> -->
       </div>
     </div>
-    <script src="./js/forumScript.js" charset="UTF-8"></script>
+    <script src="js/forumScript.js" charset="UTF-8"></script>
+    <script src="js/reportScript.js" charset="UTF-8"></script>
 
   </body>
 </html>

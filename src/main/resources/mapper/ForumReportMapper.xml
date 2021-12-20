@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="web.forumReport.mapper.ForumReportMapper">
-
+	
+	<resultMap id="ReptJoinMap" type="ForumReportBo">
+		<id property="forArtNo" column="FOR_ART_NO" />
+		<result property="forTypeNo" column="FOR_TYPE_NO" />
+		<result property="artStateNo" column="ART_STATE_NO" />
+		<result property="forArtPosttime" column="FOR_ART_POSTTIME" />
+		<result property="forArtEdittime" column="FOR_ART_EDITTIME" />
+		<result property="forArtTitle" column="FOR_ART_TITLE" />
+		<result property="forArtContent" column="FOR_ART_CONTENT" />
+		<result property="forArtView" column="FOR_ART_VIEW" />
+		<result property="memAcct" column="MEM_ACCT" />
+		<result property="forMsgNo" column="FOR_MSG_NO" />
+		<result property="memAcctMsg" column="MAM" />
+		<result property="forMsgPosttime" column="FOR_MSG_POSTTIME" />
+		<result property="forMsgContent" column="FOR_MSG_CONTENT" />
+		<result property="forMsgState" column="FOR_MSG_STATE" />
+		<result property="forType" column="FOR_TYPE" />
+		<result property="forReptNo" column="FOR_REPT_NO" />	
+		<result property="forMsgNoRept" column="MNR" />	
+		<result property="memAcctRept" column="MAR" />	
+		<result property="adminAcct" column="ADMIN_ACCT" />	
+		<result property="forReptState" column="FOR_REPT_STATE" />	
+		<result property="forReptContent" column="FOR_Rept_Content" />	
+	</resultMap>
+	
 	<select id="listAll" resultType="ForumReport">
 		select * from FORUM_REPORT
 	</select>
@@ -10,12 +34,25 @@
 		select * from FORUM_REPORT
 		where = #{forReptNo}
 	</select>
+	
+	<select id="artJoinAll" resultMap="ReptJoinMap">
+		select 
+		R.FOR_REPT_NO, R.FOR_REPT_STATE, R.FOR_REPT_CONTENT, R.FOR_ART_NO, R.FOR_MSG_NO as MNR, R.MEM_ACCT as MAR, R.ADMIN_ACCT,
+		A.*,
+        M.MEM_ACCT as MAM, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT, M.FOR_MSG_STATE, M.FOR_ART_NO, M.FOR_MSG_NO
+		from 
+        (FORUM_REPORT R 
+		left join FORUM_ARTICLE A
+        on R.FOR_ART_NO = A.FOR_ART_NO)
+        left join FORUM_MESSAGE M
+        on M.FOR_ART_NO = A.FOR_ART_NO
+	</select>
 
 	<insert id="add">
 		insert into FORUM_REPORT
-		(MEM_ACCT, ADMIN_ACCT, FOR_ART_NO, FOR_MSG_NO, FOR_REPT_CONTENT)
+		(MEM_ACCT, FOR_ART_NO, FOR_MSG_NO, FOR_REPT_CONTENT)
 		values
-		(#{memAcct}, #{adminAcct}, #{forArtNo}, #{forMsgNo}, #{forReptContent})
+		(#{memAcct}, #{forArtNo}, #{forMsgNo}, #{forReptContent})
 	</insert>
 
 	<update id="update">
