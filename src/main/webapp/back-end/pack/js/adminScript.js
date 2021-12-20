@@ -32,7 +32,7 @@ function changCss(obj) {
 //json from servlet
 $(function () {
 	var dataUrl =
-	  "http://localhost:8080/okaeri/pack/listAllPack";
+	  "/okaeri/pack/listAllPack";
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", dataUrl);
 	xhr.send();
@@ -244,7 +244,7 @@ $(function () {
       $("div.hidden_form").fadeIn;
       //接收後端資料到前端顯示
       var dataUrl =
-    	  "http://localhost:8081/Project/PackServlet.do?action=insertInfo";
+    	  "/okaeri/pack/listAddrNo";
     	var xhr = new XMLHttpRequest();
     	xhr.open("GET", dataUrl, true);
     	xhr.send();
@@ -331,9 +331,9 @@ $(function () {
    	        	//成功的話傳送資料和關閉燈箱
    	        	//傳送新增資料到Servlet
    	        	 $.ajax({
-					    	url:"http://localhost:8081/Project/PackServlet.do?action=insert",
+					    	url:"/okaeri/pack/add",
 					    	dataType: "json",
-					    	type: "GET",
+					    	type: "POST",
 					    	async: true,
 					    	data: {
 					    		"addrNo" : $(".select").val(),
@@ -387,10 +387,24 @@ $(function () {
 $("table").on("click",".fa-save", function() {
 	console.log("AAA");
 	var tr = $(this).closest("tr");
+	var td = tr.find("td:eq(5)").text();
+	var td1 = tr.find("td:eq(5)").text();
+	if(td == "包裹"){
+		td = 0;	
+	}else{
+		td = 1;
+	}
+	if(td1 == "已領取"){
+		td1 = 0;	
+	}else{
+		td1 = 1;
+	}
+	
 	$.ajax({
-		url:"http://localhost:8081/Project/PackServlet.do?action=update",
+		
+		url:"/okaeri/pack/update",
 		dataType: "json",
-		type: "GET",
+		type: "POST",
 		async: true,
 		data: {
 			//傳給API的參數
@@ -399,8 +413,8 @@ $("table").on("click",".fa-save", function() {
 			"packArrived" :tr.find("td:eq(2)").text(),
 			"packReceived" : tr.find("td:eq(3)").text(),
 			"packLogistics" : tr.find("td:eq(4)").text(), 
-			"packTypeNo" : tr.find("td:eq(5)").text(), 
-			"packState" : tr.find("td:eq(6)").text() 
+			"packTypeNo" : td, 
+			"packState" : td1 
 			
 				
 		},
