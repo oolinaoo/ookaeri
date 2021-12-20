@@ -316,9 +316,10 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 
 
 	@Override
-	public void delete(String mem_acct) {
+	public Integer delete(String mem_acct) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		Integer affectedRows = null;
 		
 		try {
 			Class.forName(Util.DRIVER);
@@ -327,7 +328,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			
 			pstmt.setString(1, mem_acct);
 			
-			pstmt.executeUpdate();
+			affectedRows = pstmt.executeUpdate();
 			//System.out.println("刪除成功");
 			
 		} catch (ClassNotFoundException ce) {
@@ -351,8 +352,48 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 				}
 			}
 		}
-		
+		return affectedRows;
 	}
+
+	
+	
+
+//	@Override
+//	public void deleteMemWithFamMems(String memAcct, Connection con) {
+//		PreparedStatement pstmt = null;
+//		
+//		try {
+//			
+//			pstmt = con.prepareStatement("DELETE FROM OKAERI.MEMBER where MEM_ACCT = ?");
+//			pstmt.setString(1, memAcct);
+//			pstmt.executeUpdate();
+//				
+//			
+//		}catch (SQLException se) {
+//			if( con!=null ) {
+//				try {
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-Mem");
+//					con.rollback();
+//				}catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. "
+//							+ excep.getMessage());
+//				}
+//			}
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		}finally {
+//			if(pstmt != null) {
+//				try {
+//					pstmt.close();
+//				}catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		
+//	}
+
 
 	@Override
 	public MemberVO findByPrimaryKey(String mem_acct) {

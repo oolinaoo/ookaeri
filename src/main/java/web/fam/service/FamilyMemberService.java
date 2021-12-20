@@ -56,6 +56,13 @@ public class FamilyMemberService {
 		dao.delete(famMemNo);
 	}
 	
+//	public Integer deleteFamsWithMemAcct(String memAcct) {
+//		Integer affectedRows = dao.deleteFamsWithMemAcct(memAcct);
+//		return affectedRows;
+//		
+//	}
+	
+	
 	public FamilyMemberVO getOneFam(Integer famMemNo) {
 		return dao.findByPrimaryKey(famMemNo);
 	}

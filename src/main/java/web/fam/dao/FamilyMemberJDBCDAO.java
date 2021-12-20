@@ -10,6 +10,8 @@ import java.util.List;
 
 import util.Util;
 import web.fam.entity.FamilyMemberVO;
+import web.fam.service.FamilyMemberService;
+import web.mem.service.MemberService;
 
 public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 	private static final String INSERT_STMT =
@@ -206,7 +208,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			pstmt.setInt(1, fam_mem_no);
 			
 			pstmt.executeUpdate();
-			System.out.println("刪除成功");
+			//System.out.println("刪除成功");
 			
 		} catch (ClassNotFoundException ce) {
 			ce.printStackTrace();
@@ -231,6 +233,68 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		}
 	}
 	
+	
+//	@Override
+//	public Integer deleteFamsWithMemAcct(String memAcct) {
+//		Connection con = null;
+//		PreparedStatement pstmt = null;
+//		Integer affectedRows = null;
+//		
+//		try {
+//			Class.forName(Util.DRIVER);
+//			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+//			
+//			con.setAutoCommit(false);
+//			
+//			pstmt = con.prepareStatement("DELETE FROM OKAERI.FAMILY_MEMBER where MEM_ACCT = ?");
+//			
+//			pstmt.setString(1, memAcct);
+//			
+//			affectedRows = pstmt.executeUpdate(); //若該帳號無家人，會是0			
+//			
+//			MemberService memSvc = new MemberService();
+//			memSvc.deleteMemWithFams(memAcct, con);
+//			
+//			con.commit();
+//			con.setAutoCommit(true);
+//			System.out.println("刪除住戶帳號" + memAcct + "時,共有同住家人" + affectedRows
+//			+ "人同時被刪除");
+//			
+//		} catch (ClassNotFoundException e) {
+//			throw new RuntimeException("Couldn't load database driver. "
+//					+ e.getMessage());
+//		} catch (SQLException se) {
+//			if(con != null) {
+//				try {
+//					System.err.print("Transaction is being ");
+//					System.err.println("rolled back-由-FamMem");
+//					con.rollback();
+//				} catch (SQLException excep) {
+//					throw new RuntimeException("rollback error occured. "
+//							+ excep.getMessage());
+//				}
+//			}
+//			throw new RuntimeException("A database error occured. "
+//					+ se.getMessage());
+//		} finally {
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException se) {
+//					se.printStackTrace(System.err);
+//				}
+//			}
+//			if (con != null) {
+//				try {
+//					con.close();
+//				} catch (Exception e) {
+//					e.printStackTrace(System.err);
+//				}
+//			}
+//		}
+//		return affectedRows;
+//	}
+
 	@Override
 	public FamilyMemberVO findByPrimaryKey(Integer fam_mem_no) {
 		FamilyMemberVO family_memberVO = null;

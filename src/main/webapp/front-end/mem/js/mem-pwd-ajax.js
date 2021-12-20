@@ -1,3 +1,7 @@
+let path = window.location.pathname; //webapp的專案路徑
+//console.log(path); // /Okaeri/back-end/acct-addr/member.html
+var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
+
 var memAcct = "gina123test1";
 var memPwd = "passwordTest";
 
@@ -7,13 +11,13 @@ $("#memPwd_btn_submit").on('click', function(){
     //將錯誤訊息區塊裡面的span標籤清除
     $("div.errBlock").empty();
     
-//    let r = confirm("確認修改？");
-//    if(!r){
-//        $("#oldPwd").val("");
-//        $("#newPwdOne").val("")
-//        $("#newPwdTwo").val("")
-//        return; //若進入此判斷式，就將輸入過的值清除，並結束程式
-//    }
+    // let r = confirm("確認修改？");
+    // if(!r){
+    //     $("#oldPwd").val("");
+    //     $("#newPwdOne").val("")
+    //     $("#newPwdTwo").val("")
+    //     return; //若進入此判斷式，就將輸入過的值清除，並結束程式
+    // }
 
 
     //抓到使用者輸入舊密碼的值
@@ -42,7 +46,7 @@ $("#memPwd_btn_submit").on('click', function(){
     }
 
     $.ajax({
-        url: "http://localhost:8081/Okaeri/front-end/mem/MemberServlet.do", 
+        url: `${projectPath}/mem/MemberServlet.do`, 
         type: "POST",                 
         data: data,     
         dataType: "json",  
