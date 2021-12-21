@@ -19,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
 	public boolean checkUser(String memAcct, String memPwd) {
 		Login user = mapper.checkUser(memAcct);
 		if (user != null) {
-			if (user.getMemAcct().trim().equals(memAcct) && user.getMemPwd().trim().equals(memPwd)) {
+			if (user.getMemAcct().equals(memAcct) && user.getMemPwd().equals(memPwd)) {
 				return true;
 			}
 		}
@@ -30,7 +30,7 @@ public class LoginServiceImpl implements LoginService {
 	public boolean checkAdmin(String adminAcct, String adminPwd) {
 		Login admin = mapper.checkAdmin(adminAcct);
 		if (admin != null) {
-			if (admin.getAdminAcct().trim().equals(adminAcct) && admin.getAdminPwd().trim().equals(adminPwd)) {
+			if (admin.getAdminAcct().equals(adminAcct) && admin.getAdminPwd().equals(adminPwd)) {
 				return true;
 			}
 		}
