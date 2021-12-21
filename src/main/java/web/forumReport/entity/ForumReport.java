@@ -1,6 +1,8 @@
 package web.forumReport.entity;
 
-public class ForumReport {
+import java.io.Serializable;
+
+public class ForumReport implements Serializable{
 
 	private Integer forReptNo;
 	private Integer forArtNo;

@@ -1,5 +1,6 @@
 package web.forumMessage.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import web.forumReport.entity.ForumReport;
 
-public class ForumMessage {
+public class ForumMessage implements Serializable{
 
 	private Integer forMsgNo;
 	private Integer forArtNo;

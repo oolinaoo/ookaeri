@@ -67,6 +67,13 @@ public class ForumArticleController {
 		return theArticle;
 	}
 	
+	@PostMapping(path = "listByMem", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ForumArticle> listByMem(@RequestBody ForumArticle article) {
+		List<ForumArticle> theArticle = mapper.listByMem(article);
+		return theArticle;
+	}
+	
 	@PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Core add(@RequestBody ForumArticle article) {

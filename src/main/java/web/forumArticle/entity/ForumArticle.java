@@ -1,5 +1,6 @@
 package web.forumArticle.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import web.forumMessage.entity.ForumMessage;
 import web.forumReport.entity.ForumReport;
 import web.forumType.entity.ForumType;
 
-public class ForumArticle {
+public class ForumArticle implements Serializable{
 	
 	private Integer forArtNo;
 	private Integer forTypeNo;

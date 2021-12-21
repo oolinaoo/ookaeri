@@ -12,7 +12,8 @@ public interface ForumArticleMapper {
 	List<ForumArticle> artJoinMsg();
 	List<ForumArticle> typeList(ForumArticle article);
 	List<ForumArticle> artNoJoinMsg(ForumArticle article);
+	List<ForumArticle> listByMem(ForumArticle article);
 	Integer add(ForumArticle article);
 	Integer update(ForumArticle article);
-
+	
 }

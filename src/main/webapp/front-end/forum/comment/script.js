@@ -181,6 +181,7 @@ function report(obj) {
 			xhr.send(data); //送出字串
 		});
       alert ("檢舉成功");
+      window.location = window.location.href;
     }
 }
 
@@ -211,5 +212,6 @@ function reportA(obj) {
 			xhr.send(data); //送出字串
 		});
       alert ("檢舉成功");
+      window.location = window.location.href;
     }
 }
