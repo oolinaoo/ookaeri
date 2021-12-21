@@ -140,11 +140,11 @@
 	</insert>
 
 	<update id="update">
-		update FORUM_ARTICLE
-		MEM_ACCT = #{memAcctArt},
-		FOR_TYPE_NO = #{forTypeNo},
-		FOR_ART_TITLE = #{forArtTitle},
-		FOR_ART_CONTENT = #{forArtContent}
+		update FORUM_ARTICLE set
+			MEM_ACCT = #{memAcctArt},
+			FOR_TYPE_NO = #{forTypeNo},
+			FOR_ART_TITLE = #{forArtTitle},
+			FOR_ART_CONTENT = #{forArtContent}
 		where FOR_ART_NO = #{forArtNo}
 	</update>
 

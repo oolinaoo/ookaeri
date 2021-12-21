@@ -76,8 +76,8 @@ public class ForumArticleController {
 	
 	@PostMapping(path = "findByArtNo", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<ForumArticle> findByArtNo(@RequestBody ForumArticle article) {
-		List<ForumArticle> theArticle = mapper.findByArtNo(article);
+	public ForumArticle findByArtNo(@RequestBody ForumArticle article) {
+		ForumArticle theArticle = mapper.findByArtNo(article);
 		return theArticle;
 	}
 	
