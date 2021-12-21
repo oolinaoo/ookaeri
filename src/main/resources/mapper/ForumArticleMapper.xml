@@ -135,13 +135,12 @@
 		(MEM_ACCT, FOR_TYPE_NO,
 		FOR_ART_TITLE, FOR_ART_CONTENT)
 		values
-		(#{memAcctArt}, #{forTypeNo},
+		(#{memAcct}, #{forTypeNo},
 		#{forArtTitle}, #{forArtContent})
 	</insert>
 
 	<update id="update">
 		update FORUM_ARTICLE set
-			MEM_ACCT = #{memAcct},
 			FOR_TYPE_NO = #{forTypeNo},
 			FOR_ART_TITLE = #{forArtTitle},
 			FOR_ART_CONTENT = #{forArtContent}
