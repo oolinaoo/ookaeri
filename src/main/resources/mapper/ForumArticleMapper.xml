@@ -120,6 +120,15 @@
 		where A.MEM_ACCT = #{memAcct}
 		order by FOR_ART_POSTTIME
 	</select>
+	
+	<select id="findByArtNo" resultMap="ArtJoinMap">
+		select A.*, T.FOR_TYPE
+		from FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+		where A.FOR_ART_NO = #{forArtNo}
+		order by FOR_ART_NO
+	</select>
 
 	<insert id="add">
 		insert into FORUM_ARTICLE
