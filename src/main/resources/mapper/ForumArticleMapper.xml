@@ -59,16 +59,7 @@
 
 	<!-- <select id="typeList" resultMap="ForumArticle"> select * from FORUM_ARTICLE 
 		where 1 = 1 <if test="forTypeNo neq null"> and FOR_TYPE_NO = #{forTypeNo}</if> 
-		</select> -->
-
-	<select id="listByMem" resultType="ArtJoinMap">
-		select A.*, T.FOR_TYPE
-		from FORUM_ARTICLE A
-		inner join FORUM_TYPE T
-		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
-		where A.MEM_ACCT = #{memAcct}
-		order by FOR_ART_POSTTIME
-	</select>
+	</select> -->
 
 	<select id="typeList" resultType="ForumArticle">
 		select * from FORUM_ARTICLE
@@ -119,6 +110,15 @@
 		left join FORUM_MESSAGE M
 		on A.FOR_ART_NO = M.FOR_ART_NO
 		order by FOR_ART_NO
+	</select>
+	
+	<select id="listByMem" resultMap="ArtJoinMap">
+		select A.*, T.FOR_TYPE
+		from FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+		where A.MEM_ACCT = #{memAcct}
+		order by FOR_ART_POSTTIME
 	</select>
 
 	<insert id="add">
