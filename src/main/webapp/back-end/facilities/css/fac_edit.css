@@ -264,8 +264,17 @@ div article form#fac_details input.confirm, input.reset, input.cancel{
   cursor: pointer;
 }
 
-div article form#fac_details div.preview_photo img {
-  display: block;
-  margin: 0 auto;
+div article form#fac_details div.photo{
+  text-align: center;
+}
+
+div article form#fac_details div.photo div{
+  display: inline-block;
+  margin: 0 60px;
+}
+
+div article form#fac_details div.photo img {
+  display: inline-block;
+  vertical-align: top;
   width: 250px;
 }

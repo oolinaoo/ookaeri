@@ -85,7 +85,8 @@
 		set
 			FAC_NAME = #{facName},
 			FAC_MAX = #{facMax},
-			FAC_STATE = #{facState}
+			FAC_STATE = #{facState},
+			FAC_PHOTO = #{facPhoto}
 		where
 			FAC_NO = #{facNo};
 	</update>

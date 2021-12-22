@@ -1,4 +1,12 @@
 $(function () {
+  // 清空各種欄位的函式
+  function clean(){
+    $("form#fac_details")[0].reset();
+    $(`input`).attr("checked", false);
+    $("div.photo").empty();
+    $("div").find("input#fphoto").val("");
+  }
+
   // 操控公設地圖選單
   $(`div#A`).removeAttr("style"); // 預設為 A 棟
   var addr = "A";
@@ -100,7 +108,8 @@ $(function () {
         }
       }
     } else {
-      $("div.overlay").find("div.preview_photo").empty();
+      $("div.overlay").find("div.preview_photo").remove();
+      $("div.edit").find("div.old_preview_photo").remove();
     }
   });
 
@@ -108,8 +117,9 @@ $(function () {
   function preview_picture(file){
     let prereader = new FileReader();
     prereader.addEventListener("load", function(){
-      $("div.overlay").find("div.preview_photo").empty();
-      $("div.overlay").find("div.preview_photo").append(`<img src = "${prereader.result}" class = "preview_img"><br>`);      
+      $("div.overlay").find("div.photo").empty();
+      $("div.edit").find("div.preview_photo").remove();
+      $("div").find("div.photo").append(`<div class="preview_photo">預覽圖：<img src = "${prereader.result}" class = "preview_img"></div>`);      
     });
     prereader.readAsDataURL(file);  // 讀檔
   }
@@ -118,7 +128,8 @@ $(function () {
     if (this.files[0] != undefined){
       preview_picture(this.files[0]);
     } else {
-      $("div.overlay").find("div.preview_photo").empty();
+      $("div.overlay").find("div.preview_photo").remove();
+      $("div.edit").find("div.old_preview_photo").remove();
     }
   });
 
@@ -220,9 +231,7 @@ $(function () {
       complete: function (xhr){
         facilitiesMap(addr);
         // 清空表單
-        $("form#fac_details")[0].reset();
-        $(`input`).attr("checked", false);
-        $("div.preview_photo").empty();
+        clean();
       }
     });
   }
@@ -260,12 +269,8 @@ $(function () {
             }             
           });
         }
-        
-        // 圖片之後要用 session 的方式存，不然如果按了瀏覽卻沒有選圖片，原本的可能被蓋掉變成 null        
-        //         <label for="fphoto">公設圖片：</label>
-        //         <input type="file" id="fphoto" name="fphoto">
-        //         <br><br>`;
 
+        $("div.edit").find("div.photo").append(`<div class = "old_preview_photo">原圖： <img src = "/okaeri/fac/facPhotoByFacNo?facNo=${data[0].facNo}"></div>`);      
       },
       error: function (xhr) {
           console.log("error");
@@ -279,7 +284,6 @@ $(function () {
   $("a").children("div").on("click", function(e){
     if($(this).html() != ""){
       facNoEdit = $(this).closest("a").attr("data-facno");
-      console.log(facNoEdit);
       editFac(facNoEdit);
       $("div.edit").fadeIn();
     }
@@ -323,7 +327,7 @@ $(function () {
         facName: $("div.edit").find("input#fname").val(),
         facMax: $("div.edit").find("select#fmax").val(),
         facState: $("div.edit").find("select#fstate").val(),
-        // facPhoto: $("input#fphoto")[0].files[0],
+        facPhoto: fphoto
       }),
       processData: false,
       contentType : false,
@@ -342,47 +346,33 @@ $(function () {
       },
       complete: function (xhr){
         facilitiesMap(addr);
-        $("form#fac_details")[0].reset();
-        $(`input`).attr("checked", false);
-        $("div.preview_photo").empty();
+        clean();
       }
     });
   }
   // **************************  編輯公設  *********************//
-
-
-
-
   // 關閉新增或修改的彈窗
   $("button.btn_modal_close").on("click", function () {
     $("div.overlay").fadeOut();
     $("div.edit").fadeOut();
-    $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
-    $("div.preview_photo").empty();
+    clean();
   });
   $(document).on("keydown", function (e) {
     if (e.key === "Escape") {
       $("div.overlay").fadeOut();
       $("div.edit").fadeOut();
-      $("form#fac_details")[0].reset();
-      $(`input`).attr("checked", false);
-      $("div.preview_photo").empty();
+      clean();
     }
   });
 
   // 點外面關掉彈窗
   $("div.overlay").on("click", function (e) {
     $("div.overlay").fadeOut();
-    $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
-    $("div.preview_photo").empty();
+    clean();
   });
   $("div.edit").on("click", function (e) {
     $("div.edit").fadeOut();
-    $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
-    $("div.preview_photo").empty();
+    clean();
   });
   $("article").on("click", function (e) {
     e.stopPropagation();
@@ -391,13 +381,11 @@ $(function () {
   $("div").find("input.cancel").on("click", function () {
     $("div.overlay").fadeOut();
     $("div.edit").fadeOut();
-    $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
-    $("div.preview_photo").empty();
+    clean();
   });
 
   $("div").find("input.reset").on("click", function(){
-    $("div.preview_photo").empty();
+    $("div.photo").empty();
   });
 
   // 按下確認新增資料

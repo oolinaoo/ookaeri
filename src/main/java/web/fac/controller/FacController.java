@@ -149,12 +149,8 @@ public class FacController {
 	@PostMapping(path = "facEdit", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Integer facEdit(@RequestBody FacVO facVO) {
-		Integer facNo = facVO.getFacNo();
-		String facName = facVO.getFacName();
-		Integer facMax = facVO.getFacMax();
-		Integer facState = facVO.getFacState();
 		
-		final Integer edit = mapper.facDetailUpdate(facNo, facName, facMax, facState);
+		final Integer edit = mapper.facDetailUpdate(facVO);
 		return edit;
 	}
 	
