@@ -28,7 +28,7 @@
 	</insert>
 	
 	<update id="update">
-		update NEWS SET
+		update NEWS set
 			ADMIN_ACCT = #{adminAcct},
 			NEWS_TYPE_NO = #{newsTypeNo},
 			NEWS_TITLE = #{newsTitle},

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/adminStyle.css" />
+  <link rel="stylesheet" href="css/addr.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+    integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="sidenav">
+    <div class="sidenav-cont">
+      <div class="menu">
+        <span><img class="logo" src="images/logo2.png" />管理員專區</span>
+      </div>
+      <div>
+        <hr />
+        <button class="dropdown-btn">
+          帳號管理 <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="member.html">住戶帳號管理</a> <a href="admin.html">後端帳號管理</a>
+          <a href="address.html">地址資料管理</a>
+        </div>
+        <button class="dropdown-btn">
+          社區交流 <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="#">社區公告</a> <a href="#">社區公約</a>
+        </div>
+        <button class="dropdown-btn">
+          社區論壇 <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="#">論壇</a> <a href="#">論壇留言</a>
+          <a href="#">論壇檢舉</a>
+        </div>
+        <button class="dropdown-btn">
+          公設管理 <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="#">公設列表</a> <a href="#">公設租借紀錄</a>
+          <a href="#">公設編輯</a>
+        </div>
+        <button class="dropdown-btn">
+          美食地圖 <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="#">商家資訊</a> <a href="#">地圖留言</a>
+          <a href="#">我的最愛</a> <a href="#">留言檢舉</a>
+        </div>
+        <a href="#services">聊天室</a>
+        <a href="#clients">管理費用</a>
+        <a href="#contact">管理包裹</a>
+        <a href="#contact">登出</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <h3>地址資料管理</h3>
+    <div class="search-bar">
+      <label>search</label>
+      <input type="text" class="searchTerm light-table-filter" placeholder="What are you looking for?"
+        data-table="order-table" />
+      <a href="#" class="newPost-button">新增</a>
+    </div>
+
+    <div class="addr_table_container">
+      <table class="tableContents order-table" id="addr_table">
+        <thead>
+          <tr>
+            <th>地址編號</th>
+            <th>棟號</th>
+            <th>樓號</th>
+            <th>房號</th>
+            <th>編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr>
+            <td class='addrNo'>1</td>
+            <td class='addrBuild'>2</td>
+            <td class='addrFloor'>3</td>
+            <td class='addrRoom'>4</td>
+            <td class='del_edit_btn'>
+                <i class='fa fa-minus-circle'></i> 
+                <i class='fa fa-edit'></i> 
+                <div class="member_overlay" style="border: 1px solid red;"></div>
+            </td>
+          </tr>
+          <tr>
+            <td class='addrNo'>5</td>
+            <td class='addrBuild'>6</td>
+            <td class='addrFloor'>7</td>
+            <td class='addrRoom'>8</td>
+            <td class='del_edit_btn'>
+                <i class='fa fa-minus-circle'></i> 
+                <i class='fa fa-edit'></i> 
+                <div class="member_overlay" style="border: 1px solid red;"></div>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+
+    <!--**********************************
+        Lightbox start 參考於老師的Jqeury講義，關鍵字搜尋「燈箱」
+    ***********************************-->
+    <div class="member_overlay" id="member_overlay_add" style="border: 1px solid red;">
+      <!-- <article>
+        <button type="button" class="mem_btnModalClose">關閉</button>
+        <form action="#" method="#" id="address_form">
+            <table id="addr_modal_table">
+                <tbody>
+                    <tr>
+                        <th>地址編號</th>
+                        <td>
+                            <input type="text" class="addr_no" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>棟號</th>
+                        <td>
+                            <input type="text" class="build_no" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>樓號</th>
+                        <td>
+                            <input type="text" class="floor_no" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>房號</th>
+                        <td>
+                            <input type="text" class="room_no" value="">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="confirm_block"></div>
+        </form>
+    </article> -->
+    </div>
+    <!--**********************************
+        Lightbox end
+    ***********************************-->
+  </div>
+  <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+  
+  <!-- 絢雯的程式碼 我只留了sidebar跟搜尋框的程式碼 -->
+  <script src="js/adminScript.js" charset="UTF-8"></script>
+
+  <!-- 沒有Ajax的js檔，可以先拿這個看彈窗的運作。
+    有Ajax的那個js檔因為會接到後端，所以沒有接到後端程式的話，彈窗會無法正常運作。 -->
+  <!-- <script src="js/addr.js"></script> -->
+  
+  <!-- 有Ajax的js檔 -->
+  <script src="js/addrAjax.js"></script>
+</body>
+
+</html>

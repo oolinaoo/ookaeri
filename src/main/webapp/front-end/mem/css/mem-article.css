@@ -1,0 +1,87 @@
+/* mem_myArticle.html
+=============================================*/
+
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+
+html {
+  font-family: "Montserrat", sans-serif;
+}
+
+div.artTable_block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px 0px;
+
+    
+}
+
+#mem-article-table {
+    /* border:1px solid black; */
+    /* display: block; */
+    font-size: 17px;
+    color: #554236;
+    border-collapse: collapse;
+    /* margin: 30px auto 0px; */
+}
+
+
+div.artTable_block table th {
+  /* background-color: #fffcf0; */
+  text-align: center;
+  border: none;
+  border-bottom: 2px dashed #fffcf0;
+  height: 30px;
+  
+}
+
+div.artTable_block table td {
+  padding: 5px 10px;
+  border: none;
+  border-bottom: 2px dashed #fffcf0;
+  border-left: 2px solid #fffcf0;
+  font-size: 16px;
+  color: #6a4028;
+   
+}
+
+div.artTable_block table td:first-child{
+    border-left: none;
+     
+}
+
+div.artTable_block table tr:last-child > td{
+    /* border-bottom: none; */
+}
+
+#mem-article-table tbody tr {
+    display: none; /* 這個設定好像可有可無 */
+}
+
+/************ 分頁樣式 ************/
+#pageStyle {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    line-height: 32px;
+    text-align: center;
+    color: #b19693;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+#pageStyle:hover {
+    background-color: #d7c4bb;
+    border-radius: 50%;
+}
+
+#pageStyle .active {
+    color: #ffffff;
+}
+
+
+
+
+
+

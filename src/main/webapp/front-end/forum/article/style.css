@@ -283,6 +283,7 @@ hr {
 }
 
 .forum-content p {
+	text-align: justify;
 	white-space: pre-line;
 	word-wrap: break-word;
 	overflow: hidden;
