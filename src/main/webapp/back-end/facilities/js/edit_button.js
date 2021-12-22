@@ -1,6 +1,4 @@
 //edit Buttons
-console.log("Button here");
-
 $("table").on("click", ".fa-minus-circle", function () {
   if (
     prompt(

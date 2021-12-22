@@ -146,6 +146,10 @@
     /* ================== self add ================== */
     $("button.lb-reserve").on("click",function() {
       self.end();
+      for(var i = 1; i <= 31; i++){
+        $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
+      }
+      
       $("html, body").animate(
           { scrollTop: $("#facs_calendar").offset().top }, 
           { duration: 1000, easing: "swing"}
@@ -184,13 +188,14 @@
             $.each(data, function(index, item){
               var date = new Date(item.histDate);
 
-              for(var i = 1; i<=31; i++){
+              for(var i = 1; i <= 31; i++){
                 if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+                  console.log("Here's lightbox.js");
                   console.log($(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number"));
                   $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
                   // if(item.total >= )
                   $(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
-                }
+                } 
               }
 
             });
@@ -206,8 +211,6 @@
 
       return false;
     });
-
-
 
     /* ================== self add ================== */
 

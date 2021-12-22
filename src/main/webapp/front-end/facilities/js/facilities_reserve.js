@@ -1,15 +1,19 @@
 $(function () {
   // ajax 的 data 之後要改成動態載入的！！
   // var resData = JSON.stringify({ facNo: 3, histDate: "2021-12-19"});
-
+  var wd = sessionStorage.getItem("whichDay");
+  var wm = sessionStorage.getItem("whichMonth");
+  var wy = sessionStorage.getItem("whichYear");
+  var date = `${wy}-${wm}-${wd}`;
+  var facNumber = sessionStorage.getItem("facName");
   // 這邊要先載入預約資料 
   function facResHist(date) {
     $.ajax({
       url: "/okaeri/fachist/facResTimeHist",
       type: "POST",
       data: JSON.stringify({
-        facNo: 3,
-        histDate: "2021-12-19",
+        facNo: facNumber,
+        histDate: date
       }),
       dataType: "json",
       headers: {
@@ -57,10 +61,8 @@ $(function () {
         console.log(xhr);
       }
     });
-
-
   }
-  facResHist();
+  facResHist(date);
   ///////////////////////////////////
 
 

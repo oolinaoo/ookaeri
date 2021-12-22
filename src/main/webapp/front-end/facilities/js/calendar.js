@@ -95,6 +95,9 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 			// Build the month
 			function setMonthly(month, year) {
 				$(parent).data("setMonth", month).data("setYear", year);
+				// 將月份和年份資料存進 Session Storage	################################################################################################################################################################################################################################################
+				sessionStorage.setItem("whichYear", year);
+				sessionStorage.setItem("whichMonth", month);
 
 				// Get number of days
 				var index = 0,
@@ -148,11 +151,6 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 
 				// Reset button
 				$(parent + " .monthly-header-title").html('<a href="#" class="monthly-header-title-date" onclick="return false">' + monthNames[month - 1] + " " + year + "</a>" + (settingCurrentMonth && $(parent + " .monthly-event-list").hide() ? "" : '<a href="#" class="monthly-reset"></a>'));
-
-				// 將月份和年份資料存進 Local Storage	################################################################################################################################################################################################################################################
-				sessionStorage.setItem("month", month);
-				sessionStorage.setItem("year", year);
-
 
 				// Account for empty days at start
 				if (weekStartsOnMonday) {
@@ -466,9 +464,11 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 			// Click A Day      之後要用再來開
 			$(document.body).on("click touchstart", parent + " .monthly-day", function (event) {
 				// If events, show events list
+				console.log(this);
 				var whichDay = $(this).data("number");
 
 				console.log(whichDay);
+				sessionStorage.setItem("whichDay", whichDay);
 
 				// if (options.mode === "event" && options.eventList) {
 				// 	var theList = $(parent + " .monthly-event-list"),
@@ -516,13 +516,3 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 	});
 }(jQuery));
 
- 
-/*******************************
- ****                       ****
- ****                       ****
- ****    FACILITIES LIST    ****
- ****      TO CALENDAR      ****
- ****                       ****
- *******************************/
-
-// //========================= self add =============================

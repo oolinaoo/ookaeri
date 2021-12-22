@@ -49,8 +49,6 @@ for (i = 0; i < dropdown.length; i++) {
         Arr.forEach.call(inputs, function (input) {
           input.oninput = _onInputEvent;
         });
-        // $("body").append("<script src='./js/pagination.js' type='text/javascript'></script>");
-
       },
     };
   })(Array.prototype);
