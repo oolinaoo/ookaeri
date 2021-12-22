@@ -22,4 +22,9 @@ public interface FacMapper {
 			@Param("startTime") Integer startTime, @Param("endTime") Integer endTime);
 	
 	List<FacVO> facDetail(@Param("facNo") Integer facNo);
+	Integer facDetailUpdate(@Param("facNo") Integer facNo, @Param("facName") String facName, 
+			@Param("facMax") Integer facMax, @Param("facState") Integer facState);
+	Integer deleteDate(@Param("facNo") Integer facNo); 
+	Integer deleteTime(@Param("facNo") Integer facNo);
+	
 }

@@ -175,6 +175,7 @@ div article h1 {
 
 div > article{
   background-color: #f2f2f2;
+  max-height: 80vh;
   width: 90%;
   max-width: 1200px;
   border-radius: 10px;
@@ -185,6 +186,7 @@ div > article{
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 100;
+  overflow: auto;
 }
 
 div article form#fac_details {
@@ -260,4 +262,10 @@ div article form#fac_details div.action{
 div article form#fac_details input.confirm, input.reset, input.cancel{
   width: 50px;
   cursor: pointer;
+}
+
+div article form#fac_details div.preview_photo img {
+  display: block;
+  margin: 0 auto;
+  width: 250px;
 }

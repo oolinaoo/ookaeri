@@ -145,4 +145,26 @@ public class FacController {
 		return list;
 	}
 	
+	// 公設更新
+	@PostMapping(path = "facEdit", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Integer facEdit(@RequestBody FacVO facVO) {
+		Integer facNo = facVO.getFacNo();
+		String facName = facVO.getFacName();
+		Integer facMax = facVO.getFacMax();
+		Integer facState = facVO.getFacState();
+		
+		final Integer edit = mapper.facDetailUpdate(facNo, facName, facMax, facState);
+		return edit;
+	}
+	
+	// 刪除公設的開放時間和日期
+	@PostMapping(path = "facDateTimeDelete", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Integer facDateTimeDelete(@RequestBody FacVO facVO) {
+		Integer facNo = facVO.getFacNo();
+		Integer delete = mapper.deleteDate(facNo);
+		delete = mapper.deleteTime(facNo);
+		return delete;
+	}
 }

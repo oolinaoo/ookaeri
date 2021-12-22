@@ -79,5 +79,25 @@
 			FAC_NO = #{facNo};
 	</select>
 	
+	<update id="facDetailUpdate">
+		update 
+			FACILITIES
+		set
+			FAC_NAME = #{facName},
+			FAC_MAX = #{facMax},
+			FAC_STATE = #{facState}
+		where
+			FAC_NO = #{facNo};
+	</update>
+	
+	<delete id="deleteDate">
+		delete from FACILITIES_DATE where FAC_NO = #{facNo};
+	</delete>
+		
+	<delete id="deleteTime">
+		delete from FACILITIES_TIME where FAC_NO = #{facNo};
+	</delete>
+		
+		
 		
 </mapper>
