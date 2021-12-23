@@ -106,7 +106,7 @@ $(function () {
 
 // LightBox
 // returned cases //
-document.addEventListener("click", function(e){
+$("table").on("click", function(e){
 
 	e.preventDefault();
 

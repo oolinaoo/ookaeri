@@ -15,7 +15,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>memberFilter</filter-name>
-		<url-pattern>/front-end/news/news.html</url-pattern>
+		<url-pattern>/front-end/rule/rule.html</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
