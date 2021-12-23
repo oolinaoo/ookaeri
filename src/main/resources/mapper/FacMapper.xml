@@ -6,9 +6,17 @@
 		select * from FACILITIES order by FAC_NO asc;
 	</select>
 	
+	<select id="listOne" resultType="FacVO">
+		select * from FACILITIES where FAC_NO = #{facNo};
+	</select>
+	
 	<select id="listAllDate" resultType="String">
 		select FAC_OPEN_DATE from FACILITIES_DATE where FAC_NO = #{facNo};
 	</select>
+	
+	<select id="listOpenTime" resultType="FacVO">
+		select FAC_NO, FAC_OPEN_TIME, START_TIME, END_TIME from FACILITIES_TIME where FAC_NO = #{facNo};
+	</select>	
 	
 	<select id="listStartTime" resultType="Integer">
 		select 
@@ -79,5 +87,26 @@
 			FAC_NO = #{facNo};
 	</select>
 	
+	<update id="facDetailUpdate">
+		update 
+			FACILITIES
+		set
+			FAC_NAME = #{facName},
+			FAC_MAX = #{facMax},
+			FAC_STATE = #{facState},
+			FAC_PHOTO = #{facPhoto}
+		where
+			FAC_NO = #{facNo};
+	</update>
+	
+	<delete id="deleteDate">
+		delete from FACILITIES_DATE where FAC_NO = #{facNo};
+	</delete>
+		
+	<delete id="deleteTime">
+		delete from FACILITIES_TIME where FAC_NO = #{facNo};
+	</delete>
+		
+
 		
 </mapper>

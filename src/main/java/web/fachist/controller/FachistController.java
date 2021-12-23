@@ -35,7 +35,6 @@ public class FachistController extends HttpServlet{
 		return insert;		// insert = 1
 	}
 	
-	
 	// 列出全部租借紀錄，後臺用
 	@PostMapping(path = "fachistView")
 	@ResponseBody
@@ -64,6 +63,14 @@ public class FachistController extends HttpServlet{
 	public List<Map> facResDateHist(@RequestParam(value = "facNo") Integer facNo, @RequestParam(value = "month") Integer month ){
 		List<Map> facMonth = mapper.listFacDateHistByMonth(facNo, month);
 		return facMonth;
+	}
+	
+	// 取消租借公設
+	@PostMapping(path = "fachistDelete", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Integer fachistDelete(@RequestBody FachistVO fachistVO) {
+		final int delete = mapper.deleteFachist(fachistVO);
+		return delete;
 	}
 	
 }

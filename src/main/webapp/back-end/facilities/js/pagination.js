@@ -53,7 +53,7 @@ $pagess[0].style.color = "#ffffff";
 
 $("a#pageStyle").on("click", function () {
   $("html, body").animate(
-    { scrollTop: $("h1.fac_title").offset().top },
+    { scrollTop: $("h3").offset().top },
     { duration: 500, easing: "swing" }
   );
 });

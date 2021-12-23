@@ -33,13 +33,22 @@ public class FacController {
 	private FacMapper mapper;
 	public Integer facInsertNo;
 	
-	// 公設基本資料
+	// 全部公設基本資料
 	@PostMapping(path = "listAllFac")
 	@ResponseBody
 	@Transactional(readOnly = true)
 	public List<FacVO> listAllFac() {
 		final List<FacVO> list = mapper.listAll();
 		return list;
+	}
+	
+	// 單一公設基本資料
+	@PostMapping(path = "listOneFac", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public FacVO listOneFac(@RequestBody FacVO facVO) {
+		Integer facNo = facVO.getFacNo();
+		final FacVO oneFacVO = mapper.listOne(facNo);
+		return oneFacVO;
 	}
 	
 	// 公設開放日，回傳串接之後的字串
@@ -56,6 +65,15 @@ public class FacController {
 		}
 		
 		return allDate;
+	}
+	
+	// 公設開放時間VO
+	@PostMapping(path = "openTime", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<FacVO> openTime(@RequestBody FacVO facVO){
+		Integer facNo = facVO.getFacNo();
+		final List<FacVO> list = mapper.listOpenTime(facNo);
+		return list;
 	}
 	
 	// 公設開放時間，回傳串接之後的字串
@@ -145,4 +163,22 @@ public class FacController {
 		return list;
 	}
 	
+	// 公設更新
+	@PostMapping(path = "facEdit", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Integer facEdit(@RequestBody FacVO facVO) {
+		
+		final Integer edit = mapper.facDetailUpdate(facVO);
+		return edit;
+	}
+	
+	// 刪除公設的開放時間和日期
+	@PostMapping(path = "facDateTimeDelete", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Integer facDateTimeDelete(@RequestBody FacVO facVO) {
+		Integer facNo = facVO.getFacNo();
+		Integer delete = mapper.deleteDate(facNo);
+		delete = mapper.deleteTime(facNo);
+		return delete;
+	}
 }

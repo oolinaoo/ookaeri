@@ -1,28 +1,51 @@
-//向後端請求未繳費資料
-//json from servlet
+//向後端請求包裹資料
 $(function () {
-	var dataUrl =
-	  "/okaeri/payment/unPaid";
+	console.log("請求包裹資料");
+	refresh();	
+	
+});
+//向後端請求包裹資料
+function refresh() {
+  $("table tbody").empty();
+  $("div.page").remove();
+  console.log("重整");
+  var dataUrl =
+	  "/okaeri/pack/memListReceived";
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", dataUrl, true);
+	xhr.open("GET", dataUrl);
 	xhr.send();
 	xhr.onload = function () {
 	  var data = JSON.parse(this.responseText);
 	  console.log(data);
 	  for (var i = 0; i < data.length; i++) {
-		if(data[i].payState == 0 ){
-			data[i].payState = "未繳費";
-		}else if(data[i].payState == 1){
-			data[i].payState = "已繳費";
-		} 
+		  if(data[i].packReceived == null){
+			  data[i].packReceived = ""; 
+		  }
+		  if(data[i].packTypeNo == 0){
+			  data[i].packTypeNo = "包裹";
+		  }else{
+			  data[i].packTypeNo = "信件";
+		  }
+		  if(data[i].packState == 0){
+			  data[i].packState = "未領取"
+		  }else{
+			  data[i].packState = "已領取"
+		  }
 		$("table tbody").append(
-				"<tr><td class='payNo' >" + data[i].payNo +"</td>"
-				+"<td class='payPeriod' >" + data[i].payPeriod +"</td>"
-				+"<td class='payAmount' >" + data[i].payAmount +"</td>"
-				+"<td class='payDeadline'>" + data[i].payDeadline +"</td>" 
-				+"<td class='payState' >" + data[i].payState +"</td>" 
-				+"</tr>"
+				"<tr><td class='packNo' name='packNo' contenteditable='false'>" + 
+				data[i].packNo +
+				"</td><td class='packArrived' name='packArrived'  contenteditable='false'>" +
+				data[i].packArrived +
+				"</td><td class='packReceived' name='packReceived'  contenteditable='false'>" +
+				data[i].packReceived +
+				"</td><td class='packLogistics' name='packLogistics'  contenteditable='false'>" +
+				data[i].packLogistics +
+				"</td><td class='packTypeNo' name='packTypeNo'  contenteditable='false'>" +
+				data[i].packTypeNo +
+				"</td><td class='packState' name='packState'  contenteditable='false'>" +
+				data[i].packState 
 		);
+			
 	  }
 	  var table = $("table");
 	  var currentPage = 0; // 當前頁默認值為0
@@ -60,4 +83,4 @@ $(function () {
 	  pagess[0].style.backgroundColor = "#B5495B";
 	  pagess[0].style.color = "#ffffff";
 	};
-});
+} 

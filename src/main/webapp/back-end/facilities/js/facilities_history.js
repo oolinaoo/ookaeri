@@ -38,7 +38,7 @@ $(function () {
         console.log(xhr);
       },
       complete: function (xhr) {
-        $("body").append("<script src='./js/edit_button.js' type='text/javascript'></script>");
+        // $("body").append("<script src='./js/edit_button.js' type='text/javascript'></script>");
 
       },
     });
@@ -46,4 +46,9 @@ $(function () {
 
   // 呼叫 抓資料庫的函式
   listAllReservedHistory();
+
+  // $("input.searchTerm").on("input", function(){
+  //   $("body").append("<script src='./js/pagination.js' type='text/javascript'></script>");
+  // });
+
 });

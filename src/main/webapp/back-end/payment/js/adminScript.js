@@ -243,9 +243,9 @@ $(function () {
     	 if (r) {
     		 $("div.error_block").remove();
     		//將燈箱輸入的值放入陣列中 //住戶帳號、地址編號、繳費期限、繳費金額、繳費期數、收費者、繳費狀態
-    	        let row_list = new Array(7);
+    	        let row_list = new Array(6);
 
-    	        for (var i = 0; i <= 6; i++) {
+    	        for (var i = 0; i <= 5; i++) {
     	            let item = $("#paymentform").find("div").eq(i).children("input").val();
     	            row_list[i] = item.trim();
     	            console.log("row_list[i]");
@@ -255,7 +255,7 @@ $(function () {
     	      //正規表達式驗證
     	        let n = 0;
     	        let html_list = "";
-    	        for (var i = 0; i <= 6; i++) {
+    	        for (var i = 0; i <= 5; i++) {
     	            if(i == 0){
     	                let re = /^[(a-zA-Z0-9)]{1,10}$/;
     	                if( re.test( row_list[i]) ){
@@ -310,15 +310,6 @@ $(function () {
     	                        <div class="error_msg">收費者：不可空白</div>
     	                    `;
     	                }
-    	            }else if(i == 6){
-    	                let re = /^[0-1]{1}$/;
-    	                if( re.test( row_list[i]) ){
-    	                    n+=1;
-    	                }else{
-    	                    html_list += `
-    	                        <div class="error_msg">繳費狀態：不可空白，需輸入數字0或1</div>
-    	                    `;
-    	                }
     	            }else{
     	            	console.log("我沒進入到正則表達");
     	            }
@@ -326,7 +317,7 @@ $(function () {
     	        let error_block = `<div class="error_block">${html_list}</div>`;
 
     	        //如果以上有任何一個驗證錯誤，n就不等於3
-    	        if(n != 7){
+    	        if(n != 6){
     	            //將錯誤訊息加入燈箱中
     	            $("#paymentform").prepend(error_block);
     	        }else{
@@ -343,13 +334,14 @@ $(function () {
 								"payDeadline" : $("#payDeadline").val(),
 								"payAmount" : $("#payAmount").val(),
 								"payPeriod" : $("#payPeriod").val(),
-								"adminAcct" : $("#adminAcct").val(),
-								"payState" : $("#payState").val()    //傳給API的參數
+								"adminAcct" : $("#adminAcct").val()   //傳給API的參數
 					    	},
 					    	success: function(data){
 					    		//成功的話，執行此區塊
 					                alert("success");
-					    	},
+					    	},complete: function(xhr){      // request 完成之後執行(在 success / error 事件之後執行)
+    							refresh();
+  							 }
 					  });
     	        	 $("div.hidden_form").css("display", "none");
     	        	 $("div.hidden_form").fadeOut;
@@ -367,33 +359,7 @@ $(function () {
     
     console.log("111");
 });
-//傳送新增資料到Servlet
-//$(document).ready(function (){
-//	$("button.btn_confirm")
-//			.on(
-//					"click",
-//					function() {
-//						 $.ajax({
-//						    	url:"http://localhost:8081/Project/PayServlet?action=insert",
-//						    	dataType: "json",
-//						    	type: "GET",
-//						    	async: true,
-//						    	data: {
-//						    		"memAcct" : $("#memAcct").val(),
-//									"addrNo" : $("#addrNo").val(),
-//									"payDeadline" : $("#payDeadline").val(),
-//									"payAmount" : $("#payAmount").val(),
-//									"payPeriod" : $("#payPeriod").val(),
-//									"adminAcct" : $("#adminAcct").val(),
-//									"payState" : $("#payState").val()    //傳給API的參數
-//						    	},
-//						    	success: function(data){
-//						    		//成功的話，執行此區塊
-//						                alert("success");
-//						    	},
-//						  });
-//					});			
-//});	
+
 
 //將修改的資料傳送到Servlet
 $("table").on("click",".fa-save", function() {
@@ -460,3 +426,81 @@ $(function () {
 		console.log("請求排程器");
 	  }
 });
+/*請求頁面資料*/	
+function refresh() {
+  $("table tbody").empty();
+  $("div.page").remove();
+  console.log("重整");
+  var dataUrl =
+	  "/okaeri/payment/listAllPayment";
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", dataUrl, true);
+	xhr.send();
+	xhr.onload = function () {
+	  var data = JSON.parse(this.responseText);
+	  console.log(data);
+	  for (var i = 0; i < data.length; i++) {
+		if(data[i].payWay == null ){
+			data[i].payWay = "未繳交";
+		}  
+		if(data[i].payDate == null ){
+			data[i].payDate = "";
+		}
+		if(data[i].payState == 0 ){
+			data[i].payState = "未繳費";
+		}else if(data[i].payState == 1){
+			data[i].payState = "已繳費";
+		} 
+		$("table tbody").append(
+				"<tr><td class='payNo' contenteditable='false'>" + data[i].payNo +"</td>"
+				+"<td class='memAcct' contenteditable='false'>" + data[i].memAcct +"</td>"
+				+"<td class='addrNo' contenteditable='false'>" + data[i].addrNo +"</td>"
+				+"<td class='payDate' contenteditable='false'>" + data[i].payDate +"</td>" 
+				+"<td class='payDeadline' contenteditable='false'>" + data[i].payDeadline +"</td>" 
+				+"<td class='payAmount' contenteditable='false'>" + data[i].payAmount + "</td>"
+				+"<td class='payRecentCall' contenteditable='false'>" + data[i].payRecentCall +"</td>"
+				+"<td class='payPeriod' contenteditable='false'>" + data[i].payPeriod +"</td>"
+				+"<td class='payWay' contenteditable='false'>" + data[i].payWay +"</td>"
+				+"<td class='adminAcct' contenteditable='false'>" + data[i].adminAcct +"</td>"
+				+"<td class='payState' contenteditable='false'>" + data[i].payState +"</td>"
+				+"<td class='finalActionsCol'><i class='fa fa-minus-circle' aria-hidden='true'></i> <i class='fa fa-edit' aria-hidden='true'></i> </td>" 
+				+"</tr>"
+		);
+	  }
+	  var table = $("table");
+	  var currentPage = 0; // 當前頁默認值為0
+	  var pageSize = 8; // 每一頁顯示的數目
+	  table.bind("paging", function () {
+		table
+		  .find("tbody tr")
+		  .hide()
+		  .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
+		  .show();
+	  });
+	  var sumRows = table.find("tbody tr").length;
+	  var sumPages = Math.ceil(sumRows / pageSize); // 總頁數
+
+	  var pager = $('<div class="page"></div>'); // 新建div，放入a標簽,顯示底部分頁碼
+	  for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
+		$(
+		  '<a href="#" id="pageStyle" onclick="changCss(this)"><span>' +
+			(pageIndex + 1) +
+			"</span></a>"
+		)
+		  .bind("click", { newPage: pageIndex }, function (event) {
+			currentPage = event.data["newPage"];
+			table.trigger("paging");
+			// 觸發分頁函數
+		  })
+		  .appendTo(pager);
+		pager.append(" ");
+	  }
+	  pager.insertAfter(table);
+	  table.trigger("paging");
+
+	  // 默認第一頁的a標簽效果
+	  var pagess = $("#pageStyle");
+	  pagess[0].style.backgroundColor = "#B5495B";
+	  pagess[0].style.color = "#ffffff";
+	};
+}

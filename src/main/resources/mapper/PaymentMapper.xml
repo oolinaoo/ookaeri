@@ -6,4 +6,47 @@
 		select * from MANAGEMENT_PAYMENT
 	</select>
 	
+	<select id="listMemAcct" resultType="String">
+		SELECT MEM_ACCT  FROM MEMBER
+	</select>
+	<select id="listAddrNo" resultType="Integer">
+		SELECT ADDR_NO  FROM MEMBER
+	</select>
+	
+	<select id="unPaid" resultType="ManagementPaymentVO">
+		select PAY_NO,PAY_PERIOD, PAY_AMOUNT,PAY_DEADLINE,PAY_STATE from MANAGEMENT_PAYMENT 
+		where PAY_STATE = 0 and MEM_ACCT = #{memAcct}
+	</select>
+	
+	<select id="paid" resultType="ManagementPaymentVO">
+		select PAY_NO,PAY_PERIOD, PAY_AMOUNT,PAY_DEADLINE,PAY_STATE from MANAGEMENT_PAYMENT 
+		where PAY_STATE = 1 and MEM_ACCT = #{memAcct}
+	</select>
+	
+	<insert id="add">
+		insert into Management_Payment
+		(MEM_ACCT, ADDR_NO, PAY_DEADLINE, PAY_AMOUNT,PAY_PERIOD,ADMIN_ACCT)
+		values
+		(#{memAcct}, #{addrNo}, #{payDeadline}, #{payAmount}, #{payPeriod}, #{adminAcct})
+	</insert>
+	
+	<insert id="addNotify">
+		insert into Notify
+		(MEM_ACCT,ADDR_NO, Notify_Message)
+		values
+		(#{memAcct},#{addrNo},#{notifyMessage})
+	</insert>
+	
+	<update id="update">
+		update Management_Payment SET
+			PAY_DATE = #{payDate},
+			PAY_DEADLINE = #{payDeadline},
+			PAY_AMOUNT = #{payAmount},
+			PAY_RECENT_CALL = #{payRecentCall},
+			PAY_PERIOD = #{payPeriod},
+			PAY_WAY = #{payWay},
+			PAY_STATE = #{payState}
+		where PAY_NO = #{payNo}
+	</update>
+	
 </mapper>

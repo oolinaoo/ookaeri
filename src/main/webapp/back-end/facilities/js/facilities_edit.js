@@ -1,7 +1,16 @@
 $(function () {
+  // 清空各種欄位的函式
+  function clean(){
+    $("form#fac_details")[0].reset();
+    $(`input`).attr("checked", false);
+    $("div.photo").empty();
+    $("div").find("input#fphoto").val("");
+  }
+
   // 操控公設地圖選單
   $(`div#A`).removeAttr("style"); // 預設為 A 棟
   var addr = "A";
+  
   // 載入資料的函式
   function facilitiesMap(addr) {
     $.ajax({
@@ -35,7 +44,7 @@ $(function () {
   }
   facilitiesMap(addr);
 
-  // 透過下拉選單載入該地址的公設清單
+  // 透過地圖下拉選單載入該地址的公設清單
   $("select#fac_map").on("change", function () {
     $(`div#${this.value}`).removeAttr("style");
     $(`div#${this.value}`)
@@ -61,6 +70,10 @@ $(function () {
         e.preventDefault();
   });
 
+
+
+
+  // **************************  新增公設  *********************//
   var faddr = "";
   var ffloor = "";
   var faddrno = "";
@@ -76,132 +89,47 @@ $(function () {
     }
   });
 
-  // 編輯時，列出公設資料的 ajax
-  function editFac(facNoEdit){
-    $.ajax({
-      url: "/okaeri/fac/listFacDetail",
-      type: "POST",
-      data: JSON.stringify({
-        facNo: facNoEdit
-      }),
-      dataType: "json",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      success: function (data) {
-        // 這邊要各種 append 資料
-        // var facEditDate = "";
-        // var facEditTime = "";
-
-        var facEditDetail = `
-          <label for="fname">公設名稱：</label>
-          <input type="text" id="fname" name="fname" value="${data[0].facName}">
-          <label for="fmax">人數上限：</label>
-          <select name="fmax" id="fmax">
-          </select>
-
-          <label for="fstate">公設上架：</label>
-          <select name="fstate" id="fstate">
-            <option value="0" `+ (data[0].facState == 0 ? "selected" :"") + `>上架</option>
-            <option value="1" `+ (data[0].facState == 1 ? "selected" :"") + `>下架</option>
-          </select>
-          <br><br>`;
-
-        //   for(var i = 1; i <= 7; i++ ){
-        //     facEditDate += `
-        //       <input type="checkbox" id="fdate1" class="fdate" name="fdate1" value="一"
-        //       `+ (item.facOpenDate == "一" ? "checked" :"") + `>
-        //       <label for="fdate1"> 一 </label>`;
-
-
-
-        //   }
-        // $.each(data, function(index, item){
-        //   facEditDate =  
-        //         `<input type="checkbox" id="fdate1" class="fdate" name="fdate1" value="一"
-        //         `+ (item.facOpenDate == "一" ? "checked" :"") + `>
-        //         <label for="fdate1"> 一 </label>
-        //         <input type="checkbox" id="fdate2" class="fdate" name="fdate2" value="二"
-        //         `+ (item.facOpenDate == "二" ? "checked" :"") + `>
-        //         <label for="fdate2"> 二 </label>
-        //         <input type="checkbox" id="fdate3" class="fdate" name="fdate3" value="三"
-        //         `+ (item.facOpenDate == "三" ? "checked" :"") + `>
-        //         <label for="fdate3"> 三 </label>
-        //         <input type="checkbox" id="fdate4" class="fdate" name="fdate4" value="四"
-        //         `+ (item.facOpenDate == "四" ? "checked" :"") + `>
-        //         <label for="fdate4"> 四 </label>
-        //         <input type="checkbox" id="fdate5" class="fdate" name="fdate5" value="五"
-        //         `+ (item.facOpenDate == "五" ? "checked" :"") + `>
-        //         <label for="fdate5"> 五 </label>
-        //         <input type="checkbox" id="fdate6" class="fdate" name="fdate6" value="六"
-        //         `+ (item.facOpenDate == "六" ? "checked" :"") + `>
-        //         <label for="fdate6"> 六 </label>
-        //         <input type="checkbox" id="fdate7" class="fdate" name="fdate7" value="日"
-        //         `+ (item.facOpenDate == "日" ? "checked" :"") + `>
-        //         <label for="fdate7"> 日 </label>
-        //         <br><br>`;
-        // });
-            
-        // $.each(data, function(index, item){
-
-        //         facEditTime = 
-        //         `<label for="ftime">公設開放時段：</label><br>
-        //         <input type="checkbox" id="ftime1" class="ftime" name="ftime1" value="08">
-        //         <label for="ftime1"> 08:00 ~ 10:00 </label>
-        //         <input type="checkbox" id="ftime2" class="ftime" name="ftime2" value="10">
-        //         <label for="ftime2"> 10:00 ~ 12:00 </label>
-        //         <input type="checkbox" id="ftime3" class="ftime" name="ftime3" value="12">
-        //         <label for="ftime3"> 12:00 ~ 14:00 </label>
-        //         <input type="checkbox" id="ftime4" class="ftime" name="ftime4" value="14">
-        //         <label for="ftime4"> 14:00 ~ 16:00 </label>
-        //         <br>
-        //         <input type="checkbox" id="ftime5" class="ftime" name="ftime5" value="16">
-        //         <label for="ftime5"> 16:00 ~ 18:00 </label>
-        //         <input type="checkbox" id="ftime6" class="ftime" name="ftime6" value="18">
-        //         <label for="ftime6"> 18:00 ~ 20:00 </label>
-        //         <input type="checkbox" id="ftime7" class="ftime" name="ftime7" value="20">
-        //         <label for="ftime7"> 20:00 ~ 22:00 </label>
-        //         <br><br>
-
-        //         <label for="fphoto">公設圖片：</label>
-        //         <input type="file" id="fphoto" name="fphoto">
-        //         <br><br>`;
-        //       });
-
-        var confirmzone = `
-          <div class="action">
-            <input class="confirm" type="button" value="修改">
-            <input class="cancel" type="button" value="取消">
-          </div>`;
-        
-        $("div.edit").find("form").append(confirmzone);
-        $("div.edit").find("div.action").before(facEditDetail);
-
-        // 讓人數上限選定？
-        var editmax = "";
-        for (var i = 2; i <= 40; i++) {
-          editmax += `<option value="${i}" `+ (data[0].facMax == i ? "selected" :"") + `>${i}</option>`;
+  // 新增公設的圖，轉 byte[]
+  var fphoto =[];
+  $("div").find("input#fphoto").on("change", function(e){
+    fphoto =[];
+    var arrayBuffer = "";
+    var array = "";
+    var reader = new FileReader();
+    if(this.files[0] != undefined){
+      reader.readAsArrayBuffer(this.files[0]);
+      reader.onload = function (file) {
+        if(file.target.readyState == FileReader.DONE){
+          arrayBuffer = file.target.result;
+          array = new Uint8Array(arrayBuffer);
+          for(var i = 0; i < array.length; i++){
+            fphoto.push(array[i]);
+          }
         }
-        $("div.edit").find("select#fmax").append(editmax);
-
-        // $("div.edit").find("div.action").before('<label for="fdate">公設開放日：</label>');
-        // $("div.edit").find("div.action").before(facEditDate);
-        // $("div.edit").find("div.action").before(facEditTime);
-        // 圖片之後要用 session 的方式存，不然如果按了瀏覽卻沒有選圖片，原本的可能被蓋掉變成 null
-      },
-      error: function (xhr) {
-          console.log("error");
-          console.log(xhr);
       }
-    }); 
+    } else {
+      $("div.overlay").find("div.preview_photo").remove();
+      $("div.edit").find("div.old_preview_photo").remove();
+    }
+  });
+
+  // 新增公設的圖片預覽
+  function preview_picture(file){
+    let prereader = new FileReader();
+    prereader.addEventListener("load", function(){
+      $("div.overlay").find("div.photo").empty();
+      $("div.edit").find("div.preview_photo").remove();
+      $("div").find("div.photo").append(`<div class="preview_photo">預覽圖：<img src = "${prereader.result}" class = "preview_img"></div>`);      
+    });
+    prereader.readAsDataURL(file);  // 讀檔
   }
 
-  // 開啟編輯的彈窗
-  $("a").children("div").on("click", function(e){
-    if($(this).html() != ""){
-      var facNoEdit = $(this).closest("a").attr("data-facno");
-      editFac(facNoEdit);
-      $("div.edit").fadeIn();
+  $("div").find("input#fphoto").on("change", function(e){
+    if (this.files[0] != undefined){
+      preview_picture(this.files[0]);
+    } else {
+      $("div.overlay").find("div.preview_photo").remove();
+      $("div.edit").find("div.old_preview_photo").remove();
     }
   });
 
@@ -269,15 +197,15 @@ $(function () {
   }
 
   // 新增公設的 ajax
-  function facilitiesEdit(){
+  function facilitiesAdd(){
     $.ajax({
       url: "/okaeri/fac/addNewFac",
       type: "POST",
       data: JSON.stringify({
-        facName: $("input#fname").val(),
-        facMax: $("select#fmax").val(),
-        facState: $("select#fstate").val(),
-        // facPhoto: $("input#fphoto")[0].files[0],
+        facName: $("div.overlay").find("input#fname").val(),
+        facMax: $("div.overlay").find("select#fmax").val(),
+        facState: $("div.overlay").find("select#fstate").val(),
+        facPhoto: fphoto,
         facAddr: faddr,
         facFloor: ffloor,
         facAddrNo: faddrno
@@ -303,57 +231,174 @@ $(function () {
       complete: function (xhr){
         facilitiesMap(addr);
         // 清空表單
-        $("form#fac_details")[0].reset();
+        clean();
+      }
+    });
+  }
+  // **************************  新增公設  *********************//
+
+
+
+
+  // **************************  編輯公設  *********************//
+  // 編輯時，列出公設資料的 ajax
+  function editFac(facNoEdit){
+    $.ajax({
+      url: "/okaeri/fac/listFacDetail",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNoEdit
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        $("div.edit").find("input#fname").val(`${data[0].facName}`);
+        $("div.edit").find("select#fmax").append(max);
+        $("div.edit").find("select#fmax").val(`${data[0].facMax}`);
+        $("div.edit").find("select#fstate").val(`${data[0].facState}`);
+
+        for(var i = 1; i <= 7; i++ ){
+          $.each(data, function(index, item){
+            if($("div.edit").find(`input#fdate${i}`).val()==item.facOpenDate){
+              $("div.edit").find(`input#fdate${i}`).attr("checked", true);  
+            }
+            if($("div.edit").find(`input#ftime${i}`).val()==item.startTime){
+              $("div.edit").find(`input#ftime${i}`).attr("checked", true);
+            }             
+          });
+        }
+
+        $("div.edit").find("div.photo").append(`<div class = "old_preview_photo">原圖： <img src = "/okaeri/fac/facPhotoByFacNo?facNo=${data[0].facNo}"></div>`);      
+      },
+      error: function (xhr) {
+          console.log("error");
+          console.log(xhr);
+      }
+    }); 
+  }
+
+  // 開啟編輯的彈窗
+  var facNoEdit = "";
+  $("a").children("div").on("click", function(e){
+    if($(this).html() != ""){
+      facNoEdit = $(this).closest("a").attr("data-facno");
+      editFac(facNoEdit);
+      $("div.edit").fadeIn();
+    }
+  });
+
+
+  // 設施日期和時間刪除
+  function facDateTimeDelete(facNoEdit){
+    $.ajax({
+      url: "/okaeri/fac/facDateTimeDelete",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNoEdit,
+      }),
+      processData: false,
+      contentType : false,
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        console.log(data);
+          newFacDate(facNoEdit);
+          newFacTime(facNoEdit);
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
       }
     });
   }
 
 
+  // 設施資料更新
+  function facilitiesUpdate(facNoEdit){
+    $.ajax({
+      url: "/okaeri/fac/facEdit",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNoEdit,
+        facName: $("div.edit").find("input#fname").val(),
+        facMax: $("div.edit").find("select#fmax").val(),
+        facState: $("div.edit").find("select#fstate").val(),
+        facPhoto: fphoto
+      }),
+      processData: false,
+      contentType : false,
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        if(data==1){
+          facDateTimeDelete(facNoEdit);
+        }
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      },
+      complete: function (xhr){
+        facilitiesMap(addr);
+        clean();
+      }
+    });
+  }
+  // **************************  編輯公設  *********************//
   // 關閉新增或修改的彈窗
   $("button.btn_modal_close").on("click", function () {
     $("div.overlay").fadeOut();
-    $("form#fac_details")[0].reset();
-
     $("div.edit").fadeOut();
-    $("div.edit").find("form#fac_details").empty();
+    clean();
   });
   $(document).on("keydown", function (e) {
     if (e.key === "Escape") {
       $("div.overlay").fadeOut();
-      $("form#fac_details")[0].reset();
-
       $("div.edit").fadeOut();
-      $("div.edit").find("form#fac_details").empty();
+      clean();
     }
   });
 
+  // 點外面關掉彈窗
   $("div.overlay").on("click", function (e) {
     $("div.overlay").fadeOut();
-    $("form#fac_details")[0].reset();
+    clean();
   });
   $("div.edit").on("click", function (e) {
     $("div.edit").fadeOut();
-    $("div.edit").find("form#fac_details").empty();
+    clean();
   });
   $("article").on("click", function (e) {
     e.stopPropagation();
   });
 
-  $("input.cancel").on("click", function () {
+  $("div").find("input.cancel").on("click", function () {
     $("div.overlay").fadeOut();
-    $("form#fac_details")[0].reset();
-
     $("div.edit").fadeOut();
-    $("div.edit").find("form#fac_details").empty();
+    clean();
+  });
+
+  $("div").find("input.reset").on("click", function(){
+    $("div.photo").empty();
   });
 
   // 按下確認新增資料
   $("div.overlay").find("input.confirm").on("click", function(){
     $("div.overlay").fadeOut();
     // 呼叫新增公設的主函式，再由主函式呼叫兩個時間表的新增
-    facilitiesEdit();
+    facilitiesAdd();
   });
 
   // 按下修改確認修改資料
-
+  $("div.edit").find("input.confirm").on("click", function(){
+    $("div.edit").fadeOut();
+    // 呼叫修改的主函式 
+    facilitiesUpdate(facNoEdit);
+  });
 });
