@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.login.mapper.LoginMapper">
+
+	<select id="checkUser" resultType="Login">
+		select MEM_ACCT, MEM_PWD,
+		MEM_NAME
+		from MEMBER
+		where MEM_ACCT = #{memAcct}
+	</select>
+
+	<select id="checkAdmin" resultType="Login">
+		select ADMIN_ACCT, ADMIN_PWD,
+		ADMIN_NAME
+		from ADMIN
+		where ADMIN_ACCT = #{adminAcct}
+	</select>
+
+	<select id="checkMail" resultType="Login">
+		select MEM_ACCT, MEM_PWD,
+		MEM_NAME, MEM_MAIL
+		from MEMBER
+		where MEM_ACCT = #{memAcct}
+	</select>
+
+	<select id="getUser" resultType="Login">
+		select MEM_ACCT, MEM_NAME
+		from MEMBER
+		where
+		MEM_ACCT = #{memAcct}
+	</select>
+
+	<select id="getAdmin" resultType="Login">
+		select ADMIN_ACCT, ADMIN_NAME
+		from ADMIN
+		where
+		ADMIN_ACCT = #{adminAcct}
+	</select>
+
+</mapper>

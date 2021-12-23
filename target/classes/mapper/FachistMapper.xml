@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.fachist.mapper.FachistMapper">
+	
+	<insert id="insertFacReserve">
+		insert into FACILITIES_HISTORY 
+			(FAC_NO, MEM_ACCT, HIST_DATE, HIST_TIME, HIST_AMOUNT)
+		values(
+			#{facNo},
+			#{memAcct},
+			#{histDate},
+			#{histTime},
+			#{histAmount}
+		)	
+	</insert>	
+	
+	<select id="listViewFacMem" resultType="FachistVO">
+		select * from V_FACHIST_FAC_MEM order by HIST_NO asc
+	</select>
+	
+	<select id="findHistTimeAmountByDate" resultType="FachistVO">
+		select * from FACILITIES_HISTORY
+		where 
+			1 = 1
+			and FAC_NO = #{facNo}
+			and HIST_DATE = #{histDate}
+	</select>
+	
+	
+	<resultMap id="facMonthAmount" type="java.util.Map">
+		<result column="HIST_DATE" property="histDate" javaType="java.sql.Date" jdbcType="DATE"/>
+		<result column="FAC_NO" property="facNo" javaType="Integer" jdbcType="INTEGER"/>
+		<result column="TOTAL" property="total" javaType="Integer" jdbcType="INTEGER"/>
+	</resultMap>	
+	
+	<select id="listFacDateHistByMonth" resultMap="facMonthAmount">
+		select 
+			HIST_DATE, FAC_NO, sum(HIST_AMOUNT) as TOTAL
+		from 
+			FACILITIES_HISTORY
+		where 
+			FAC_NO = #{facNo}  and month(HIST_DATE) = #{month}
+		group by
+			HIST_DATE, FAC_NO
+		order by
+			HIST_DATE
+	</select>
+	
+	
+	
+
+</mapper>

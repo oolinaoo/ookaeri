@@ -80,9 +80,9 @@ div.member_overlay th{
 
 div.error_block{
   color: red;
-}
-div.error_block div.error_msg{
+  font-size: 12.5px;
   text-align: left;
+
 }
 
 /**************** 分頁樣式 ****************/

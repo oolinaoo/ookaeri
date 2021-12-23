@@ -7,7 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import util.Util;
 import web.addr.entity.AddressVO;
@@ -24,6 +27,16 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 	private static final String GET_ALL_STMT = 
 			"SELECT ADDR_NO, ADDR_BUILD, ADDR_FLOOR, ADDR_ROOM FROM OKAERI.ADDRESS order by ADDR_NO";
 	
+	private static DataSource dataSource;
+	static {
+		  try {
+		   Context ctx = new InitialContext();
+		   dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/OKAERI");
+		  } catch (NamingException e) {
+		   e.printStackTrace();
+		  }
+	 }
+	
 	@Override
 	public String insert(AddressVO addressVO) {
 		Connection con = null;
@@ -31,8 +44,7 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 		ResultSet rs = null;
 		String key = null;
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			
 			String[] cols = {"ADDR_NO"};
 			
@@ -53,11 +65,6 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 			}
 
 			rs.close();
-
-			
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ ce.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -88,8 +95,7 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, addressVO.getAddrBuild());
@@ -99,9 +105,6 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ ce.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -130,17 +133,12 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 		PreparedStatement pstmt = null;
 		Integer affectedRows = null;
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setInt(1, addr_no);
 			
 			affectedRows = pstmt.executeUpdate();
-			
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ ce.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -174,8 +172,7 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, addr_no);
@@ -189,10 +186,7 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 				addressVO.setAddrFloor(rs.getInt("ADDR_FLOOR"));
 				addressVO.setAddrRoom(rs.getInt("ADDR_ROOM"));
 			}
-
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ ce.getMessage());
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -232,9 +226,7 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			rs = pstmt.executeQuery();
@@ -247,10 +239,6 @@ public class AddressJDBCDAO implements AddressDAO_interface{
 				addressVO.setAddrRoom(rs.getInt("ADDR_ROOM"));
 				list.add(addressVO);
 			}
-
-		} catch (ClassNotFoundException ce) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ ce.getMessage());
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

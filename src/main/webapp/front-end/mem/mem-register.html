@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>mem-register</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="css/mem-register.css"/>
+</head>
+
+<body>
+    <div class="register_head">
+        <div class="container">
+            <div class="title">
+                <h1>sign up now!</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="register_content">
+        <div class="container">
+            <form method="post" action="" name="register_form">
+                <div class="row">
+                    <label for="acct">住戶帳號:</label>
+                    <span class="error" id="errAcct">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="text" name="memAcct" id="memAcct" placeholder="輸入住戶帳號" required>
+                </div>
+                <div class="row">
+                    <label for="pwd">密碼:</label>
+                    <span class="error" id="errPwd">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="password" name="memPwd" id="memPwd" placeholder="輸入密碼" required>
+                </div>
+                <div class="row">
+                    <label for="name">姓名:</label>
+                    <span class="error" id="errName">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="text" name="memName" id="memName" placeholder="輸入姓名" required>
+                </div>
+                <div class="row">
+                    <label for="f_date1">生日:</label>
+                    <span class="error" id="errBirthday">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input name="memBirthday" id="memBirthday" type="text" placeholder="請選擇日期" autocomplete="off">
+                </div>
+                <div class="row">
+                    <label for="idNo">身分證字號:</label>
+                    <span class="error" id="errId">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="text" id="memId" name="memId" id="idNo" placeholder="輸入身分證字號" required>
+                </div>
+                <div class="row_other">
+                    <label for="sex" class="sex">性別:</label>
+                    <span class="error" id="errSex">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <div class="other_block">
+                        <input type="radio" id="male" name="memSex" class="memSex" value="男">
+                        <label for="male">男</label>
+                        <input type="radio" id="female" name="memSex" class="memSex" value="女">
+                        <label for="female">女</label>
+                        <input type="radio" id="other" name="memSex" class="memSex" value="其他">
+                        <label for="other">其他</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="tel">聯絡電話(手機):</label>
+                    <span class="error" id="errPhone">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="tel" id="memPhone" name="memPhone" id="tel" placeholder="格式：0912345678" required>
+                </div>
+                <div class="row">
+                    <label for="email">電子郵件:</label>
+                    <span class="error" id="errEmail">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <input type="email" id="memEmail" name="memEmail" id="email" placeholder="輸入電子郵件" required>
+                </div>
+                <div class="row">
+                    <label for="addr">地址:</label>
+                    <span class="error" id="errAddr">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <div class="other_block">
+                        <select id="select_build" name="select_build"></select>
+                        <span>棟</span>
+                        <select id="select_floor" name="select_floor"></select>
+                        <span>樓</span>
+                        <select id="select_room" name="select_room"></select>
+                        <span>房</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="fam">住戶家人姓名:</label>
+                    <span class="error" id="errFams">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <div class="famMemList">
+                        <div class="famMem_block">
+                            <div class="plus_minus_btn">
+                                <span class="minus">-</span>
+                                <span class="plus">+</span>
+                            </div>
+                            <input type="text" class="famMems" name="famMem" value="" style="width:80px;margin:0;">
+                        </div>
+                    </div>
+                </div>
+                <div class="row_other">
+                    <label for="photo" class="sex">照片:</label>
+                    <span class="error" id="errPhoto">
+                        <!-- <span>輸入錯誤</span> -->
+                    </span>
+                    <div class="clear"></div>
+                    <div class="profilePic_preview">
+                        <!-- <div class="mem_uploadPic"></div> -->
+                        <!-- <img src="images/mug-shot/man-hair.png" class="mem_uploadPic"> -->
+                    </div>
+                    <div class="other_block">
+                        <div class="memUploadPic_btn_block">
+                            <input type="file" name="memPhoto" id="memUploadPic_file" style="margin-top: 5px;">
+                        </div>
+                    </div>
+                </div>
+                <div class="submit">
+                    <button type="button" class="submitBtn">sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="datetimepicker/jquery.js"></script>
+    <script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script src="js/mem-register.js"></script>
+</body>
+
+</html>

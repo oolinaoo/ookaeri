@@ -1,31 +1,34 @@
 package web.forumMessage.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class ForumMessage {
+import web.forumReport.entity.ForumReport;
+
+public class ForumMessage implements Serializable{
 
 	private Integer forMsgNo;
 	private Integer forArtNo;
-	private String memAcctMsg;
+	private String memAcct;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Timestamp forMsgPosttime;
-	private Timestamp forMsgEdittime;
 	private String forMsgContent;
 	private Integer forMsgState;
+	private List<ForumReport> report;
 	
 	public ForumMessage() {
 	}
 
-	public ForumMessage(Integer forMsgNo, Integer forArtNo, String memAcctMsg, Timestamp forMsgPosttime,
-			Timestamp forMsgEdittime, String forMsgContent, Integer forMsgState) {
+	public ForumMessage(Integer forMsgNo, Integer forArtNo, String memAcct, Timestamp forMsgPosttime,
+			String forMsgContent, Integer forMsgState) {
 		super();
 		this.forMsgNo = forMsgNo;
 		this.forArtNo = forArtNo;
-		this.memAcctMsg = memAcctMsg;
+		this.memAcct = memAcct;
 		this.forMsgPosttime = forMsgPosttime;
-		this.forMsgEdittime = forMsgEdittime;
 		this.forMsgContent = forMsgContent;
 		this.forMsgState = forMsgState;
 	}
@@ -46,12 +49,12 @@ public class ForumMessage {
 		this.forArtNo = forArtNo;
 	}
 
-	public String getMemAcctMsg() {
-		return memAcctMsg;
+	public String getMemAcct() {
+		return memAcct;
 	}
 
-	public void setMemAcctMsg(String memAcctMsg) {
-		this.memAcctMsg = memAcctMsg;
+	public void setMemAcct(String memAcct) {
+		this.memAcct = memAcct;
 	}
 
 	public Timestamp getForMsgPosttime() {
@@ -60,14 +63,6 @@ public class ForumMessage {
 
 	public void setForMsgPosttime(Timestamp forMsgPosttime) {
 		this.forMsgPosttime = forMsgPosttime;
-	}
-
-	public Timestamp getForMsgEdittime() {
-		return forMsgEdittime;
-	}
-
-	public void setForMsgEdittime(Timestamp forMsgEdittime) {
-		this.forMsgEdittime = forMsgEdittime;
 	}
 
 	public String getForMsgContent() {
@@ -85,4 +80,13 @@ public class ForumMessage {
 	public void setForMsgState(Integer forMsgState) {
 		this.forMsgState = forMsgState;
 	}
+
+	public List<ForumReport> getReport() {
+		return report;
+	}
+
+	public void setReport(List<ForumReport> report) {
+		this.report = report;
+	}
+	
 }

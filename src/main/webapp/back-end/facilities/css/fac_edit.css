@@ -1,0 +1,263 @@
+/* Select 公設地圖選單 */
+div.floor_choose {
+  width: 200px;
+}
+
+select#fac_map {
+  font-size: 24px;
+  height: 40px;
+}
+
+option {
+  font-size: 20px;
+  vertical-align: bottom;
+}
+/*  */
+
+div.container {
+  margin-top: 50px;
+  height: 550px;
+  width: 90%;
+}
+
+iframe {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+
+html.map {
+  display: inline-block;
+  width: 800px;
+  height: 500px;
+}
+
+/*******************************
+ ****                       ****
+ ****                       ****
+ ****    FACILITIES MAP     **** 
+ ****                       ****
+ ****                       **** 
+ *******************************/
+
+div#facs_body {
+  display: inline-block;
+  margin-top: 10px;
+  left: 0;
+}
+
+div.floor_plan {
+  margin: 60px 0 0;
+  width: 781px;
+  height: 360px;
+  border: 3px solid #4a6d96;
+  position: relative;
+  /* left: 50%;
+    transform: translateX(-50%); */
+  background-color: #f0f9ff;
+}
+
+div.floor_plan div.floor {
+  display: block;
+  width: 150px;
+  height: 60px;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%);
+  text-align: center;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 450;
+  font-family: sans-serif;
+  opacity: 0.2;
+}
+
+div.floor_plan div.hidden_door {
+  width: 180px;
+  height: 160px;
+  margin-right: 15px;
+  position: absolute;
+  right: 184.5px;
+  bottom: 0px;
+}
+
+div.floor_plan div.hidden_door div.door {
+  border: 2px solid #4a6d96;
+  border-bottom: 0;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 25px;
+  bottom: -1px;
+  border-top-right-radius: 100%;
+  vertical-align: bottom;
+}
+
+div.facility {
+  font-size: 0;
+}
+
+div.facility a.facs_top,
+a.facs_bot {
+  display: inline-block;
+  border: 2px solid #3a8fb7;
+  width: 180px;
+  height: 160px;
+  margin-right: 15px;
+  font-size: 25px;
+  font-weight: 550;
+  color: #3a8fb7;
+  text-align: center;
+  line-height: 160px;
+  vertical-align: top;
+}
+
+div.facility a.facs_top:nth-child(4n),
+a.facs_bot:nth-child(4n) {
+  margin-right: 0;
+}
+
+div.facility a.facs_bot {
+  margin-top: 32.5px;
+  bottom: 0px;
+}
+
+div.factop, div.facbot{
+  width: 100%;
+  height: 100%;
+}
+
+/* 新增公設的拖曳鈕 */
+div#new_fac {
+  display: inline-block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #4a6d96;
+  top: 240px;
+  left: 1280px;
+  background-color: rgb(223, 237, 255);
+  cursor: move;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+div.new {
+  display: inline-block;
+  height: 80px;
+  width: 80px;
+  margin-left: 18%;
+  margin-top: 10%;
+  font-size: 30px;
+  color: #3c6491;
+  cursor: move;
+}
+
+/* 新增公設資料的彈窗 */
+div.overlay, div.edit{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, .5);
+  display: none;
+  z-index: 99;
+  font-size: 24px;
+}
+
+/* 元素 article 置中及基本樣式 */
+div article h1 {
+  text-align: center;
+}
+
+div > article{
+  background-color: #f2f2f2;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ddd;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+div article form#fac_details {
+  font-size: 20px;
+  margin: 0 30px 15px;
+}
+
+button.btn_modal_close{
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 3rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+div article form#fac_details input#fname{
+  width: 220px;
+  height: 40px;
+  margin-right: 10%;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+div article form#fac_details select#fmax{
+  width: 120px;
+  height: 40px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  margin-right: 10%;
+}
+
+div article form#fac_details select#fstate{
+  font-size: 20px;
+}
+
+div article form#fac_details input.ftime{
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+}
+
+div article form#fac_details input.ftime + label{
+  margin-right: 100px;
+}
+
+div article form#fac_details input.fdate{
+  margin-top: 20px;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+}
+
+div article form#fac_details input.fdate + label{
+  margin-right: 70px;
+}
+
+div article form#fac_details input#fphoto{
+  height: 45px;
+  font-size: 20px;
+}
+
+div article form#fac_details div.action{
+  margin: 0 auto;
+  width: 600px;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+}
+
+div article form#fac_details input.confirm, input.reset, input.cancel{
+  width: 50px;
+  cursor: pointer;
+}

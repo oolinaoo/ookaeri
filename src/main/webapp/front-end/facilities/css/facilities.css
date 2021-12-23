@@ -1,0 +1,403 @@
+/*******************************
+ ****                       ****
+ ****                       ****
+ ****    FACILITIES LIST    **** 
+ ****                       ****
+ ****                       **** 
+ *******************************/
+
+div#facs_body {
+  margin: 90px 0 auto;
+}
+
+h1.fac_title {
+  text-align: center;
+  padding-top: 10px;
+  color: #999274;
+}
+
+div.floor_plan {
+  margin: 20px 0;
+  width: 781px;
+  height: 360px;
+  border: 3px solid #999274;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fffcf0;
+}
+
+div.floor_plan div.floor {
+  display: block;
+  width: 150px;
+  height: 60px;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%);
+  text-align: center;
+  font-size: 50px;
+  font-style: italic;
+  font-weight: 450;
+  font-family: sans-serif;
+  opacity: 0.2;
+}
+
+div.floor_plan div.hidden_door {
+  /* border: 1px solid red; */
+  width: 180px;
+  height: 160px;
+  margin-right: 15px;
+  position: absolute;
+  right: 184.5px;
+  bottom: 0px;
+}
+
+div.floor_plan div.hidden_door div.door {
+  border: 2px solid #999274;
+  border-bottom: 0;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: 25px;
+  bottom: -1px;
+  border-top-right-radius: 100%;
+  vertical-align: bottom;
+}
+
+div.facility {
+  font-size: 0;
+}
+
+div.facility a.facs_top,
+a.facs_bot {
+  display: inline-block;
+  border: 2px solid #dac9a6;
+  width: 180px;
+  height: 160px;
+  margin-right: 15px;
+  font-size: 20px;
+  font-weight: 550;
+  color: #999274;
+  text-align: center;
+  line-height: 160px;
+  vertical-align: top;
+}
+
+div.facility a.facs_top:nth-child(4n),
+a.facs_bot:nth-child(4n) {
+  margin-right: 0;
+}
+
+/* div div.facs_top{
+    
+} */
+
+div.facility a.facs_bot {
+  margin-top: 32.5px;
+  bottom: 0px;
+}
+
+/* facilities_month */
+
+div.go_top {
+  border: 1.5px solid #999274;
+  font-family: sans-serif;
+  height: 25px;
+  width: 50px;
+  line-height: 25px;
+  text-align: center;
+  position: absolute;
+  right: 50px;
+  color: #999274;
+}
+
+/* Select 公設地圖選單 */
+div.floor_choose {
+  width: 105px;
+  margin: 0 auto;
+}
+
+select#fac_map {
+  font-size: 20px;
+  height: 35px;
+  width: 100px;
+  text-align: center;
+}
+
+option {
+  font-size: 18px;
+  vertical-align: bottom;
+}
+
+
+
+
+/******************************
+ ****                      ****
+ ****                      ****
+ ****       calendar       **** 
+ ****                      ****
+ ****                      ****
+ ******************************/
+
+/* ############### calendar ################## */
+
+div#facs_calendar{
+  margin-top: 150px;
+}
+
+.monthly-frequence {
+  /* border: 1px solid red; */
+  height: 30%;
+  width: 50%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  font-size: 3vh;
+  text-align: center;
+}
+
+div.green {
+  display: inline-block;
+  border: 1px solid #95ea70;
+  height: 15px;
+  width: 15px;
+  border-radius: 70%;
+  margin-right: 5px;
+  background-color: #95ea70;
+}
+
+div.yellow {
+  display: inline-block;
+  border: 1px solid #fbe251;
+  height: 15px;
+  width: 15px;
+  border-radius: 70%;
+  background-color: #fbe251;
+}
+
+a.facilitiesReserve {
+  color: #5b6d5b;
+  display: inline-block;
+  /* border: 1px solid blue; */
+  width: 100%;
+  height: 102%;
+  text-decoration: none;
+  position: relative;
+  top: -5px;
+}
+
+/* ############### calendar ################## */
+
+/******************************
+ ****                      ****
+ ****                      ****
+ ****       LightBox       **** 
+ ****                      ****
+ ****                      ****
+ ******************************/
+/*======== reserve button ========*/
+
+.lb-reserve {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 10001;
+  cursor: pointer;
+}
+
+/*======== reserve button ========*/
+
+
+/**********************************
+ ****                          ****
+ ****                          ****
+ ****    FACILITIES RESERVE    ****
+ ****                          ****
+ ****                          ****
+ **********************************/
+ 
+/* ========  預約確認鈕  ======== */
+input[name="switch"] {
+  display: none;
+}
+.customcheck {
+  display: inline-block;
+  width: 45px;
+  height: 25px;
+  border-radius: 20px;
+  background: #B56662;
+  margin-top: 10px;
+}
+.checkitem {
+  width: 20px;
+  height: 20px;
+  border-radius: 16px;
+  background-color: white;
+  margin: 2.2px;
+  margin-left: 2.5px;
+  transition: all 0.5s ease;
+}
+.itemactive {
+  margin-left: 22px;
+  background-color: white;
+}
+div.active{
+  background-color: #278364;
+}
+
+/* ~ 是用來抓相鄰的標籤的 */
+input[disabled = "disabled"] ~  div.customcheck {
+  background-color: #E2A3A1;
+}
+
+input[disabled = "disabled"] ~  div.active {
+  background-color: #74bba3;
+}
+
+input[disabled = "disabled"] ~  div.customcheck > div.checkitem {
+  background-color: rgb(230, 230, 230);
+}
+
+
+
+/* ========  預約確認鈕  ======== */
+
+
+/* ========  前一天、下一天  ======== */
+
+div#reserve_title {
+  position: relative;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* 標題區域 */
+div#reserve_fac {
+  display: inline-block;
+  text-align: center;
+  width: 150px;
+  height: 40px;
+  font-size: 30px;
+  color: #554236;
+}
+
+a.prev_reserve_day,
+a.next_reserve_day {
+  display: inline-block;
+  position: absolute;
+  bottom: 0px;
+  width: 30px;
+}
+
+a.prev_reserve_day {
+  left: 10%;
+}
+
+a.next_reserve_day {
+  right: 10%;
+}
+
+a.prev_reserve_day > img,
+a.next_reserve_day > img {
+  display: inline-block;
+  width: 80%;
+}
+
+/* ========  前一天、下一天  ======== */
+
+/**********************************
+ ****                          ****
+ ****                          ****
+ ****    FACILITIES HISTORY    ****
+ ****                          ****
+ ****                          ****
+ **********************************/
+
+/* ========  table  ======== */
+table {
+  text-align: center;
+  width: 80%;
+  margin: 0 auto;
+  font-family: sans-serif;
+}
+th {
+  font-size: 1.05em;
+  color: #554236;
+}
+td {
+  font-size: 1em;
+  color: #6a4028;
+}
+table thead tr th,
+tbody tr td {
+  height: 50px;
+  line-height: 30px;
+  border-bottom: 2px dashed #d3c0af;
+}
+
+/* ========  pagination  ======== */
+div#page {
+  display: inline-block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+#pageStyle {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  color: #b19693;
+  margin-top: 20px;
+  text-decoration: none;
+}
+#pageStyle:hover {
+  background-color: #d7c4bb;
+  border-radius: 50%;
+}
+#pageStyle .active {
+  color: #ffffff;
+}
+
+/* ========  sorting  ======== */
+/* These style add the up/down arrows for the current sorted column
+ * To support more columns, just augment these styles in like form.
+ */
+ table.js-sort-asc.js-sort-0 thead tr:last-child > :nth-child(1):after,
+ table.js-sort-asc.js-sort-1 thead tr:last-child > :nth-child(2):after,
+ table.js-sort-asc.js-sort-2 thead tr:last-child > :nth-child(3):after,
+ table.js-sort-asc.js-sort-3 thead tr:last-child > :nth-child(4):after,
+ table.js-sort-asc.js-sort-4 thead tr:last-child > :nth-child(5):after,
+ table.js-sort-asc.js-sort-5 thead tr:last-child > :nth-child(6):after,
+ table.js-sort-asc.js-sort-6 thead tr:last-child > :nth-child(7):after,
+ table.js-sort-asc.js-sort-7 thead tr:last-child > :nth-child(8):after,
+ table.js-sort-asc.js-sort-8 thead tr:last-child > :nth-child(9):after,
+ table.js-sort-asc.js-sort-9 thead tr:last-child > :nth-child(10):after
+ {
+     content: "\25b2";
+     font-size: 0.7em;
+     padding-left: 3px;
+     line-height: 0.7em;
+ }
+ table.js-sort-desc.js-sort-0 thead tr:last-child > :nth-child(1):after,
+ table.js-sort-desc.js-sort-1 thead tr:last-child > :nth-child(2):after,
+ table.js-sort-desc.js-sort-2 thead tr:last-child > :nth-child(3):after,
+ table.js-sort-desc.js-sort-3 thead tr:last-child > :nth-child(4):after,
+ table.js-sort-desc.js-sort-4 thead tr:last-child > :nth-child(5):after,
+ table.js-sort-desc.js-sort-5 thead tr:last-child > :nth-child(6):after,
+ table.js-sort-desc.js-sort-6 thead tr:last-child > :nth-child(7):after,
+ table.js-sort-desc.js-sort-7 thead tr:last-child > :nth-child(8):after,
+ table.js-sort-desc.js-sort-8 thead tr:last-child > :nth-child(9):after,
+ table.js-sort-desc.js-sort-9 thead tr:last-child > :nth-child(10):after
+ {
+     content: "\25bc";
+     font-size: 0.7em;
+     padding-left: 3px;
+     line-height: 0.7em;
+ }

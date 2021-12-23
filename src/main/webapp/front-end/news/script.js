@@ -31,7 +31,7 @@ function changCss(obj) {
 	  }
 	}
 
-// json from servlet
+// json from cotroller
 $(function () {
 	let xhr = new XMLHttpRequest();
 	xhr.open("GET", "/okaeri/news/listAllD", true);
@@ -135,4 +135,20 @@ document.addEventListener("click", function(e){
 		}
 		});
 	} 
+});
+
+//ajax to logout
+$("#profile_logout").on("click", function()  {
+	console.log("enter");
+	let url = "/okaeri/login/logout";
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", url);
+	xhr.send(); 
+	xhr.onload = function() {
+		let data = JSON.parse(this.responseText);
+		console.log(data);
+		 if (data == true) {
+		 window.location = "/okaeri/login/login.html"
+		 }
+	};
 });

@@ -1,8 +1,12 @@
+let path = window.location.pathname; //webapp的專案路徑
+//console.log(path); // /Okaeri/back-end/acct-addr/member.html
+var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
+
 //================載入所有資料================//
 function init(){
 
     $.ajax({
-      url: "http://localhost:8081/Okaeri/back-end/acct-addr/AddrAjaxServlet.do",           // 資料請求的網址
+      url: `${projectPath}/acct-addr/AddrAjaxServlet.do`,           // 資料請求的網址
       type: "GET",                  // GET | POST | PUT | DELETE | PATCH
       data: {"action": "listAll"},                  // 傳送資料到指定的 url
       dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
@@ -20,7 +24,6 @@ function init(){
               <td class='addrFloor'>${item.addrFloor}</td>
               <td class='addrRoom'>${item.addrRoom}</td>
               <td class='del_edit_btn'>
-                  <i class='fa fa-minus-circle'></i> 
                   <i class='fa fa-edit'></i> 
                   <div class="member_overlay" style="border: 1px solid red;"></div>
               </td>
@@ -153,7 +156,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                     n+=1;
                 }else{
                     html_list += `
-                        <div class="error_msg">棟號：不可空白，需輸入大寫英文字母，且長度為1</div>
+                        <div class="error_msg">＊棟號：不可空白，需輸入大寫英文字母，且長度為1</div>
                     `;
                 }
             }else if(i == 1){
@@ -162,7 +165,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                     n+=1;
                 }else{
                     html_list += `
-                        <div class="error_msg">樓號：不可空白，需輸入數字1~5，且長度為1</div>
+                        <div class="error_msg">＊樓號：不可空白，需輸入數字1~5，且長度為1</div>
                     `;
                 }
             }else if(i == 2){
@@ -171,7 +174,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                     n+=1;
                 }else{
                     html_list += `
-                        <div class="error_msg">房號：不可空白，需輸入數字1~5，且長度為1</div>
+                        <div class="error_msg">＊房號：不可空白，需輸入數字1~5，且長度為1</div>
                     `;
                 }
             }
@@ -194,7 +197,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
             addr_item = JSON.stringify(addr_item);
             //console.log(addr_item);
             $.ajax({
-                url:"http://localhost:8081/Okaeri/back-end/acct-addr/AddrAjaxServlet.do",
+                url:`${projectPath}/acct-addr/AddrAjaxServlet.do`,
                 type:"POST",
                 data:{"action" : "insert", 
                       "addr": addr_item,
@@ -209,7 +212,6 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                             <td class="addrFloor">${data.addrFloor}</td>
                             <td class="addrRoom">${data.addrRoom}</td>
                             <td class='del_edit_btn'>
-                                <i class='fa fa-minus-circle'></i> 
                                 <i class='fa fa-edit'></i> 
                                 <div class="member_overlay" style="border: 1px solid red;"></div>
                             </td>
@@ -217,6 +219,9 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                         `;
                         //將新增的資料顯示在表格的資料列上（新增在表格第一頁的第一列）
                         $("#addr_table tbody").prepend(member_table_html);
+
+                        alert(`新增成功，地址編號為${data.addrNo}`);
+
                         //燈箱消失
                         $("#member_overlay_add").fadeOut();
                         //清空燈箱裡的article區塊
@@ -232,7 +237,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                         //清空燈箱裡的article區塊
                         $("#member_overlay_add").empty();
                     }else if(data.msg == "overlap"){
-                        let error_overlap = `<div class="error_block">此棟號、樓號、房號已重複！</div>`;
+                        let error_overlap = `<div class="error_block">＊此棟號、樓號、房號已重複！</div>`;
                         $("#addr_modal_table").prepend(error_overlap);
 
                     }
@@ -308,7 +313,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
                 count++;
             }
         }
-        console.log(count);
+        //console.log(count);
         if(count === 3){
             //燈箱消失
             that.closest("div.member_overlay").fadeOut();
@@ -331,7 +336,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
                     n += 1;
                 }else{
                     html_list += `
-                        <div class="error_msg">棟號：不可空白，需輸入大寫英文字母，且長度為1</div>
+                        <div class="error_msg">＊棟號：不可空白，需輸入大寫英文字母，且長度為1</div>
                     `;
                 }
             }else if(i == 2){
@@ -340,7 +345,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
                     n += 1;
                 }else{
                     html_list += `
-                        <div class="error_msg">樓號：不可空白，需輸入數字1~100</div>
+                        <div class="error_msg">＊樓號：不可空白，需輸入數字1~100</div>
                     `;
                 }
             }else if(i == 3){
@@ -349,7 +354,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
                     n += 1;
                 }else{
                     html_list += `
-                        <div class="error_msg">房號：不可空白，需輸入數字1~100</div>
+                        <div class="error_msg">＊房號：不可空白，需輸入數字1~100</div>
                     `;
                 }
             }
@@ -374,7 +379,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
             addr_item = JSON.stringify(addr_item);
             //console.log(addr_item);
             $.ajax({
-                url:"http://localhost:8081/Okaeri/back-end/acct-addr/AddrAjaxServlet.do",
+                url:`${projectPath}/acct-addr/AddrAjaxServlet.do`,
                 type:"POST",
                 data:{"action" : "update", 
                       "addr": addr_item
@@ -404,7 +409,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
                         //清空燈箱裡的article區塊
                         that.closest("div.member_overlay").empty();
                     }else if(data.msg == "overlap"){
-                        let error_overlap = `<div class="error_block">此棟號、樓號、房號已重複！</div>`;
+                        let error_overlap = `<div class="error_block">＊此棟號、樓號、房號已重複！</div>`;
                         $("#addr_modal_table").prepend(error_overlap);
 
                     }
@@ -430,7 +435,7 @@ $("#addr_table").on("click", ".fa-minus-circle", function(){
     let r = confirm("確認移除？");
     if (r) {
         $.ajax({
-            url:"http://localhost:8081/Okaeri/back-end/acct-addr/AddrAjaxServlet.do",
+            url:`${projectPath}/acct-addr/AddrAjaxServlet.do`,
             type:"POST",
             data:{"action" : "delete", "addrNo": addrNo},
             dataType:"json",
@@ -462,10 +467,16 @@ function paging(){
     var rowsShown = 8;
     var rowsTotal = $('#addr_table tbody tr').length;
     var numPages = Math.ceil(rowsTotal / rowsShown);
-    for (i = 0; i < numPages; i++) {
-        var pageNum = i + 1;
-        $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
+
+    if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
+        return;
+      }else{
+        for (let i = 0; i < numPages ; i++) {
+          let pageNum = i + 1;
+          $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
+        }
     }
+
     $('#addr_table tbody tr').hide();
     $('#addr_table tbody tr').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');

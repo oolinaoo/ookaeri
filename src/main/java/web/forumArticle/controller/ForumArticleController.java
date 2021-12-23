@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import core.Core;
 import web.forumArticle.entity.ForumArticle;
 import web.forumArticle.mapper.ForumArticleMapper;
-import web.news.entity.News;
-import web.rule.entity.Rule;
-import web.rule.mapper.RuleMapper;
+import web.forumArticle.service.ForumArticleService;
 
 @Controller
 @RequestMapping("forumArticle")
@@ -24,11 +22,34 @@ public class ForumArticleController {
 	
 	@Autowired
 	private ForumArticleMapper mapper;
+	@Autowired
+	private ForumArticleService service;
 	
 	@GetMapping("listAll")
 	@ResponseBody
 	public List<ForumArticle> listAll() {
-		List<ForumArticle> article = mapper.listAll();
+		List<ForumArticle> article = service.listAll();
+		return article;
+	}
+	
+	@GetMapping("artTypeJoinType")
+	@ResponseBody
+	public List<ForumArticle> artTypeJoinType() {
+		List<ForumArticle> article = mapper.artTypeJoinType();
+		return article;
+	}
+	
+	@GetMapping("artJoinTypeJoinMsg")
+	@ResponseBody
+	public List<ForumArticle> artJoinTypeJoinMsg() {
+		List<ForumArticle> article = mapper.artJoinTypeJoinMsg();
+		return article;
+	}
+	
+	@GetMapping("artJoinMsg")
+	@ResponseBody
+	public List<ForumArticle> artJoinMsg() {
+		List<ForumArticle> article = mapper.artJoinMsg();
 		return article;
 	}
 	
@@ -43,6 +64,20 @@ public class ForumArticleController {
 	@ResponseBody
 	public List<ForumArticle> artNoJoinMsg(@RequestBody ForumArticle article) {
 		List<ForumArticle> theArticle = mapper.artNoJoinMsg(article);
+		return theArticle;
+	}
+	
+	@PostMapping(path = "listByMem", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ForumArticle> listByMem(@RequestBody ForumArticle article) {
+		List<ForumArticle> theArticle = mapper.listByMem(article);
+		return theArticle;
+	}
+	
+	@PostMapping(path = "findByArtNo", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ForumArticle findByArtNo(@RequestBody ForumArticle article) {
+		ForumArticle theArticle = mapper.findByArtNo(article);
 		return theArticle;
 	}
 	

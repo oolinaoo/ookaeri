@@ -3,35 +3,63 @@
 <mapper namespace="web.forumArticle.mapper.ForumArticleMapper">
 
 	<resultMap id="ArtJoinMap" type="ForumArticle">
-		<id property="forArtNo" column="FOR_ART_NO" javaType="Integer" jdbcType="INTEGER" />
-		<result property="forTypeNo" column="FOR_TYPE_NO" javaType="Integer" jdbcType="INTEGER" />
-		<result property="artStateNo" column="ART_STATE_NO" javaType="Integer" jdbcType="INTEGER" />
-		<result property="forArtPosttime" column="FOR_ART_POSTTIME" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-		<result property="forArtEdittime" column="FOR_ART_EDITTIME" javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
-		<result property="forArtTitle" column="FOR_ART_TITLE" javaType="String" jdbcType="VARCHAR" />
-		<result property="forArtContent" column="FOR_ART_CONTENT" javaType="String" jdbcType="VARCHAR" />
-		<result property="forArtView" column="FOR_ART_VIEW" javaType="Integer" jdbcType="INTEGER" />
-		<result property="memAcctArt" column="MEM_ACCT" javaType="String" jdbcType="VARCHAR" />
 
-		<collection property="message" javaType="ArrayList" ofType="ForumMessage">
+		<id property="forArtNo" column="FOR_ART_NO" javaType="Integer"
+			jdbcType="INTEGER" />
+		<result property="forTypeNo" column="FOR_TYPE_NO"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="artStateNo" column="ART_STATE_NO"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="forArtPosttime" column="FOR_ART_POSTTIME"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="forArtEdittime" column="FOR_ART_EDITTIME"
+			javaType="java.sql.Timestamp" jdbcType="TIMESTAMP" />
+		<result property="forArtTitle" column="FOR_ART_TITLE"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="forArtContent" column="FOR_ART_CONTENT"
+			javaType="String" jdbcType="VARCHAR" />
+		<result property="forArtView" column="FOR_ART_VIEW"
+			javaType="Integer" jdbcType="INTEGER" />
+		<result property="memAcct" column="MEM_ACCT" javaType="String"
+			jdbcType="VARCHAR" />
+
+		<collection property="message" javaType="ArrayList"
+			ofType="ForumMessage">
 			<id property="forMsgNo" column="FOR_MSG_NO" />
 			<result property="forArtNo" column="FOR_ART_NO" />
-			<result property="memAcctMsg" column="MEM_ACCT" />
+			<result property="memAcct" column="MAM" />
 			<result property="forMsgPosttime" column="FOR_MSG_POSTTIME" />
 			<result property="forMsgEdittime" column="FOR_MSG_EDITTIME" />
 			<result property="forMsgContent" column="FOR_MSG_CONTENT" />
 			<result property="forMsgState" column="FOR_MSG_STATE" />
 		</collection>
-		
+
+		<collection property="type" javaType="ArrayList"
+			ofType="ForumType">
+			<id property="forTypeNo" column="FOR_TYPE_NO" />
+			<result property="forType" column="FOR_TYPE" />
+		</collection>
+
+		<collection property="report" javaType="ArrayList"
+			ofType="ForumReport">
+			<id property="forReptNo" column="FOR_REPT_NO" />
+			<result property="forArtNo" column="FOR_ART_NO" />
+			<result property="forMsgNo" column="MNR" />
+			<result property="memAcct" column="MAR" />
+			<result property="adminAcct" column="ADMIN_ACCT" />
+			<result property="forReptState" column="FOR_REPT_STATE" />
+			<result property="forReptContent" column="FOR_REPT_CONTENT" />
+		</collection>
+
 	</resultMap>
-	
+
 	<select id="listAll" resultType="ForumArticle">
 		select * from FORUM_ARTICLE
 	</select>
 
 	<!-- <select id="typeList" resultMap="ForumArticle"> select * from FORUM_ARTICLE 
-		where 1 = 1 <if test="forTypeNo != null">and FOR_TYPE_NO = #{forTypeNo}</if> 
-		</select> -->
+		where 1 = 1 <if test="forTypeNo neq null"> and FOR_TYPE_NO = #{forTypeNo}</if> 
+	</select> -->
 
 	<select id="typeList" resultType="ForumArticle">
 		select * from FORUM_ARTICLE
@@ -44,12 +72,62 @@
 	</select>
 
 	<select id="artNoJoinMsg" resultMap="ArtJoinMap">
-		select *
-		from FORUM_ARTICLE A
-		inner join FORUM_MESSAGE M
+		select A.*, M.MEM_ACCT as
+		MAM, M.FOR_MSG_NO, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT
+		from
+		FORUM_ARTICLE A
+		left join FORUM_MESSAGE M
 		on A.FOR_ART_NO = M.FOR_ART_NO
 		where A.FOR_ART_NO = #{forArtNo}
-		order by FOR_MSG_NO;
+	</select>
+
+	<select id="artJoinMsg" resultMap="ArtJoinMap">
+		select A.*,
+		M.MEM_ACCT as MAM, M.FOR_MSG_NO, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT,
+		M.FOR_MSG_NO
+		from FORUM_ARTICLE A
+		left join FORUM_MESSAGE M
+		on
+		A.FOR_ART_NO = M.FOR_ART_NO
+	</select>
+
+	<select id="artTypeJoinType" resultMap="ArtJoinMap">
+		select *
+		from FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+		order by FOR_ART_NO
+	</select>
+
+	<select id="artJoinTypeJoinMsg" resultMap="ArtJoinMap">
+		select A.*,
+		M.MEM_ACCT as MAM, M.FOR_MSG_NO, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT,
+		M.FOR_MSG_STATE,
+		T.FOR_TYPE
+		from (FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO)
+		left join FORUM_MESSAGE M
+		on A.FOR_ART_NO = M.FOR_ART_NO
+		order by FOR_ART_NO
+	</select>
+	
+	<select id="listByMem" resultMap="ArtJoinMap">
+		select A.*, T.FOR_TYPE
+		from FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+		where A.MEM_ACCT = #{memAcct}
+		order by FOR_ART_POSTTIME
+	</select>
+	
+	<select id="findByArtNo" resultMap="ArtJoinMap">
+		select A.*, T.FOR_TYPE
+		from FORUM_ARTICLE A
+		inner join FORUM_TYPE T
+		on A.FOR_TYPE_NO = T.FOR_TYPE_NO
+		where A.FOR_ART_NO = #{forArtNo}
+		order by FOR_ART_NO
 	</select>
 
 	<insert id="add">
@@ -57,16 +135,15 @@
 		(MEM_ACCT, FOR_TYPE_NO,
 		FOR_ART_TITLE, FOR_ART_CONTENT)
 		values
-		(#{memAcctArt}, #{forTypeNo},
+		(#{memAcct}, #{forTypeNo},
 		#{forArtTitle}, #{forArtContent})
 	</insert>
 
 	<update id="update">
-		update FORUM_ARTICLE
-		MEM_ACCT = #{memAcctArt},
-		FOR_TYPE_NO = #{forTypeNo},
-		FOR_ART_TITLE = #{forArtTitle},
-		FOR_ART_CONTENT = #{forArtContent}
+		update FORUM_ARTICLE set
+			FOR_TYPE_NO = #{forTypeNo},
+			FOR_ART_TITLE = #{forArtTitle},
+			FOR_ART_CONTENT = #{forArtContent}
 		where FOR_ART_NO = #{forArtNo}
 	</update>
 

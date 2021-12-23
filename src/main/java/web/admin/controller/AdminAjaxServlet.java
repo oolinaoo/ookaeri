@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import web.addr.service.AddressService;
 import web.admin.entity.AdminVO;
 import web.admin.service.AdminService;
 
 
-@WebServlet("/back-end/acct-addr/AdminAjaxServlet.do")
+@WebServlet("/acct-addr/AdminAjaxServlet.do")
 public class AdminAjaxServlet extends HttpServlet {
-       
+	private static final long serialVersionUID = 1L;
  
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doPost(req, res);

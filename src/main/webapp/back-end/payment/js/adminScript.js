@@ -333,9 +333,9 @@ $(function () {
     	        	//成功的話傳送資料和關閉燈箱
     	        	//傳送新增資料到Servlet
     	        	 $.ajax({
-					    	url:"http://localhost:8081/Project/PayServlet?action=insert",
+					    	url:"/okaeri/payment/add",
 					    	dataType: "json",
-					    	type: "GET",
+					    	type: "POST",
 					    	async: true,
 					    	data: {
 					    		"memAcct" : $("#memAcct").val(),
@@ -398,11 +398,16 @@ $(function () {
 //將修改的資料傳送到Servlet
 $("table").on("click",".fa-save", function() {
 	var tr = $(this).closest("tr");
-	
+	var td = tr.find("td:eq(10)").text();
+	if(td == "已繳費"){
+		td = 0;
+	}else{
+		td= 1;
+	}
 	$.ajax({
-		url:"http://localhost:8081/Project/PayServlet?action=update",
+		url:"/okaeri/payment/update",
 		dataType: "json",
-		type: "GET",
+		type: "POST",
 		async: true,
 		data: {
 			//傳給API的參數
@@ -416,7 +421,7 @@ $("table").on("click",".fa-save", function() {
 			"payPeriod" : tr.find("td:eq(7)").text(),
 			"payWay" : tr.find("td:eq(8)").text(),
 			"adminAcct" : tr.find("td:eq(9)").text(),
-			"payState" : tr.find("td:eq(10)").text()
+			"payState" : td
 			
 				
 		},
@@ -445,9 +450,13 @@ $("table").on("click",".fa-minus-circle", function() {
 		    	},
 		});
 	});
-//前端判斷輸入值正確與否
 $(function () {
-	if($("#memAcct").value == "" ){
-		$("#memAcct").attr("value", "住戶帳號請勿空白")
-	}
+	var dataUrl =
+	  "/okaeri/payment/init";
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", dataUrl, true);
+	xhr.send();
+	xhr.onload = function () {
+		console.log("請求排程器");
+	  }
 });

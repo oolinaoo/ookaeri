@@ -1,7 +1,11 @@
+let path = window.location.pathname; //webapp的專案路徑
+//console.log(path); // /Okaeri/back-end/acct-addr/member.html
+var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
+
 //================載入所有資料================//
 function init() {
   $.ajax({
-    url: "http://localhost:8081/Okaeri/back-end/acct-addr/AdminAjaxServlet.do",
+    url: `${projectPath}/acct-addr/AdminAjaxServlet.do`,
     type: "GET",
     data: { "action": "listAll" },
     dataType: "json",
@@ -18,7 +22,6 @@ function init() {
             <td>${item.adminPos == 0 ? "保全" : "管委"}</td>
             <td>${item.adminState == 0 ? "在職" : "離職"}</td>
             <td class='del_edit_btn'>
-                <i class='fa fa-minus-circle'></i> 
                 <i class='fa fa-edit'></i> 
                 <div class="member_overlay" style="border: 1px solid red;"></div>
             </td>
@@ -49,10 +52,16 @@ function paging() {
   var rowsShown = 8;
   var rowsTotal = $('#addr_table tbody tr').length;
   var numPages = Math.ceil(rowsTotal / rowsShown);
-  for (i = 0; i < numPages; i++) {
-    var pageNum = i + 1;
-    $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
-  }
+
+  if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
+    return;
+  }else{
+    for (let i = 0; i < numPages ; i++) {
+      let pageNum = i + 1;
+      $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
+    }
+  } 
+
   $('#addr_table tbody tr').hide();
   $('#addr_table tbody tr').slice(0, rowsShown).show();
   $('#nav a:first').addClass('active');
@@ -201,7 +210,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
           `;
         }
       } else if (i == 1) {
-        let re = /^[a-zA-Z0-9]{6,25}$/;
+        let re = /^[a-zA-Z0-9]{8,25}$/;
         if (re.test(row_list[i])) {
           n += 1;
         } else {
@@ -247,7 +256,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
       };
       admin_item = JSON.stringify(admin_item);
       $.ajax({
-        url:"http://localhost:8081/Okaeri/back-end/acct-addr/AdminAjaxServlet.do",
+        url:`${projectPath}/acct-addr/AdminAjaxServlet.do`,
         type:"POST",
         data:{"action" : "insert", 
               "admin": admin_item
@@ -264,7 +273,6 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                 <td>${data.adminPos == 0 ? "保全" : "管委"}</td>
                 <td>${data.adminState == 0 ? "在職" : "離職"}</td>
                 <td class='del_edit_btn'>
-                  <i class='fa fa-minus-circle'></i> 
                   <i class='fa fa-edit'></i> 
                   <div class="member_overlay" style="border: 1px solid red;"></div>
                 </td>
@@ -272,6 +280,9 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
             `;
             //將新增的資料顯示在表格的資料列上（新增在表格第一頁的第一列）
             $("#addr_table tbody").prepend(member_table_html);
+
+            alert(`後台帳號：${data.adminAcct}，新增成功`);
+
             //燈箱消失
             $("#member_overlay_add").fadeOut();
             //清空燈箱裡的article區塊
@@ -287,7 +298,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
             //清空燈箱裡的article區塊
             $("#member_overlay_add").empty();
           }else if(data.msg == "overlap"){
-            let error_overlap = `<div class="error_block">＊此後台帳號已重複！</div>`;
+            let error_overlap = `<div class="error_block">＊後台帳號：此後台帳號已重複！</div>`;
             $("#addr_modal_table").prepend(error_overlap);
           }
         },
@@ -374,26 +385,26 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
       that.closest("div.member_overlay").empty();
       let msg = `後台帳號${update_data[0]} 修改成功`;
       alert(msg);
-      console.log("hello1")
+      //console.log("hello1")
       return; //結束程式
     }
-    console.log("hello2");
+    //console.log("hello2");
 
     //******************正規表達式驗證
     let n = 0;
     let html_list = "";
     for (var i = 0; i <= 3; i++) {
-      if (i == 0) {
-        let re = /^[a-zA-Z0-9]{5,25}$/;
-        if ( re.test(update_data[i]) ) {
-          n += 1;
-        } else {
-          html_list += `
-           <div class="error_msg">＊後台帳號：不可空白，只能是英文字母、數字，且長度必須在6到25之間</div>
-          `;
-        }
+      if (i == 0) {   // 後台帳號不可修改
+        // let re = /^[a-zA-Z0-9]{5,25}$/;
+        // if ( re.test(update_data[i]) ) {
+        //   n += 1;
+        // } else {
+        //   html_list += `
+        //    <div class="error_msg">＊後台帳號：不可空白，只能是英文字母、數字，且長度必須在5到25之間</div>
+        //   `;
+        // }
       } else if (i == 1) {
-        let re = /^[a-zA-Z0-9]{6,25}$/;
+        let re = /^[a-zA-Z0-9]{8,25}$/;
         if ( re.test(update_data[i]) ) {
           n += 1;
         } else {
@@ -425,7 +436,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
     let error_block = `<div class="error_block">${html_list}</div>`;
     
     //如果以上有任何一個驗證錯誤，n就不等於4
-    if (n != 4) {
+    if (n != 3) {
       //將錯誤訊息加入燈箱中
       $("#addr_modal_table").prepend(error_block);
     } else {
@@ -440,7 +451,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
       };
       admin_item = JSON.stringify(admin_item);
       $.ajax({
-        url:"http://localhost:8081/Okaeri/back-end/acct-addr/AdminAjaxServlet.do",
+        url: `${projectPath}/acct-addr/AdminAjaxServlet.do`,
         type:"POST",
         data:{"action" : "update", 
               "admin": admin_item
@@ -486,6 +497,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
   }
 });
 
+
 //移除
 $("#addr_table").on("click", ".fa-minus-circle", function () {
   //要刪除的該筆資料的 後台帳號
@@ -495,7 +507,7 @@ $("#addr_table").on("click", ".fa-minus-circle", function () {
   let r = confirm("確認移除？");
   if (r) {
     $.ajax({
-      url:"http://localhost:8081/Okaeri/back-end/acct-addr/AdminAjaxServlet.do",
+      url:`${projectPath}/acct-addr/AdminAjaxServlet.do`,
       type:"POST",
       data:{"action" : "delete", "adminAcct": adminAcct},
       dataType:"json",

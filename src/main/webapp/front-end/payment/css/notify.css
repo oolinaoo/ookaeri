@@ -1,0 +1,96 @@
+/* Style The Dropdown Button */
+.dropbtn {
+  background-color: #e4ded0;
+  color: white;
+  padding: 16px;
+  /* font-size: 16px; */
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e4ded0;
+  min-width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu on hover */
+/* .dropdown:hover .dropdown-content {
+        display: block;
+      } */
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #e4ded0;
+}
+div.view {
+  display: block;
+}
+a.box {
+  overflow: hidden;
+}
+div.box {
+  overflow: hidden;
+}
+.color {
+  background-color: #cfc5ac;
+}
+#badge {
+  width: 20px;
+  height: 20px;
+  line-height: 20px; /* 数值与height相同，使数字垂直居中 */
+  display: none;
+  text-align: center; /* 使数字水平居中 */
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 50%; 
+  position: absolute;
+  right: 10px;
+}
+button.delete_notify{
+	margin-left:200px;
+	cursor: pointer;
+	width: 30px;
+}
+h3.nomessage{
+	min-height:50px;
+	min-width: 100px;
+	text-align: center;
+}
+img.nomessage{
+	max-height:150px;
+	max-width: 100px;
+	margin-left:75px
+}
+
+
+
+
+
+
+

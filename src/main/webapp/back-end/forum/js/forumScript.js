@@ -29,91 +29,6 @@ function changCss(obj) {
   }
 }
 
-// TABLE table TABLE table TABLE table TABLE table
-// ARTICLE article ARTICLE article ARTICLE article ARTICLE article
-// json from servlet
-// $(function () {
-//   var dataUrl = "http://localhost:8080/##################";
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("GET", dataUrl, true);
-//   xhr.send();
-//   xhr.onload = function () {
-//     var data = JSON.parse(this.responseText);
-//     console.log(data);
-//     for (var i = 0; i < data.length; i++) {
-//       $("table tbody").append(
-//         "<tr><td class='id'>" +
-//           data[i].forArtNo +
-//           "</td><td class='type'>" +
-//           data[i].forTypeNo +
-//           "</td><td class='title'>" +
-//           data[i].forArtTitle +
-//           "</td><td class='content'>" +
-//           data[i].forArtContent +
-//           "</td><td class='mem'>" +
-//           data[i].memAcct +
-//           "</td><td class='posttime'>" +
-//           data[i].forArtPosttime +
-//           "</td><td class='edittime'>" +
-//           data[i].forArtEdittime +
-//           "</td><td class='state'>" +
-//           data[i].ArtStateNo +
-//           "</td><td class='whole'>" +
-//           "留言內容" +
-//           "</td></tr>"
-//       );
-//     }
-
-//     var table = $("table");
-//     var currentPage = 0; // 當前頁默認值為0
-//     var pageSize = 8; // 每一頁顯示的數目
-//     table.bind("paging", function () {
-//       table
-//         .find("tbody tr")
-//         .hide()
-//         .slice(currentPage * pageSize, (currentPage + 1) * pageSize)
-//         .show();
-//     });
-//     var sumRows = table.find("tbody tr").length;
-//     var sumPages = Math.ceil(sumRows / pageSize); // 總頁數
-
-//     var pager = $('<div class="page"></div>'); // 新建div，放入a標簽,顯示底部分頁碼
-//     for (var pageIndex = 0; pageIndex < sumPages; pageIndex++) {
-//       $(
-//         '<a href="#" id="pageStyle" onclick="changCss(this)"><span>' +
-//           (pageIndex + 1) +
-//           "</span></a>"
-//       )
-//         .bind("click", { newPage: pageIndex }, function (event) {
-//           currentPage = event.data["newPage"];
-//           table.trigger("paging");
-//           // 觸發分頁函數
-//         })
-//         .appendTo(pager);
-//       pager.append(" ");
-//     }
-//     pager.insertAfter(table);
-//     table.trigger("paging");
-
-//     // 默認第一頁的a標簽效果
-//     var pagess = $("#pageStyle");
-//     pagess[0].style.backgroundColor = "#B5495B";
-//     pagess[0].style.color = "#ffffff";
-//   };
-// });
-//ajax 寫法
-//$.ajax({
-//	url:"http://localhost:8080/okaeri-news/NewsControllerServlet",
-//	type:"GET",
-//	data:{"command": "LIST"},
-//	dataType:"json",
-//	success: function(data) {
-//		console.log(data);
-//	}
-//error:
-//});
-// ARTICLE article ARTICLE article ARTICLE article ARTICLE article
-
 // REPORT report REPORT report REPORT report REPORT report REPORT report
 // json from servlet
 // $(function () {
@@ -200,173 +115,43 @@ function changCss(obj) {
 // });
 // REPORT report REPORT report REPORT report REPORT report REPORT report
 
-//edit Buttons
-$(document).ready(function () {
-  $("table").on("click", ".fa-minus-circle", function () {
-    if (
-      prompt(
-        "Are You Sure You Want to Delete this Row? Type 'yes' to Confirm this"
-      ) == "yes"
-    ) {
-      $(this).closest("tr").remove();
-    } else {
-    }
-  });
-
-  $("table").on("click", ".fa-edit, .fa-save", function () {
-    var thisRow = $(this).parent().siblings();
-    var editOn = $(this).hasClass("editMode");
-
-    $("td:last-child").attr("contenteditable", "false");
-    $("td:last-child").css("background-color", "transparent");
-
-    if (editOn == false) {
-      $(thisRow).attr("contenteditable", "true");
-      $(thisRow).css("background-color", "#EBECF0");
-      $(this).removeClass("fa-edit");
-      $(this).addClass("fa-save editMode");
-    } else if (editOn == true) {
-      $(thisRow).attr("contenteditable", "false");
-      $(thisRow).css("background-color", "transparent");
-      $(this).removeClass("fa-save editMode");
-      $(this).addClass("fa-edit");
-    }
-  });
-
-  $("th", this).mouseout(function () {
-    $(this).attr("contenteditable", "false");
-  });
-});
-
-// FULL ARTICLE & MESSAGE & REPORT  full article & message & report
-// ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article
-// $("table.tableContents").on("click", "td.whole", function () {
-//   // 若要秀出文章和它全部的留言，看是要用兩個 api 還是一個
-//   // 感覺直接用兩個會比較簡單
-//   var dataUrl = "http://localhost:8080/##################";
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("GET", dataUrl, true);
-//   xhr.send();
-//   xhr.onload = function () {
-//     var data = JSON.parse(this.responseText);
-//     console.log(data);
-//     // article
-//     $("div.modal-container h2").append(data.forArtTitle);
-//     $("div.modal-container div.article_content").append(data.forArtContent);
-
-//     // message  如果要同一個 api 就可以查文章和它的相關留言，感覺要 Join 或 View 之類的？
-//     var msgList = "";
-//     for (var i = 0; i < data.length; i++) {
-//       msgList +=
-//         "<div class='article_message'>" +
-//         "<div>" +
-//         data.memAcct +
-//         "</div><br />" +
-//         data.forMsgContent +
-//         "<div style='text-align: right; font-size: 0.8em'>" +
-//         data.forMsgEdittime +
-//         "</div>" +
-//         "<div style='text-align: right; font-size: 0.8em'>檢舉</div>" +
-//         "</div>";
-//     }
-//     $("div.modal-container h3").after(msgList);
-//   };
-// });
-// ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article ARTICLE article
-
-
-
-
 // REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report
 // 先秀出被檢舉的該篇文章或流言就好？
 // 全部列出好像有點大費周章、要篩出相關聯的列出又很不容易的感覺
 
-// 若是文章被檢舉，要看看如何傳入文章編號、再把文章內容抓出來呈現
-// $("table.tableReports").on("click", "td.art", function () {
-//   var dataUrl = "http://localhost:8080/##################";
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("GET", dataUrl, true);
-//   xhr.send();
-//   xhr.onload = function () {
-//     var data = JSON.parse(this.responseText);
-//     console.log(data);
-
-//     // 檢舉原因
-//     $("div.report_content").append(data.forReptContent);
-
-//     // 被檢舉文章內容
-//     var reptArt = `<h3>${data.forArtTitle}</h3>
-//                      <div class="article_content">
-//                        <div>${data.memAcct}</div>
-//                        <br/>
-//                        ${data.forArtContent}
-//                        <div style="text-align: right; font-size: 0.8em">${data.forArtEdittime}</div>
-//                      </div>`;
-
-//     $("div.confirm_report").before(reptArt);
-//   };
-// });
-
-// 若是留言被檢舉，要看看如何傳入留言編號、再把留言內容抓出來呈現
-// $("table.tableReports").on("click", "td.msg", function () {
-//   var dataUrl = "http://localhost:8080/##################";
-//   var xhr = new XMLHttpRequest();
-//   xhr.open("GET", dataUrl, true);
-//   xhr.send();
-//   xhr.onload = function () {
-//     var data = JSON.parse(this.responseText);
-//     console.log(data);
-
-//     // 檢舉原因
-//     $("div.report_content").append(data.forReptContent);
-
-//     var reptMsg = `<h3>留言</h3>
-//                    <div class="article_message">
-//                      <div>${data.memAcct}</div>
-//                      <br/>
-//                      ${data.forMsgContent}
-//                      <div style="text-align: right; font-size: 0.8em">${data.forMsgEdittime}</div>
-//                    </div>`;
-
-//     $("div.confirm_report").before(reptMsg);
-//   };
-// });
-// REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report REPORT report
-
-
-// LightBox
-// returned cases //
-const modalReturned = document.querySelector(".modal-returned");
-const overlayReturned = document.querySelector(".overlay-returned");
-const btnCloseModalReturned = document.querySelector(
-  ".btn--close-modal-returned"
-);
-// const btnsOpenModalReturned = document.querySelectorAll(".newPost-button");
-const btnsOpenModalReturned = document.querySelectorAll(".whole");
-
-// returned cases //
-const openModalReturned = function (e) {
-  e.preventDefault();
-  modalReturned.classList.remove("hidden");
-  overlayReturned.classList.remove("hidden");
-};
-
-const closeModalReturned = function () {
-  modalReturned.classList.add("hidden");
-  overlayReturned.classList.add("hidden");
-};
-
-btnsOpenModalReturned.forEach((btn) =>
-  btn.addEventListener("click", openModalReturned)
-);
-btnCloseModalReturned.addEventListener("click", closeModalReturned);
-overlayReturned.addEventListener("click", closeModalReturned);
-
-document.addEventListener("keydown", function (e) {
-  if (e.key === "Escape" && !modalReturned.classList.contains("hidden")) {
-    closeModalReturned();
-  }
-});
+//// LightBox
+//// returned cases //
+//const modalReturned = document.querySelector(".modal-returned");
+//const overlayReturned = document.querySelector(".overlay-returned");
+//const btnCloseModalReturned = document.querySelector(
+//  ".btn--close-modal-returned"
+//);
+//// const btnsOpenModalReturned = document.querySelectorAll(".newPost-button");
+//const btnsOpenModalReturned = document.querySelectorAll(".whole");
+//
+//// returned cases //
+//const openModalReturned = function (e) {
+//  e.preventDefault();
+//  modalReturned.classList.remove("hidden");
+//  overlayReturned.classList.remove("hidden");
+//};
+//
+//const closeModalReturned = function () {
+//  modalReturned.classList.add("hidden");
+//  overlayReturned.classList.add("hidden");
+//};
+//
+//btnsOpenModalReturned.forEach((btn) =>
+//  btn.addEventListener("click", openModalReturned)
+//);
+//btnCloseModalReturned.addEventListener("click", closeModalReturned);
+//overlayReturned.addEventListener("click", closeModalReturned);
+//
+//document.addEventListener("keydown", function (e) {
+//  if (e.key === "Escape" && !modalReturned.classList.contains("hidden")) {
+//    closeModalReturned();
+//  }
+//});
 
 //Search Filter
 (function (document) {

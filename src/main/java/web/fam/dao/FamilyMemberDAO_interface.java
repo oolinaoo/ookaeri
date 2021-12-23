@@ -13,4 +13,6 @@ public interface FamilyMemberDAO_interface {
     public List<FamilyMemberVO> getAll();
     public void insertFamsWithMemAcct(FamilyMemberVO famMemberVO, Connection con);
     public void updateFamsWithMemAcct(String memAcct, List<String> famMemAryList, Connection con);
+    //public Integer deleteFamsWithMemAcct(String memAcct);
+ 
 }

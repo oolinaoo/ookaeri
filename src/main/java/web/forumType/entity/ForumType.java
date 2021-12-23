@@ -1,6 +1,8 @@
 package web.forumType.entity;
 
-public class ForumType {
+import java.io.Serializable;
+
+public class ForumType implements Serializable{
 	
 	private Integer forTypeNo;
 	private String forType;

@@ -1,5 +1,6 @@
 package web.news.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import web.admin.entity.AdminVO;
 
-public class News {
+public class News implements Serializable{
 	
 	private Integer newsNo;
 	private String adminAcct;

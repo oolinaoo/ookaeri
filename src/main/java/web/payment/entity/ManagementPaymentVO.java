@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ManagementPaymentVO implements Serializable {
 	private Integer payNo;
 	private String memAcct;
 	private Integer addrNo;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Timestamp payDate;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date payDeadline;
 	private Integer payAmount;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Timestamp payRecentCall;
 	private Integer payPeriod;
 	private String payWay;

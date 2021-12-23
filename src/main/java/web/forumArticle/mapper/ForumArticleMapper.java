@@ -7,8 +7,14 @@ import web.forumArticle.entity.ForumArticle;
 public interface ForumArticleMapper {
 	
 	List<ForumArticle> listAll();
-	Integer add(ForumArticle article);
-	Integer update(ForumArticle article);
+	List<ForumArticle> artTypeJoinType();
+	List<ForumArticle> artJoinTypeJoinMsg();
+	List<ForumArticle> artJoinMsg();
 	List<ForumArticle> typeList(ForumArticle article);
 	List<ForumArticle> artNoJoinMsg(ForumArticle article);
+	List<ForumArticle> listByMem(ForumArticle article);
+	ForumArticle findByArtNo(ForumArticle article);
+	Integer add(ForumArticle article);
+	Integer update(ForumArticle article);
+	
 }

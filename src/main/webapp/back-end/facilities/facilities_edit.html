@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>公設列表</title>
+    <link rel="stylesheet" href="./css/adminStyle.css" />
+    <link rel="stylesheet" href="./css/fac_edit.css" />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
+      integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <div class="sidenav">
+      <div class="sidenav-cont">
+        <div class="menu">
+          <span><img class="logo" src="./images/logo2.png" />管理員專區</span>
+        </div>
+        <div>
+          <hr />
+          <button class="dropdown-btn">
+            帳號管理 <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">住戶帳號管理</a> 
+            <a href="#">後端帳號管理</a>
+            <a href="#">地址資料管理</a>
+          </div>
+          <button class="dropdown-btn">
+            社區交流 <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">社區公告</a> 
+            <a href="#">社區公約</a>
+          </div>
+          <button class="dropdown-btn">
+            社區論壇 <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">論壇</a> 
+            <a href="#">論壇留言</a>
+            <a href="#">論壇檢舉</a>
+          </div>
+          <button class="dropdown-btn">
+            公設管理 <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="./facilities.html">公設列表</a> 
+            <a href="./facilities_history.html">公設租借紀錄</a>
+            <a href="./facilities_edit.html">公設編輯</a>
+          </div>
+          <button class="dropdown-btn">
+            美食地圖 <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-container">
+            <a href="#">商家資訊</a> 
+            <a href="#">地圖留言</a>
+            <a href="#">我的最愛</a> 
+            <a href="#">留言檢舉</a>
+          </div>
+          <a href="#services">聊天室</a>
+          <a href="#clients">管理費用</a>
+          <a href="#contact">管理包裹</a>
+          <a href="#contact">登出</a>
+        </div>
+      </div>
+    </div>
+
+
+    <!--  ###########  頁面主要內容區域  ###########  -->
+    <div class="main">
+      <h3>公設編輯</h3>
+
+      <!-- 主頁內容 -->
+      <div class="container">
+        <div class="floor_choose">
+          <select name="fac_map" id="fac_map">
+            <option value="A">A - B1</option>
+            <option value="B">B - B1</option>
+            <option value="C">C - B1</option>
+          </select>
+        </div>
+        
+        <!-- 公設地圖 -->
+        <div id="facs_body">
+
+          <!-- A 棟公設 -->
+          <div class="floor_plan" id="A"  style="display:none;">
+            <div class="floor" data-addr="A" data-floor="B1">A - B1</div>
+            <div class="hidden_door">
+              <div class="door"></div>
+            </div>
+            <div class="facility">
+              <a href="#" class="facs_top A1" data-addrno="1">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top A2" data-addrno="2">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top A3" data-addrno="3">
+                <div class="factop"></div>
+              </a>
+              
+              <a href="#" class="facs_top A4" data-addrno="4">
+                <div class="factop"></div>
+              </a>
+    
+              <a href="#" class="facs_bot A5" data-addrno="5">
+                <div class="facbot"></div>
+              </a>
+              <a href="#" class="facs_bot A6" data-addrno="6">
+                <div class="facbot"></div>
+              </a>
+            </div>
+          </div>
+
+          <!-- B 棟公設 -->
+          <div class="floor_plan" id="B" style="display:none;">
+            <div class="floor" data-addr="B" data-floor="B1">B - B1</div>
+            <div class="hidden_door">
+              <div class="door"></div>
+            </div>
+            <div class="facility">
+              <a href="#" class="facs_top B1" data-addrno="1">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top B2" data-addrno="2">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top B3" data-addrno="3">
+                <div class="factop"></div>
+              </a>
+              
+              <a href="#" class="facs_top B4" data-addrno="4">
+                <div class="factop"></div>
+              </a>
+    
+              <a href="#" class="facs_bot B5" data-addrno="5">
+                <div class="facbot"></div>
+              </a>
+              <a href="#" class="facs_bot B6" data-addrno="6">
+                <div class="facbot"></div>
+              </a>
+            </div>
+          </div>
+
+          <!-- C 棟公設 -->
+          <div class="floor_plan" id="C" style="display:none;">
+            <div class="floor" data-addr="C" data-floor="B1">C - B1</div>
+            <div class="hidden_door">
+              <div class="door"></div>
+            </div>
+            <div class="facility">
+              <a href="#" class="facs_top C1" data-addrno="1">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top C2" data-addrno="2">
+                <div class="factop"></div>
+              </a>
+
+              <a href="#" class="facs_top C3" data-addrno="3">
+                <div class="factop"></div>
+              </a>
+              
+              <a href="#" class="facs_top C4" data-addrno="4">
+                <div class="factop"></div>
+              </a>
+    
+              <a href="#" class="facs_bot C5" data-addrno="5">
+                <div class="facbot"></div>
+              </a>
+              <a href="#" class="facs_bot C6" data-addrno="6">
+                <div class="facbot"></div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+        <!-- 新增公設按鈕 -->
+        <div id="new_fac" draggable="true"><div class="new">拖曳新增</div></div>
+
+
+        <!-- 新增公設的資料輸入彈窗 -->
+        <div class="overlay">
+          <article>
+            <h1>公設新增</h1>
+            <button type="button" class="btn_modal_close">&times;</button>
+            <form id="fac_details">
+              <label for="fname">公設名稱：</label>
+              <input type="text" id="fname" name="fname">
+
+              <label for="fmax">人數上限：</label>
+              <select name="fmax" id="fmax">
+              </select>
+
+              <label for="fstate">公設上架：</label>
+              <select name="fstate" id="fstate">
+                <option value="0">上架</option>
+                <option value="1">下架</option>
+              </select>
+              <br><br>
+
+              
+              <label for="fdate">公設開放日：</label>
+              <input type="checkbox" id="fdate1" class="fdate" name="fdate1" value="一">
+              <label for="fdate1"> 一 </label>
+              <input type="checkbox" id="fdate2" class="fdate" name="fdate2" value="二">
+              <label for="fdate2"> 二 </label>
+              <input type="checkbox" id="fdate3" class="fdate" name="fdate3" value="三">
+              <label for="fdate3"> 三 </label>
+              <input type="checkbox" id="fdate4" class="fdate" name="fdate4" value="四">
+              <label for="fdate4"> 四 </label>
+              <input type="checkbox" id="fdate5" class="fdate" name="fdate5" value="五">
+              <label for="fdate5"> 五 </label>
+              <input type="checkbox" id="fdate6" class="fdate" name="fdate6" value="六">
+              <label for="fdate6"> 六 </label>
+              <input type="checkbox" id="fdate7" class="fdate" name="fdate7" value="日">
+              <label for="fdate7"> 日 </label>
+              <br><br>
+
+              <label for="ftime">公設開放時段：</label><br>
+              <input type="checkbox" id="ftime1" class="ftime" name="ftime1" value="08">
+              <label for="ftime1"> 08:00 ~ 10:00 </label>
+              <input type="checkbox" id="ftime2" class="ftime" name="ftime2" value="10">
+              <label for="ftime2"> 10:00 ~ 12:00 </label>
+              <input type="checkbox" id="ftime3" class="ftime" name="ftime3" value="12">
+              <label for="ftime3"> 12:00 ~ 14:00 </label>
+              <input type="checkbox" id="ftime4" class="ftime" name="ftime4" value="14">
+              <label for="ftime4"> 14:00 ~ 16:00 </label>
+              <br>
+              <input type="checkbox" id="ftime5" class="ftime" name="ftime5" value="16">
+              <label for="ftime5"> 16:00 ~ 18:00 </label>
+              <input type="checkbox" id="ftime6" class="ftime" name="ftime6" value="18">
+              <label for="ftime6"> 18:00 ~ 20:00 </label>
+              <input type="checkbox" id="ftime7" class="ftime" name="ftime7" value="20">
+              <label for="ftime7"> 20:00 ~ 22:00 </label>
+              <br><br>
+
+              <label for="fphoto">公設圖片：</label>
+              <input type="file" id="fphoto" name="fphoto">
+              <br><br>
+              
+              
+              <div class="action">
+                <input class="confirm" type="button" value="確定">
+                <input class="reset" type="reset" value="重填">
+                <input class="cancel" type="button" value="取消">
+              </div>
+            </form> 
+          </article>
+        </div>
+
+        <div class="edit">
+          <article>
+            <h1>公設編輯</h1>
+            <button type="button" class="btn_modal_close">&times;</button>
+            <form id="fac_details">
+              <!-- 這邊用 JS 動態加入 -->
+
+            </form> 
+          </article>
+        </div>
+
+
+      </div>
+    </div>
+
+    <script src="./vendor/jquery-3.6.0.min.js"></script>
+    <script src="./js/adminScript.js" charset="UTF-8"></script>
+    <script src="./js/facilities_edit.js"></script>
+    
+  </body>
+
+</html>

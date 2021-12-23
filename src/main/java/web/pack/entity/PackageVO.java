@@ -3,11 +3,16 @@ package web.pack.entity;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class PackageVO {
 	
+	private String memAcct;
 	private Integer packNo;
 	private Integer addrNo;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date packArrived;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
 	private Date packReceived;
 	private String packLogistics;
 	private Integer packTypeNo;

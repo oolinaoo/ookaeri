@@ -282,6 +282,17 @@ hr {
 	color: #6a4028;
 }
 
+.forum-content p {
+	text-align: justify;
+	white-space: pre-line;
+	word-wrap: break-word;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
 .fa-eye {
 	color: black;
 }
@@ -529,7 +540,7 @@ hr {
 }
 
 .forum-category>ul>li>button {
-	background: transparent; 
+	background: transparent;
 	border: none;
 	color: #64363c;
 	font-size: 1.2em;
