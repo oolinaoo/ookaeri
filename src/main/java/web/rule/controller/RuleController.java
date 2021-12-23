@@ -42,7 +42,8 @@ public class RuleController {
 	@ResponseBody
 	public Core update(@RequestBody Rule rule) {
 		Core core = new Core();
-		core.setSuccess(mapper.update(rule) > 0);
+		int count = mapper.update(rule);
+		core.setSuccess(count > 0);
 		return core;
 	}
 

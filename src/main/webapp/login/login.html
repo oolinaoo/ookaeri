@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="overlay-returned hidden"></div>
+    <div class="modal-returned hidden">
+      <div class="modal-container">
+        <button class="btn--close-modal-returned">&times;</button>
+        <div class="inputStyle">
+          <p>請輸入信箱</p>
+          <br />
+          <input type="email" id="email" required />
+        </div>
+        <div class="save-button">
+          <input
+            type="submit"
+            value="確認"
+            class="save"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="cotn_principal">
+      <div class="cont_centrar">
+        <div class="cont_login">
+          <div class="cont_info_log_sign_up">
+            <div class="col_md_login">
+              <div class="cont_ba_opcitiy">
+                <h2>住戶登入</h2>
+                <p>僅限本社區住戶</p>
+                <button class="btn_login" onclick="cambiar_login()">
+                  LOGIN
+                </button>
+              </div>
+            </div>
+            <div class="col_md_sign_up">
+              <div class="cont_ba_opcitiy">
+                <h2>後台登入</h2>
+                <p>僅限管理員</p>
+                <button class="btn_sign_up" onclick="cambiar_sign_up()">
+                  LOGIN
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="cont_back_info">
+            <div class="cont_img_back_grey">
+              <img src="login_2.jpeg" alt="" />
+            </div>
+          </div>
+          <div class="cont_forms">
+            <div class="cont_img_back_">
+              <img src="login_2.jpeg" alt="" />
+            </div>
+            <div class="cont_form_login modal-father">
+              <a href="#" onclick="ocultar_login_sign_up()"
+                ><i class="material-icons">&#xE5C4;</i></a
+              >
+              <h2>住戶登入</h2>
+              <input type="text" placeholder="帳號" id="mAcct" value="gina1" />
+              <input
+                type="password"
+                placeholder="密碼"
+                id="mPwd"
+                value="gina1pwd"
+              />
+              <a id="forgetPwd" class="forgetPwdModal" href="#">忘記密碼 </a>
+              <button
+                class="btn_login"
+                id="login-member"
+                onclick="cambiar_login()"
+              >
+                LOGIN
+              </button>
+            </div>
+
+            <div class="cont_form_sign_up">
+              <a href="#" onclick="ocultar_login_sign_up()"
+                ><i class="material-icons">&#xE5C4;</i></a
+              >
+              <h2>後台登入</h2>
+              <input type="text" placeholder="帳號" id="aAcct" value="gary1" />
+              <input
+                type="password"
+                placeholder="密碼"
+                id="aPwd"
+                value="gary1pwd"
+              />
+              <button
+                class="btn_sign_up"
+                id="login-admin"
+                onclick="cambiar_sign_up()"
+              >
+                LOGIN
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js" charset="UTF-8"></script>
+  </body>
+</html>

@@ -385,6 +385,7 @@ input {
 .save {
 	width: 100px;
 	background-color: #ecb88a;
+	cursor: pointer;
 }
 
 .save:hover {
