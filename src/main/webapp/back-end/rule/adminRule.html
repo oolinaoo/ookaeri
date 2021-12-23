@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>社區公告</title>
+    <title>社區公約</title>
     <link rel="stylesheet" href="adminStyle.css" />
     <script
       defer
@@ -18,7 +18,7 @@
     <div class="sidenav">
       <div class="sidenav-cont">
         <div class="menu">
-          <span><img class="logo" src="logo2.png" />管理員專區</span>
+          <span><img class="logo" src="logo2.png" />管理員專區<br><span></span></span>
         </div>
         <div>
           <hr />
@@ -33,7 +33,7 @@
             社區交流 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">社區公告</a> <a href="#">社區公約</a>
+            <a href="/okaeri/back-end/news/adminNews.html">社區公告</a> <a href="/okaeri/back-end//rule/adminRule.html">社區公約</a>
           </div>
           <button class="dropdown-btn">
             社區論壇 <i class="fa fa-caret-down"></i>
@@ -59,7 +59,7 @@
           <a href="#services">聊天室</a>
           <a href="#clients">管理費用</a>
           <a href="#contact">管理包裹</a>
-          <a href="#contact">登出</a>
+          <a id="logout" href="">登出</a>
         </div>
       </div>
     </div>
@@ -133,5 +133,6 @@
     </div>
     <script src="adminScript.js" charset="UTF-8"></script>
     <script src="cudScript.js" charset="UTF-8"></script>
+    <script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>
   </body>
 </html>

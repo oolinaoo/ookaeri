@@ -37,4 +37,22 @@ public class LoginServiceImpl implements LoginService {
 		return false;
 	}
 
+	@Override
+	public Login getUser(String memAcct) {
+		Login mem = mapper.getUser(memAcct);
+		if (mem != null) {
+			return mem;
+		}
+		return null;
+	}
+
+	@Override
+	public Login getAdmin(String adminAcct) {
+		Login admin = mapper.getAdmin(adminAcct);
+		if (admin != null) {
+			return admin;
+		}
+		return null;
+	}
+
 }

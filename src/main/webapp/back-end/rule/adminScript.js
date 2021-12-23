@@ -46,7 +46,7 @@ $(function () {
 $(document).ready(function() {
 
   $("table").on("click", ".fa-minus-circle", function() {
-    if (prompt("Are You Sure You Want to Delete this Row? Type 'yes' to Confirm this") == "yes") {
+    if (prompt("確認刪除，請輸入yes") == "yes") {
       $(this).closest('tr').remove();
     } else {}
   });
@@ -60,6 +60,8 @@ $(document).ready(function() {
 
     if (editOn == false) {
       $(thisRow).attr('contenteditable', 'true');
+      $('td:eq(0)').attr('contenteditable', 'false');
+      $('td:eq(4)').attr('contenteditable', 'false');
       $(thisRow).css('background-color', '#EBECF0');
       $(this).removeClass("fa-edit");
       $(this).addClass("fa-save editMode");
@@ -73,7 +75,7 @@ $(document).ready(function() {
     		const title = $(this).find(".title").html();
     		const content = $(this).find(".content").html();
     		const time = $(this).find(".time").html();
-    		const admin = $(this).find(".admin").html();
+    		const admin = $(".menu span span span").html();
     		let form_data = {
     			"ruleNo" : ruleId,
     			"ruleTitle" : title,

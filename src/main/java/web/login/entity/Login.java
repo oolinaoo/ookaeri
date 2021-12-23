@@ -7,22 +7,12 @@ public class Login implements Serializable{
 	private String memAcct;
 	private String memPwd;
 	private String memName;
+	private String memEmail;
 	private String adminAcct;
 	private String adminPwd;
 	private String adminName;
 
 	public Login() {
-	}
-
-	public Login(String memAcct, String memPwd, String memName, String adminAcct, String adminPwd,
-			String adminName) {
-		super();
-		this.memAcct = memAcct;
-		this.memPwd = memPwd;
-		this.memName = memName;
-		this.adminAcct = adminAcct;
-		this.adminPwd = adminPwd;
-		this.adminName = adminName;
 	}
 
 	public String getMemAcct() {
@@ -71,6 +61,14 @@ public class Login implements Serializable{
 
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
+	}
+
+	public String getMemEmail() {
+		return memEmail;
+	}
+
+	public void setMemEmail(String memEmail) {
+		this.memEmail = memEmail;
 	}
 
 }
