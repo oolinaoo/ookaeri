@@ -23,6 +23,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>地圖留言管理</title>
+    <link rel="icon" href="images/logo2.png">
     <link rel="stylesheet" href="css/adminStyle.css" />
     <script
       defer
@@ -85,7 +86,7 @@
     <!--  ###########  頁面主要內容區域  ###########  -->
     <div class="main">
       <h3>地圖留言管理</h3>
-      
+    
       <!-- SEARCH BAR & ADD BUTTON-->
       <div class="search-bar">
         <label>search</label>
