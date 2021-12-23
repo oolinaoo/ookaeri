@@ -19,13 +19,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/map/css/map_tab.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/map_tab.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/map/css/map.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/map.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/map/css/mapInfo.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/mapInfo.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/map/css/header_footer_style.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/header_footer_style.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>美食地圖</title>
@@ -36,13 +36,13 @@
 <body>
 	<%-- <span>商家編號: ${sessionScope.storeNoUsedInCommentArea}</span> --%>
 	<%-- <span>商家資訊: ${sessionScope.storeINFO}</span> --%>
-
+	<span>${requestScope.commentRepeatOrNot}</span>
 
 	<div id="header">
 		<p class="header_logo">
 			<a href=""> <img
-				src="<%=request.getContextPath()%>/images/logo2.png" alt="logo"
-				width="80" />
+				src="<%=request.getContextPath()%>/front-end/map/images/logo2.png"
+				alt="logo" width="80" />
 			</a>
 		</p>
 		<ul class="navbar_list">
@@ -69,21 +69,21 @@
 				</ol></li>
 			<li class="navbar_list_open" style="width: 130px;"><a href="">美食地圖</a></li>
 			<li class="navbar_icon"><a href=""><img class="alert_icon"
-					src="<%=request.getContextPath()%>/images/alert.png" alt="alert" /></a>
-			</li>
+					src="<%=request.getContextPath()%>/front-end/map/images/alert.png"
+					alt="alert" /></a></li>
 			<li class="navbar_icon"><a href=""><img class="user_icon"
-					src="<%=request.getContextPath()%>/images/user.png" alt="user" /></a>
-			</li>
+					src="<%=request.getContextPath()%>/front-end/map/images/user.png"
+					alt="user" /></a></li>
 		</ul>
 	</div>
 	<div class="map_tab_container">
 		<div class="tab_list_block">
 			<ul class="tab_list">
 				<li><a
-					href="<%=request.getContextPath()%>/map_message/foodmap.jsp"
+					href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp"
 					data-target="tab1" class="tab -on">美食地圖</a></li>
 				<li><a
-					href="<%=request.getContextPath()%>/map_message/favoritefoodmap.jsp"
+					href="<%=request.getContextPath()%>/front-end/map/map_message/favoritefoodmap.jsp"
 					data-target="tab2" class="tab">我的最愛</a></li>
 			</ul>
 		</div>
@@ -106,17 +106,21 @@
 
 						<p class="mapInfoHead">商家資訊</p>
 						<p class="mapInfoContent">${sessionScope.storeINFO}</p>
-						<form class="buttonFavForm" action="<%=request.getContextPath()%>/controller/ServletController.do">
-<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
-							<input type="hidden" value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo"/>
-							<input type="hidden" value="inputToFav" name="action"/>
+						<form class="buttonFavForm"
+							action="<%=request.getContextPath()%>/controller/ServletController.do">
+							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
+							<input type="hidden"
+								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="inputToFav" name="action" />
 							<button class="buttonFav" type="submit">加入至最愛</button>
 						</form>
 
-						<form class="buttonDelteFavForm" action="<%=request.getContextPath()%>/controller/ServletController.do">
-<!-- 							<input type="hidden" value="MEM_ACCT" name="mem">  -->
-							<input type="hidden" value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo"/>
-							<input type="hidden" value="deleteFromFav" name="action"/>
+						<form class="buttonDelteFavForm"
+							action="<%=request.getContextPath()%>/controller/ServletController.do">
+							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem">  -->
+							<input type="hidden"
+								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="deleteFromFav" name="action" />
 							<button class="buttonDelteFav" type="submit">從最愛刪除</button>
 						</form>
 
@@ -133,6 +137,17 @@
 								value="inputComment">
 							<button type="submit" style="margin-top: 30px;"></button>
 						</form>
+						<script>
+						
+							if(let 0==${requestScope.reportState})
+								{
+									window.alert("留言輸入成功");
+								}
+							if(let 1==${requestScope.reportState})
+							{
+								window.alert("您的這筆留言已輸入過一次");
+							}
+						</script>
 						<p class="mapcommentHead"
 							style="margin-top: 0px; margin-bottom: 0px;">留言區</p>
 
@@ -149,13 +164,27 @@
 									<c:if
 										test="${msg.MAP_STORE_NO==sessionScope.storeNoUsedInCommentArea && msg.MAP_MSG_STATE==0}">
 										<tr>
-											<td class="content" width="150px">
+											<td width="50px">${msg.MEM_ACCT}</td>
+											<td class="content" width="100px">
 												${msg.MAP_MSG_CONTENT}</td>
 											<td width="50px">
 
-												<form class="reportCommentForm" action="">
-													<button class="report" type="submit">檢舉</button>
-												</form>
+												<button class="report" type="button">檢舉</button>
+												<div class="overlay" style="border: 1px solid red;">
+													<article>
+														<h1>檢舉頁面</h1>
+															<form class="reportCommentForm"
+																action="<%=request.getContextPath()%>/controller/reptServletController.do">
+																<input type="text" name="reptMessage" value="" />
+																<input type="hidden" name="reptAcct" value="${msg.MEM_ACCT}" />
+																<input type="hidden"name="messageNO" value="${msg.MAP_MSG_NO}" />
+																<input type="hidden" name="action" value="reportComments" />
+																<button class="" type="submit">檢舉</button>
+															</form>
+															<button type="button" class="btn_modal_close">關閉</button>
+													</article>
+												</div>
+
 											</td>
 										</tr>
 									</c:if>
@@ -175,6 +204,24 @@
 		</div>
 	</div>
 
+
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script>
+												
+	$(function(){
+													  
+	// 開啟 Modal 彈跳視窗
+	$("button.report").on("click", function(){
+	$("div.overlay").fadeIn();
+	});
+													  
+	// 關閉 Modal
+	$("button.btn_modal_close").on("click", function(){
+	$("div.overlay").fadeOut();
+	});
+													  
+				});
+	</script>
 
 	<script>
     function initMap() {
@@ -1040,6 +1087,8 @@
       });
     }
   </script>
-  
+	<script async
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
+    </script>
 </body>
 </html>

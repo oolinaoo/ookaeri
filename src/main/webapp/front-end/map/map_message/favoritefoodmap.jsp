@@ -10,7 +10,7 @@
 	request.setAttribute("msgList", msgList);
 %>
 <%
-	String No=(String)(request.getAttribute("storeNoInInput"));
+	request.setAttribute("userName","gina2");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,29 +19,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/map_tab.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/map_tab.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/map.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/map.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/mapInfo.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/mapInfo.css" />
 <link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/css/header_footer_style.css" />
+	href="<%=request.getContextPath()%>/front-end/map/css/header_footer_style.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>美食地圖</title>
-
 
 </head>
 
 <body>
 	<%-- <span>商家編號: ${sessionScope.storeNoUsedInCommentArea}</span> --%>
 	<%-- <span>商家資訊: ${sessionScope.storeINFO}</span> --%>
+<%-- <span><%=request.getContextPath()%></span> --%>
 
 
 	<div id="header">
 		<p class="header_logo">
 			<a href=""> <img
-				src="<%=request.getContextPath()%>/images/logo2.png" alt="logo"
+				src="<%=request.getContextPath()%>/front-end/map/images/logo2.png" alt="logo"
 				width="80" />
 			</a>
 		</p>
@@ -69,10 +69,10 @@
 				</ol></li>
 			<li class="navbar_list_open" style="width: 130px;"><a href="">美食地圖</a></li>
 			<li class="navbar_icon"><a href=""><img class="alert_icon"
-					src="<%=request.getContextPath()%>/images/alert.png" alt="alert" /></a>
+					src="<%=request.getContextPath()%>/front-end/map/images/alert.png" alt="alert" /></a>
 			</li>
 			<li class="navbar_icon"><a href=""><img class="user_icon"
-					src="<%=request.getContextPath()%>/images/user.png" alt="user" /></a>
+					src="<%=request.getContextPath()%>/front-end/map/images/user.png" alt="user" /></a>
 			</li>
 		</ul>
 	</div>
@@ -80,10 +80,10 @@
 		<div class="tab_list_block">
 			<ul class="tab_list">
 				<li><a
-					href="<%=request.getContextPath()%>/map_message/foodmap.jsp"
+					href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp"
 					data-target="tab1" class="tab">美食地圖</a></li>
 				<li><a
-					href="<%=request.getContextPath()%>/map_message/favoritefoodmap.jsp"
+					href="<%=request.getContextPath()%>/front-end/map/map_message/favoritefoodmap.jsp"
 					data-target="tab2" class="tab -on">我的最愛</a></li>
 			</ul>
 		</div>
@@ -109,7 +109,7 @@
 						<p class="mapInfoHead">商家資訊</p>
 						<p class="mapInfoContent">${sessionScope.storeINFO}</p>
 						<form class="buttonFavForm"
-							action="<%=request.getContextPath()%>/controller/FavServletControllerv.do">
+							action="<%=request.getContextPath()%>/controller/FavServletController.do">
 							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
@@ -140,28 +140,88 @@
 							<button type="submit" style="margin-top: 30px;"></button>
 						</form>
 						<p class="mapcommentHead"
-							style="margin-top: 0px; margin-bottom: 0px;">留言區</p>
+							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
 
 						<table class="comment-area" width="300px">
-							<thead>
-								<tr>
-									<th width="220px">留言</th>
-									<th width="70px">檢舉</th>
-								</tr>
-							</thead>
+							
 							<tbody>
 
 								<jsp:useBean id="Fav" scope="page" class="web.mapFavorite.service.Map_My_FavoriteService" /><!-- 注意!!!，為了方便，useBean一律跟EL運算式配合 -->
 								
 								<tr>
-									<td>我的最愛:<font color=red><b>*</b></font></td>
+									
 										<td>
-											<select size="1" name="Fav">
+											<select size="1" name="pretty-select" >
 												<c:forEach var="favVO" items="${Fav.all}">
-													<option value="${favVO.MAP_STORE_NO}" >
+													<c:if test="${ favVO.MEM_ACCT==requestScope.userName}">
+														<c:if test="${favVO.MAP_STORE_NO==1}">
+															<option value="萬有全涮羊肉10491台灣台北市中山區南京東路三段223巷8號" >萬有全涮羊肉
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==2}">
+															<option value="聚馥園餐廳104台灣台北市中山區南京東路三段219號3樓" >聚馥園餐廳
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==3}">
+															<option value="丘一司早午餐遼寧店104台灣台北市中山區遼寧街114號1樓" >丘一司早午餐遼寧店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==4}">
+															<option value="熊派餐廳10491台灣台北市中山區南京東路三段194巷1號" >熊派餐廳
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==5}">
+															<option value="麥當勞-台北南京五店10491台灣台北市中山區南京東路三段210號1樓" >麥當勞-台北南京五店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==6}">
+															<option value="壽司飯丸專門店-兄弟大飯店105台灣台北市松山區南京東路三段255號1樓" >壽司飯丸專門店-兄弟大飯店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==7}">
+															<option value="海底撈火鍋慶城店105台灣台北市松山區慶城街1號3F" >海底撈火鍋慶城店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==8}">
+															<option value="爍場串燒‧夜食10547台灣台北市松山區復興北路141巷6弄6號1樓" >爍場串燒‧夜食
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==9}">
+															<option value="TheBrassMonkey銅猴子復興店10491台灣台北市中山區復興北路166號" >TheBrassMonkey銅猴子復興店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==10}">
+															<option value="CinCinOsteria請請義大利餐廳(慶城店)10491台灣台北市中山區復興北路166號" >CinCinOsteria請請義大利餐廳(慶城店)
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==11}">
+															<option value="三個傻瓜印度蔬食南京店104台灣台北市中山區長春路318號" >三個傻瓜印度蔬食南京店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==12}">
+															<option value="香米泰國料理復北店10491台灣台北市中山區復興北路174號" >香米泰國料理復北店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==13}">
+															<option value="ＷonderBar&Lounge105台灣台北市松山區復興北路183號" >ＷonderBar&Lounge
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==14}">
+															<option value="HOOTERS美式餐廳105台灣台北市松山區慶城街18號" >HOOTERS美式餐廳
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==15}">
+															<option value="慶城海南雞飯105台灣台北市松山區慶城街16巷8號" >慶城海南雞飯
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==16}">
+															<option value="ToBeSmoothie台北南京復興店104台灣台北市中山區遼寧街105巷48號" >ToBeSmoothie台北南京復興店
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==17}">
+															<option value="HAPPYBOBI波樂手搖茶飲10488台灣台北市中山區遼寧街107-3號1樓" >HAPPYBOBI波樂手搖茶飲
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==18}">
+															<option value="蓮RENTaipei105台灣台北市松山區南京東路三段256巷19號" >蓮RENTaipei
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==19}">
+															<option value="長壽三好庵105台灣台北市松山區南京東路三段256巷20弄1號" >長壽三好庵
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==20}">
+															<option value="犂園湯包館105台灣台北市松山區南京東路三段256巷24號" >犂園湯包館
+														</c:if>
+														<c:if test="${favVO.MAP_STORE_NO==21}">
+															<option value="はま寿司HAMA壽司南京復興店105403台灣台北市松山區南京東路三段270號" >はま寿司HAMA壽司南京復興店
+														</c:if>
+													</c:if>
 												</c:forEach>
 											</select>
 										</td>
+									
 								</tr>
 
 							</tbody>
