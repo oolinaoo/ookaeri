@@ -13,6 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import com.google.gson.JsonParser;
 
 import core.Core;
 import util.Util;
+import web.pack.entity.PackageVO;
 import web.payment.entity.ManagementPaymentVO;
 import web.payment.mapper.ManagementPaymentMapper;
 import web.payment.service.PayService;
@@ -51,7 +53,7 @@ public class PaymentController {
 		        public void run() {
 		        	Calendar c = Calendar.getInstance();
 					int day = c.get(Calendar.DAY_OF_MONTH);
-		
+					System.out.println("day="+day);
 			        if(day ==1) {	
 		        		
 		        		List<String> listMemAcct= mapper.listMemAcct();
@@ -61,7 +63,6 @@ public class PaymentController {
 	        				Integer addrNo =listAddrNo.get(i);
 	        				Integer payAmount = 3600;
 							String adminAcct = "gary1";
-							Integer payState = 1;
 							//設定截止日
 							Calendar pd = Calendar.getInstance();
 							pd.set(Calendar.DATE,pd.getActualMaximum(Calendar.DATE));//設定每月月底為繳費截止日
@@ -80,7 +81,6 @@ public class PaymentController {
 							payVO.setPayAmount(payAmount);
 							payVO.setPayPeriod(payPeriod);
 							payVO.setAdminAcct(adminAcct);
-							payVO.setPayState(payState);
 							mapper.add(payVO);
 							mapper.addNotify(memAcct, addrNo, notifyMessage);
 		        			
@@ -122,14 +122,21 @@ public class PaymentController {
 	
 	@GetMapping(path = "unPaid")
 	@ResponseBody
-	public List<ManagementPaymentVO> unPaid() {
-		final List<ManagementPaymentVO> list = mapper.unPaid();
+	public List<ManagementPaymentVO> unPaid(HttpSession session) {
+		System.out.println("進入管理費未繳交======================");
+		String memAcct =(String) session.getAttribute("memAcct");
+		final List<ManagementPaymentVO> list = mapper.unPaid(memAcct);
+		System.out.println(list);
 		return list; 
 	}
+	
 	@GetMapping(path = "Paid")
 	@ResponseBody
-	public List<ManagementPaymentVO> Paid() {
-		final List<ManagementPaymentVO> list = mapper.paid();
+	public List<ManagementPaymentVO> Paid(HttpSession session) {
+		System.out.println("進入管理費已繳交======================");
+		String memAcct =(String) session.getAttribute("memAcct");
+		final List<ManagementPaymentVO> list = mapper.paid(memAcct);
+		System.out.println(list);
 		return list; 
 	}
 	

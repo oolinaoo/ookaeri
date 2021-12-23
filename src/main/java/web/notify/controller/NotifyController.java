@@ -3,6 +3,8 @@ package web.notify.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +21,12 @@ public class NotifyController {
 	
 	@GetMapping(path = "listNotify")
 	@ResponseBody
-	public List<String> listNotify() throws IndexOutOfBoundsException {
-		System.out.println("有進入");
+	public List<String> listNotify(HttpSession session) throws IndexOutOfBoundsException {
+		 System.out.println("有進入");
+		 String memAcct =(String) session.getAttribute("memAcct");
 		 List<String> list = new ArrayList <String>() ;
-		 List<String> list2 = mapper.listNotifyMsg() ;
-		 List<String> list3 = mapper.listNotifyTime() ;
+		 List<String> list2 = mapper.listNotifyMsg(memAcct) ;
+		 List<String> list3 = mapper.listNotifyTime(memAcct) ;
 		for(int i =0; i<=list2.size();i++ ) {
 			try {
 				String str = list2.get(i)+" "+list3.get(i);
@@ -37,27 +40,30 @@ public class NotifyController {
 	
 	@GetMapping(path = "countNotifyState")
 	@ResponseBody
-	public Integer countNotifyState() {
+	public Integer countNotifyState(HttpSession session) {
 		System.out.println("有進入");
-		final Integer countNotifyState = mapper.countNotifyState();
+		String memAcct =(String) session.getAttribute("memAcct");
+		final Integer countNotifyState = mapper.countNotifyState(memAcct);
 		System.out.println(countNotifyState);
 		return countNotifyState; 
 	}
 	
 	@GetMapping(path = "updateNotifyState")
 	@ResponseBody
-	public Integer updateNotifyState() {
+	public Integer updateNotifyState(HttpSession session) {
 		System.out.println("有進入");
-		final Integer updateNotifyState = mapper.updateNotifyState();
+		String memAcct =(String) session.getAttribute("memAcct");
+		final Integer updateNotifyState = mapper.updateNotifyState(memAcct);
 		System.out.println(updateNotifyState);
 		return updateNotifyState; 
 	}
 	
 	@GetMapping(path = "deleteNotify")
 	@ResponseBody
-	public Integer deleteNotify() {
+	public Integer deleteNotify(HttpSession session) {
 		System.out.println("有進入");
-		final Integer deleteNotify = mapper.deleteNotify();
+		String memAcct =(String) session.getAttribute("memAcct");
+		final Integer deleteNotify = mapper.deleteNotify(memAcct);
 		System.out.println(deleteNotify);
 		return deleteNotify; 
 	}

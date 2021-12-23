@@ -6,4 +6,77 @@
 		select * from Package
 	</select>
 	
+	<select id="listAddr" resultType="Integer">
+		select ADDR_NO from ADDRESS
+	</select>
+	
+	<select id="memAcct" resultType="String">
+		select MEM_ACCT from MEMBER where ADDR_NO = #{addrNo}
+	</select>
+	
+	<select id="listNotify" resultType="java.util.Map">
+		select NOTIFY_MESSAGE,NOTIFY_TIME  from NOTIFY
+	</select>
+	
+	<select id="listNotifyMsg" resultType="String">
+		select NOTIFY_MESSAGE  from NOTIFY
+	</select>
+	
+	<select id="listNotifyTime" resultType="String">
+		select NOTIFY_TIME  from NOTIFY
+	</select>
+	
+	<select id="countNotifyState" resultType="Integer">
+		select count(NOTIFY_STATE) FROM okaeri.NOTIFY where NOTIFY_STATE = 1
+	</select>
+	
+	<select id="memListReceived" resultType="PackageVO">
+		select PACK_NO,PACK_ARRIVED,PACK_RECEIVED,PACK_LOGISTICS,PACK_TYPE_NO,PACK_STATE from Package 
+		where PACK_STATE = 1 and ADDR_NO = #{addrNo}
+	</select>
+	
+	<select id="memListUnReceived" resultType="PackageVO">
+		select PACK_NO,PACK_ARRIVED,PACK_LOGISTICS,PACK_TYPE_NO,PACK_STATE from Package 
+		where PACK_STATE = 0 and ADDR_NO = #{addrNo}
+	</select>
+	
+	<select id="getMemAddr" resultType="Integer">
+		select ADDR_NO from MEMBER where MEM_ACCT = #{memAcct}
+	</select>
+	
+	<insert id="add">
+		insert into Package
+		(ADDR_NO, PACK_ARRIVED, PACK_LOGISTICS, PACK_TYPE_NO)
+		values
+		(#{addrNo}, #{packArrived}, #{packLogistics}, #{packTypeNo})
+	</insert>
+	
+	<update id="update">
+		update Package SET
+			PACK_ARRIVED = #{packArrived},
+			PACK_RECEIVED = #{packReceived},
+			PACK_LOGISTICS = #{packLogistics},
+			PACK_TYPE_NO = #{packTypeNo},
+			PACK_STATE = #{packState}
+		where PACK_NO = #{packNo}
+	</update>
+	
+	<update id="updateNotifyState">
+		update NOTIFY SET
+			NOTIFY_STATE = 0
+	</update>
+	
+	<insert id="addNotify">
+		insert into Notify
+		(MEM_ACCT,ADDR_NO, Notify_Message)
+		values
+		(#{memAcct},#{addrNo},"您有新的包裹已到達")
+	</insert>
+	
+	<delete id="deleteNotify">
+		delete from okaeri.NOTIFY
+	</delete>
+	
+	
+	
 </mapper>
