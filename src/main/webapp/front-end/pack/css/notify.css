@@ -25,6 +25,10 @@
   overflow:scroll;
   max-height:300px;
 }
+.dropdown-content.view {
+  margin-left:-100px; 
+
+}
 
 /* Links inside the dropdown */
 .dropdown-content a {
@@ -89,6 +93,7 @@ img.nomessage{
 	max-width: 100px;
 	margin-left:75px
 }
+
 
 
 
