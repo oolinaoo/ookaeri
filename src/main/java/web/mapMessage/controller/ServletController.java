@@ -17,7 +17,6 @@ import web.mapFavorite.dao.Map_My_FavoriteDAO;
 import web.mapFavorite.dao.impl.Map_My_FavoriteDAOImpl;
 import web.mapFavorite.entity.Map_My_FavoriteVO;
 import web.mapFavorite.service.Map_My_FavoriteService;
-import web.mapMessage.entity.Map_MessageVO;
 import web.mapMessage.service.Map_MessageService;
 import web.mapStoreInfo.entity.Map_Store_InfoVO;
 import web.mapStoreInfo.service.Map_Store_InfoService;
@@ -45,7 +44,7 @@ public class ServletController extends HttpServlet {
 			
 			if (no.trim().isEmpty()) {
 				System.out.println("請選擇店家");
-				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 				failure.forward(req, res);
 				return;
 			} else {
@@ -78,13 +77,13 @@ public class ServletController extends HttpServlet {
 				}
 				if (branch.equals("f")) {
 					System.out.println("資料有重複");
-					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+					RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 					failure.forward(req, res);
 					return;
 				} else {
 					System.out.println("資料沒有重複");
 					dao.addMap_My_FavoriteVO(no, mem);
-					RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+					RequestDispatcher success = req.getRequestDispatcher("/map_message/foodmap.jsp");
 					success.forward(req, res);
 					return;
 				}
@@ -100,7 +99,7 @@ public class ServletController extends HttpServlet {
 			if(no.trim().isEmpty())
 			{
 				System.out.println("請選擇店家");
-				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 				failure.forward(req, res);
 				return;
 			}
@@ -113,14 +112,14 @@ public class ServletController extends HttpServlet {
 					Map_My_FavoriteDAO dao = new Map_My_FavoriteDAOImpl();
 					dao.delete(no,mem);
 					RequestDispatcher success = req
-							.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+							.getRequestDispatcher("/map_message/foodmap.jsp");
 					success.forward(req, res);
 				}
 				catch(Exception e)
 				{
 					System.out.println("該筆資料已刪除");
 					RequestDispatcher failure = req
-							.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+							.getRequestDispatcher("/map_message/foodmap.jsp");
 					failure.forward(req, res);
 				}
 			}
@@ -155,7 +154,7 @@ public class ServletController extends HttpServlet {
 					break;
 				}
 			}
-			RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+			RequestDispatcher success = req.getRequestDispatcher("/map_message/foodmap.jsp");
 			success.forward(req, res);
 
 		}
@@ -163,56 +162,27 @@ public class ServletController extends HttpServlet {
 			String storeNoUsedInInputComment = req.getParameter("storeNoUsedInInputComment");
 			String commentContent = req.getParameter("comment");
 			if (storeNoUsedInInputComment.trim().isEmpty()) {
-				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 				failure.forward(req, res);
 				System.out.println("沒有選擇店家");
 				return;
 			}
 			if (commentContent.trim().isEmpty()) {
-				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 				failure.forward(req, res);
 				System.out.println("沒有留言");
 				return;
 
 			} else {
-				int rePeat=0;//0.代表使用者留言沒重複 1.代表使用者留言有重複
-				String name = "gina1";
 				Map_MessageService dao = new Map_MessageService();
-				List<Map_MessageVO> allMes=dao.getAll();
-				Iterator<Map_MessageVO> it  = allMes.iterator();
-				
-				while(it.hasNext())
-				{
-					Map_MessageVO messageVO=(Map_MessageVO) it.next();
-					if(messageVO.getMEM_ACCT().equals(name)&&messageVO.getMAP_MSG_CONTENT().equals(commentContent)&&messageVO.getMAP_STORE_NO().equals(storeNoUsedInInputComment))
-					{
-						rePeat=1;
-						break;
-					}
-				}
-				if(rePeat==0)
-				{
-					Timestamp MAP_MSG_TIME = new Timestamp(123456565);
-					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, MAP_MSG_TIME, 0);
-					req.setAttribute("commentRepeatOrNot", "commentNoRepeat");
-					RequestDispatcher good = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
-					good.forward(req, res);
-					System.out.println(storeNoUsedInInputComment);
-					System.out.println("留言輸入成功");
-					
-					return;
-				}
-				if(rePeat==1)
-				{
-					req.setAttribute("commentRepeatOrNot", "commentRepeat");
-					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
-					failure.forward(req, res);
-					System.out.println(storeNoUsedInInputComment);
-					System.out.println("您的這筆留言已輸入過一次");
-					
-					
-				}
-				
+				Timestamp MAP_MSG_TIME = new Timestamp(123456565);
+				String name = "gina1";
+				dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, MAP_MSG_TIME, 0);
+				RequestDispatcher good = req.getRequestDispatcher("/map_message/foodmap.jsp");
+				good.forward(req, res);
+				System.out.println(storeNoUsedInInputComment);
+				System.out.println("成功輸入");
+				return;
 			}
 		}
 
@@ -225,10 +195,10 @@ public class ServletController extends HttpServlet {
 			Iterator<Map_Store_InfoVO> it = allStoreInfo.iterator();
 
 			if (str.trim().isEmpty()) {
-				System.out.println("有道這一區塊");
+
 				String errorStoreName = "請輸入商家名稱";
 				req.setAttribute("errorMessage", errorStoreName);
-				RequestDispatcher backToJsp = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				RequestDispatcher backToJsp = req.getRequestDispatcher("/map_message/foodmap.jsp");
 				backToJsp.forward(req, res);
 				return;
 
@@ -257,13 +227,13 @@ public class ServletController extends HttpServlet {
 
 				}
 				if (branch == 1) {
-					RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+					RequestDispatcher success = req.getRequestDispatcher("/map_message/foodmap.jsp");
 					success.forward(req, res);
 				} else {
 
 					String errorStoreName = "請輸入正確商家名稱";
 					req.setAttribute("errorMessage", errorStoreName);
-					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+					RequestDispatcher failure = req.getRequestDispatcher("/map_message/foodmap.jsp");
 					failure.forward(req, res);
 
 				}

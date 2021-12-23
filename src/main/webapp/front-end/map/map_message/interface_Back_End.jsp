@@ -59,7 +59,7 @@ thead {
 					<th>上下架</th>
 					<th>檢舉狀態</th>
 					<th>檢舉內容</th>
-<!-- 					<th>留言上下架</th> -->
+					<th>留言上下架</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -73,14 +73,14 @@ thead {
 						<td>${msg.MAP_MSG_STATE==0}</td>
 						<td>已處理</td>
 						<td>${msg.MAP_MSG_CONTENT}</td>
-<!-- 						<td><FORM METHOD="post" -->
-<%-- 						ACTION="<%=request.getContextPath()%>/controller/ServletController.do" --%>
-<!-- 						style="margin-bottom: 0px;"> -->
-<!-- 						<input type="submit" value="上架/下架">  -->
-<!-- 						 <input type="hidden" -->
-<%-- 							name="empno" value="${msg.MAP_MSG_STATE}"> <input type="hidden" --%>
-<!-- 							name="action" value="getOne_For_UpdateState"> -->
-<!-- 					</FORM></td> -->
+						<td><FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/controller/ServletController.do"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="上架/下架"> 
+						 <input type="hidden"
+							name="empno" value="${msg.MAP_MSG_STATE}"> <input type="hidden"
+							name="action" value="getOne_For_UpdateState">
+					</FORM></td>
 					</tr>
 				</c:forEach>
 
