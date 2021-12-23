@@ -44,7 +44,7 @@ public class FavServletController extends HttpServlet {
 			
 			if (no.trim().isEmpty()) {
 				System.out.println("請選擇店家");
-				RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				failure.forward(req, res);
 				return;
 			} else {
@@ -77,13 +77,13 @@ public class FavServletController extends HttpServlet {
 				}
 				if (branch.equals("f")) {
 					System.out.println("資料有重複");
-					RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					failure.forward(req, res);
 					return;
 				} else {
 					System.out.println("資料沒有重複");
 					dao.addMap_My_FavoriteVO(no, mem);
-					RequestDispatcher success = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+					RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					success.forward(req, res);
 					return;
 				}
@@ -99,7 +99,7 @@ public class FavServletController extends HttpServlet {
 			if(no.trim().isEmpty())
 			{
 				System.out.println("請選擇店家");
-				RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				failure.forward(req, res);
 				return;
 			}
@@ -112,14 +112,14 @@ public class FavServletController extends HttpServlet {
 					Map_My_FavoriteDAO dao = new Map_My_FavoriteDAOImpl();
 					dao.delete(no,mem);
 					RequestDispatcher success = req
-							.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+							.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					success.forward(req, res);
 				}
 				catch(Exception e)
 				{
 					System.out.println("該筆資料已刪除");
 					RequestDispatcher failure = req
-							.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+							.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					failure.forward(req, res);
 				}
 			}
@@ -154,7 +154,7 @@ public class FavServletController extends HttpServlet {
 					break;
 				}
 			}
-			RequestDispatcher success = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+			RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 			success.forward(req, res);
 
 		}
@@ -162,13 +162,13 @@ public class FavServletController extends HttpServlet {
 			String storeNoUsedInInputComment = req.getParameter("storeNoUsedInInputComment");
 			String commentContent = req.getParameter("comment");
 			if (storeNoUsedInInputComment.trim().isEmpty()) {
-				RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				failure.forward(req, res);
 				System.out.println("沒有選擇店家");
 				return;
 			}
 			if (commentContent.trim().isEmpty()) {
-				RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				failure.forward(req, res);
 				System.out.println("沒有留言");
 				return;
@@ -178,7 +178,7 @@ public class FavServletController extends HttpServlet {
 				Timestamp MAP_MSG_TIME = new Timestamp(123456565);
 				String name = "gina1";
 				dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, MAP_MSG_TIME, 0);
-				RequestDispatcher good = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher good = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				good.forward(req, res);
 				System.out.println(storeNoUsedInInputComment);
 				System.out.println("成功輸入");
@@ -198,7 +198,7 @@ public class FavServletController extends HttpServlet {
 
 				String errorStoreName = "請輸入商家名稱";
 				req.setAttribute("errorMessage", errorStoreName);
-				RequestDispatcher backToJsp = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+				RequestDispatcher backToJsp = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 				backToJsp.forward(req, res);
 				return;
 
@@ -227,13 +227,13 @@ public class FavServletController extends HttpServlet {
 
 				}
 				if (branch == 1) {
-					RequestDispatcher success = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+					RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					success.forward(req, res);
 				} else {
 
 					String errorStoreName = "請輸入正確商家名稱";
 					req.setAttribute("errorMessage", errorStoreName);
-					RequestDispatcher failure = req.getRequestDispatcher("/map_message/favoritefoodmap.jsp");
+					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
 					failure.forward(req, res);
 
 				}
