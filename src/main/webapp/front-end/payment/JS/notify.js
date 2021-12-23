@@ -26,7 +26,7 @@ $(function () {
 	  }else{
 	      $("div.dropdown_selector").prepend(
 					'<h3 class="nomessage">No Message</h3>'+
-					'<img class="nomessage" src="./images/no-message.png">'
+					'<img class="nomessage" src="/okaeri/front-end/payment/images/no-message.png">'
 		  );		
 	   }	
 	 
