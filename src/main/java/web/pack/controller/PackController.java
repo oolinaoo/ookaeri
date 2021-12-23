@@ -3,6 +3,8 @@ package web.pack.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,11 +22,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
 
 import core.Core;
-import web.news.entity.News;
+//import web.login.entity.Login;
+//import web.news.entity.News;
 import web.pack.entity.PackageVO;
 import web.pack.mapper.PackMapper;
-import web.rule.entity.Rule;
-import web.rule.mapper.RuleMapper;
+//import web.rule.entity.Rule;
+//import web.rule.mapper.RuleMapper;
 
 @Controller
 @RequestMapping("pack")
@@ -39,6 +42,29 @@ public class PackController {
 	public List<PackageVO> listAllPack() {
 		System.out.println("有進入");
 		final List<PackageVO> list = mapper.listAll();
+		System.out.println(list);
+		return list; 
+	}
+	
+	@GetMapping(path = "memListReceived")
+	@ResponseBody
+	public List<PackageVO> memListReceived(HttpSession session) {
+		System.out.println("進入包裹已領取======================");
+		String memAcct =(String) session.getAttribute("memAcct");
+		System.out.println("memAcct="+memAcct);
+		Integer addrNo= mapper.getMemAddr(memAcct);
+		final List<PackageVO> list = mapper.memListReceived(addrNo);
+		System.out.println(list);
+		return list; 
+	}
+	@GetMapping(path = "memListUnReceived")
+	@ResponseBody
+	public List<PackageVO> memListUnReceived(HttpSession session) {
+		System.out.println("進入包裹未領取======================");
+		String memAcct =(String) session.getAttribute("memAcct");
+		System.out.println("memAcct="+memAcct);
+		Integer addrNo= mapper.getMemAddr(memAcct);
+		final List<PackageVO> list = mapper.memListUnReceived(addrNo);
 		System.out.println(list);
 		return list; 
 	}

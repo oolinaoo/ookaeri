@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.notify.mapper.NotifyMapper">
+
+	
+	
+	<select id="listNotifyMsg" resultType="String">
+		select NOTIFY_MESSAGE  from NOTIFY where MEM_ACCT = '${memAcct}'
+	</select>
+	
+	<select id="listNotifyTime" resultType="String">
+		select NOTIFY_TIME  from NOTIFY where MEM_ACCT = '${memAcct}'
+	</select>
+	
+	<select id="countNotifyState" resultType="Integer">
+		select count(NOTIFY_STATE) FROM okaeri.NOTIFY where NOTIFY_STATE = 1 and MEM_ACCT = '${memAcct}'
+	</select>
+	
+	<update id="updateNotifyState">
+		update NOTIFY SET
+			NOTIFY_STATE = 0  where MEM_ACCT = '${memAcct}'
+	</update>
+	
+	<delete id="deleteNotify">
+		delete from okaeri.NOTIFY where  MEM_ACCT = '${memAcct}'
+	</delete>
+	
+</mapper>	

@@ -10,6 +10,9 @@ import web.pack.entity.PackageVO;
 public interface PackMapper {
 
 	List<PackageVO> listAll();
+	List<PackageVO> memListReceived(@Param("addrNo")Integer addrNo);
+	List<PackageVO> memListUnReceived(@Param("addrNo")Integer addrNo);
+	Integer getMemAddr(@Param("memAcct")String memAcct);
 	List<Integer> listAddr();
 	Integer add(PackageVO packageVO);
 	Integer update(PackageVO packageVO);

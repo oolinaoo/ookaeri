@@ -11,9 +11,9 @@ $(function () {
 	  console.log(data);
 	  for (var i = 0; i < data.length; i++) {
 		if(data[i].payState == 0 ){
-			data[i].payState = "已繳費";
-		}else if(data[i].payState == 1){
 			data[i].payState = "未繳費";
+		}else if(data[i].payState == 1){
+			data[i].payState = "已繳費";
 		} 
 		$("table tbody").append(
 				"<tr><td class='payNo' >" + data[i].payNo +"</td>"

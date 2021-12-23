@@ -10,10 +10,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
         rel="stylesheet" />
-
-    <!-- datatables -->
-    <!-- <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet"> -->
-
 </head>
 
 <body>
@@ -111,8 +107,9 @@
                         <thead>
                             <tr>
                                 <th>文章標題</th>
+                                <th hidden>文章編號</th>
                                 <th>文章內容</th>
-                                <th>文章類別</th>
+                                <th>類別</th>
                                 <th>觀看數</th>
                                 <th>發佈時間</th>
                                 <th>編輯</th>
@@ -120,182 +117,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- <tr>
-                                <td>1</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>9</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>11</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>12</td>
-                                <td>A</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>1</td>
-                                <td>
-                                    <button type="button" class="addr_btn_edit">編輯</button>
-                                </td>
-                                <td>
-                                    <button type="button" class="addr_btn_delete">刪除</button>
-                                </td>
-                            </tr> -->
-                            <!-- <tfoot>
-                                <tr>
-                                    <th>文章標題</th>
-                                    <th>文章內容</th>
-                                    <th>文章類別</th>
-                                    <th>觀看數</th>
-                                    <th>留言數</th>
-                                    <th>發佈時間</th>
-                                    <th>編輯</th>
-                                    <th>刪除</th>
-                                </tr>
-                            </tfoot> -->
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <div class="footer">
         <a class="footer_link" href="#">サイトついて</a>
@@ -304,61 +131,7 @@
         <p class="copyright">© 2021 okaeri</p>
     </div>
     <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
-    <!-- Datatables -->
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> -->
-    <!-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
-    <script>
-        // $(function () {
-        //     $(document).ready(function () {
-        //         var table = $('#member_table').DataTable();
-
-        //         $('#member_table tbody').on('click', 'tr', function () {
-        //             if ($(this).hasClass('selected')) {
-        //                 $(this).removeClass('selected');
-        //             }
-        //             else {
-        //                 table.$('tr.selected').removeClass('selected');
-        //                 $(this).addClass('selected');
-        //             }
-        //         });
-        //     });
-
-        // });
-        // $(document).ready(function () {
-        //     $('#mem-article-table').after('<div id="nav"></div>');
-        //     var rowsShown = 4;
-        //     var rowsTotal = $('#mem-article-table tbody tr').length;
-        //     var numPages = Math.ceil(rowsTotal / rowsShown);
-        //     for (i = 0; i < numPages; i++) {
-        //         var pageNum = i + 1;
-        //         $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
-        //     }
-        //     $('#mem-article-table tbody tr').hide();
-        //     $('#mem-article-table tbody tr').slice(0, rowsShown).show();
-        //     $('#nav a:first').addClass('active');
-        //     var $pagess = $("#pageStyle");
-        //     $pagess[0].style.backgroundColor = "#B5495B";
-        //     $pagess[0].style.color = "#ffffff";
-
-        //     $('#nav a').bind('click', function () {
-
-        //         $('#nav a').removeClass('active');
-        //         $(this).addClass('active');
-        //         $('#nav a').css('background-color', '').css('color', '');
-        //         $(this).css('background-color', '#B5495B').css('color', '#ffffff');
-
-        //         var currPage = $(this).attr('rel');
-        //         var startItem = currPage * rowsShown;
-        //         var endItem = startItem + rowsShown;
-        //         $('#mem-article-table tbody tr').css('opacity', '0.0')
-        //             .hide()
-        //             .slice(startItem, endItem)
-        //             .css('display', 'table-row').animate({ opacity: 1 }, 300);
-        //     });
-
-        // });
-
-    </script>
+    <script src="js/mem-article-ajax.js"></script>
 </body>
 
 </html>

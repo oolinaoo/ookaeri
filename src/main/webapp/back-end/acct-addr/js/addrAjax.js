@@ -467,10 +467,16 @@ function paging(){
     var rowsShown = 8;
     var rowsTotal = $('#addr_table tbody tr').length;
     var numPages = Math.ceil(rowsTotal / rowsShown);
-    for (i = 0; i < numPages; i++) {
-        var pageNum = i + 1;
-        $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
+
+    if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
+        return;
+      }else{
+        for (let i = 0; i < numPages ; i++) {
+          let pageNum = i + 1;
+          $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
+        }
     }
+
     $('#addr_table tbody tr').hide();
     $('#addr_table tbody tr').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');

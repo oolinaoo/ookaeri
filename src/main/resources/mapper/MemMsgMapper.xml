@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.mem.mapper.MemMsgMapper">
+
+	<resultMap id="MemJoinPack" type="MemPackVO">
+		<id property="memAcct" column="MEM_ACCT" />
+		<result property="packNo" column="PACK_NO" />
+		<result property="packTypeNo" column="PACK_TYPE_NO" />
+		<result property="packState" column="PACK_STATE" />
+		<result property="addrNo" column="ADDR_NO" />
+	</resultMap>
+	
+	<select id="memJoinPack" resultMap="MemJoinPack">
+		select m.MEM_ACCT, p.PACK_NO, p.PACK_TYPE_NO, p.PACK_STATE, p.ADDR_NO
+		from
+			MEMBER m
+		    left join PACKAGE p
+				on m.ADDR_NO = p.ADDR_NO
+		where m.MEM_ACCT = #{memAcct} and p.PACK_STATE = 0;
+    </select>
+	
+	<select id="memManagePay" resultType="ManagementPaymentVO">
+		select PAY_NO, PAY_STATE, MEM_ACCT, ADDR_NO from MANAGEMENT_PAYMENT
+		where MEM_ACCT = #{memAcct} and PAY_STATE = 0;
+	</select>
+	
+</mapper>

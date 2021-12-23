@@ -9,6 +9,34 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<filter>
+		<filter-name>memberFilter</filter-name>
+		<filter-class>web.filter.MemberFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>memberFilter</filter-name>
+		<url-pattern>/front-end/news/news.html</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>adminFilter</filter-name>
+		<filter-class>web.filter.AdminFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>adminFilter</filter-name>
+		<url-pattern>/back-end/rule/adminRule.html</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
 	<!-- spring -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

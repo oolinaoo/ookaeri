@@ -151,6 +151,22 @@ $("section").click(function(e){
 	} 
 });
 
+//ajax get login mem
+$(function () {
+	$.ajax({
+	  url: "/okaeri/login/getSession",
+	  type: "GET",
+	  data: "",
+	  dataType: "json",
+	  success: function (data) {
+		console.log(data);
+	  },
+	    error: function (xhr) {
+	      console.log("error");
+	    },
+	});
+});
+
 //report 彈窗
 function report(obj) {
     if (prompt("確定要檢舉嗎？確定請輸入yes") == "yes") {

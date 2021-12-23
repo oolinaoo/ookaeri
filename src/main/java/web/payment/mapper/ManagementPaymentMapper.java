@@ -13,6 +13,6 @@ public interface ManagementPaymentMapper {
 	Integer update(ManagementPaymentVO managementPaymentVO);
 	List<String> listMemAcct();
 	List<Integer> listAddrNo();
-	List<ManagementPaymentVO> unPaid();
-	List<ManagementPaymentVO> paid();
+	List<ManagementPaymentVO> unPaid(@Param("memAcct")String memAcct);
+	List<ManagementPaymentVO> paid(@Param("memAcct")String memAcct);
 }
