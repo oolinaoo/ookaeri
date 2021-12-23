@@ -9,7 +9,9 @@ import web.fac.entity.FacVO;
 public interface FacMapper {
 
 	List<FacVO> listAll();
+	FacVO listOne(@Param("facNo") Integer facNo);
 	String[] listAllDate(@Param("facNo") Integer facNo);
+	List<FacVO> listOpenTime(@Param("facNo") Integer facNo);
 	Integer listStartTime(@Param("facNo") Integer facNo);
 	Integer listEndTime(@Param("facNo") Integer facNo);
 	FacVO photoByFacno(@Param("facNo") Integer facNo);

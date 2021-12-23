@@ -46,7 +46,16 @@
 			HIST_DATE
 	</select>
 	
-	
+	<delete id="deleteFachist">
+		delete from 
+			FACILITIES_HISTORY 
+		where
+			FAC_NO = #{facNo} and
+			MEM_ACCT = #{memAcct} and 
+			HIST_DATE = #{histDate} and
+			HIST_TIME = #{histTime} and
+			HIST_AMOUNT = #{histAmount}
+	</delete>
 	
 
 </mapper>

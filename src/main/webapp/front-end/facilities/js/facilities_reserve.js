@@ -4,28 +4,99 @@ $(function () {
   var wd = sessionStorage.getItem("whichDay");
   var wm = sessionStorage.getItem("whichMonth");
   var wy = sessionStorage.getItem("whichYear");
-  var date = `${wy}-${wm}-${wd}`;
-  var facNumber = sessionStorage.getItem("facName");
-  // 這邊要先載入預約資料 
-  function facResHist(date) {
+  var resdate = `${wy}-${wm}-${wd}`;
+  var facNumber = sessionStorage.getItem("facNumber");
+
+  // 載入設施基本資料(如人數)
+  var facMax = "";
+  function oneFacDetail(facNumber){
+    console.log(facNumber);
     $.ajax({
-      url: "/okaeri/fachist/facResTimeHist",
+      url: "/okaeri/fac/listOneFac",
       type: "POST",
       data: JSON.stringify({
         facNo: facNumber,
-        histDate: date
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {   
+        facMax = data.facMax;
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      }
+    });
+  }
+  oneFacDetail(facNumber);
+
+  // 載入設施的時段
+  var timeLong ="";
+  function facDateTime(facNumber){
+    $.ajax({
+      url: "/okaeri/fac/openTime",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber
       }),
       dataType: "json",
       headers: {
         "Content-Type": "application/json",
       },
       success: function (data) {
-        var facResTime="";
-        var facResAmtSameTime="";
+        var resTable = "";
+        $.each(data, function(index, item){
+          console.log("index = "+ index);
+          resTable += `
+              <tr class="reserve_info${index+1}">
+                <td class="fac_open_date">${wm}/${wd}</td>
+                <td class="fac_open_time">${item.facOpenTime}</td>
+                <td id="remain${index+1}"></td>
+                <td>
+                  <select name="ammount${index+1}" id="amount${index+1}"></select>
+                </td>
+                <td>
+                  <input type="checkbox" name="switch"/>
+                  <div class="customcheck">
+                    <div class="checkitem"></div>
+                  </div>
+                </td>
+                <td class="edit"></td>
+              </tr>`;
+          timeLong = index + 1;
+        });
 
-        for (i = 0; i < 7; i++) {
-          var open_time = $("tr.reserve_info").eq(i).children("td.fac_open_time");
-          var maxAmount = 30;  //之後從資料庫抓
+        $("tbody").append(resTable);
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      }
+    });
+  }
+  facDateTime(facNumber);
+
+  // 這邊要先載入設施的預約資料 
+  function facResHist(resdate) {
+    $.ajax({
+      url: "/okaeri/fachist/facResTimeHist",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber,
+        histDate: resdate
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        console.log("timeLong = " + timeLong);
+
+        for (i = 0; i < timeLong; i++) {
+          var open_time = $(`tr.reserve_info${i+1}`).children("td.fac_open_time");
+          var maxAmount = facMax; 
           var remain = maxAmount;
           // var userHist = false;   用來儲存該會員在該時段是否預約過
 
@@ -62,22 +133,25 @@ $(function () {
       }
     });
   }
-  facResHist(date);
+  facResHist(resdate);
   ///////////////////////////////////
 
 
   // 這邊可以先寫新增和刪除的ajax，底下再來呼叫
   // 租借
-  function reserved(){
+  function reserved(that){
+    var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
+    var resAmt = $(that).closest("td").siblings("td").children("select").val();
+
     $.ajax({
       url: "/okaeri/fachist/facReserve",
       type: "POST",
       data: JSON.stringify({
-        facNo: 3,                     /////////////////////////////////////////
+        facNo: facNumber,                     
         memAcct: "gina5",             /////////////////////////////////////////
-        histDate: "2021-12-19",       /////////////////////////////////////////
-        histTime: "12:00 ~ 14:00",    /////////////////////////////////////////
-        histAmount: 4                 /////////////////////////////////////////
+        histDate: resdate,       
+        histTime: resTime,    
+        histAmount: resAmt    
       }),
       dataType: "json",
       headers: {
@@ -89,13 +163,45 @@ $(function () {
       error: function (xhr) {
         console.log("error");
         console.log(xhr);
+      },
+      conplete: function (xhr) {
+        facResHist(resdate);
       }
     });
 
   }
 
+  // 刪除預約紀錄
+  function resDelete(that){
+    var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
+    var resAmt = $(that).closest("td").siblings("td").children("select").val();
 
-
+    $.ajax({
+      url: "/okaeri/fachist/XXXXXXX",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber,                     
+        memAcct: "gina5",             /////////////////////////////////////////
+        histDate: resdate,       
+        histTime: resTime,    
+        histAmount: resAmt    
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      },
+      conplete: function (xhr) {
+        facResHist(resdate);
+      }
+    });
+  }
 
 
   // 確認是否預約的 select button & confirm
@@ -117,6 +223,8 @@ $(function () {
           checkbuttonIp.prop("checked", false);
 
           // 執行刪除的 ajax
+          var that = this;
+          resDelete(that)
         }
       } else {
         // 如果是 Deactivated, Activate it !
@@ -126,9 +234,9 @@ $(function () {
           checkbuttonBg.addClass("active");
           checkbuttonBg.css("background-color", "#278364");
           checkbuttonIp.prop("checked", true);
-
           // 執行新增的 ajax
-          reserved();
+          var that = this;
+          reserved(that);
           // facResHist();
         }
       }
@@ -138,11 +246,9 @@ $(function () {
 
 
 
-
-
   // 編輯按鈕
   // 按下編輯鈕後、讓人數和預約鈕可以改
-  $("td").on("click", ".fa-edit", function () {
+  $("tbody").on("click", ".fa-edit", function () {
     // 換圖示
     $(this).addClass("fa-save");
     $(this).removeClass("fa-edit");
@@ -159,7 +265,7 @@ $(function () {
     }
   });
 
-  $("td").on("click", ".fa-save", function () {
+  $("tbody").on("click", ".fa-save", function () {
     // 換圖示
     $(this).addClass("fa-edit");
     $(this).removeClass("fa-save");

@@ -157,8 +157,8 @@
 
       //要透過預約按鈕做的事都放這裡！！
       var facNumber = sessionStorage.getItem("facNumber");
-      var histMonth = sessionStorage.getItem("month");
-      var histYear = sessionStorage.getItem("year");
+      var histMonth = sessionStorage.getItem("whichMonth");
+      var histYear = sessionStorage.getItem("whichYear");
 
       console.log(facNumber);
       // if(facNumber > 2){
