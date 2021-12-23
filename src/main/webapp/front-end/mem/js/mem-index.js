@@ -66,6 +66,7 @@ function init(){
 
 }
 
+//抓天氣資料的函式
 function weather(){
   $.ajax({
     url: `${projectPath}/mem/MemberServlet.do`,           // 資料請求的網址
@@ -86,6 +87,69 @@ function weather(){
   });
 
 }
+
+// 判斷是否有未領的包裹
+function memPack(){
+
+  let sendData = {"memAcct": user_id};
+  // sendData = JSON.stringify(senData);
+
+  $.ajax({
+    url: `${projectPath}/mem/memJoinPack`,        
+    type: "GET",                 
+    data: sendData,                 
+    dataType: "json",           
+    contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
+    success: function(data){     
+      console.log(data); //傳過來的資料為Json陣列 
+      // 若有未領取的包裹 陣列的樣子如下: [{memAcct: gina1, packState: 0, packTypeNo: 0}, .....]
+      // packState為0，代表未領取。packTypeNo為0，代表為包裹，1為信件。
+
+      if(data.length == 0){   //如果沒有 未領取的包裹 陣列的長度就會為 0
+        $("#memPack").text("無包裹/信件");
+      }else{
+        $("#memPack").text("您有包裹/信件尚未領取");
+      }
+    },
+    error: function(xhr){         // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    }
+  });
+
+}
+
+
+// 判斷是否有尚未繳的管理費
+function memMangePay(){
+
+  let sendData = {"memAcct": user_id};
+  // sendData = JSON.stringify(senData);
+
+  $.ajax({
+    url: `${projectPath}/mem/memManagePay`,        
+    type: "GET",                 
+    data: sendData,                 
+    dataType: "json",           
+    contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
+    success: function(data){     
+      console.log(data); //傳過來的資料為Json陣列 
+
+      if(data.length == 0){   //如果沒有 未繳的管理費 陣列的長度就會為 0
+        $("#memfee").text("管理費已繳");
+      }else{
+        $("#memfee").text("您有管理費尚未繳清");
+      }
+    },
+    error: function(xhr){         // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    }
+  });
+
+}
+
+
 
 
 // 更新整體的排序
@@ -126,6 +190,8 @@ function reload_sort(){
 
 $(function(){
   weather();
+  memPack();
+  memMangePay();
   init();
   // ==== 待辦事項文字框的 focus 事件及 blur 事件觸發 ===== //
   $("input.task_name").on("focus", function(){

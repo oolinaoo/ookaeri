@@ -6,13 +6,12 @@ var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 function init(){
 
     $.ajax({
-      url: `${projectPath}/acct-addr/AddrAjaxServlet.do`,           // 資料請求的網址
+      url: `${projectPath}/addr/listAll`, // 資料請求的網址
       type: "GET",                  // GET | POST | PUT | DELETE | PATCH
-      data: {"action": "listAll"},                  // 傳送資料到指定的 url
       dataType: "json",             // 預期會接收到回傳資料的格式： json | xml | html
       success: function(data){      // request 成功取得回應後執行
   
-        //console.log(data);
+        console.log(data);
   
         let list_html = '';
   
@@ -189,58 +188,48 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
             $("#addr_modal_table").prepend(error_block);
         }else{
             //將陣列中的值包成JSON格式
-            let addr_item= { 
+            let addrItem= { 
                 "addrBuild": row_list[0],
                 "addrFloor": row_list[1],
                 "addrRoom": row_list[2]
             };
-            addr_item = JSON.stringify(addr_item);
+            addrItem = JSON.stringify(addrItem);
             //console.log(addr_item);
             $.ajax({
-                url:`${projectPath}/acct-addr/AddrAjaxServlet.do`,
-                type:"POST",
-                data:{"action" : "insert", 
-                      "addr": addr_item,
-                     },
+                url: `${projectPath}/addr/insert`,
+                type: "POST",
+                data: addrItem,
                 dataType:"json",
-                success: function(data){
-                    if(data.msg == "success"){
-                        let member_table_html = `
-                            <tr>
-                            <td class="addrNo">${data.addrNo}</td>
-                            <td class="addrBuild">${data.addrBuild}</td>
-                            <td class="addrFloor">${data.addrFloor}</td>
-                            <td class="addrRoom">${data.addrRoom}</td>
-                            <td class='del_edit_btn'>
-                                <i class='fa fa-edit'></i> 
-                                <div class="member_overlay" style="border: 1px solid red;"></div>
-                            </td>
-                            </tr>
-                        `;
-                        //將新增的資料顯示在表格的資料列上（新增在表格第一頁的第一列）
-                        $("#addr_table tbody").prepend(member_table_html);
+                contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
+                success: function(addrNo){
+                    //console.log(addrNo); //回傳addrNo
+                    addrItem = JSON.parse(addrItem);
+                    let member_table_html = `
+                        <tr>
+                        <td class="addrNo">${addrNo}</td>
+                        <td class="addrBuild">${addrItem.addrBuild}</td>
+                        <td class="addrFloor">${addrItem.addrFloor}</td>
+                        <td class="addrRoom">${addrItem.addrRoom}</td>
+                        <td class='del_edit_btn'>
+                            <i class='fa fa-edit'></i> 
+                            <div class="member_overlay" style="border: 1px solid red;"></div>
+                        </td>
+                        </tr>
+                    `;
+                    //將新增的資料顯示在表格的資料列上（新增在表格第一頁的第一列）
+                    $("#addr_table tbody").prepend(member_table_html);
 
-                        alert(`新增成功，地址編號為${data.addrNo}`);
+                    alert(`新增成功，地址編號為${addrNo}`);
 
-                        //燈箱消失
-                        $("#member_overlay_add").fadeOut();
-                        //清空燈箱裡的article區塊
-                        $("#member_overlay_add").empty();
-                        //將原本的分頁區塊去除
-                        $("#nav").remove(); 
-                        paging(); //再呼叫分頁函式
-                        $("#nav a.active").click(); //因為資料是新增在表格的第一列，所以要點回到分頁的第一頁去看
-                    }else if(data.msg == "fail"){
-                        alert("新增失敗，資料未成功新增到資料庫！");
-                        //燈箱消失
-                        $("#member_overlay_add").fadeOut();
-                        //清空燈箱裡的article區塊
-                        $("#member_overlay_add").empty();
-                    }else if(data.msg == "overlap"){
-                        let error_overlap = `<div class="error_block">＊此棟號、樓號、房號已重複！</div>`;
-                        $("#addr_modal_table").prepend(error_overlap);
+                    //燈箱消失
+                    $("#member_overlay_add").fadeOut();
+                    //清空燈箱裡的article區塊
+                    $("#member_overlay_add").empty();
+                    //將原本的分頁區塊去除
+                    $("#nav").remove(); 
+                    paging(); //再呼叫分頁函式
+                    $("#nav a.active").click(); //因為資料是新增在表格的第一列，所以要點回到分頁的第一頁去看
 
-                    }
 
                 },
                 error: function(xhr){         // request 發生錯誤的話執行
@@ -467,16 +456,10 @@ function paging(){
     var rowsShown = 8;
     var rowsTotal = $('#addr_table tbody tr').length;
     var numPages = Math.ceil(rowsTotal / rowsShown);
-
-    if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
-        return;
-      }else{
-        for (let i = 0; i < numPages ; i++) {
-          let pageNum = i + 1;
-          $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
-        }
+    for (i = 0; i < numPages; i++) {
+        var pageNum = i + 1;
+        $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
     }
-
     $('#addr_table tbody tr').hide();
     $('#addr_table tbody tr').slice(0, rowsShown).show();
     $('#nav a:first').addClass('active');
