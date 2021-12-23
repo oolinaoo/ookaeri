@@ -5,6 +5,7 @@ body {
   margin: 0px;
   background-color: #e4ded0;
 }
+
 /* header
 =============================================*/
 #header {
@@ -46,6 +47,9 @@ body {
   color: #dac9a6;
   border-bottom: solid;
 }
+.navbar_icon > a:hover {
+  border-bottom: none;
+}
 .navbar_list > li > ol {
   display: none;
   position: absolute;
@@ -80,6 +84,28 @@ body {
 }
 .user_icon {
   width: 25px;
+}
+.profile_photo {
+  width: 80px;
+  border-radius: 50%;
+}
+#navbar_profile_memAcct {
+  color: #554236;
+}
+#profile_memberCenter,
+#profile_logout {
+  color: #7e5137;
+}
+.navbar_profile {
+  text-align: center !important;
+  padding: 20px 40px !important;
+  margin-left: -130px !important;
+  background-color: #97aca6b9;
+  border-radius: 15%;
+  box-shadow: 0px 0px 13px -3px #777;
+}
+.navbar_profile_user {
+  margin: 20px 0;
 }
 
 /* background
