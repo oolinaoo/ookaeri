@@ -7,77 +7,6 @@ $(function () {
   var resdate = `${wy}-${wm}-${wd}`;
   var facNumber = sessionStorage.getItem("facNumber");
 
-  // 載入設施基本資料(如人數)
-  var facMax = "";
-  function oneFacDetail(facNumber){
-    console.log(facNumber);
-    $.ajax({
-      url: "/okaeri/fac/listOneFac",
-      type: "POST",
-      data: JSON.stringify({
-        facNo: facNumber,
-      }),
-      dataType: "json",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      success: function (data) {   
-        facMax = data.facMax;
-      },
-      error: function (xhr) {
-        console.log("error");
-        console.log(xhr);
-      }
-    });
-  }
-  oneFacDetail(facNumber);
-
-  // 載入設施的時段
-  var timeLong ="";
-  function facDateTime(facNumber){
-    $.ajax({
-      url: "/okaeri/fac/openTime",
-      type: "POST",
-      data: JSON.stringify({
-        facNo: facNumber
-      }),
-      dataType: "json",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      success: function (data) {
-        var resTable = "";
-        $.each(data, function(index, item){
-          console.log("index = "+ index);
-          resTable += `
-              <tr class="reserve_info${index+1}">
-                <td class="fac_open_date">${wm}/${wd}</td>
-                <td class="fac_open_time">${item.facOpenTime}</td>
-                <td id="remain${index+1}"></td>
-                <td>
-                  <select name="ammount${index+1}" id="amount${index+1}"></select>
-                </td>
-                <td>
-                  <input type="checkbox" name="switch"/>
-                  <div class="customcheck">
-                    <div class="checkitem"></div>
-                  </div>
-                </td>
-                <td class="edit"></td>
-              </tr>`;
-          timeLong = index + 1;
-        });
-
-        $("tbody").append(resTable);
-      },
-      error: function (xhr) {
-        console.log("error");
-        console.log(xhr);
-      }
-    });
-  }
-  facDateTime(facNumber);
-
   // 這邊要先載入設施的預約資料 
   function facResHist(resdate) {
     $.ajax({
@@ -133,8 +62,84 @@ $(function () {
       }
     });
   }
-  facResHist(resdate);
-  ///////////////////////////////////
+
+  // 載入設施基本資料(如人數)
+  var facMax = "";
+  function oneFacDetail(facNumber){
+    console.log(facNumber);
+    $.ajax({
+      url: "/okaeri/fac/listOneFac",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber,
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {   
+        facMax = data.facMax;
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      },
+      complete: function(xhr) {
+        facResHist(resdate);
+      }
+    });
+  }
+
+  // 載入設施的時段
+  var timeLong ="";
+  function facDateTime(facNumber){
+    $.ajax({
+      url: "/okaeri/fac/openTime",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      success: function (data) {
+        var resTable = "";
+        $.each(data, function(index, item){
+          console.log("index = "+ index);
+          resTable += `
+              <tr class="reserve_info${index+1}">
+                <td class="fac_open_date">${wm}/${wd}</td>
+                <td class="fac_open_time">${item.facOpenTime}</td>
+                <td id="remain${index+1}"></td>
+                <td>
+                  <select name="ammount${index+1}" id="amount${index+1}"></select>
+                </td>
+                <td>
+                  <input type="checkbox" name="switch"/>
+                  <div class="customcheck">
+                    <div class="checkitem"></div>
+                  </div>
+                </td>
+                <td class="edit"></td>
+              </tr>`;
+          timeLong = index + 1;
+        });
+
+        $("tbody").append(resTable);
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
+      },
+      complete: function(xhr) {
+        oneFacDetail(facNumber);
+      }
+    });
+  }
+  facDateTime(facNumber);
+
+  
 
 
   // 這邊可以先寫新增和刪除的ajax，底下再來呼叫
