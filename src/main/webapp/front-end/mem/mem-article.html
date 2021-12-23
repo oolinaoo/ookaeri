@@ -3,10 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>mem-article</title>
+    <title>我的貼文</title>
+    <link rel="icon" href="images/logo2.png" />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/front-all.css" />
     <link rel="stylesheet" href="css/mem-article.css" />
+    <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
     <link
         href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
         rel="stylesheet" />
@@ -15,68 +17,100 @@
 <body>
     <div class="circle1"></div>
 <!--     <div class="circle2"></div> -->
+
     <div id="header">
-        <p class="header_logo">
-            <a href="">
-                <img src="images/logo2.png" alt="logo" width="80" />
-            </a>
-        </p>
-        <ul class="navbar_list">
-            <li class="navbar_list_open">
-                <a href="">社區交流</a>
-                <ol class="navbar_list_open_sub">
-                    <li>
-                        <a href="">- 社區公告</a>
-                    </li>
-                    <li>
-                        <a href="">- 社區公約</a>
-                    </li>
-                    <li>
-                        <a href="">- 社區論壇</a>
-                    </li>
-                </ol>
+      <p class="header_logo">
+        <a href="/okaeri/front-end/homepage/homepage.html">
+          <img src="images/logo2.png" alt="logo" width="80" />
+        </a>
+      </p>
+      <ul class="navbar_list">
+        <li class="navbar_list_open">
+          <a href="/okaeri/front-end/news/news.html">社區交流</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="/okaeri/front-end/news/news.html">- 社區公告</a>
             </li>
-            <li class="navbar_list_open">
-                <a href="">管理費</a>
-                <ol class="navbar_list_open_sub">
-                    <li>
-                        <a href="">- 繳費</a>
-                    </li>
-                    <li>
-                        <a href="">- 繳費記錄</a>
-                    </li>
-                </ol>
+            <li>
+              <a href="/okaeri/front-end/rule/rule.html">- 社區公約</a>
             </li>
-            <li class="navbar_list_open">
-                <a href="">我的包裹</a>
-                <ol class="navbar_list_open_sub">
-                    <li>
-                        <a href="">- 我的包裹</a>
-                    </li>
-                    <li>
-                        <a href="">- 包裹記錄</a>
-                    </li>
-                </ol>
+            <li>
+              <a href="/okaeri/front-end/forum/article/forum.html">- 社區論壇</a>
             </li>
-            <li class="navbar_list_open">
-                <a href="">公設預約</a>
-                <ol class="navbar_list_open_sub">
-                    <li>
-                        <a href="">- 我要預約</a>
-                    </li>
-                    <li>
-                        <a href="">- 預約記錄</a>
-                    </li>
-                </ol>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="/okaeri/front-end/payment/managent.html">管理費</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="/okaeri/front-end/payment/management_paypage.html">- 繳費</a>
             </li>
-            <li class="navbar_list_open"><a href="">美食地圖</a></li>
-            <li class="navbar_icon">
-                <a href=""><img class="alert_icon" src="images/alert.png" alt="alert" /></a>
+            <li>
+              <a href="/okaeri/front-end/payment/management_history.html">- 繳費記錄</a>
             </li>
-            <li class="navbar_icon">
-                <a href=""><img class="user_icon" src="images/user.png" alt="" /></a>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="/okaeri/front-end/pack/package.html">我的包裹</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="/okaeri/front-end/pack/package_take.html">- 我的包裹</a>
             </li>
-        </ul>
+            <li>
+              <a href="/okaeri/front-end/pack/package_history.html">- 包裹記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open">
+          <a href="/okaeri/front-end/facilities/facilities_index.html">公設預約</a>
+          <ol class="navbar_list_open_sub">
+            <li>
+              <a href="/okaeri/front-end/facilities/facilities_reserve.html">- 我要預約</a>
+            </li>
+            <li>
+              <a href="/okaeri/front-end/facilities/facilities_history.html">- 預約記錄</a>
+            </li>
+          </ol>
+        </li>
+        <li class="navbar_list_open"><a href="/okaeri/front-end/map/map_message/foodmap.jsp">美食地圖</a></li>
+        
+        <div class="dropdown">
+          <div id="badge"></div>
+          <button class="dropbtn">
+            <img class="alert_icon" src="images/alert.png" alt="alert" />
+          </button>
+          <div class="dropdown-content">
+            <div class="dropdown_selector">
+
+            </div>
+          </div>
+        </div>
+        <li class="navbar_icon navbar_list_open">
+          <a href="/okaeri/front-end/mem/mem-index.html"
+            ><img class="user_icon" src="images/user.png" alt="user"
+          /></a>
+          <ol class="navbar_list_open_sub navbar_profile">
+            <li>
+              <div class="navbar_profile_user">
+                <a id="navbar_profile_memAcct" href="/okaeri/front-end/mem/mem-index.html"
+                  ><img
+                    class="profile_photo"
+                    src="images/olina.png"
+                    alt="user"
+                  /><br /><span id="navbar_profile_memAcct_span"></span></a
+                >
+              </div>
+            </li>
+            <hr style="border-style: dashed; color: #e9d7b3" />
+            <li class="navbar_profile_memberCenter">
+              <a id="profile_memberCenter" href="">住戶中心</a>
+            </li>
+            <li class="navbar_profile_logout">
+              <a id="profile_logout" href="">登出</a>
+            </li>
+          </ol>
+        </li>
+      </ul>
     </div>
 
     <div class="center_tab_container">
@@ -131,6 +165,7 @@
         <p class="copyright">© 2021 okaeri</p>
     </div>
     <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
     <script src="js/mem-article-ajax.js"></script>
 </body>
 
