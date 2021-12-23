@@ -23,7 +23,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>地圖留言管理</title>
-    <link rel="stylesheet" href="./css/adminStyle.css" />
+    <link rel="stylesheet" href="css/adminStyle.css" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
@@ -37,7 +37,7 @@
     <div class="sidenav">
       <div class="sidenav-cont">
         <div class="menu">
-          <span><img class="logo" src="./images/logo2.png" />管理員專區</span>
+          <span><img class="logo" src="images/logo2.png" />管理員專區<br><span></span></span>
         </div>
         <div>
           <hr />
@@ -45,46 +45,39 @@
             帳號管理 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">住戶帳號管理</a> 
-            <a href="#">後端帳號管理</a>
-            <a href="#">地址資料管理</a>
+            <a href="/okaeri/back-end/acct-addr/member.html">住戶帳號管理</a> <a href="/okaeri/back-end/acct-addr/admin.html">後端帳號管理</a>
+            <a href="/okaeri/back-end/acct-addr/address.html">地址資料管理</a>
           </div>
           <button class="dropdown-btn">
             社區交流 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">社區公告</a> 
-            <a href="#">社區公約</a>
+            <a href="/okaeri/back-end/news/adminNews.html">社區公告</a> <a href="/okaeri/back-end//rule/adminRule.html">社區公約</a>
           </div>
           <button class="dropdown-btn">
             社區論壇 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">論壇</a> 
-            <a href="#">論壇留言</a>
-            <a href="#">論壇檢舉</a>
+            <a href="/okaeri/back-end/forum/adminForumArticle.html">論壇</a> <a href="/okaeri/back-end/forum/adminForumMessage.html">論壇留言</a>
+            <a href="/okaeri/back-end/forum/adminForumReport.html">論壇檢舉</a>
           </div>
           <button class="dropdown-btn">
             公設管理 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="./facilities.html">公設列表</a> 
-            <a href="./facilities_history.html">公設租借紀錄</a>
-            <a href="#">公設編輯</a>
+            <a href="/okaeri/back-end/facilities/facilities.html">公設列表</a> <a href="/okaeri/back-end/facilities/facilities_history.html">公設租借紀錄</a>
+            <a href="/okaeri/back-end/facilities/facilities_edit.html">公設編輯</a>
           </div>
           <button class="dropdown-btn">
             美食地圖 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-            <a href="#">商家資訊</a> 
-            <a href="#">地圖留言</a>
-            <a href="#">我的最愛</a> 
-            <a href="#">留言檢舉</a>
+            <a href="#">商家資訊</a>
+            <a href="/okaeri/back-end/map/mapRept.jsp">留言檢舉</a>
           </div>
-          <a href="#services">聊天室</a>
-          <a href="#clients">管理費用</a>
-          <a href="#contact">管理包裹</a>
-          <a href="#contact">登出</a>
+          <a href="/okaeri/back-end/payment/payment.html">管理費用</a>
+          <a href="/okaeri/back-end/pack/pack.html">管理包裹</a>
+          <a id="logout" href="">登出</a>
         </div>
       </div>
     </div>
@@ -171,7 +164,6 @@
       </div>
     </div>
     <script src="./vendor/jquery-3.6.0.min.js"></script>
-    <script src="./js/facilities_history.js"></script>
     <script src="./js/adminScript.js" charset="UTF-8"></script>
     
   </body>
