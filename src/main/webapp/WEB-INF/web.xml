@@ -4,10 +4,21 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-	<display-name>Web Application Archetype Web Spring + Spring MVC + Mybatis</display-name>
+	<display-name>Web Application Archetype Web Spring + Spring MVC +
+		Mybatis</display-name>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>JSP/Servelt Example</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 
 	<filter>
 		<filter-name>memberFilter</filter-name>
@@ -22,7 +33,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>adminFilter</filter-name>
 		<filter-class>web.filter.AdminFilter</filter-class>
