@@ -28,8 +28,9 @@
 	href="<%=request.getContextPath()%>/front-end/map/css/header_footer_style.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>美食地圖</title>
-
+<link rel="stylesheet"  type="text/css" href="<%=request.getContextPath()%>/front-end/pack/css/notify.css" />
+<title>美食地圖我的最愛</title>
+<link rel="icon" href="<%=request.getContextPath()%>/front-end/map/images/logo2.png" />
 </head>
 
 <body>
@@ -1102,10 +1103,12 @@
         });
       });
     }
+    
   </script>
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
     </script>
+    <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
 </body>
 
 </html>
