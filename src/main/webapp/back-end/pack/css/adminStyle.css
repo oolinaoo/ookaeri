@@ -46,6 +46,13 @@ hr {
   justify-content: space-between;
   padding-right: 10%;
 }
+.menu span span {
+	margin-left: 100px;
+    color: #d7c4bb;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
 .sidenav span {
   text-decoration: none;
   font-size: 20px;
@@ -427,7 +434,7 @@ select {
 .searchTerm:focus {
   color: #00b4cc;
 }
-/* ¼uµ¡µe­±CSS */
+/* ï¿½uï¿½ï¿½ï¿½eï¿½ï¿½CSS */
 div.box {
 	margin-top: 20px;
 	margin-left: 250px;
@@ -454,7 +461,7 @@ button.btn_cancel {
 button.btn_cancel:hover {
   background-color: bisque;
 }
-/*¿ù»~°T®§CSS*/
+/*ï¿½ï¿½ï¿½~ï¿½Tï¿½ï¿½CSS*/
 div.error_msg{
 	 margin-left: 250px;
 }

@@ -166,6 +166,6 @@
     </div>
     <script src="./vendor/jquery-3.6.0.min.js"></script>
     <script src="./js/adminScript.js" charset="UTF-8"></script>
-    
+    <script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>
   </body>
 </html>

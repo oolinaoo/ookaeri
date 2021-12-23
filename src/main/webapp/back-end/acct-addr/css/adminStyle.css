@@ -46,6 +46,13 @@ hr {
   justify-content: space-between;
   padding-right: 10%;
 }
+.menu span span {
+	margin-left: 100px;
+    color: #d7c4bb;
+    font-weight: 300;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
 .sidenav span {
   text-decoration: none;
   font-size: 20px;
