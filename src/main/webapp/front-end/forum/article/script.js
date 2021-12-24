@@ -168,8 +168,7 @@ $(".post")
 			xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
 			var data = JSON.stringify(form_data); //將物件資料轉成字串
 			console.log(data);
-			xhr.send(data); //送出字串
-			$(this).find('teatarea').val('');	
+			xhr.send(data); //送出字串	
 		});
 
   

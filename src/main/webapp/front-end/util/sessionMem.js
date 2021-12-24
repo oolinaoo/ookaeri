@@ -7,9 +7,9 @@ $(function () {
 	  dataType: "json",
 	  success: function (data) {
 		console.log(data);
-		$("#navbar_profile_memAcct_span").append(
+		$("#navbar_profile_memAcct").append(
 				`
-					${data.memAcct}
+					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
 				`
 			);
 		$("#navbar_profile_memAcct_span").after(
