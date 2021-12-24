@@ -16,5 +16,6 @@ public interface FachistMapper {
 	List<FachistVO> findHistTimeAmountByDate(@Param("facNo") Integer facNo, @Param("histDate") Date histDate);
 	List<Map> listFacDateHistByMonth(@Param("facNo") Integer facNo, @Param("month") Integer month);
 	Integer deleteFachist(FachistVO fachistVO);
+	List<FachistVO> listViewMemHist(@Param("memAcct") String memAcct);
 	
 }

@@ -430,16 +430,67 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				}
 			}
 
+			// 讀取該月資料的 function
+			var facNumber="";
+			var histMonth = "";
+			var histYear = "";
+
+			function showReserveAmount(facNumber, histMonth, histYear){
+			$.ajax({
+				url: "/okaeri/fachist/facResDateHist",
+				type: "GET",
+				data: {
+				"facNo": facNumber,
+				"month": histMonth
+				},
+				dataType: "json",
+				headers: {
+				"Content-Type": "application/json",
+				},
+				success: function (data) {
+				$.each(data, function(index, item){
+					var date = new Date(item.histDate);
+		
+					for(var i = 1; i <= 31; i++){
+					if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+						$(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
+						$(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
+					} 
+					}
+				});
+				},
+				error: function (xhr) {
+				console.log("error");
+				console.log(xhr);
+				}
+			});
+			}
+
+
 			// Advance months
 			$(document.body).on("click", parent + " .monthly-next", function (event) {
 				setNextMonth();
 				event.preventDefault();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
+
 			});
 
 			// Go back in months
 			$(document.body).on("click", parent + " .monthly-prev", function (event) {
 				setPreviousMonth();
 				event.preventDefault();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
+
 			});
 
 			// Reset Month
@@ -449,6 +500,12 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				viewToggleButton();
 				event.preventDefault();
 				event.stopPropagation();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
 			});
 
 			// Back to month view

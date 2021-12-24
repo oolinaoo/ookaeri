@@ -1,11 +1,12 @@
 $(function () {
   // ajax 的 data 之後要改成動態載入的！！
-  // var resData = JSON.stringify({ facNo: 3, histDate: "2021-12-19"});
   var wd = sessionStorage.getItem("whichDay");
   var wm = sessionStorage.getItem("whichMonth");
   var wy = sessionStorage.getItem("whichYear");
   var resdate = `${wy}-${wm}-${wd}`;
   var facNumber = sessionStorage.getItem("facNumber");
+  var memAcct = $("span#navbar_profile_memAcct_span").html();
+  console.log(memAcct);
 
   // 這邊要先載入設施的預約資料 
   function facResHist(resdate) {
@@ -79,6 +80,8 @@ $(function () {
       },
       success: function (data) {   
         facMax = data.facMax;
+        $("div#reserve_fac").empty();
+        $("div#reserve_fac").append(data.facName);
       },
       error: function (xhr) {
         console.log("error");
@@ -153,7 +156,7 @@ $(function () {
       type: "POST",
       data: JSON.stringify({
         facNo: facNumber,                     
-        memAcct: "gina5",             /////////////////////////////////////////
+        memAcct: memAcct,             
         histDate: resdate,       
         histTime: resTime,    
         histAmount: resAmt    
@@ -182,11 +185,11 @@ $(function () {
     var resAmt = $(that).closest("td").siblings("td").children("select").val();
 
     $.ajax({
-      url: "/okaeri/fachist/XXXXXXX",
+      url: "/okaeri/fachist/fachistDelete",
       type: "POST",
       data: JSON.stringify({
         facNo: facNumber,                     
-        memAcct: "gina5",             /////////////////////////////////////////
+        memAcct: memAcct,             
         histDate: resdate,       
         histTime: resTime,    
         histAmount: resAmt    
@@ -242,7 +245,6 @@ $(function () {
           // 執行新增的 ajax
           var that = this;
           reserved(that);
-          // facResHist();
         }
       }
     }

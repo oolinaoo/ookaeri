@@ -144,73 +144,76 @@
 
     //============= reserve button ========================
     /* ================== self add ================== */
+    // 用 ajax 查歷史紀錄，並且將該月的租借情形顯示在月曆上  
+    var facNumber="";
+    var histMonth = "";
+    var histYear = "";
+
+    function showReserveAmount(facNumber, histMonth, histYear){
+      $.ajax({
+        url: "/okaeri/fachist/facResDateHist",
+        type: "GET",
+        data: {
+          "facNo": facNumber,
+          "month": histMonth
+        },
+        dataType: "json",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function (data) {
+          $.each(data, function(index, item){
+            var date = new Date(item.histDate);
+   
+            for(var i = 1; i <= 31; i++){
+              if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+                $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
+                $(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
+              } 
+            }
+          });
+        },
+        error: function (xhr) {
+          console.log("error");
+          console.log(xhr);
+        }
+      });
+    }
+      
+    //要透過預約按鈕做的事都放這裡！！
     $("button.lb-reserve").on("click",function() {
       self.end();
       for(var i = 1; i <= 31; i++){
         $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
       }
+
+      $(this).closest("div.lb-container").children("img").attr("src");
+
+      var facNumberS = $(this).closest("div.lb-container").children("img").attr("src").split("=");
+      sessionStorage.setItem("facNumber", facNumberS[1]);
+
+      $("div.circle2").removeAttr("style");
+      $("div#facs_calendar").removeAttr("style");
       
       $("html, body").animate(
           { scrollTop: $("#facs_calendar").offset().top }, 
           { duration: 1000, easing: "swing"}
       );
 
-      //要透過預約按鈕做的事都放這裡！！
-      var facNumber = sessionStorage.getItem("facNumber");
-      var histMonth = sessionStorage.getItem("whichMonth");
-      var histYear = sessionStorage.getItem("whichYear");
+      facNumber = sessionStorage.getItem("facNumber");
+      histMonth = sessionStorage.getItem("whichMonth");
+      histYear = sessionStorage.getItem("whichYear");
 
-      console.log(facNumber);
-      // if(facNumber > 2){
-      //   $("div.monthly-frequence").empty();
-      //   $("div.monthly-frequence").prepend(`<div class='green'></div>`);
-      // }
-      // else{
-      //   $("div.monthly-frequence").empty();
-      //   $("div.monthly-frequence").prepend(`<div class='yellow'></div>`);
-      // }
-
-      // 用 ajax 查歷史紀錄，並且將該月的租借情形顯示在月曆上
-      
-      function showReserveAmount(){
-        $.ajax({
-          url: "/okaeri/fachist/facResDateHist",
-          type: "GET",
-          data: {
-            "facNo": facNumber,
-            "month": histMonth
-          },
-          dataType: "json",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          success: function (data) {
-            $.each(data, function(index, item){
-              var date = new Date(item.histDate);
-
-              for(var i = 1; i <= 31; i++){
-                if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
-                  console.log("Here's lightbox.js");
-                  console.log($(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number"));
-                  $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
-                  // if(item.total >= )
-                  $(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
-                } 
-              }
-
-            });
-          },
-          error: function (xhr) {
-            console.log("error");
-            console.log(xhr);
-          }
-       });
-      }
-
-      showReserveAmount();
+      showReserveAmount(facNumber, histMonth, histYear);
 
       return false;
     });
+
+    // $("a.monthly-prev").on("click", function(){
+    //   histMonth = histMonth - 1;
+    //   showReserveAmount(facNumber);
+    //   console.log("HI");
+    // });
 
     /* ================== self add ================== */
 

@@ -4,7 +4,8 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,8 @@ import web.fachist.mapper.FachistMapper;
 
 @Controller
 @RequestMapping("fachist")
-public class FachistController extends HttpServlet{
-	private static final long serialVersionUID = 1L;
+public class FachistController{
+	String memAcct = "";
 
 	@Autowired
 	private FachistMapper mapper;
@@ -43,6 +44,17 @@ public class FachistController extends HttpServlet{
 		final List<FachistVO> list = mapper.listViewFacMem();
 		return list;
 	}
+	
+	@PostMapping(path = "fachistViewMemacct")
+	@ResponseBody
+	@Transactional(readOnly = true)
+	public List<FachistVO> fachistViewMemacct(HttpSession session){
+		memAcct =(String) session.getAttribute("memAcct");
+
+		final List<FachistVO> list = mapper.listViewMemHist(memAcct);
+		return list;
+	}
+	
 	
 	// 列出該設施該日各時段的租借紀錄
 	@PostMapping(path = "facResTimeHist", consumes = MediaType.APPLICATION_JSON_VALUE)
