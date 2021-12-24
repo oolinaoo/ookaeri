@@ -32,8 +32,68 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<style>
+		.reportCommentForm {
+	display: inline-block;
+	margin: 0px;
+	position: relative;
+	left: 12px;
+}
 
+.report {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	padding: 1px 10px;
+	border: 1px solid #d68f62;
+	border-radius: 100px;
+	background: #d68f62;
+	font: normal normal bold 5px arial;
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 9px;
+}
+
+.report:hover {
+	border: 1px solid #ffab76;
+	background: #ffab76;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+
+button.report{
+  cursor: pointer;
+}
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+/*   background-color: rgb(255, 255, 255); */
+  z-index:10;
+  display: none;
+}
+
+/* 元素 article 置中及基本樣式 */
+div.overlay > article{
+  background-color: white;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ddd;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  overflow: scroll;
+}
+	</style>
   </head>
+ 
   <body>
     <div class="sidenav">
       <div class="sidenav-cont">
@@ -120,7 +180,19 @@
 					<tr>
 						<td>${msg.mapMassageNo}</td>
 						<td>${msg.memAcct}</td>
-						<td>${msg.mapMessageContent}</td>
+<%-- 						<td>${msg.mapMessageContent}</td> --%>
+						<td>
+							<button class="report" type="button">檢舉</button>
+								<div class="overlay" style="border: 1px solid red;">
+													<article>
+														<h1>被檢舉留言</h1>
+<%-- 														${msg.mapMessageContent} --%>
+															
+														<button type="button" class="btn_modal_close">關閉</button>
+													</article>
+								</div>
+						</td>
+						 
 						<td>${msg.mapMessageTime}</td>
 						<td>${msg.mapStoreNo}</td>
 						<td>${msg.mapMessageState==0}</td>
@@ -164,6 +236,22 @@
         </table>
       </div>
     </div>
+   <script>
+												
+	$(function(){
+													  
+	// 開啟 Modal 彈跳視窗
+	$("button.report").on("click", function(){
+	$("div.overlay").fadeIn();
+	});
+													  
+	// 關閉 Modal
+	$("button.btn_modal_close").on("click", function(){
+	$("div.overlay").fadeOut();
+	});
+													  
+				});
+	</script>
     <script src="./vendor/jquery-3.6.0.min.js"></script>
     <script src="./js/adminScript.js" charset="UTF-8"></script>
     <script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>

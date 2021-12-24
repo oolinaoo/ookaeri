@@ -192,8 +192,9 @@ public class ServletController extends HttpServlet {
 				}
 				if(rePeat==0)
 				{
-					Timestamp MAP_MSG_TIME = new Timestamp(123456565);
-					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, MAP_MSG_TIME, 0);
+					Long dateTime=System.currentTimeMillis();
+					Timestamp timestamp = new Timestamp(dateTime);
+					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, timestamp, 0);
 					req.setAttribute("commentRepeatOrNot", "commentNoRepeat");
 					RequestDispatcher good = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
 					good.forward(req, res);
