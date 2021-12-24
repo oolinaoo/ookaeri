@@ -143,4 +143,32 @@ $('.editor').keypress(function(){
   });
 } 
 
+//Ajax to create
+$(".post")
+.on(
+		"click",
+		function() {
+			var mem = $("#navbar_profile_memAcct_span").html();
+			var type = $("#newpost-type").val();
+			var title = $("#newpost-title").val();
+			var content = $("#newpost-content").val();
+			let form_data = {
+				"memAcct" : mem,
+				"forTypeNo" : type,
+				"forArtTitle" : title,
+				"forArtContent" : content
+			};
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+    				console.log(xhr);
+    			}
+    		};
+			xhr.open("POST", "/okaeri/forumArticle/add"); //post 告知後端
+			xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
+			var data = JSON.stringify(form_data); //將物件資料轉成字串
+			console.log(data);
+			xhr.send(data); //送出字串	
+		});
+
   

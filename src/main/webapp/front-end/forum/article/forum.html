@@ -98,7 +98,7 @@
                     class="profile_photo"
                     src="images/olina.png"
                     alt="user"
-                  /><br /><span id="navbar_profile_memAcct_span"></span></a
+                  /><br /></a
                 >
               </div>
             </li>
@@ -140,7 +140,7 @@
 				<button class="btn--close-modal-returned">&times;</button>
 				<div class="newPost">
 					<h3>Add New Post</h3>
-					<input type="text" placeholder="請輸入標題" /> <select id="type"
+					<input type="text" placeholder="請輸入標題" id="newpost-title"/> <select id="newpost-type"
 						required>
 						<option value="" disabled selected>文章類別</option>
 						<option value="1">社區</option>
@@ -150,43 +150,16 @@
 						<option value="5">水電</option>
 						<option value="6">其他</option>
 					</select>
-					<div class="editor" contenteditable></div>
+					<textarea class="editor" contenteditable id="newpost-content" ></textarea>
 					<div class="buttons">
-						<!--<button type="button">save draft</button>-->
 						<button data-func="clear" type="button">clear</button>
-						<button data-func="save" type="button">post</button>
+						<button data-func="save" type="button" class="post">post</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="overlay-returned hidden"></div>
 		<div class="forum-page" id="clear">
-			<!-- <div class="forum-row">
-          <div class="forum-row-box">
-            <div class="forum-title">
-              <h3>
-                <a href="../comment/comment.html" target="_blank"> What is HTML?</a>
-              </h3>
-            </div>
-            <div class="forum-content">
-              <p>
-                Duis dapibus aliquam mi, eget euismod sem scelerisque ut.
-                Vivamus at elit quis urna adipiscing iaculis.Duis dapibus
-                aliquam mi, eget euismod sem scelerisque ut. Vivamus at elit
-                quis urna adipiscing iaculis.
-              </p>
-            </div>
-            <hr />
-            <div class="forum-icon">
-              <span><i class="fa fa-clock"></i>時間</span>&emsp;
-              <span><i class="fa fa-eye"></i>觀看數</span>&emsp;
-              <a href="../comment/comment.html"
-                ><i class="fa fa-comment-dots"></i>留言</a
-              >&emsp;
-              <a href="#"><i class="fa fa-times"></i>檢舉</a>
-            </div>
-          </div>
-        </div> -->
 		</div>
 	</section>
 	<div class="footer">
