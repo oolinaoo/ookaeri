@@ -10,12 +10,11 @@ import web.fachist.entity.FachistVO;
 
 public interface FachistMapper {
 	
-	int insertFacReserve(FachistVO fachistVO);
-	
+	Integer insertFacReserve(FachistVO fachistVO);
 	List<FachistVO> listViewFacMem();
+	List<FachistVO> listViewMemHist(@Param("memAcct") String memAcct);
 	List<FachistVO> findHistTimeAmountByDate(@Param("facNo") Integer facNo, @Param("histDate") Date histDate);
 	List<Map> listFacDateHistByMonth(@Param("facNo") Integer facNo, @Param("month") Integer month);
 	Integer deleteFachist(FachistVO fachistVO);
-	List<FachistVO> listViewMemHist(@Param("memAcct") String memAcct);
-	
+	Integer updateFachist(FachistVO fachistVO);
 }

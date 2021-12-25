@@ -112,6 +112,9 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				$(parent + " .monthly-event-list, " + parent + " .monthly-day-wrap").empty();
 				// Print out the days
 				for (var dayNumber = 1; dayNumber <= dayQty; dayNumber++) {
+					// 設定 a 標籤裡面的星期幾 data-day
+					var day = new Date(year, month-1, dayNumber);
+
 					// Check if it's a day in the past
 					var isInPast = options.stylePast && (
 						year < currentYear
@@ -128,7 +131,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 								+ " dt" + thisDate.toISOString().slice(0, 10)
 							)
 							+ attr("data-number", dayNumber)
-							+ "><a class='facilitiesReserve' href='./facilities_reserve.html'>" + innerMarkup + "<div class='monthly-frequence'></div></a></div>");
+							+ "><a class='facilitiesReserve' href='./facilities_reserve.html' data-day ='" + day.getDay() + "' >" 
+							+ innerMarkup + "<div class='monthly-frequence'></div></a></div>");
 							// #########################################################################################################################################################################
 						$(parent + " .monthly-event-list").append("<div"
 							+ attr("class", "monthly-list-item")
@@ -142,7 +146,6 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 							+ attr("data-number", dayNumber)
 							+ ">" + innerMarkup + "</a>");
 					}
-					sessionStorage.setItem(`day${dayNumber}`, dayNumber);
 				}
 
 				if (settingCurrentMonth) {
@@ -440,28 +443,28 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				url: "/okaeri/fachist/facResDateHist",
 				type: "GET",
 				data: {
-				"facNo": facNumber,
-				"month": histMonth
+					"facNo": facNumber,
+					"month": histMonth
 				},
 				dataType: "json",
 				headers: {
-				"Content-Type": "application/json",
+					"Content-Type": "application/json",
 				},
 				success: function (data) {
-				$.each(data, function(index, item){
-					var date = new Date(item.histDate);
-		
-					for(var i = 1; i <= 31; i++){
-					if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
-						$(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
-						$(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
-					} 
-					}
-				});
+					$.each(data, function(index, item){
+						var date = new Date(item.histDate);
+			
+						for(var i = 1; i <= 31; i++){
+							if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+								$(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
+								$(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
+							} 
+						}
+					});
 				},
 				error: function (xhr) {
-				console.log("error");
-				console.log(xhr);
+					console.log("error");
+					console.log(xhr);
 				}
 			});
 			}

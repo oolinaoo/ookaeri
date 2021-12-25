@@ -64,9 +64,21 @@
 			FAC_NO = #{facNo} and
 			MEM_ACCT = #{memAcct} and 
 			HIST_DATE = #{histDate} and
-			HIST_TIME = #{histTime} and
-			HIST_AMOUNT = #{histAmount}
+			HIST_TIME = #{histTime}
 	</delete>
 	
+	<update id="updateFachist">
+		update 
+			FACILITIES_HISTORY
+		set
+			HIST_AMOUNT = #{histAmount}
+		where
+			FAC_NO = #{facNo} and
+			MEM_ACCT = #{memAcct} and 
+			HIST_DATE = #{histDate} and
+			HIST_TIME = #{histTime}
+	</update>
+
+
 
 </mapper>

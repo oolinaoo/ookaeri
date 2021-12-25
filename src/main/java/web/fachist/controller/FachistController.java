@@ -85,4 +85,20 @@ public class FachistController{
 		return delete;
 	}
 	
+	// 更新預約公設人數
+	@PostMapping(path = "fachistAmtUpdate", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public String fachistAmtUpdate(@RequestBody FachistVO fachistVO) {
+		String updateSuccess = "";
+		final int update = mapper.updateFachist(fachistVO);
+		if(update == 1) {
+			updateSuccess = "人數更新成功！";
+		} else {
+			updateSuccess = "人數更新失敗！";
+		}
+		return updateSuccess;
+	}
+	
+	
+	
 }

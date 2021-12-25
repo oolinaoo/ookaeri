@@ -8,6 +8,7 @@
 
 div#facs_body {
   margin: 90px 0 auto;
+  min-height: 560px;
 }
 
 h1.fac_title {

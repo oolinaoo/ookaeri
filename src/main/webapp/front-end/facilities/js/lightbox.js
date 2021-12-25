@@ -143,8 +143,8 @@
     $(pop).appendTo($('body'));
 
     //============= reserve button ========================
-    /* ================== self add ================== */
-    // 用 ajax 查歷史紀錄，並且將該月的租借情形顯示在月曆上  
+    /* ================== self add ================== */ 
+    // 用 ajax 查歷史紀錄，並且將該月的預約情形顯示在月曆上  
     var facNumber="";
     var histMonth = "";
     var histYear = "";
@@ -180,7 +180,42 @@
       });
     }
       
-    //要透過預約按鈕做的事都放這裡！！
+    // 呼叫公設的公休日，先把該日的 a 標籤刪除
+    function deleteUnopenDay(facNumber){
+      $.ajax({
+        url: "/okaeri/fac/unOpenDay",
+        type: "POST",
+        data: JSON.stringify({
+          "facNo": facNumber
+        }),
+        dataType: "json",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        success: function (data) {
+          $.each(data, function(index, item){
+            console.log(item);
+            for(var i = 1; i <= 31; i++){
+              if($(`div[data-number='${i}']`).children("a").attr("data-day") == item){
+                $(`div[data-number='${i}']`).css("background-color", "#F2F2F2");
+                $(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+              }
+            }
+          });
+          
+        },
+        error: function (xhr) {
+          console.log("error");
+          console.log(xhr);
+        }
+          
+      });
+    }
+
+
+
+
+    // 要透過預約按鈕做的事都放這裡！！
     $("button.lb-reserve").on("click",function() {
       self.end();
       for(var i = 1; i <= 31; i++){
@@ -204,16 +239,12 @@
       histMonth = sessionStorage.getItem("whichMonth");
       histYear = sessionStorage.getItem("whichYear");
 
+      deleteUnopenDay(facNumber);
       showReserveAmount(facNumber, histMonth, histYear);
 
       return false;
     });
 
-    // $("a.monthly-prev").on("click", function(){
-    //   histMonth = histMonth - 1;
-    //   showReserveAmount(facNumber);
-    //   console.log("HI");
-    // });
 
     /* ================== self add ================== */
 
