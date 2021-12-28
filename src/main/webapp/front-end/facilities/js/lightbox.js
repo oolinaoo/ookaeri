@@ -193,6 +193,11 @@
           "Content-Type": "application/json",
         },
         success: function (data) {
+          for(var i = 1; i <= 31; i++){
+            $(`div[data-number='${i}']`).children("a").attr("href", "./facilities_reserve.html").attr("style", "cursor: pointer;");
+            $(`div[data-number='${i}']`).css("background-color", "white");
+          }
+
           $.each(data, function(index, item){
             console.log(item);
             for(var i = 1; i <= 31; i++){
@@ -211,9 +216,6 @@
           
       });
     }
-
-
-
 
     // 要透過預約按鈕做的事都放這裡！！
     $("button.lb-reserve").on("click",function() {
@@ -236,8 +238,8 @@
       );
 
       facNumber = sessionStorage.getItem("facNumber");
-      histMonth = sessionStorage.getItem("whichMonth");
-      histYear = sessionStorage.getItem("whichYear");
+      histMonth = sessionStorage.getItem("thisMonth");
+      histYear = sessionStorage.getItem("thisYear");
 
       deleteUnopenDay(facNumber);
       showReserveAmount(facNumber, histMonth, histYear);

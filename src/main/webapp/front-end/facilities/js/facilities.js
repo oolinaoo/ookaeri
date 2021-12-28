@@ -41,15 +41,25 @@ $(function () {
         $.each(data, function (index, item) {
           var i = `${item.facAddr}`.charCodeAt(0) - 65;
           if ($("div.floor").eq(i).attr("data-addr") == item.facAddr) {
-            var fac = $(`a.${item.facAddr}${item.facAddrNo}`);
-            fac.attr("href", `/okaeri/fac/facPhotoByFacNo?facNo=${item.facNo}`);
-            fac.attr("data-lightbox", `fac_photo${addr}`);
-            fac.attr("data-title", `${item.facName}`);
-            fac.attr("data-alt", `${item.facName}`);
-            fac.children("div").empty();
-            fac.children("div").append(`${item.facName}`);
-            fac.attr("data-facno", `${item.facNo}`);
-            fac.attr("data-state", `${item.facState}`);
+              var fac = $(`a.${item.facAddr}${item.facAddrNo}`);
+            if(item.facState == 0){
+              fac.attr("href", `/okaeri/fac/facPhotoByFacNo?facNo=${item.facNo}`);
+              fac.attr("data-lightbox", `fac_photo${addr}`);
+              fac.attr("data-title", `${item.facName}`);
+              fac.attr("data-alt", `${item.facName}`);
+              fac.children("div").empty();
+              fac.children("div").append(`${item.facName}`);
+              fac.attr("data-facno", `${item.facNo}`);
+              fac.attr("data-state", `${item.facState}`);
+              fac.attr("style", "cursor: pointer;");
+            } else {
+              fac.attr("data-title", `${item.facName}`);
+              fac.attr("data-alt", `${item.facName}`);
+              fac.children("div").empty();
+              fac.children("div").append(`${item.facName}維修中`).attr("style", "color: lightgray; font-style: italic;");
+              fac.attr("data-facno", `${item.facNo}`);
+              fac.attr("data-state", `${item.facState}`);
+            }
           }
         });
       },

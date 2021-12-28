@@ -48,8 +48,15 @@ $(function () {
 
           $(`td#remain${i + 1}`).html(maxAmount - allRes);  // 所有人看到的剩餘人數
 
-          // 預約人數 hist amount
           $(`select#amount${i + 1}`).empty();
+          // 如果沒有名額
+          if(maxAmount - allRes == 0){
+            $(`select#amount${i + 1}`).append(`<option val="0" selected>0</option>`);
+            open_time.siblings("td").children("select").attr("disabled", "disabled");
+            open_time.siblings("td").children("input").attr("disabled", "disabled");
+          }
+
+          // 預約人數 hist amount
           for (let j = 0; j < maxAmount - allRes + selfRes; j++) {
             if(selfRes > 0 && (j + 1)==selfRes){   // 如果自己有預約
               $(`select#amount${i + 1}`).append(`<option val="${j + 1}" selected>${j + 1}</option>`);
@@ -57,7 +64,6 @@ $(function () {
               $(`select#amount${i + 1}`).append(`<option val="${j + 1}">${j + 1}</option>`);
             }
           }
-
         };
       },
       error: function (xhr) {
@@ -368,6 +374,13 @@ $(function () {
       wdNo -= 1
     }
 
+    var preday = new Date(wyNo, wmNo-1, wdNo);
+    console.log(preday.getDay());
+
+    // 這邊先比對公休日
+
+
+
     // 執行載入環境
     facDateTime(facNumber, wyNo, wmNo, wdNo);
   });
@@ -394,6 +407,13 @@ $(function () {
     } else {
       wdNo += 1
     }
+
+    var nextday = new Date(wyNo, wmNo-1, wdNo);
+    console.log(nextday.getDay());
+
+    // 這邊先比對公休日
+
+
 
     // 執行載入環境
     facDateTime(facNumber, wyNo, wmNo, wdNo);

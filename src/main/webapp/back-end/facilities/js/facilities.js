@@ -66,7 +66,7 @@ $(function () {
                                  <td class='facOpenDate${item.facNo}'></td>
                                  <td class='facOpenTime${item.facNo}'></td>
                                  <td class='facMax'>${item.facMax}</td>
-                                 <td class='facState'>${item.facState}</td>
+                                 <td class='facState'>${item.facState == 0 ? "上架(0)" : "下架(1)"}</td>
                                  <td class='facPhoto'>
 									                  <img src="/okaeri/fac/facPhotoByFacNo?facNo=${item.facNo}" style='height: 50px; margin: 3px 0;'>
 								                 </td>

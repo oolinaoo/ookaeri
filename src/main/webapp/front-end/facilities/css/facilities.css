@@ -84,6 +84,7 @@ a.facs_bot {
   text-align: center;
   line-height: 160px;
   vertical-align: top;
+  cursor: default;
 }
 
 div.facility a.facs_top:nth-child(4n),
@@ -183,7 +184,6 @@ div.yellow {
 a.facilitiesReserve {
   color: #5b6d5b;
   display: inline-block;
-  /* border: 1px solid blue; */
   width: 100%;
   height: 102%;
   text-decoration: none;
