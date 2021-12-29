@@ -26,8 +26,6 @@
 	href="<%=request.getContextPath()%>/front-end/map/css/map.css" />
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/front-end/map/css/mapInfo.css" />
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getContextPath()%>/front-end/map/css/header_footer_style.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css"
@@ -35,6 +33,8 @@
 <title>美食地圖</title>
 <link rel="icon"
 	href="<%=request.getContextPath()%>/front-end/map/images/logo2.png" />
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/front-end/map/css/header_footer_style.css" />
 
 </head>
 
@@ -51,34 +51,82 @@
 			</a>
 		</p>
 		<ul class="navbar_list">
-			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/news/news.html">社區交流</a>
+			<li class="navbar_list_open" style="width: 130px;"><a
+				href="<%=request.getContextPath()%>/front-end/news/news.html">社區交流</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="<%=request.getContextPath()%>/front-end/news/news.html">- 社區公告</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/rule/rule.html">- 社區公約</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/forum/article/forum.html">- 社區論壇</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/news/news.html">-
+							社區公告</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/rule/rule.html">-
+							社區公約</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/forum/article/forum.html">-
+							社區論壇</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/payment/managent.html">管理費</a>
+			<li class="navbar_list_open" style="width: 130px;"><a
+				href="<%=request.getContextPath()%>/front-end/payment/managent.html">管理費</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="<%=request.getContextPath()%>/front-end/payment/management_paypage.html">- 繳費</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/payment/management_history.html">- 繳費記錄</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/payment/management_paypage.html">-
+							繳費</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/payment/management_history.html">-
+							繳費記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/pack/package.html">我的包裹</a>
+			<li class="navbar_list_open" style="width: 130px;"><a
+				href="<%=request.getContextPath()%>/front-end/pack/package.html">我的包裹</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="<%=request.getContextPath()%>/front-end/pack/package_take.html">- 我的包裹</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/pack/package_history.html">- 包裹記錄</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/pack/package_take.html">-
+							我的包裹</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/pack/package_history.html">-
+							包裹記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">公設預約</a>
+			<li class="navbar_list_open" style="width: 130px;"><a
+				href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">公設預約</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_reserve.html">- 我要預約</a></li>
-					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_history.html">- 預約記錄</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">-
+							我要預約</a></li>
+					<li><a
+						href="<%=request.getContextPath()%>/front-end/facilities/facilities_history.html">-
+							預約記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp">美食地圖</a></li>
-			<li class="navbar_icon"><a href=""><img class="alert_icon"
-					src="<%=request.getContextPath()%>/front-end/map/images/alert.png"
-					alt="alert" /></a></li>
-			<li class="navbar_icon"><a href=""><img class="user_icon"
+			<li class="navbar_list_open" style="width: 130px;"><a
+				href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp">美食地圖</a></li>
+
+			<div class="dropdown">
+				<div id="badge"></div>
+				<button class="dropbtn">
+					<img class="alert_icon"
+						src="<%=request.getContextPath()%>/front-end/map/images/alert.png"
+						alt="alert" />
+				</button>
+				<div class="dropdown-content">
+					<div class="dropdown_selector"></div>
+				</div>
+			</div>
+			<li class="navbar_icon navbar_list_open"><a
+				href="/okaeri/front-end/mem/mem-index.html"><img
+					class="user_icon"
 					src="<%=request.getContextPath()%>/front-end/map/images/user.png"
-					alt="user" /></a></li>
+					alt="user" /></a>
+				<ol class="navbar_list_open_sub navbar_profile">
+					<li>
+						<div class="navbar_profile_user">
+							<a id="navbar_profile_memAcct"
+								href="/okaeri/front-end/mem/mem-index.html"></a>
+						</div>
+					</li>
+					<hr style="border-style: dashed; color: #e9d7b3" />
+					<li class="navbar_profile_memberCenter"><a
+						id="profile_memberCenter"
+						href="/okaeri/front-end/mem/mem-index.html">住戶中心</a></li>
+					<li class="navbar_profile_logout"><a id="profile_logout"
+						href="">登出</a></li>
+				</ol></li>
 		</ul>
 	</div>
 	<div class="map_tab_container">
@@ -151,7 +199,7 @@
 								<tr>
 									<th width="70px">編號</th>
 									<th width="220px">留言</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
@@ -170,30 +218,38 @@
 
 							</tbody>
 						</table>
-						<button class="report" type="button" style="position: relative;left: 140px;bottom: 30px;">檢舉</button>
-						<div class="overlay" style="border: 1px solid red; background-color:">
+						<button class="report" type="button"
+							style="position: relative; left: 140px; bottom: 30px;">檢舉</button>
+						<div class="overlay"
+							style="border: 1px solid red; background-color:">
 							<article>
-								<center><h1>檢舉頁面</h1>
-								<form class="reportCommentForm" action="<%=request.getContextPath()%>/controller/reptServletController.do">
-									<input type="text" name="reptMessage" value="" /> <!-- 檢舉原因 -->
-									<input type="hidden" name="memAcct" value="gina2" /> <!-- 檢舉者帳戶 -->
-<!-- 									<input type="hidden" name="memAcct" value="gina2" /> 檢舉者帳戶 -->
-									<select name="messageNO">
+								<center>
+									<h1>檢舉頁面</h1>
+									<form class="reportCommentForm"
+										action="<%=request.getContextPath()%>/controller/reptServletController.do">
+										<input type="text" name="reptMessage" value="" />
+										<!-- 檢舉原因 -->
+										<input type="hidden" name="memAcct" value="gina2" />
+										<!-- 檢舉者帳戶 -->
+										<!-- 									<input type="hidden" name="memAcct" value="gina2" /> 檢舉者帳戶 -->
+										<select name="messageNO">
 											<c:forEach var="msg" items="${requestScope.msgList}">
-												<c:if test="${msg.MAP_STORE_NO==sessionScope.storeNoUsedInCommentArea && msg.MAP_MSG_STATE==0}">
-										
-												<option value="${msg.MAP_MSG_NO}"/>${msg.MAP_MSG_NO}  <!-- 被檢舉留言的編號 -->
-									
+												<c:if
+													test="${msg.MAP_STORE_NO==sessionScope.storeNoUsedInCommentArea && msg.MAP_MSG_STATE==0}">
+
+													<option value="${msg.MAP_MSG_NO}" />${msg.MAP_MSG_NO}  <!-- 被檢舉留言的編號 -->
+
 												</c:if>
 											</c:forEach>
-									</select>
-									
-									<input type="hidden" name="adminAcct" value="gary1" /> <!-- 管理者帳戶 -->
-									<input type="hidden" name="storeNo" value="${sessionScope.storeNoUsedInCommentArea}" /> <!-- 商家編號 -->
-									<input type="hidden" name="action" value="reportComments" />
-									<button class="reportButton" type="submit">檢舉</button>
-								</form>
-								<button type="" class="btn_modal_close">關閉</button>
+										</select> <input type="hidden" name="adminAcct" value="gary1" />
+										<!-- 管理者帳戶 -->
+										<input type="hidden" name="storeNo"
+											value="${sessionScope.storeNoUsedInCommentArea}" />
+										<!-- 商家編號 -->
+										<input type="hidden" name="action" value="reportComments" />
+										<button class="reportButton" type="submit">檢舉</button>
+									</form>
+									<button type="" class="btn_modal_close">關閉</button>
 								</center>
 							</article>
 						</div>
@@ -1097,6 +1153,7 @@
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
     </script>
+	<script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
 
 </body>
 </html>

@@ -11,4 +11,5 @@
       position: absolute;
       left: 430px;
       display: inline-block;
+      z-index:-50;
     }

@@ -66,16 +66,43 @@
 				</ol></li>
 			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">公設預約</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_reserve.html">- 我要預約</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">- 我要預約</a></li>
 					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_history.html">- 預約記錄</a></li>
 				</ol></li>
 			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp">美食地圖</a></li>
-			<li class="navbar_icon"><a href=""><img class="alert_icon"
-					src="<%=request.getContextPath()%>/front-end/map/images/alert.png" alt="alert" /></a>
-			</li>
-			<li class="navbar_icon"><a href=""><img class="user_icon"
-					src="<%=request.getContextPath()%>/front-end/map/images/user.png" alt="user" /></a>
-			</li>
+
+			<div class="dropdown">
+          <div id="badge"></div>
+          <button class="dropbtn">
+            <img class="alert_icon" src="<%=request.getContextPath()%>/front-end/map/images/alert.png" alt="alert" />
+          </button>
+          <div class="dropdown-content">
+            <div class="dropdown_selector">
+
+            </div>
+          </div>
+        </div>
+			<li class="navbar_icon navbar_list_open">
+          <a href="/okaeri/front-end/mem/mem-index.html"
+            ><img class="user_icon" src="<%=request.getContextPath()%>/front-end/map/images/user.png" alt="user"
+          /></a>
+          <ol class="navbar_list_open_sub navbar_profile">
+            <li>
+              <div class="navbar_profile_user">
+                <a id="navbar_profile_memAcct" href="/okaeri/front-end/mem/mem-index.html"
+                  ></a
+                >
+              </div>
+            </li>
+            <hr style="border-style: dashed; color: #e9d7b3" />
+            <li class="navbar_profile_memberCenter">
+              <a id="profile_memberCenter" href="/okaeri/front-end/mem/mem-index.html">住戶中心</a>
+            </li>
+            <li class="navbar_profile_logout">
+              <a id="profile_logout" href="">登出</a>
+            </li>
+          </ol>
+        </li>
 		</ul>
 	</div>
 	<div class="map_tab_container">
@@ -1106,10 +1133,13 @@
     }
     
   </script>
+    
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
     </script>
     <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
+    <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
+    
 </body>
 
 </html>
