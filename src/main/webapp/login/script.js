@@ -92,7 +92,7 @@ $("#login-member").on("click", function()  {
 			let data = JSON.parse(this.responseText);
 			console.log(data);
 			 if (data == true) {
-			 window.location = "/okaeri/front-end/news/news.html"
+			 window.location = "/okaeri/front-end/homepage/homepage.html"
 			 } else {
 				 alert("請輸入正確的帳號密碼");
 			 }
@@ -116,7 +116,7 @@ $("#login-admin").on("click", function()  {
 		let data = JSON.parse(this.responseText);
 		console.log(data);
 		 if (data == true) {
-		 window.location = "/okaeri/back-end/rule/adminRule.html"
+		 window.location = "/okaeri/back-end/acct-addr/member.html"
 		 } else {
 			 alert("請輸入正確的帳號密碼");
 		 }
