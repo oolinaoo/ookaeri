@@ -46,48 +46,6 @@ $(function () {
   init();
 });
 
-//================分頁================//
-function paging() {
-  $('#addr_table').after('<div id="nav"></div>');
-  var rowsShown = 8;
-  var rowsTotal = $('#addr_table tbody tr').length;
-  var numPages = Math.ceil(rowsTotal / rowsShown);
-
-  if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
-    return;
-  }else{
-    for (let i = 0; i < numPages ; i++) {
-      let pageNum = i + 1;
-      $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
-    }
-  } 
-
-  $('#addr_table tbody tr').hide();
-  $('#addr_table tbody tr').slice(0, rowsShown).show();
-  $('#nav a:first').addClass('active');
-  var $pagess = $("#pageStyle");
-  $pagess[0].style.backgroundColor = "#B5495B";
-  $pagess[0].style.color = "#ffffff";
-
-  $('#nav a').bind('click', function () {
-
-    $('#nav a').removeClass('active');
-    $(this).addClass('active');
-    $('#nav a').css('background-color', '').css('color', '');
-    $(this).css('background-color', '#B5495B').css('color', '#ffffff');
-
-    var currPage = $(this).attr('rel');
-    var startItem = currPage * rowsShown;
-    var endItem = startItem + rowsShown;
-    $('#addr_table tbody tr').css('opacity', '0.0')
-      .hide()
-      .slice(startItem, endItem)
-      .css('display', 'table-row').animate({ opacity: 1 }, 300);
-  });
-
-}
-
-
 
 var overlay = `
 <article>
@@ -530,3 +488,4 @@ $("#addr_table").on("click", ".fa-minus-circle", function () {
   }
 
 });
+

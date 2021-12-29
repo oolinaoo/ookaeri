@@ -226,30 +226,6 @@ div.addr_table_container>table>tbody>tr>td:hover{
   color: #404040;
 }
 
-/*page
-=============================================*/
-/* #pageStyle {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  line-height: 32px;
-  text-align: center;
-  color: #b19693;
-  margin-top: 20px;
-  text-decoration: none;
-}
-#pageStyle:hover {
-  background-color: #d7c4bb;
-  border-radius: 50%;
-}
-#pageStyle .active {
-  color: #ffffff;
-} */
-
-
-
-
 /*button
 =============================================*/
 .newPost-button {
@@ -309,3 +285,52 @@ div.addr_table_container>table>tbody>tr>td:hover{
 .searchTerm:focus {
   color: #00b4cc;
 }
+
+/**************** 分頁樣式 ****************/
+/* #addr_table tr{
+	display: none;
+} */
+
+#pageStyle {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  color: #b19693;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+#pageStyle:hover {
+  background-color: #d7c4bb;
+  border-radius: 50%;
+}
+
+#pageStyle .active {
+  color: #ffffff;
+}
+
+
+
+/*page
+=============================================*/
+/* #pageStyle {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  line-height: 32px;
+  text-align: center;
+  color: #b19693;
+  margin-top: 20px;
+  text-decoration: none;
+}
+#pageStyle:hover {
+  background-color: #d7c4bb;
+  border-radius: 50%;
+}
+#pageStyle .active {
+  color: #ffffff;
+} */

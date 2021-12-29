@@ -179,8 +179,9 @@ $("button.submitBtn").on("click", function () {
 
             if(data.msg=="success"){
 
-                location.href="registerSuccess.html";
-
+                location.href=`${projectPath}/login/login.html`;
+                alert("帳號註冊成功，將跳轉到登入畫面");
+                
             }else if(data.msg == "errorMsgs"){
 
                 function errMsgs(errItem, errTag){
@@ -277,8 +278,9 @@ $("div.memUploadPic_btn_block").on("change", "#memUploadPic_file",function(e){
         //console.log(this); // <input type="file" id="memUploadPic_file">
         memUploadPic(this.files[0]); 
     }else{
+        let photo_path = `images/user.png`;
         let img_html = `
-            <img src="" class="mem_uploadPic">
+            <img src="${photo_path}" class="mem_uploadPic" style="height: 100px; width: 100px;">
         `;
         $("div.profilePic_preview").empty();
         $("div.profilePic_preview").append(img_html);

@@ -2,8 +2,41 @@ let path = window.location.pathname; //webapp的專案路徑
 //console.log(path); // /Okaeri/back-end/acct-addr/member.html
 var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
-var memAcct = "gina123test1";
-var memPwd = "passwordTest";
+//var memAcct = "gina123test1";
+//var memPwd = "passwordTest";
+
+//取得登入的帳號
+var memAcct;
+function getMemAcct(){ 
+	$.ajax({
+	  url: "/okaeri/login/getMemSession",
+	  type: "GET",
+	  data: "",
+	  dataType: "json",
+	  success: function (data) {
+		console.log(data);
+        memAcct = data.memAcct;
+        console.log(memAcct);
+		$("#navbar_profile_memAcct").append(
+				`
+					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
+				`
+			);
+		$("#navbar_profile_memAcct_span").after(
+				`
+					<span hidden>${data.memName}</span>
+				`
+			);
+	  },
+	    error: function (xhr) {
+	      console.log("error");
+	    },
+	});
+}
+
+$(function(){
+    getMemAcct();
+});
 
 
 $("#memPwd_btn_submit").on('click', function(){

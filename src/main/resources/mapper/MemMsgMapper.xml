@@ -10,6 +10,15 @@
 		<result property="addrNo" column="ADDR_NO" />
 	</resultMap>
 	
+	<resultMap id="FacJoinFacHist" type="MemFacVO">
+		<id property="facNo" column="FAC_NO" />
+		<result property="facName" column="FAC_NAME" />
+		<result property="histNo" column="HIST_NO" />
+		<result property="memAcct" column="MEM_ACCT" />
+		<result property="histDate" column="HIST_DATE" />
+		<result property="histTime" column="HIST_TIME" />
+	</resultMap>
+
 	<select id="memJoinPack" resultMap="MemJoinPack">
 		select m.MEM_ACCT, p.PACK_NO, p.PACK_TYPE_NO, p.PACK_STATE, p.ADDR_NO
 		from
@@ -23,5 +32,19 @@
 		select PAY_NO, PAY_STATE, MEM_ACCT, ADDR_NO from MANAGEMENT_PAYMENT
 		where MEM_ACCT = #{memAcct} and PAY_STATE = 0;
 	</select>
+	
+	<select id="facJoinFacHist" resultMap="FacJoinFacHist">
+		select f.FAC_NO, f.FAC_NAME, fs.HIST_NO, fs.MEM_ACCT, fs.HIST_DATE, fs.HIST_TIME from 
+			FACILITIES f
+		    left join FACILITIES_HISTORY fs
+		     on f.FAC_NO = fs.FAC_NO
+		where fs.MEM_ACCT = #{memAcct} and fs.HIST_DATE >= curdate() 
+		order by fs.HIST_DATE asc;
+	</select>
+	
+	<update id="updateArtState">
+		update FORUM_ARTICLE set ART_STATE_NO = 2 
+		where MEM_ACCT = #{memAcct} and FOR_ART_NO = #{forArtNo}; 
+	</update>
 	
 </mapper>

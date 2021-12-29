@@ -2,7 +2,7 @@ let path = window.location.pathname; //webapp的專案路徑
 //console.log(path); // /Okaeri/back-end/acct-addr/member.html
 var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
-var memAcct = "gina123test1";
+// var memAcct = "gina1";
 
 function famMemsList(famMemsList){
   if(famMemsList.length == 0){
@@ -36,16 +36,48 @@ function famMemsList(famMemsList){
   }
 }
 
+
+//ajax get login mem
+let memAcct;
+function getMemAcct(){
+	$.ajax({
+	  url: "/okaeri/login/getMemSession",
+	  type: "GET",
+	  data: "",
+	  dataType: "json",
+	  success: function (data) {
+		console.log(data);
+    memAcct = data.memAcct;
+    init();   //呼叫載入所有資料的函式
+		$("#navbar_profile_memAcct").append(
+				`
+					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
+				`
+			);
+		$("#navbar_profile_memAcct_span").after(
+				`
+					<span hidden>${data.memName}</span>
+				`
+			);
+	  },
+	    error: function (xhr) {
+	      console.log("error");
+	    },
+	});
+}
+
+
 //================載入住戶資料================//
 function init(){
 
   //讀資料庫的圖片
-  let path = window.location.pathname; //webapp的專案路徑
-  console.log(path); // /Okaeri/front-end/mem/mem-profile.html(在Eclipse中)
-  console.log(path.substring(0, path.indexOf("/", 1))); // /Okaeri (在Eclipse中)
-  console.log(path.substring(0, path.indexOf("/mem-", 1))); // /Okaeri/front-end/mem (在Eclipse中)
+  //let path = window.location.pathname; //webapp的專案路徑
+  //console.log(path); // /Okaeri/front-end/mem/mem-profile.html(在Eclipse中)
+  //console.log(path.substring(0, path.indexOf("/", 1))); // /Okaeri (在Eclipse中)
+  //console.log(path.substring(0, path.indexOf("/mem-", 1))); // /Okaeri/front-end/mem (在Eclipse中)
   //console.log($("img.mem_uploadPic").attr("src"));
   // /Okaeri/front-end/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
+  
   let src = `${projectPath}/mem/MemberServlet.do?action=getImage&memAcct=${memAcct}`;
 
   let img_html = `
@@ -103,7 +135,7 @@ function init(){
 
 //================呼叫載入所有資料的函式================//
 $(function(){
-  init();
+  getMemAcct();
 });
 
 
@@ -253,9 +285,21 @@ $("#memUploadPic_file").on("change", function(e){
     //console.log(this); // <input type="file" id="memUploadPic_file">
     memUploadPic(this.files[0]); 
   }else{
-    let img_html = `
-      <img src="" class="mem_uploadPic">
+
+    // let img_html = `
+    //   <img src="" class="mem_uploadPic">
+    // `;
+
+    //讀資料庫的圖片
+    // /Okaeri/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
+    let src = `
+        ${projectPath}/mem/MemberServlet.do?action=getImage&memAcct=${memAcct}
     `;
+    img_html = `
+        <img src="${src}" class="mem_uploadPic">
+    `;
+
+
     $("div.profilePic_preview").empty();
     $("div.profilePic_preview").append(img_html);
   }

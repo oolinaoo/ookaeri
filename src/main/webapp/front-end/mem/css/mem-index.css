@@ -58,7 +58,7 @@ div.tab1 div.left_container.top,
 div.tab1 div.right_container.top{
   /* border: blueviolet solid 1px; */
   height: 250px;
-  margin-bottom: 30px;
+  margin-bottom: 65px;
 }
 
 /************ 訊息通知 ************/
@@ -74,7 +74,7 @@ div.tab1 div.card-body ul.msg_list {
 div.tab1 div.card-body ul.msg_list > li {
   border-bottom: 1px solid black;
   width: 350px;
-  padding: 25px;
+  padding: 25px 0px 25px 25px;
 }
 
 div.tab1 div.card-body ul.msg_list > li:last-child{
@@ -129,6 +129,32 @@ div.weather_right{
   justify-content: center;
   align-items: flex-end;
   flex-direction: column;
+}
+
+/********** 頭像圖片 **********/
+div.profilePic_preview{
+  position: relative;
+  margin-left: 60px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 1px solid #fffcf0;
+
+}
+
+div.profilePic_preview img.mem_uploadPic{
+  max-height: 80%;  
+  max-width: 80%; 
+  border-radius: 50%;
+  width: auto;
+  height: auto;
+  position: absolute;  
+  top: 0;  
+  bottom: 0;  
+  left: 0;  
+  right: 0;  
+  margin: auto;
+  
 }
 
 /************* 待辦事項 start ************/

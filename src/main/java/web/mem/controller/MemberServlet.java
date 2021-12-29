@@ -1,6 +1,7 @@
 package web.mem.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Timestamp;
@@ -8,11 +9,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
@@ -552,9 +550,12 @@ public class MemberServlet extends HttpServlet {
 			//如果沒有上傳圖片filename會是memPhoto，印出的header資訊為：header=form-data; name="memPhoto"
 			//若有上傳圖片，印出的header資訊為：header=form-data; name="memPhoto"; filename="alert.png"
 			if( "memPhoto".equals(filename)) {
-				returnJobject.addProperty("errPhoto", "需上傳照片");
-				System.out.println("無照片");
-
+				//returnJobject.addProperty("errPhoto", "需上傳照片");
+				System.out.println("無照片，使用預設圖片存入資料庫");
+				is = getServletContext().getResourceAsStream("/front-end/mem/images/user.png");
+				memPhoto = new byte[is.available()]; //準備好跟該圖片剛好大小的水桶
+				is.read(memPhoto); //將讀入的位元資料放入水桶
+				is.close();
 			}else {
 				System.out.println("有照片");
 				is = part.getInputStream();
@@ -1195,6 +1196,15 @@ public class MemberServlet extends HttpServlet {
 			return null;
 		}
 		return filename;
+	}
+	
+	// 用於前台的註冊、後台的新增住戶資料 的 預設圖片上傳 
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		FileInputStream fis = new FileInputStream(path);
+		byte[] buffer = new byte[fis.available()];  //fis.available()：獲得源頭的資料量大小
+		fis.read(buffer);
+		fis.close();
+		return buffer;
 	}
 
 }
