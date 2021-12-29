@@ -98,7 +98,7 @@
             <tr>
              		<th>商家編號</th>
 					<th>商家名稱</th>
-					<th width="120px;">商家地址</th>
+					<th>商家地址</th>
 				
             </tr>
           </thead>
@@ -107,8 +107,7 @@
 					<tr>
 						<td>${storeInfo.MAP_STORE_NO}</td>
 						<td>${storeInfo.MAP_STORE_NAME}</td>
-						<td width="120px;">${storeInfo.MAP_STORE_ADDR}</td>
-						
+						<td>${storeInfo.MAP_STORE_ADDR}</td>
 					</tr>
 				</c:forEach>
 

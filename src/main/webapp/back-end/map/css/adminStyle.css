@@ -131,13 +131,13 @@ hr {
 
 /*table*/
 .container {
-  width: 700px;
+  width: 90%;
   margin: 0 auto;
 }
 
 table {
   overflow: hidden;
-  width: 700px;
+  width: 100%;
   border-collapse: collapse;
   vertical-align: middle;
 }
@@ -153,13 +153,11 @@ th {
   background-color: #7db9de;
   color: white;
   height: 60px;
-  width: 60px;
   text-align: center;
 }
 
 td {
   height: 40px;
-  width: 60px;
   text-align: center;
 }
 
