@@ -18,6 +18,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/front-end/map/css/map_tab.css" />
 <link rel="stylesheet" type="text/css"
@@ -39,36 +40,36 @@
 <%-- <span><%=request.getContextPath()%></span> --%>
 
 
-	<div id="header">
+		<div id="header">
 		<p class="header_logo">
 			<a href=""> <img
-				src="<%=request.getContextPath()%>/front-end/map/images/logo2.png" alt="logo"
-				width="80" />
+				src="<%=request.getContextPath()%>/front-end/map/images/logo2.png"
+				alt="logo" width="80" />
 			</a>
 		</p>
 		<ul class="navbar_list">
-			<li class="navbar_list_open" style="width: 130px;"><a href="">社區交流</a>
+			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/news/news.html">社區交流</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="">- 社區公告</a></li>
-					<li><a href="">- 社區公約</a></li>
-					<li><a href="">- 社區論壇</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/news/news.html">- 社區公告</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/rule/rule.html">- 社區公約</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/forum/article/forum.html">- 社區論壇</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="">管理費</a>
+			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/payment/managent.html">管理費</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="">- 繳費</a></li>
-					<li><a href="">- 繳費記錄</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/payment/management_paypage.html">- 繳費</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/payment/management_history.html">- 繳費記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="">我的包裹</a>
+			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/pack/package.html">我的包裹</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="">- 我的包裹</a></li>
-					<li><a href="">- 包裹記錄</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/pack/package_take.html">- 我的包裹</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/pack/package_history.html">- 包裹記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="">公設預約</a>
+			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_index.html">公設預約</a>
 				<ol class="navbar_list_open_sub">
-					<li><a href="">- 我要預約</a></li>
-					<li><a href="">- 預約記錄</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_reserve.html">- 我要預約</a></li>
+					<li><a href="<%=request.getContextPath()%>/front-end/facilities/facilities_history.html">- 預約記錄</a></li>
 				</ol></li>
-			<li class="navbar_list_open" style="width: 130px;"><a href="">美食地圖</a></li>
+			<li class="navbar_list_open" style="width: 130px;"><a href="<%=request.getContextPath()%>/front-end/map/map_message/foodmap.jsp">美食地圖</a></li>
 			<li class="navbar_icon"><a href=""><img class="alert_icon"
 					src="<%=request.getContextPath()%>/front-end/map/images/alert.png" alt="alert" /></a>
 			</li>
@@ -142,7 +143,7 @@
 						</form>
 						<p class="mapcommentHead"
 							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
-
+					<center>
 						<table class="comment-area" width="300px">
 							
 							<tbody>
@@ -227,7 +228,7 @@
 
 							</tbody>
 						</table>
-
+					</center>
 
 					</div>
 				</div>

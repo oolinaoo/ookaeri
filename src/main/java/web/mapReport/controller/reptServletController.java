@@ -46,11 +46,20 @@ public class reptServletController extends HttpServlet {
 		System.out.println("送出指令:" + action);
 		if("reportComments".equals(action))
 		{
-			Integer keyMessageNO = null;
+			String storeNo= req.getParameter("storeNo");
+			if(storeNo.trim().isEmpty())
+			{
+				RequestDispatcher failure = req
+						.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
+				failure.forward(req, res);
+				return ;
+			}
+			
 			int report=1;//0.不創造檢舉物件 1.創造檢舉物件
-			String reptAcct=req.getParameter("reptAcct");
-			Integer messageNO =Integer.valueOf(req.getParameter("messageNO"));
-			String reptMessage= req.getParameter("reptMessage");
+			String memAcct=req.getParameter("memAcct");//檢舉者帳號
+			String adminAcct=req.getParameter("adminAcct");//管理者帳號
+			Integer messageNO =Integer.valueOf(req.getParameter("messageNO"));//被檢舉的留言編號
+			String reptMessage= req.getParameter("reptMessage");//被檢舉原因
 			Map_ReportService dao= new Map_ReportService();
 			List<Map_ReportVO> allMes=dao.getAll();
 			Iterator<Map_ReportVO> it =allMes.iterator();
@@ -58,29 +67,20 @@ public class reptServletController extends HttpServlet {
 			{
 
 				Map_ReportVO rept=it.next();
-				System.out.println("被檢舉的留言編號: "+messageNO);
-				System.out.println("被檢舉的留言帳號: "+reptAcct);
-				System.out.println(rept.getMAP_MSG_NO());
-				System.out.println(rept.getMEM_ACCT());
-				String MEM_ACCT=rept.getMEM_ACCT();
-				Integer MAP_MSG_NO=rept.getMAP_MSG_NO();
-				System.out.println(rept.getMAP_MSG_NO().getClass());
-				System.out.println(messageNO.getClass());
-				if((MAP_MSG_NO.equals(messageNO))&&(rept.getMEM_ACCT().equals(reptAcct)))
-				
+				if((rept.getMAP_MSG_NO().equals(messageNO)))
 				{
-					System.out.println("該留言被檢舉過");
+					
 					if(rept.getMAP_REPT_STATE()==0)
 					{
 						report=0;
-						System.out.println("該留言被檢舉過且正在處理中");
+						System.out.println("該留言有被檢舉的紀錄過且正在處理中");
 						break;
 						
 					}
-					else
+					if(rept.getMAP_REPT_STATE()==1)
 					{
 						report=1;
-						System.out.println("該留言被檢舉過且已處理");
+						System.out.println("該留言檢舉成功");
 						break;
 					}
 					
@@ -102,8 +102,8 @@ public class reptServletController extends HttpServlet {
 			{
 				Map_ReportService serviceDao=new Map_ReportService();
 				
-				String name="gary1";
-				serviceDao.addMap_ReportDAO(reptNO, reptMessage,messageNO, reptAcct, 0, name);
+				
+				serviceDao.addMap_ReportDAO(reptNO, reptMessage,messageNO, memAcct, 0, adminAcct);
 				RequestDispatcher success = req
 						.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
 				success.forward(req, res);
@@ -113,14 +113,95 @@ public class reptServletController extends HttpServlet {
 			}
 			
 		}
-
-		
+		if("keepComment".equals(action))
+		{
+			int branch=0;
+			Integer mapMassageNo = new Integer(req.getParameter("mapMassageNo"));
+			String memAcct = req.getParameter("memAcct");
+			String mapMessageContent = req.getParameter("mapMessageContent");
+			Timestamp mapMessageTime=  Timestamp.valueOf(req.getParameter("mapMessageTime"));
+			String mapStoreNo = req.getParameter("mapStoreNo");
+			Map_MessageService Dao_Map_MessageService = new Map_MessageService();
+			Dao_Map_MessageService.updateMap_MessageVO(mapMassageNo, mapStoreNo, memAcct, mapMessageContent, mapMessageTime, 0);
+			Integer mapReptNo=null;
+			String mapReptContent="";
+			String admitAcct=""; 
+			Map_ReportService Dao_Map_ReportService = new Map_ReportService();
+			List<Map_ReportVO> allRept=Dao_Map_ReportService.getAll();
+			Iterator It =allRept.iterator();
+			while(It.hasNext())
+			{
+				Map_ReportVO rept=(Map_ReportVO) It.next();
+				if(rept.getMAP_MSG_NO().equals(mapMassageNo)&&rept.getMAP_REPT_STATE()==0)
+				{
+					
+						mapReptNo=rept.getMAP_REPT_NO();
+						mapReptContent=rept.getMAP_REPT_CONTENT();
+						admitAcct=rept.getADMIN_ACCT();
+						branch=1;
+						break;
+					
+				}
+			}
+			if(branch==1)
+			{
+				Dao_Map_ReportService.updateMap_ReportDAO(mapReptNo, mapReptContent, mapMassageNo, memAcct, 1, admitAcct);
+				RequestDispatcher success = req.getRequestDispatcher("/back-end/map/mapRept.jsp");
+				success.forward(req, res);
+				return;
+			}
+			else
+			{
+				RequestDispatcher failure = req.getRequestDispatcher("/back-end/map/mapRept.jsp");
+				failure.forward(req, res);
+			}
+		}
+		if("downComment".equals(action))
+		{
+			int branch=0;
+			Integer mapMassageNo = new Integer(req.getParameter("mapMassageNo"));
+			String memAcct = req.getParameter("memAcct");
+			String mapMessageContent = req.getParameter("mapMessageContent");
+			Timestamp mapMessageTime=  Timestamp.valueOf(req.getParameter("mapMessageTime"));
+			String mapStoreNo = req.getParameter("mapStoreNo");
+			Map_MessageService Dao_Map_MessageService = new Map_MessageService();
+			Dao_Map_MessageService.updateMap_MessageVO(mapMassageNo, mapStoreNo, memAcct, mapMessageContent, mapMessageTime, 1);
+			Integer mapReptNo=null;
+			String mapReptContent="";
+			String admitAcct=""; 
+			Map_ReportService Dao_Map_ReportService = new Map_ReportService();
+			List<Map_ReportVO> allRept=Dao_Map_ReportService.getAll();
+			Iterator It =allRept.iterator();
+			while(It.hasNext())
+			{
+				Map_ReportVO rept=(Map_ReportVO) It.next();
+				if(rept.getMAP_MSG_NO().equals(mapMassageNo)&&rept.getMAP_REPT_STATE()==0)
+				{
+				
+						mapReptNo=rept.getMAP_REPT_NO();
+						mapReptContent=rept.getMAP_REPT_CONTENT();
+						admitAcct=rept.getADMIN_ACCT();
+						branch=1;
+						break;
+					
+				}
+			}
+			if(branch==1)
+			{
+				Dao_Map_ReportService.updateMap_ReportDAO(mapReptNo, mapReptContent, mapMassageNo, memAcct, 1, admitAcct);
+				RequestDispatcher success = req.getRequestDispatcher("/back-end/map/mapRept.jsp");
+				success.forward(req, res);
+				return;
+			}
+			else
+			{
+				RequestDispatcher failure = req.getRequestDispatcher("/back-end/map/mapRept.jsp");
+				failure.forward(req, res);
+			}
+		}		
 
 }
 
-	private Integer Integer(String parameter) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -232,17 +232,17 @@ table tbody::-webkit-scrollbar {
 }
 
 .report {
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	padding: 1px 10px;
-	border: 1px solid #d68f62;
-	border-radius: 100px;
-	background: #d68f62;
-	font: normal normal bold 5px arial;
-	color: #ffffff;
-	text-decoration: none;
-	font-size: 9px;
+	    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px 15px;
+    border: 1px solid #d68f62;
+    border-radius: 100px;
+    background: #d68f62;
+    font: normal normal bold 5px arial;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
 }
 
 .report:hover {
@@ -282,6 +282,31 @@ div.overlay > article{
   height: 200px;
   overflow: scroll;
 }
+
+.reportButton {
+	    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px 15px;
+    border: 1px solid #d68f62;
+    border-radius: 100px;
+    background: #d68f62;
+    font: normal normal bold 5px arial;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.reportButton:hover {
+	border: 1px solid #ffab76;
+	background: #ffab76;
+	color: #ffffff;
+	text-decoration: none;
+}
+
+
+
+
 /* 輸入留言
 ==========================================*/
 * {

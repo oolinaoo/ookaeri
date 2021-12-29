@@ -2,16 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="web.mapMessage.service.*"%>
 <%@ page import="web.mapMessage.entity.*"%>
-<%@ page import="web.v_map_message_map_report.dao.*"%>
-<%@ page import="web.v_map_message_map_report.dao.impl.*"%>
-<%@ page import="web.v_map_message_map_report.entity.*"%>
+
+<%@ page import="web.mapStoreInfo.dao.*"%>
+<%@ page import="web.mapStoreInfo.dao.impl.*"%>
+<%@ page import="web.mapStoreInfo.entity.*"%>
 <%@ page import="java.util.*"%>
 
 
 <%
-	mapMessageMapReportDAO dao =new mapMessageMapReportDAOImpl();
-	List<mapMessageMapReportVO> reportMes =dao.getAll();
-	request.setAttribute("reportMes", reportMes);
+	Map_Store_InfoDAO dao =new Map_Store_InfoDAOImpl();
+	List<Map_Store_InfoVO> storeInfo =dao.getAll();
+	request.setAttribute("storeInfo", storeInfo);
 %>
 
 <!-- Back-end mapRept -->
@@ -22,7 +23,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>地圖留言管理</title>
+    <title>地圖商家資料</title>
     <link rel="icon" href="<%=request.getContextPath()%>/back-end/map/images/logo2.png">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/map/css/adminStyle.css" />
     <script
@@ -74,7 +75,7 @@
             美食地圖 <i class="fa fa-caret-down"></i>
           </button>
           <div class="dropdown-container">
-           	<a href="/okaeri/back-end/map/mapInfo.jsp">商家資訊</a>
+            <a href="/okaeri/back-end/map/mapInfo.jsp">商家資訊</a>
             <a href="/okaeri/back-end/map/mapRept.jsp">留言檢舉</a>
           </div>
           <a href="/okaeri/back-end/payment/payment.html">管理費用</a>
@@ -86,7 +87,7 @@
 
     <!--  ###########  頁面主要內容區域  ###########  -->
     <div class="main">
-      <h3>地圖留言管理</h3>
+      <h3>地圖商家資料</h3>
     
     
 
@@ -95,57 +96,19 @@
         <table id="" class="">
           <thead>
             <tr>
-             		<th>留言編號</th>
-					<th>留言者帳號</th>
-					<th>留言內容</th>
-					<th>留言時間</th>
-					<th>餐廳編號</th>
-					<th>上下架</th>
-					<th>檢舉狀態</th>
-					<th>檢舉內容</th>
-					<th>留言上架</th>
-					<th>留言下架</th>
+             		<th>商家編號</th>
+					<th>商家名稱</th>
+					<th width="120px;">商家地址</th>
+				
             </tr>
           </thead>
           <tbody>
-				<c:forEach var="msg" items="${requestScope.reportMes}">
+				<c:forEach var="storeInfo" items="${requestScope.storeInfo}">
 					<tr>
-						<td>${msg.mapMassageNo}</td>
-						<td>${msg.memAcct}</td>
-						<td>${msg.mapMessageContent}</td>
-						<td>${msg.mapMessageTime}</td>
-						<td>${msg.mapStoreNo}</td>
-						<td>${msg.mapMessageState==0}</td>
-						<td>${msg.mapReptState}</td>
-						<td>${msg.mapReptContent}</td>
-						<td><FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/controller/reptServletController.do"
-						style="margin-bottom: 0px; width:30px">
+						<td>${storeInfo.MAP_STORE_NO}</td>
+						<td>${storeInfo.MAP_STORE_NAME}</td>
+						<td width="120px;">${storeInfo.MAP_STORE_ADDR}</td>
 						
-						<input type="hidden" name="mapMassageNo" value="${msg.mapMassageNo}">
-						<input type="hidden" name="memAcct" value="${msg.memAcct}">
-						<input type="hidden" name="mapMessageContent" value="${msg.mapMessageContent}">
-						<input type="hidden" name="mapMessageTime" value="${msg.mapMessageTime}">
-						<input type="hidden" name="mapStoreNo" value="${msg.mapStoreNo}">
-						<input type="hidden" name="mapMessageState" value="${msg.mapMessageState}">
-						<input type="hidden" name="action" value="keepComment">
-						<input type="submit" value="上架" style="width:45px"> 
-						</FORM>
-						</td>
-						<td><FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/controller/reptServletController.do"
-						style="margin-bottom: 0px; width:30px">
-						
-						<input type="hidden" name="mapMassageNo" value="${msg.mapMassageNo}">
-						<input type="hidden" name="memAcct" value="${msg.memAcct}">
-						<input type="hidden" name="mapMessageContent" value="${msg.mapMessageContent}">
-						<input type="hidden" name="mapMessageTime" value="${msg.mapMessageTime}">
-						<input type="hidden" name="mapStoreNo" value="${msg.mapStoreNo}">
-						<input type="hidden" name="mapMessageState" value="${msg.mapMessageState}">
-						<input type="hidden" name="action" value="downComment">
-						<input type="submit" value="下架" style="width:45px">
-						</FORM>
-						</td>
 					</tr>
 				</c:forEach>
 

@@ -127,6 +127,7 @@ public class ServletController extends HttpServlet {
 		}
 
 		if ("confirm".equals(action)) {
+
 			String str = req.getParameter("storeInfo");
 			System.out.println("從前端送來的商家資料: " + str);
 			String storeNo;
@@ -160,6 +161,7 @@ public class ServletController extends HttpServlet {
 
 		}
 		if ("inputComment".equals(action)) {
+//			String mem = req.getParameter("mem");
 			String storeNoUsedInInputComment = req.getParameter("storeNoUsedInInputComment");
 			String commentContent = req.getParameter("comment");
 			if (storeNoUsedInInputComment.trim().isEmpty()) {
@@ -175,23 +177,14 @@ public class ServletController extends HttpServlet {
 				return;
 
 			} else {
-				int rePeat=0;//0.代表使用者留言沒重複 1.代表使用者留言有重複
+				
 				String name = "gina1";
 				Map_MessageService dao = new Map_MessageService();
-				List<Map_MessageVO> allMes=dao.getAll();
-				Iterator<Map_MessageVO> it  = allMes.iterator();
+			
+			
 				
-				while(it.hasNext())
-				{
-					Map_MessageVO messageVO=(Map_MessageVO) it.next();
-					if(messageVO.getMEM_ACCT().equals(name)&&messageVO.getMAP_MSG_CONTENT().equals(commentContent)&&messageVO.getMAP_STORE_NO().equals(storeNoUsedInInputComment))
-					{
-						rePeat=1;
-						break;
-					}
-				}
-				if(rePeat==0)
-				{
+				
+				
 					Long dateTime=System.currentTimeMillis();
 					Timestamp timestamp = new Timestamp(dateTime);
 					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, timestamp, 0);
@@ -202,17 +195,8 @@ public class ServletController extends HttpServlet {
 					System.out.println("留言輸入成功");
 					
 					return;
-				}
-				if(rePeat==1)
-				{
-					req.setAttribute("commentRepeatOrNot", "commentRepeat");
-					RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
-					failure.forward(req, res);
-					System.out.println(storeNoUsedInInputComment);
-					System.out.println("您的這筆留言已輸入過一次");
-					
-					
-				}
+				
+			
 				
 			}
 		}

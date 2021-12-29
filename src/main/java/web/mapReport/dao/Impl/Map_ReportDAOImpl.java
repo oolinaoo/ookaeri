@@ -16,7 +16,7 @@ import web.mapReport.entity.Map_ReportVO;
 // 此類別實作DAO interface，並將資料庫操作細節封裝起來
 public class Map_ReportDAOImpl implements Map_ReportDAO {
 	private static final String INSERT_STMT = "INSERT INTO MAP_REPORT(MAP_REPT_NO, MAP_REPT_CONTENT, MAP_MSG_NO, MEM_ACCT, MAP_REPT_STATE,ADMIN_ACCT) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE MAP_REPORT SET MAP_REPT_NO = ?, MAP_REPT_CONTENT = ?, MAP_MSG_NO = ?, MEM_ACCT = ?, MAP_REPT_STATE = ?, ADMIN_ACCT = ?";
+	private static final String UPDATE_STMT = "UPDATE MAP_REPORT SET  MAP_REPT_CONTENT = ?, MAP_MSG_NO = ?, MEM_ACCT = ?, MAP_REPT_STATE = ?, ADMIN_ACCT = ? WHERE MAP_REPT_NO = ?";
 	private static final String DELETE_STMT = "DELETE FROM MAP_REPORT WHERE MAP_REPT_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM MAP_REPORT WHERE MAP_REPT_NO = ?";
 	private static final String GET_ALL = "SELECT * FROM MAP_REPORT";
@@ -83,12 +83,13 @@ public class Map_ReportDAOImpl implements Map_ReportDAO {
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
 
-			pstmt.setInt(1, map_reoort.getMAP_REPT_NO());
-			pstmt.setString(2, map_reoort.getMAP_REPT_CONTENT());
-			pstmt.setInt(3, map_reoort.getMAP_MSG_NO());
-			pstmt.setString(4, map_reoort. getMEM_ACCT());
-			pstmt.setInt(5, map_reoort.getMAP_REPT_STATE());
-			pstmt.setString(6, map_reoort.getADMIN_ACCT());
+			
+			pstmt.setString(1, map_reoort.getMAP_REPT_CONTENT());
+			pstmt.setInt(2, map_reoort.getMAP_MSG_NO());
+			pstmt.setString(3, map_reoort. getMEM_ACCT());
+			pstmt.setInt(4, map_reoort.getMAP_REPT_STATE());
+			pstmt.setString(5, map_reoort.getADMIN_ACCT());
+			pstmt.setInt(6, map_reoort.getMAP_REPT_NO());
 			
 
 			pstmt.executeUpdate();

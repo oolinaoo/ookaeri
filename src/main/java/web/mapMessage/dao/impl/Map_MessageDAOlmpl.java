@@ -18,7 +18,7 @@ import web.mapMessage.entity.Map_MessageVO;
 
 public class Map_MessageDAOlmpl implements Map_MessageDAO {
 	private static final String INSERT_STMT = "INSERT INTO MAP_MESSAGE(MAP_MSG_NO, MAP_STORE_NO, MEM_ACCT, MAP_MSG_CONTENT, MAP_MSG_TIME, MAP_MSG_STATE) VALUES (?, ?, ?, ?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE MAP_MESSAGE SET MAP_MSG_NO = ?, MAP_STORE_NO = ?, MEM_ACCT = ?, MAP_MSG_CONTENT = ?, MAP_MSG_TIME = ?, MAP_MSG_STATE = ?";
+	private static final String UPDATE_STMT = "UPDATE MAP_MESSAGE SET MAP_STORE_NO = ?, MEM_ACCT = ?, MAP_MSG_CONTENT = ?, MAP_MSG_TIME = ?, MAP_MSG_STATE = ? WHERE MAP_MSG_NO = ?";
 	private static final String DELETE_STMT = "DELETE FROM MAP_MESSAGE WHERE MAP_MSG_NO = ?";
 	private static final String FIND_BY_PK = "SELECT * FROM MAP_MESSAGE WHERE MAP_MSG_NO = ?";
 	private static final String GET_ALL = "SELECT * FROM MAP_MESSAGE";
@@ -84,13 +84,13 @@ public class Map_MessageDAOlmpl implements Map_MessageDAO {
 			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, map_message.getMAP_MSG_NO());
-			pstmt.setString(2, map_message.getMAP_STORE_NO());
-			pstmt.setString(3, map_message.getMEM_ACCT());
-			pstmt.setString(4, map_message. getMAP_MSG_CONTENT());
-			pstmt.setTimestamp(5, map_message.getMAP_MSG_TIME());
-			pstmt.setInt(6, map_message.getMAP_MSG_STATE());
-			
+		
+			pstmt.setString(1, map_message.getMAP_STORE_NO());
+			pstmt.setString(2, map_message.getMEM_ACCT());
+			pstmt.setString(3, map_message. getMAP_MSG_CONTENT());
+			pstmt.setTimestamp(4, map_message.getMAP_MSG_TIME());
+			pstmt.setInt(5, map_message.getMAP_MSG_STATE());
+			pstmt.setInt(6, map_message.getMAP_MSG_NO());
 
 			pstmt.executeUpdate();
 
