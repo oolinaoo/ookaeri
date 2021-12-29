@@ -22,7 +22,7 @@ public class NotifyController {
 	@GetMapping(path = "listNotify")
 	@ResponseBody
 	public List<String> listNotify(HttpSession session) throws IndexOutOfBoundsException {
-		 System.out.println("有進入");
+		 System.out.println("有進入請求訊息通知=======================");
 		 String memAcct =(String) session.getAttribute("memAcct");
 		 List<String> list = new ArrayList <String>() ;
 		 List<String> list2 = mapper.listNotifyMsg(memAcct) ;
