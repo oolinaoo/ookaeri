@@ -126,9 +126,13 @@ $("#login-admin").on("click", function()  {
 //ajax to sendMail
 $(".save").on("click", function()  {
 	let url = "/okaeri/login/sendMail";
+	let mail = $("#email").val();
+	let mem = $("#memAccount").val();
 	let form_data = {
-		"memAcct" : "gina1",
-		"memEmail" : "xuanooo4@gmail.com"
+//		"memAcct" : "gina1",
+//		"memEmail" : "xuanooo4@gmail.com"
+		"memAcct" : mem,
+		"memEmail" : mail
 	}
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url);
@@ -140,5 +144,7 @@ $(".save").on("click", function()  {
 		let data = JSON.parse(this.responseText);
 		console.log(data);
 		alert("請記得至信箱收信")
+		$("#email, #memAccount").val("");
+		$(".modal-returned, .overlay-returned").fadeOut();
 	};
 });

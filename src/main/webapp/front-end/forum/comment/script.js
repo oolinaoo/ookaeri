@@ -151,22 +151,6 @@ $("section").click(function(e){
 	} 
 });
 
-//ajax get login mem
-$(function () {
-	$.ajax({
-	  url: "/okaeri/login/getSession",
-	  type: "GET",
-	  data: "",
-	  dataType: "json",
-	  success: function (data) {
-		console.log(data);
-	  },
-	    error: function (xhr) {
-	      console.log("error");
-	    },
-	});
-});
-
 //report 彈窗
 function report(obj) {
     if (prompt("確定要檢舉嗎？確定請輸入yes") == "yes") {
@@ -231,3 +215,27 @@ function reportA(obj) {
       window.location = window.location.href;
     }
 }
+
+//comment
+$(".save").click(function(){
+	let mem = $("#navbar_profile_memAcct_span").html();
+	var msg = $("#comment-area").val();
+	let form_data = {
+		"memAcct" : mem,
+		"forMsgContent" : msg,
+		"forArtNo" : artNo
+	};
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log(xhr);
+		}
+	};
+	xhr.open("POST", "/okaeri/forumMessage/add"); //post 告知後端
+	xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
+	var data = JSON.stringify(form_data); //將物件資料轉成字串
+	console.log(data);
+	xhr.send(data); //送出字串
+	alert("留言成功");
+	$("#comment-area").val("");
+});

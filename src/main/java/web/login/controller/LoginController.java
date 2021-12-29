@@ -1,5 +1,7 @@
 package web.login.controller;
 
+import java.util.Base64;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import redis.clients.jedis.Jedis;
 import util.JavaMail.src.xxx.MailService;
 import web.login.entity.Login;
-import web.login.mapper.LoginMapper;
 import web.login.service.LoginService;
 
 @Controller
@@ -24,8 +25,6 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService service;
-	@Autowired
-	private LoginMapper mapper;
 	
 	@PostMapping(path = "mem", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -68,6 +67,14 @@ public class LoginController {
 		return admin;
 	}
 	
+	@GetMapping("getUserPhoto")
+	@ResponseBody
+	public Login getUserPhoto(HttpSession session) {
+		String memAcct = (String)session.getAttribute("memAcct");
+		Login mem = service.getUserPhoto(memAcct);
+		return mem;
+	}
+	
 	@PostMapping("sendMail")
 	@ResponseBody
 	public boolean sendMail(@RequestBody Login login) {
@@ -83,16 +90,32 @@ public class LoginController {
 	}
 	
 	@GetMapping("checkToken")
-	public ModelAndView checkToken(String token, HttpSession session) {
+	public RedirectView checkToken(String token, HttpSession session) {
 		Jedis jedis = new Jedis("localhost", 6379);
 		if (token != null && token != "") {
 			System.out.println("in checkToken controller");
 			String memAcct = jedis.get(token);
 			session.setAttribute("memAcct", memAcct);
+			System.out.println(session.getAttribute("memAcct"));
 		} 
 		jedis.close();
 		
-		return new ModelAndView("index");
+		return new RedirectView("/okaeri/login/forget-pwd.html");
+	}
+	
+	@PostMapping("updatePassword")
+	@ResponseBody
+	public boolean updatePassword(@RequestBody Login login, HttpSession session) {
+		
+		String memAcct = (String)session.getAttribute("memAcct");
+		String memPwd = login.getMemPwd();
+		String pwdReg = "^[a-zA-Z0-9]{8,25}$";
+		if(memPwd.matches(pwdReg)) {
+			boolean update = service.updatePassword(memAcct, memPwd);
+			return update;
+		}
+		
+		return false;
 	}
 	
 }

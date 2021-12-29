@@ -24,4 +24,7 @@ $(".save")
 			var data = JSON.stringify(form_data); //將物件資料轉成字串
 			console.log(data);
 			xhr.send(data); //送出字串
+			lert("新增成功");
+			$("#admin, #title, #content").val("");
+			$(".modal-returned, .overlay-returned").fadeOut();
 		});

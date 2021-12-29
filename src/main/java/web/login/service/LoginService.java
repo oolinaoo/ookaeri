@@ -8,5 +8,6 @@ public interface LoginService {
 	boolean checkAdmin(String adminAcct, String adminPwd);
 	Login getUser(String memAcct);
 	Login getAdmin(String adminAcct);
-
+	Login getUserPhoto(String memAcct);
+	boolean updatePassword(String memAcct, String memPwd);
 }
