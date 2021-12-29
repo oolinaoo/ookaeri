@@ -8,11 +8,20 @@ public class Login implements Serializable{
 	private String memPwd;
 	private String memName;
 	private String memEmail;
+	private byte[] memPhoto;
 	private String adminAcct;
 	private String adminPwd;
 	private String adminName;
 
 	public Login() {
+	}
+
+	public byte[] getMemPhoto() {
+		return memPhoto;
+	}
+
+	public void setMemPhoto(byte[] memPhoto) {
+		this.memPhoto = memPhoto;
 	}
 
 	public String getMemAcct() {

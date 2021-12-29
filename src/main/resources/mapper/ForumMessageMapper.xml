@@ -51,12 +51,12 @@
 		insert into FORUM_MESSAGE
 		(MEM_ACCT, FOR_ART_NO, FOR_MSG_CONTENT)
 		values
-		(#{memAcctMsg}, #{forArtNo}, #{forMsgContent})
+		(#{memAcct}, #{forArtNo}, #{forMsgContent})
 	</insert>
 
 	<update id="update">
 		update FORUM_MESSAGE
-			MEM_ACCT = #{memAcctMsg},
+			MEM_ACCT = #{memAcct},
 			FOR_ART_NO = #{forArtNo},
 			FOR_MSG_CONTENT = #{forMsgContent},
 			FOR_MSG_STATE = #{forMsgState}

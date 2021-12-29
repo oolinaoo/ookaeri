@@ -146,5 +146,11 @@
 			FOR_ART_CONTENT = #{forArtContent}
 		where FOR_ART_NO = #{forArtNo}
 	</update>
+	
+	<update id="updateViews">
+		update FORUM_ARTICLE set
+			FOR_ART_VIEW = #{forArtView}
+		where FOR_ART_NO = #{forArtNo}
+	</update>
 
 </mapper>

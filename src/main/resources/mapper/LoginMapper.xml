@@ -25,7 +25,8 @@
 
 	<select id="getUser" resultType="Login">
 		select MEM_ACCT, MEM_NAME
-		from MEMBER
+		from
+		MEMBER
 		where
 		MEM_ACCT = #{memAcct}
 	</select>
@@ -37,4 +38,17 @@
 		ADMIN_ACCT = #{adminAcct}
 	</select>
 
+	<select id="getUserPhoto" resultType="Login">
+		select MEM_ACCT, MEM_NAME, MEM_PHOTO
+		from
+		MEMBER
+		where
+		MEM_ACCT = #{memAcct}
+	</select>
+
+	<update id="updatePassword">
+		update MEMBER set
+		MEM_PWD = #{memPwd}
+		where MEM_ACCT = #{memAcct}
+	</update>
 </mapper>

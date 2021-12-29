@@ -121,3 +121,19 @@ div.modal-returned::-webkit-scrollbar-thumb {
 div.modal-returned::-webkit-scrollbar-thumb:hover {
 	background: #fadb99;
 }
+
+/*selext*/
+select {
+  color: #504b4b;
+  border-radius: 10px;
+  width: 150px;
+  height: 35px;
+  padding: 5px;
+  margin-top: 10px;
+  box-sizing: border-box;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
