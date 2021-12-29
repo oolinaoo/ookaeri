@@ -65,7 +65,7 @@
           <a href="/okaeri/front-end/facilities/facilities_index.html">公設預約</a>
           <ol class="navbar_list_open_sub">
             <li>
-              <a href="/okaeri/front-end/facilities/facilities_reserve.html">- 我要預約</a>
+              <a href="/okaeri/front-end/facilities/facilities_index.html">- 我要預約</a>
             </li>
             <li>
               <a href="/okaeri/front-end/facilities/facilities_history.html">- 預約記錄</a>
@@ -92,18 +92,16 @@
           <ol class="navbar_list_open_sub navbar_profile">
             <li>
               <div class="navbar_profile_user">
-                <a id="navbar_profile_memAcct" href="/okaeri/front-end/mem/mem-index.html"
-                  ><img
-                    class="profile_photo"
-                    src="images/olina.png"
-                    alt="user"
-                  /><br /><span id="navbar_profile_memAcct_span"></span></a
-                >
+                <a id="navbar_profile_memAcct" href="/okaeri/front-end/mem/mem-index.html">
+	                <!-- <img class="profile_photo" src="/okaeri/front-end/news/images/olina.png" alt="user"/> -->
+	                <!-- <br/> -->
+	                <!-- <span id="navbar_profile_memAcct_span"></span> -->
+                </a>
               </div>
             </li>
             <hr style="border-style: dashed; color: #e9d7b3" />
             <li class="navbar_profile_memberCenter">
-              <a id="profile_memberCenter" href="">住戶中心</a>
+              <a id="profile_memberCenter" href="/okaeri/front-end/mem/mem-index.html">住戶中心</a>
             </li>
             <li class="navbar_profile_logout">
               <a id="profile_logout" href="">登出</a>
@@ -146,6 +144,7 @@
                                 <th>類別</th>
                                 <th>觀看數</th>
                                 <th>發佈時間</th>
+                                <th>狀態</th>
                                 <th>編輯</th>
                                 <th>刪除</th>
                             </tr>
@@ -165,8 +164,10 @@
         <p class="copyright">© 2021 okaeri</p>
     </div>
     <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
+    <!-- <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script> -->
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
     <script src="js/mem-article-ajax.js"></script>
+    
 </body>
 
 </html>

@@ -65,6 +65,9 @@ div.memPwd_btn {
   border-spacing: 10px 10px;
 }
 
+#memPwd_form{
+  margin: 150px 0px auto;
+}
 /******** 錯誤訊息 ********/
 span.err{
   color: red;

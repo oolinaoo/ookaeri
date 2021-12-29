@@ -181,7 +181,7 @@ var overlay = `
                             <div class="mem_photo">
                                 <div class="profilePic_preview">
                                     <!-- <div class="mem_uploadPic"></div> -->
-                                    <!-- <img src="images/mug-shot/man-hair.png" class="mem_uploadPic"> -->
+                                    <!-- <img src="images/user.png" class="mem_uploadPic" style="height: 100px; width: 100px;"> -->
                                 </div>
                                 <div class="memUploadPic_btn_block">
                                     <input type="file" id="memUploadPic_file" style="margin-top: 20px;width: 220px">
@@ -272,9 +272,18 @@ $("a.newPost-button").on("click", function () {
 
     //將「確定新增」的按鈕放入燈箱
     let mem_btnConfirmAdd = `
-        <button type="button" class="mem_btnConfirmAdd">確定新增</button>
+        <button type="button" id="add_btn" class="mem_btnConfirmAdd">確定新增</button>
     `;
     $("#member_overlay_add div.confirm_block").append(mem_btnConfirmAdd);
+
+    //若開啟 新增的彈窗，則先顯示 預設的圖片
+    let preview_html = `
+        <img src="images/user.png" class="mem_uploadPic" style="height: 100px; width: 100px;">
+    `;
+    // $("div.profilePic_preview").empty();
+    $("div.profilePic_preview").append(preview_html);
+    //用於辨識是否為 新增 的 彈窗，在檔案上傳函式會拿來使用
+    $("#memUploadPic_file").addClass("add_modal"); 
 
     // 將住戶狀態欄位拿掉，「新增」不需設定住戶狀態
     $("#trMemState").remove();
@@ -506,6 +515,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
 
 });
 
+var memAcct_forPic;  //用於圖片上傳，在編輯彈窗中顯示資料庫中原本的圖片
 //========================= 修改住戶資料 =========================
 //編輯 從資料庫抓該住戶的資料，並顯示在燈箱上
 $("#addr_table").on("click", ".fa-edit", function () {
@@ -530,10 +540,12 @@ $("#addr_table").on("click", ".fa-edit", function () {
 
     //將「確定修改」的按鈕放入燈箱
     let mem_btnConfirmEdit = `
-        <button type="button" class="mem_btnConfirmEdit">確定修改</button>
+        <button type="button" id="edit_btn" class="mem_btnConfirmEdit">確定修改</button>
     `;
     that.closest("td").find("div.confirm_block").prepend(mem_btnConfirmEdit);
 
+    //用於辨識是否為 編輯 的 彈窗，在檔案上傳函式會拿來使用
+    $("#memUploadPic_file").addClass("edit_modal");
 
     // 抓取地址資料
     $.ajax({
@@ -558,7 +570,7 @@ $("#addr_table").on("click", ".fa-edit", function () {
 
     //點擊編輯的該筆資料的 住戶帳號，將住戶帳號送到後端，抓取該帳號的資料，顯示在燈箱上
     let memAcct = that.closest("tr").children().eq(0).text();
-
+    memAcct_forPic = memAcct;
     //讀資料庫的圖片
     // /Okaeri/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
     let src = `
@@ -907,46 +919,6 @@ $('body').on('focus',"#memBirthday",function(){
     
 })
 
-//===================== 分頁 =====================
-function paging() {
-    $('#addr_table').after('<div id="nav"></div>');
-    var rowsShown = 8;
-    var rowsTotal = $('#addr_table tbody tr').length;
-    var numPages = Math.ceil(rowsTotal / rowsShown);
-
-    if(numPages == 0){    //如果資料筆數為0筆，直接結束程式，因為資料筆數為0筆，就不會跑下面的for迴圈
-        return;
-      }else{
-        for (let i = 0; i < numPages ; i++) {
-          let pageNum = i + 1;
-          $('#nav').append('<a href="###" id="pageStyle" rel="' + i + '">' + "<span>" + pageNum + "</span>" + '</a> ');
-        }
-      }
-
-    $('#addr_table tbody tr').hide();
-    $('#addr_table tbody tr').slice(0, rowsShown).show();
-    $('#nav a:first').addClass('active');
-    var $pagess = $("#pageStyle");
-    $pagess[0].style.backgroundColor = "#B5495B";
-    $pagess[0].style.color = "#ffffff";
-
-    $('#nav a').bind('click', function () {
-
-        $('#nav a').removeClass('active');
-        $(this).addClass('active');
-        $('#nav a').css('background-color', '').css('color', '');
-        $(this).css('background-color', '#B5495B').css('color', '#ffffff');
-
-        var currPage = $(this).attr('rel');
-        var startItem = currPage * rowsShown;
-        var endItem = startItem + rowsShown;
-        $('#addr_table tbody tr').css('opacity', '0.0')
-            .hide()
-            .slice(startItem, endItem)
-            .css('display', 'table-row').animate({ opacity: 1 }, 300);
-    });
-
-}
 
 //================== 上傳圖片後，顯示在預覽區塊==================
 // 圖片預覽
@@ -968,13 +940,37 @@ function memUploadPic(file){
   
 //選擇圖片
 $("body").on("change", "#memUploadPic_file",function(e){
+    //console.log("hello0");
+
     if(this.files.length > 0){
+        //console.log("hello00");
         //console.log(this); // <input type="file" id="memUploadPic_file">
         memUploadPic(this.files[0]); 
     }else{
-        let img_html = `
-            <img src="" class="mem_uploadPic">
-        `;
+        let img_html;
+        //如果是 編輯 的 彈窗，若使用者沒選圖片，則顯示資料庫中原本的圖片
+        if( $(this).hasClass("edit_modal") ){  
+            //console.log("hello2");
+
+            //讀資料庫的圖片
+            // /Okaeri/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
+            let src = `
+                ${projectPath}/mem/MemberServlet.do?action=getImage&memAcct=${memAcct_forPic}
+            `;
+            img_html = `
+                <img src="${src}" class="mem_uploadPic">
+            `;
+            
+            //如果是 新增 的 彈窗，若使用者沒選圖片，則顯示 預設的圖片，告知使用者是儲存 預設的圖片
+        }else{   
+            //console.log("hello3");
+            let photo_path = `images/user.png`;
+            img_html = `
+                <img src="${photo_path}" class="mem_uploadPic" style="height: 100px; width: 100px;">
+            `;
+
+        }
+        
         $("div.profilePic_preview").empty();
         $("div.profilePic_preview").append(img_html);
     }

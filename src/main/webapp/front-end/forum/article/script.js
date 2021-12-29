@@ -28,7 +28,7 @@ $(function () {
 		          "<div class='forum-row-box' >" +
 		            "<div class='forum-title'>" +
 		              "<h3>" +
-		                "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
+		                "<a onclick='view(this)' href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "'>" +
 		                data[i].forArtTitle + "</a>" +
 		              "</h3>" +
 		            "</div>" +
@@ -42,11 +42,16 @@ $(function () {
 		              "<span><i class='fa fa-clock'></i>" +
 		              	data[i].forArtPosttime +
 		              "</span>&emsp;" +
-		              "<span><i class='fa fa-eye'></i>" + 
+		              "<span><i class='fa fa-eye'></i>" + 	
+		              "</span>" +
+		              "<span id='icon-eye'>" +
 		              	data[i].forArtView +
 		              "</span>&emsp;" +
-		              "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
+		              "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "'>" +
 		              "<i class='fa fa-comment-dots'></i>留言</a>&emsp;" +
+		              "<span id='icon-eye-artNo' hidden>" +
+		              	data[i].forArtNo +
+		              "</span>" +
 		            "</div>" +
 		          "</div>" +
 		        "</div>"
@@ -138,7 +143,7 @@ $('.editor').keypress(function(){
   });
   
   $('button[data-func="clear"]').click(function(){
-    $('.editor').html('');
+    $('.editor').val('');
     localStorage.removeItem("wysiwyg");
   });
 } 
@@ -168,7 +173,31 @@ $(".post")
 			xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
 			var data = JSON.stringify(form_data); //將物件資料轉成字串
 			console.log(data);
-			xhr.send(data); //送出字串	
+			xhr.send(data); //送出字串
+			alert("發文成功");
+			$('.editor, #newpost-title').val('');
+			$(".modal-returned, .overlay-returned").fadeOut();
 		});
 
-  
+//Ajax to update views
+		function view(obj) {
+			let view = $(obj).parent().parent().parent().find(".forum-icon").find("#icon-eye").html();
+			let viewInt = parseInt(view) + 1;
+			let artNo = $(obj).parent().parent().parent().find(".forum-icon").find("#icon-eye-artNo").html();
+			let form_data = {
+				"forArtView" : viewInt,
+				"forArtNo" : artNo
+			};
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+    			if (this.readyState == 4 && this.status == 200) {
+    				console.log(xhr);
+    			}
+    		};
+			xhr.open("POST", "/okaeri/forumArticle/updateViews"); //post 告知後端
+			xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
+			var data = JSON.stringify(form_data); //將物件資料轉成字串
+			console.log(data);
+			xhr.send(data); //送出字串
+		};
+ 

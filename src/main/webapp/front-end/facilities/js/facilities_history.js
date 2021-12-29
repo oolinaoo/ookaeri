@@ -28,16 +28,16 @@
 // ======== Ajax Data ========
 $(function () {
 
-  function listAllReservedHistory() {
+  function listMemResHis() {
     $.ajax({
-      url: "/okaeri/fachist/fachistView",
+      url: "/okaeri/fachist/fachistViewMemacct",
       type: "POST",
       dataType: "json",
       headers:{
         "Content-Type": "application/json"
       },
       success: function (data) {
-//        $("tbody#history_tbody").empty();
+        $("tbody#history_tbody").empty();
 
         var historyList = "";
         $.each(data, function (index, item) {
@@ -110,6 +110,6 @@ $(function () {
     
   }
 
-  listAllReservedHistory();
+  listMemResHis();
 
 });

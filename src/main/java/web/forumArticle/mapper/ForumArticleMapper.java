@@ -16,5 +16,6 @@ public interface ForumArticleMapper {
 	ForumArticle findByArtNo(ForumArticle article);
 	Integer add(ForumArticle article);
 	Integer update(ForumArticle article);
+	Integer updateViews(ForumArticle article);
 	
 }

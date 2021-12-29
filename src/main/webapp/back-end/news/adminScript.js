@@ -51,10 +51,10 @@ $(function init() {
 				data[i].newsContent +
 				"</td><td class='time' contenteditable='false'>" +
 				data[i].newsTime +
-				"</td><td class='admin' contenteditable='false'>" +
+				"</td><td class='admin'>" +
 				data[i].adminAcct +
 				"</td><td class='state' contenteditable='false'>" +
-				data[i].newsStateNo +
+				`${data[i].newsStateNo == 0 ? "上架" : "下架"}` +
 				"</td><td class='finalActionsCol'><i class='fa fa-minus-circle' aria-hidden='true'></i> <i class='fa fa-edit' aria-hidden='true'></i> </td></tr>"
 		);
 	  }
@@ -107,6 +107,7 @@ $(document).ready(function() {
 
   $("table").on("click", ".fa-edit, .fa-save", function() {
     let thisRow = $(this).parent().siblings();
+    let row = $(this).parent().parent();
     let editOn = $(this).hasClass("editMode");
 
     $('td:last-child').attr('contenteditable', 'false');
@@ -114,22 +115,50 @@ $(document).ready(function() {
 
     if (editOn == false) {
       $(thisRow).attr('contenteditable', 'true');
+      $(row).find('td:eq(0)').attr('contenteditable', 'false');
+      select1 = 
+    	  `
+    	  <div class="inputStyle editTypeOnly">
+            <select id="editType" required style="width: inherit;"> 
+              <option value="" disabled>公告類別</option>
+              <option value="會議">會議</option>
+              <option value="公告" selected>公告</option>
+              <option value="其他">其他</option>
+            </select>
+          </div>
+    	  `;
+      $(row).find('td:eq(1)').html(select1);
+      $(row).find('td:eq(5)').attr('contenteditable', 'false');
+      $(row).find('td:eq(5)').html($('.menu span span span').html());
+      select2 =
+    	  `
+    	  <div class="inputStyle editStateOnly">
+            <select id="editState" required style="width: inherit;"> 
+              <option value="" disabled>狀態</option>
+              <option value="0" selected>上架</option>
+              <option value="1">下架</option>
+            </select>
+          </div>
+    	  `;
+      $(row).find('td:eq(6)').html(select2);
       $(thisRow).css('background-color', '#EBECF0');
       $(this).removeClass("fa-edit");
       $(this).addClass("fa-save editMode");
     } else if (editOn == true) {
       $(thisRow).attr('contenteditable', 'false');
       $(thisRow).css('background-color', 'transparent');
+      $(row).find("td:eq(1)").html($("#editType").val());
+      $(row).find("td:eq(6)").html(`${$("#editState").val() == 0 ? "上架" : "下架"}`);
       $(this).removeClass("fa-save editMode");
       $(this).addClass("fa-edit");
       $(function() {
-    		const newsId = $(this).find(".id").html();
-    		const type = $(this).find(".type").html();
-    		const title = $(this).find(".title").html();
-    		const content = $(this).find(".content").html();
-    		const time = $(this).find(".time").html();
-    		const admin = $(this).find(".admin").html();
-    		const state = $(this).find(".state").html();
+    		const newsId = $(row).find(".id").html();
+    		const type = $(row).find(".type").html();
+    		const title = $(row).find(".title").html();
+    		const content = $(row).find(".content").html();
+    		const time = $(row).find(".time").html();
+    		const admin = $('.menu span span span').html();
+    		const state = `${$(row).find(".state").html() == "上架" ? "0" : "1"}`;
     		let form_data = {
     			"newsNo" : newsId,
     			"newsTypeNo" : type,
@@ -137,7 +166,7 @@ $(document).ready(function() {
     			"newsContent" : content,
     			"newsTime" : time,
     			"adminAcct" : admin,
-    			"newsState" : state
+    			"newsStateNo" : state
     		};
     		let xhr = new XMLHttpRequest();
     		xhr.onreadystatechange = function() {
@@ -151,7 +180,6 @@ $(document).ready(function() {
     		console.log(data);
     		xhr.send(data); //送出字串
     	})
-    	init();
     }
   });
 

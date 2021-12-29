@@ -18,6 +18,17 @@
 		select * from V_FACHIST_FAC_MEM order by HIST_NO asc
 	</select>
 	
+	<select id="listViewMemHist" resultType="FachistVO">
+		select 
+			* 
+		from 
+			V_FACHIST_FAC_MEM 
+		where 
+			MEM_ACCT = #{memAcct} 
+		order by 
+			HIST_DATE asc;
+	</select>
+	
 	<select id="findHistTimeAmountByDate" resultType="FachistVO">
 		select * from FACILITIES_HISTORY
 		where 
@@ -53,9 +64,21 @@
 			FAC_NO = #{facNo} and
 			MEM_ACCT = #{memAcct} and 
 			HIST_DATE = #{histDate} and
-			HIST_TIME = #{histTime} and
-			HIST_AMOUNT = #{histAmount}
+			HIST_TIME = #{histTime}
 	</delete>
 	
+	<update id="updateFachist">
+		update 
+			FACILITIES_HISTORY
+		set
+			HIST_AMOUNT = #{histAmount}
+		where
+			FAC_NO = #{facNo} and
+			MEM_ACCT = #{memAcct} and 
+			HIST_DATE = #{histDate} and
+			HIST_TIME = #{histTime}
+	</update>
+
+
 
 </mapper>

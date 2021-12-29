@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -153,6 +154,16 @@ public class PaymentController {
 	public Core update( ManagementPaymentVO managementPaymentVO) {
 		Core core = new Core();
 		core.setSuccess(mapper.update(managementPaymentVO) > 0);
+		return core;
+	}
+	
+	@PostMapping(path = "updatePayState")
+	@ResponseBody
+	public Core updatePayState(HttpSession session) {
+		String memAcct =(String) session.getAttribute("memAcct");
+		Timestamp payDate = new Timestamp(System.currentTimeMillis());
+		Core core = new Core();
+		core.setSuccess(mapper.updatePayState(payDate,memAcct) > 0);
 		return core;
 	}
 

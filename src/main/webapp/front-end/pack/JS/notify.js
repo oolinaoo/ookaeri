@@ -1,7 +1,13 @@
 
 //向後端請求訊息通知
 $(function () {
-	var dataUrl =
+	refreshNotify();
+}); 
+//向後端請求資料
+function refreshNotify() {
+	$(".dropdown_selector").empty();
+  console.log("重整訊息通知");
+ var dataUrl =
 	  "/okaeri/notify/listNotify";
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", dataUrl);
@@ -29,10 +35,8 @@ $(function () {
 					'<img class="nomessage" src="/okaeri/front-end/pack/images/no-message.png">'
 		  );		
 	   }	
-	 
 	};
-	
-}); 
+} 
 
 (function (document) { 
 	 /*訊息通知下拉*/ 
@@ -92,8 +96,10 @@ $(function () {
 		  xhr.onload = function () {
 		  var data = JSON.parse(this.responseText);
 		  console.log(data);
+		  refreshNotify();
 		  };
 	  }	
+	  
     }); 
 	
 }); 

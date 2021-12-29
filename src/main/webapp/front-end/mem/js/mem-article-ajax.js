@@ -2,9 +2,40 @@ let path = window.location.pathname; //webapp的專案路徑
 //console.log(path); // /Okaeri/back-end/acct-addr/member.html
 var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
-let memAcct = "gina1";
-let memData = {"memAcct": memAcct};
-memData = JSON.stringify(memData);
+// let memAcct = "gina1";
+
+//ajax get login mem
+let memAcct;
+let memData;
+function getMemAcct(){
+	$.ajax({
+	  url: "/okaeri/login/getMemSession",
+	  type: "GET",
+	  data: "",
+	  dataType: "json",
+	  success: function (data) {
+		console.log(data);
+    memAcct = data.memAcct;
+    memData = {"memAcct": memAcct};
+    memData = JSON.stringify(memData);
+    console.log(memData);
+    init();   //呼叫載入所有資料的函式
+		$("#navbar_profile_memAcct").append(
+				`
+					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
+				`
+			);
+		$("#navbar_profile_memAcct_span").after(
+				`
+					<span hidden>${data.memName}</span>
+				`
+			);
+	  },
+	    error: function (xhr) {
+	      console.log("error");
+	    },
+	});
+}
 
 //================載入所有資料================//
 function init() {
@@ -15,17 +46,20 @@ function init() {
     dataType: "json",
     contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
     success: function (data) {
-        console.log(data);
+      console.log(data);
       let list_html = '';
       $.each(data, function (index, item) {
-        list_html += `
+          //文章狀態若為 2 表示 文章已被刪除
+          if(item.artStateNo != 2){
+            list_html += `
             <tr>
-                <td>${item.forArtTitle}</td>
+                <td id="artTitle">${item.forArtTitle}</td>
                 <td hidden>${item.forArtNo}</td>
                 <td id="artContent">${item.forArtContent}</td>
                 <td>${item.type[0].forType}</td>
                 <td>${item.forArtView}</td>
                 <td>${item.forArtPosttime}</td>
+                <td>${item.artStateNo == 0 ? '上架' : '下架'}</td>
                 <td>
                     <button type="button" class="addr_btn_edit">編輯</button>
                     <div class="member_overlay" style="border: 1px solid red;"></div>
@@ -34,8 +68,8 @@ function init() {
                     <button type="button" class="addr_btn_delete">刪除</button>
                 </td>
             </tr>
-        `;
-
+          `;
+          }
       });
 
       $("#mem-article-table tbody").append(list_html);
@@ -48,10 +82,9 @@ function init() {
   })
 }
 
-$(function(){
-    init();   //呼叫載入所有資料的函式
+$(function(){  
+    getMemAcct();
 });
-
 
 //================== 燈箱中的article區塊 ==================
 var overlay = `
@@ -273,12 +306,56 @@ $("#mem-article-table").on("click", "button.mem_btnConfirmEdit", function () {
 });
 
 
+//================ 刪除貼文 -> 將資料庫的貼文狀態改為 2 ================//
+$("#mem-article-table").on('click', "button.addr_btn_delete", function(){
+  let r = confirm("確認刪除？");
+  if(!r){
+   return;  //按「取消」，就直接結束程式
+  }
+
+  let that = $(this);
+
+  //點擊編輯的該筆資料的 文章編號
+  forArtNo = that.closest("tr").children().eq(1).text();
+  //console.log(forArtNo);
+
+  let formData = {
+    "memAcct": memAcct,
+    "forArtNo": forArtNo
+  };
+  console.log(formData);
+
+  $.ajax({
+    url: `${projectPath}/mem/updateArtState`,
+    type: "GET",
+    data: formData,
+    dataType: "json",
+    contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
+    success: function (data) {  
+      console.log(data);
+      //回傳數字1，表示刪除成功
+      if(data == 1){
+        alert("刪除成功");
+        that.closest("tr").fadeOut(500, function () {
+          //console.log(this);
+          that.remove();
+        });
+      }
+
+    },
+    error: function (xhr) {
+      console.log("error");
+      console.log(xhr);
+    }
+  })
+
+});
 
 //================分頁================//
 function paging(){
     console.log("hello");
     $('#mem-article-table').after('<div id="nav"></div>');
-    var rowsShown = 4;
+    var rowsShown = 8;
 
     var rowsTotal = $('#mem-article-table tbody tr').length;
 

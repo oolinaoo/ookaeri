@@ -1,8 +1,10 @@
 package web.fac.controller;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
@@ -181,4 +183,54 @@ public class FacController {
 		delete = mapper.deleteTime(facNo);
 		return delete;
 	}
+	
+	// 公設開放日，要回傳沒開放的日，用來擋預約
+	@PostMapping(path = "unOpenDay", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public int[] unOpenDay(@RequestBody FacVO facVO) {
+		Integer facNo = facVO.getFacNo();
+		
+		Set<String> openDay = new HashSet<String>(Arrays.asList(mapper.listAllDate(facNo)));
+		Set<String> unOpen = new HashSet<String>();
+		Set<String> allDay = new HashSet<String>() {{
+			add("一");
+			add("二");
+			add("三");
+			add("四");
+			add("五");
+			add("六");
+			add("日");
+		}};
+		
+		unOpen.addAll(allDay);
+		
+		// 有開放和全部日比差集
+		unOpen.removeAll(openDay);
+		System.out.println(unOpen);
+		
+		String[] result = (String[])unOpen.toArray(new String[unOpen.size()]);
+		int[] resultNo = new int[result.length];
+		
+		for(int i = 0; i < result.length ; i++) {
+			if(result[i] == "一") {
+				resultNo[i] = 1;
+			} else if(result[i] == "二") {
+				resultNo[i] = 2;
+			} else if(result[i] == "三") {
+				resultNo[i] = 3;
+			} else if(result[i] == "四") {
+				resultNo[i] = 4;
+			} else if(result[i] == "五") {
+				resultNo[i] = 5;
+			} else if(result[i] == "六") {
+				resultNo[i] = 6;
+			} else {
+				resultNo[i] = 0;
+			}
+		}
+		
+		return resultNo;
+	}
+	
+	
 }

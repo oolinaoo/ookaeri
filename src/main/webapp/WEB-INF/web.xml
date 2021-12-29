@@ -26,7 +26,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>memberFilter</filter-name>
-		<url-pattern>/front-end/rule/rule.html</url-pattern>
+		<url-pattern>/front-end/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -40,7 +40,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>adminFilter</filter-name>
-		<url-pattern>/back-end/rule/adminRule.html</url-pattern>
+		<url-pattern>/back-end/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

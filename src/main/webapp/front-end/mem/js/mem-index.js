@@ -2,7 +2,54 @@ let path = window.location.pathname; //webapp的專案路徑
 //console.log(path); // /Okaeri/back-end/acct-addr/member.html
 var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
-var user_id = "gina1";
+
+//ajax get login mem
+var user_id;
+function getMemAcct(){
+	$.ajax({
+	  url: "/okaeri/login/getMemSession",
+	  type: "GET",
+	  data: "",
+	  dataType: "json",
+	  success: function (data) {
+		console.log(data);
+    user_id = data.memAcct;
+    init();   //呼叫載入所有待辦事項的函式
+    memPack();
+    memManagePay();
+    memFacilities();
+    
+    //讀資料庫的圖片
+    // /Okaeri/mem/MemberServlet.do?action=getImage&memAcct=gina123test1
+    let src = `
+        ${projectPath}/mem/MemberServlet.do?action=getImage&memAcct=${data.memAcct}
+    `;
+    img_html = `
+        <img src="${src}" class="mem_uploadPic">
+    `;
+    $("div.profilePic_preview").empty();
+    $("div.profilePic_preview").append(img_html);
+    $("#greet").text(`Hi, ${data.memName}你好！`);
+
+
+		$("#navbar_profile_memAcct").append(
+				`
+					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
+				`
+			);
+		$("#navbar_profile_memAcct_span").after(
+				`
+					<span hidden>${data.memName}</span>
+				`
+			);
+	  },
+	    error: function (xhr) {
+	      console.log("error");
+	    },
+	});
+}
+
+
 
 function init(){
   //$("ul.task_list").html('<li style="text-align: center;"><i class="fas fa-spinner fa-spin fa-3x"></i></li>');
@@ -121,7 +168,7 @@ function memPack(){
 
 
 // 判斷是否有尚未繳的管理費
-function memMangePay(){
+function memManagePay(){
 
   let sendData = {"memAcct": user_id};
   // sendData = JSON.stringify(senData);
@@ -149,6 +196,36 @@ function memMangePay(){
 
 }
 
+// 判斷是否有預約公設的預約日期大於等於今日
+function memFacilities(){
+
+  let sendData = {"memAcct": user_id};
+
+  $.ajax({
+    url: `${projectPath}/mem/facJoinFacHist`,        
+    type: "GET",                 
+    data: sendData,                 
+    dataType: "json",           
+    contentType : 'application/json;charset=UTF-8',  //一定要有這一行，不然會請求失敗
+    success: function(data){     
+      console.log(data); //傳過來的資料為Json陣列 
+
+      if(data.length == 0){   //如果沒有 未繳的管理費 陣列的長度就會為 0
+        $("#memFacilities").text("無預約公設");
+      }else{
+        let facName = data[0].facName;
+        let histDate = data[0].histDate;
+        let fac_text = `您於${histDate}有預約${facName}`;
+        $("#memFacilities").text(fac_text);
+      }
+    },
+    error: function(xhr){         // request 發生錯誤的話執行
+      console.log("error");
+      console.log(xhr);
+    }
+  });
+
+}
 
 
 
@@ -189,10 +266,13 @@ function reload_sort(){
 }
 
 $(function(){
+  getMemAcct();
   weather();
-  memPack();
-  memMangePay();
-  init();
+  // memPack();
+  // memManagePay();
+  // memFacilities();
+  // init();
+
   // ==== 待辦事項文字框的 focus 事件及 blur 事件觸發 ===== //
   $("input.task_name").on("focus", function(){
     $(this).closest("div.task_add_block").addClass("-on");

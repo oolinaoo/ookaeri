@@ -80,28 +80,6 @@ div.errorMsg{
   color:red;
 }
 
-/****** 分頁樣式 ******/
-#pageStyle {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  line-height: 32px;
-  text-align: center;
-  color: #b19693;
-  margin-top: 20px;
-  text-decoration: none;
-}
-
-#pageStyle:hover {
-  background-color: #d7c4bb;
-  border-radius: 50%;
-}
-
-#pageStyle .active {
-  color: #ffffff;
-}
-
 /****** 照片預覽樣式 ******/
 div.mem_photo div.profilePic_preview{
   position: relative;

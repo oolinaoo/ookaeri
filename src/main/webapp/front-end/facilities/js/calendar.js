@@ -43,6 +43,9 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				weekStartsOnMonday = options.weekStart === "Mon" || options.weekStart === 1 || options.weekStart === "1",
 				primaryLanguageCode = locale.substring(0, 2).toLowerCase();
 
+			sessionStorage.setItem("thisYear", currentYear);
+			sessionStorage.setItem("thisMonth", currentMonth);
+
 			if (options.maxWidth !== false) {
 				$(parent).css("maxWidth", options.maxWidth);
 			}
@@ -112,6 +115,9 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				$(parent + " .monthly-event-list, " + parent + " .monthly-day-wrap").empty();
 				// Print out the days
 				for (var dayNumber = 1; dayNumber <= dayQty; dayNumber++) {
+					// 設定 a 標籤裡面的星期幾 data-day
+					var day = new Date(year, month-1, dayNumber);
+
 					// Check if it's a day in the past
 					var isInPast = options.stylePast && (
 						year < currentYear
@@ -128,7 +134,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 								+ " dt" + thisDate.toISOString().slice(0, 10)
 							)
 							+ attr("data-number", dayNumber)
-							+ "><a class='facilitiesReserve' href='./facilities_reserve.html'>" + innerMarkup + "<div class='monthly-frequence'></div></a></div>");
+							+ "><a class='facilitiesReserve' href='./facilities_reserve.html' data-day ='" + day.getDay() + "' >" 
+							+ innerMarkup + "<div class='monthly-frequence'></div></a></div>");
 							// #########################################################################################################################################################################
 						$(parent + " .monthly-event-list").append("<div"
 							+ attr("class", "monthly-list-item")
@@ -142,7 +149,6 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 							+ attr("data-number", dayNumber)
 							+ ">" + innerMarkup + "</a>");
 					}
-					sessionStorage.setItem(`day${dayNumber}`, dayNumber);
 				}
 
 				if (settingCurrentMonth) {
@@ -430,16 +436,102 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				}
 			}
 
+		    // 呼叫公設的公休日，先把該日的 a 標籤刪除
+			function deleteUnopenDay(facNumber){
+			  $.ajax({
+			    url: "/okaeri/fac/unOpenDay",
+				type: "POST",
+				data: JSON.stringify({
+				  "facNo": facNumber
+				}),
+			    dataType: "json",
+			    headers: {
+				  "Content-Type": "application/json",
+				},
+				success: function (data) {
+  				  for(var i = 1; i <= 31; i++){
+					$(`div[data-number='${i}']`).children("a").attr("href", "./facilities_reserve.html").attr("style", "cursor: pointer;");
+					$(`div[data-number='${i}']`).css("background-color", "white");
+			  	  }
+
+				  $.each(data, function(index, item){
+				    console.log(item);
+					for(var i = 1; i <= 31; i++){
+					  if($(`div[data-number='${i}']`).children("a").attr("data-day") == item){
+						$(`div[data-number='${i}']`).css("background-color", "#F2F2F2");
+						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+					  }
+					}
+				  });	
+				},
+				error: function (xhr) {
+				  console.log("error");
+				  console.log(xhr);
+				}
+			  });
+			}
+
+			// 讀取該月資料的 function
+			var facNumber="";
+			var histMonth = "";
+			var histYear = "";
+
+			function showReserveAmount(facNumber, histMonth, histYear){
+			$.ajax({
+				url: "/okaeri/fachist/facResDateHist",
+				type: "GET",
+				data: {
+					"facNo": facNumber,
+					"month": histMonth
+				},
+				dataType: "json",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				success: function (data) {
+					$.each(data, function(index, item){
+						var date = new Date(item.histDate);
+			
+						for(var i = 1; i <= 31; i++){
+							if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+								$(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
+								$(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
+							} 
+						}
+					});
+				},
+				error: function (xhr) {
+					console.log("error");
+					console.log(xhr);
+				}
+			});
+			}
+
+
 			// Advance months
 			$(document.body).on("click", parent + " .monthly-next", function (event) {
 				setNextMonth();
 				event.preventDefault();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
+				deleteUnopenDay(facNumber);
 			});
 
 			// Go back in months
 			$(document.body).on("click", parent + " .monthly-prev", function (event) {
 				setPreviousMonth();
 				event.preventDefault();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
+				deleteUnopenDay(facNumber);
 			});
 
 			// Reset Month
@@ -449,6 +541,13 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				viewToggleButton();
 				event.preventDefault();
 				event.stopPropagation();
+
+				// 讀取資料
+				facNumber = sessionStorage.getItem("facNumber");
+				histMonth = sessionStorage.getItem("whichMonth");
+				histYear = sessionStorage.getItem("whichYear");
+				showReserveAmount(facNumber, histMonth, histYear);
+				deleteUnopenDay(facNumber);
 			});
 
 			// Back to month view
@@ -459,6 +558,13 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 					$(parent + " .monthly-event-list").hide();
 				}, 250);
 				event.preventDefault();
+			});
+
+			$("button.lb-reserve").on("click", function(event){
+			  setMonthly(currentMonth, currentYear);
+			  viewToggleButton();
+			  event.preventDefault();
+			  event.stopPropagation();
 			});
 
 			// Click A Day      之後要用再來開

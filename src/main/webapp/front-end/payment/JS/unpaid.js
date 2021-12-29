@@ -1,7 +1,25 @@
 //向後端請求未繳費資料
 //json from servlet
 $(function () {
+	refresh();
+});
+//繳費
+$("button.btn_confirm").on("click",function(){
 	var dataUrl =
+	  "/okaeri/payment/updatePayState";
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", dataUrl, true);
+	xhr.send();
+	xhr.onload = function () {
+		refresh();
+	}
+});
+/*請求頁面資料*/	
+function refresh() {
+  $("table tbody").empty();
+  $("div.page").remove();
+  console.log("重整");
+  var dataUrl =
 	  "/okaeri/payment/unPaid";
 	var xhr = new XMLHttpRequest();
 	xhr.open("GET", dataUrl, true);
@@ -60,4 +78,10 @@ $(function () {
 	  pagess[0].style.backgroundColor = "#B5495B";
 	  pagess[0].style.color = "#ffffff";
 	};
-});
+}
+
+
+
+
+
+

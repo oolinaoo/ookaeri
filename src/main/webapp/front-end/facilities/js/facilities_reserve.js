@@ -1,14 +1,16 @@
 $(function () {
   // ajax 的 data 之後要改成動態載入的！！
-  // var resData = JSON.stringify({ facNo: 3, histDate: "2021-12-19"});
   var wd = sessionStorage.getItem("whichDay");
   var wm = sessionStorage.getItem("whichMonth");
   var wy = sessionStorage.getItem("whichYear");
   var resdate = `${wy}-${wm}-${wd}`;
   var facNumber = sessionStorage.getItem("facNumber");
+  var memAcct = "";
 
-  // 這邊要先載入設施的預約資料 
+  // 這邊要載入設施當前的預約資料 
   function facResHist(resdate) {
+    memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
+
     $.ajax({
       url: "/okaeri/fachist/facResTimeHist",
       type: "POST",
@@ -21,39 +23,47 @@ $(function () {
         "Content-Type": "application/json",
       },
       success: function (data) {
-        console.log("timeLong = " + timeLong);
-
+        // 跑一整 row 時間點
         for (i = 0; i < timeLong; i++) {
           var open_time = $(`tr.reserve_info${i+1}`).children("td.fac_open_time");
-          var maxAmount = facMax; 
-          var remain = maxAmount;
-          // var userHist = false;   用來儲存該會員在該時段是否預約過
+          var maxAmount = facMax;     // 該時段的最大人數
+          var allRes = 0;     // 該時段的所有借用人數
+          var selfRes = 0;    // 該時段自己借用的人數
 
           $.each(data, function (index, item) {
-            if (item.histTime == open_time.text()) {
-              //比對資料庫的租借時間是否等同於網頁節點的時間值
-              open_time.siblings("td").children("select").attr("disabled", "disabled");
-              open_time.siblings("td").children("input").attr("disabled", "disabled");
-              remain = remain - item.histAmount;
-              // if(item.memAcct == ){userHist = true;}
+            if (item.histTime == open_time.text()) {    //比對資料庫的租借時間是否等同於網頁節點的時間值
+              
+              allRes = allRes + item.histAmount;
+              
+              if(item.memAcct == memAcct){      // 如果該筆資料是自己的
+                open_time.siblings("td").children("select").attr("disabled", "disabled");
+                open_time.siblings("td").children("input").attr("disabled", "disabled");
+                open_time.siblings("td").children("div.customcheck").addClass("active");
+                open_time.siblings("td").children("div.customcheck").children("div.checkitem").addClass("itemactive");
+                open_time.siblings("td.edit").html(`<i class="fas fa-edit"></i>`);    // 編輯符號
+                selfRes = item.histAmount;
+              } 
             }
           });
 
-          // 之後要加上 && userHist == true
-          if(remain != maxAmount){
-            open_time.siblings("td.edit").html(`<i class="fas fa-edit"></i>`);
+          $(`td#remain${i + 1}`).html(maxAmount - allRes);  // 所有人看到的剩餘人數
+
+          $(`select#amount${i + 1}`).empty();
+          // 如果沒有名額
+          if(maxAmount - allRes == 0){
+            $(`select#amount${i + 1}`).append(`<option val="0" selected>0</option>`);
+            open_time.siblings("td").children("select").attr("disabled", "disabled");
+            open_time.siblings("td").children("input").attr("disabled", "disabled");
           }
 
-          $(`td#remain${i + 1}`).html(remain); 
-
           // 預約人數 hist amount
-          (function () {
-            $(`select#amount${i + 1}`).empty();
-            for (let j = 0; j < remain; j++) {
-              $(`select#amount${i + 1}`).append(`<option>${j + 1}</option>`);
+          for (let j = 0; j < maxAmount - allRes + selfRes; j++) {
+            if(selfRes > 0 && (j + 1)==selfRes){   // 如果自己有預約
+              $(`select#amount${i + 1}`).append(`<option val="${j + 1}" selected>${j + 1}</option>`);
+            } else {
+              $(`select#amount${i + 1}`).append(`<option val="${j + 1}">${j + 1}</option>`);
             }
-          })();
-
+          }
         };
       },
       error: function (xhr) {
@@ -65,8 +75,8 @@ $(function () {
 
   // 載入設施基本資料(如人數)
   var facMax = "";
-  function oneFacDetail(facNumber){
-    console.log(facNumber);
+  function oneFacDetail(facNumber, wy, wm, wd){
+
     $.ajax({
       url: "/okaeri/fac/listOneFac",
       type: "POST",
@@ -79,12 +89,14 @@ $(function () {
       },
       success: function (data) {   
         facMax = data.facMax;
+        $("div#reserve_fac").html(data.facName);
       },
       error: function (xhr) {
         console.log("error");
         console.log(xhr);
       },
       complete: function(xhr) {
+        resdate = `${wy}-${wm}-${wd}`;
         facResHist(resdate);
       }
     });
@@ -92,7 +104,8 @@ $(function () {
 
   // 載入設施的時段
   var timeLong ="";
-  function facDateTime(facNumber){
+  function facDateTime(facNumber, wy, wm, wd){
+
     $.ajax({
       url: "/okaeri/fac/openTime",
       type: "POST",
@@ -106,7 +119,6 @@ $(function () {
       success: function (data) {
         var resTable = "";
         $.each(data, function(index, item){
-          console.log("index = "+ index);
           resTable += `
               <tr class="reserve_info${index+1}">
                 <td class="fac_open_date">${wm}/${wd}</td>
@@ -133,13 +145,15 @@ $(function () {
         console.log(xhr);
       },
       complete: function(xhr) {
-        oneFacDetail(facNumber);
+        sessionStorage.setItem("whichDay", wd);
+        sessionStorage.setItem("whichMonth", wm);
+        sessionStorage.setItem("whichYear", wy);
+
+        oneFacDetail(facNumber, wy, wm, wd);
       }
     });
   }
-  facDateTime(facNumber);
-
-  
+  facDateTime(facNumber, wy, wm, wd);
 
 
   // 這邊可以先寫新增和刪除的ajax，底下再來呼叫
@@ -147,13 +161,15 @@ $(function () {
   function reserved(that){
     var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
     var resAmt = $(that).closest("td").siblings("td").children("select").val();
+    memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
+    console.log(resdate);
 
     $.ajax({
       url: "/okaeri/fachist/facReserve",
       type: "POST",
       data: JSON.stringify({
         facNo: facNumber,                     
-        memAcct: "gina5",             /////////////////////////////////////////
+        memAcct: memAcct,             
         histDate: resdate,       
         histTime: resTime,    
         histAmount: resAmt    
@@ -164,32 +180,30 @@ $(function () {
       },
       success: function (data) {
         console.log(data);
+        alert("預約成功！");
+        location.reload();
       },
       error: function (xhr) {
         console.log("error");
         console.log(xhr);
-      },
-      conplete: function (xhr) {
-        facResHist(resdate);
       }
     });
-
   }
 
   // 刪除預約紀錄
   function resDelete(that){
     var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
-    var resAmt = $(that).closest("td").siblings("td").children("select").val();
+    memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
+    console.log(resdate);
 
     $.ajax({
-      url: "/okaeri/fachist/XXXXXXX",
+      url: "/okaeri/fachist/fachistDelete",
       type: "POST",
       data: JSON.stringify({
         facNo: facNumber,                     
-        memAcct: "gina5",             /////////////////////////////////////////
+        memAcct: memAcct,             
         histDate: resdate,       
-        histTime: resTime,    
-        histAmount: resAmt    
+        histTime: resTime
       }),
       dataType: "json",
       headers: {
@@ -197,13 +211,43 @@ $(function () {
       },
       success: function (data) {
         console.log(data);
+        alert("成功取消預約！");
+        location.reload();
       },
       error: function (xhr) {
         console.log("error");
         console.log(xhr);
+      }
+    });
+  }
+
+  // 預約人數修改
+  function resUpdate(that, newAmt){
+    var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
+    memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
+    console.log(resdate);
+
+    $.ajax({
+      url: "/okaeri/fachist/fachistAmtUpdate",
+      type: "POST",
+      data: JSON.stringify({
+        facNo: facNumber,                     
+        memAcct: memAcct,             
+        histDate: resdate,       
+        histTime: resTime,    
+        histAmount: newAmt    
+      }),
+      dataType: "json",
+      headers: {
+        "Content-Type": "application/json",
       },
-      conplete: function (xhr) {
-        facResHist(resdate);
+      success: function (data) {
+        alert(data);
+        location.reload();
+      },
+      error: function (xhr) {
+        console.log("error");
+        console.log(xhr);
       }
     });
   }
@@ -215,7 +259,6 @@ $(function () {
     var checkbuttonBg = $(this);
     var checkbuttonIp = checkbuttonBg.prev("input[name='switch']");
 
-//之後要改成如果是自己有預約的，才能用編輯！
     // 判斷該項能否編輯
     if (checkbuttonIp.attr("disabled") != "disabled") {
       // 如果是 Activated, Deactivate it !
@@ -229,7 +272,7 @@ $(function () {
 
           // 執行刪除的 ajax
           var that = this;
-          resDelete(that)
+          resDelete(that);
         }
       } else {
         // 如果是 Deactivated, Activate it !
@@ -242,21 +285,23 @@ $(function () {
           // 執行新增的 ajax
           var that = this;
           reserved(that);
-          // facResHist();
         }
       }
     }
   });
 
-
-
-
   // 編輯按鈕
   // 按下編輯鈕後、讓人數和預約鈕可以改
+  var oldAmt = 0;
+  var newAmt = 0;
   $("tbody").on("click", ".fa-edit", function () {
     // 換圖示
     $(this).addClass("fa-save");
     $(this).removeClass("fa-edit");
+
+    // 儲存預約人數
+    oldAmt =  $(this).parent("td").siblings("td").children("select").val();
+
     // 讓選單和 switch button 可以編輯
     $(this).parent("td").siblings("td").children("select").attr("disabled", false);
     $(this).parent("td").siblings("td").children("input").attr("disabled", false);
@@ -276,10 +321,12 @@ $(function () {
     $(this).removeClass("fa-save");
     $(this).parent("td").siblings("td").children("select").attr("disabled", "disabled");
     $(this).parent("td").siblings("td").children("input").attr("disabled", "disabled");
+
+    // 儲存新的預約人數
+    newAmt = $(this).parent("td").siblings("td").children("select").val();
+
     // 改 switch button 的顏色
-    if (
-      $(this).parent("td").siblings("td").children("div").hasClass("active")
-    ) {
+    if ($(this).parent("td").siblings("td").children("div").hasClass("active")) {
       // 深綠變編輯完的淺綠
       $(this).parent("td").siblings("td").children("div.customcheck").css("background-color", "#74bba3");
     } else {
@@ -287,10 +334,93 @@ $(function () {
       $(this).parent("td").siblings("td").children("div.customcheck").css("background-color", "#E2A3A1");
     }
 
-    // 這邊要把變數存入資料數
-    // $.ajax({});
-    // 如果有資料存入，記得加上編輯鈕
+    // 判斷人數有沒有更改，有更改才跑 update 函式
+    if(newAmt == oldAmt){
+      alert("預約人數未更改！");
+    } else {
+      var that = this;
+      resUpdate(that, newAmt);
+    }
+    
   });
+
+
+  // 按下前一天或是後一天的鈕！
+  // 先判斷該月有幾天
+  function daysInMonth(month, year) {
+    return month === 2 ? (year & 3) || (!(year % 25) && year & 15) ? 28 : 29 : 30 + (month + (month >> 3) & 1);
+  }
+
+  $("a.prev_reserve_day").on("click", function(){
+    // 先清空表格
+    $("table#reserve_list").children("tbody").empty();
+    // 如果日 - 1 = 0，要到前一個月、甚至前一年
+    // 執行判斷天數
+    var wyNo = Number(sessionStorage.getItem("whichYear"));
+    var wmNo = Number(sessionStorage.getItem("whichMonth"));
+    var wdNo = Number(sessionStorage.getItem("whichDay"));
+    dayQty = daysInMonth(wmNo, wyNo);
+    console.log(dayQty);
+
+    if(wdNo - 1 == 0){
+      if(wmNo - 1 == 0){
+        wmNo = 12;
+        wyNo -= 1;
+      } else {
+        wmNo -= 1;
+      }
+      wdNo = daysInMonth(wmNo, wyNo);
+    } else {
+      wdNo -= 1
+    }
+
+    var preday = new Date(wyNo, wmNo-1, wdNo);
+    console.log(preday.getDay());
+
+    // 這邊先比對公休日
+
+
+
+    // 執行載入環境
+    facDateTime(facNumber, wyNo, wmNo, wdNo);
+  });
+
+  $("a.next_reserve_day").on("click", function(){
+    // 先清空表格
+    $("table#reserve_list").children("tbody").empty();
+    // 執行判斷天數
+    var wyNo = Number(sessionStorage.getItem("whichYear"));
+    var wmNo = Number(sessionStorage.getItem("whichMonth"));
+    var wdNo = Number(sessionStorage.getItem("whichDay"));
+    dayQty = daysInMonth(wmNo, wyNo);
+    console.log(dayQty);
+
+    // 如果超出最後一天、要到下一天、甚至下一年
+    if(wdNo + 1 > dayQty){
+      wdNo = 1;
+      if(wmNo + 1 > 12){
+        wmNo = 1;
+        wyNo += 1;
+      } else {
+        wmNo += 1;
+      }
+    } else {
+      wdNo += 1
+    }
+
+    var nextday = new Date(wyNo, wmNo-1, wdNo);
+    console.log(nextday.getDay());
+
+    // 這邊先比對公休日
+
+
+
+    // 執行載入環境
+    facDateTime(facNumber, wyNo, wmNo, wdNo);
+  });
+
+
+
 
   // END
 });

@@ -28,11 +28,19 @@ $(function () {
           var i = `${item.facAddr}`.charCodeAt(0) - 65;
           if ($("div.floor").eq(i).attr("data-addr") == item.facAddr) {
             var fac = $(`a.${item.facAddr}${item.facAddrNo}`);
-            fac.attr("data-title", `${item.facName}`);
-            fac.children("div").empty();
-            fac.children("div").append(`${item.facName}`);
-            fac.attr("data-facno", `${item.facNo}`);
-            fac.attr("data-state", `${item.facState}`);
+            if(item.facState == 0){
+              fac.attr("data-title", `${item.facName}`);
+              fac.children("div").empty();
+              fac.children("div").append(`${item.facName}`);
+              fac.attr("data-facno", `${item.facNo}`);
+              fac.attr("data-state", `${item.facState}`);
+            } else {
+              fac.attr("data-title", `${item.facName}`);
+              fac.children("div").empty();
+              fac.children("div").append(`${item.facName}（下架）`).attr("style", "font-style: italic;");
+              fac.attr("data-facno", `${item.facNo}`);
+              fac.attr("data-state", `${item.facState}`);
+            }
           }
         });
       },

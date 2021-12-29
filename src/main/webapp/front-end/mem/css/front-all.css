@@ -12,7 +12,7 @@ div.center_tab_container *{
 }
 
 div.center_tab_container {
-  margin: 50px 100px;
+  margin: 75px 100px;
 }
 
 /* 頁籤區塊 */
@@ -49,6 +49,11 @@ div.center_tab_container div.tab_list_block ul.tab_list > li {
 
 /* 頁籤內容區塊 */
 div.center_tab_container div.tab_contents {
+  /* 固定寬高 這樣footer才不會往上跑 */
+  /* 但在mem-index.html的height設為100%，因為待辦辦事項的高度不固定 */
+  width: 1074px;
+  height: 665px;	
+  
   /* border: 1px solid #ccc; */
   /* background-color: #ded7c6; */
   background-color: #dac9a6;
@@ -63,6 +68,7 @@ div.center_tab_container div.tab_contents div.tab {
   display: none;
   overflow: scroll;
   /* border: 1px solid red; */
+
 }
 
 div.center_tab_container div.tab_contents div.tab.-on {

@@ -54,5 +54,23 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return null;
 	}
+	
+	@Override
+	public Login getUserPhoto(String memAcct) {
+		Login mem = mapper.getUserPhoto(memAcct);
+		if (mem != null) {
+			return mem;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean updatePassword(String memAcct, String memPwd) {
+		int update = mapper.updatePassword(memAcct, memPwd);
+		if (update > 0) {
+			return true;
+		}
+		return false;
+	}
 
 }

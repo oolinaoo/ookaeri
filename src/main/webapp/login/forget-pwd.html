@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>修改密碼</title>
+    <link rel="icon" href="/okaeri/front-end/mem/images/logo2.png" />
+    <link rel="stylesheet" href="/okaeri/front-end/mem/css/style.css" />
+    <link rel="stylesheet" href="/okaeri/front-end/mem/css/front-all.css" />
+    <link rel="stylesheet" href="/okaeri/front-end/mem/css/mem-pwd.css" />
+    <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
+      rel="stylesheet" />
+    <style type="text/css">
+    	#memPwd_btn_submit:hover {
+    		background-color: white;
+    	}
+    </style>
+</head>
+
+<body>
+
+    <div class="center_tab_container">
+        <div class="tab_contents">
+          <div class="tab tab3 -on">
+            <div class="memPwd_form_container">
+              <form action="#" method="#" id="memPwd_form">
+                <div class="mem_change_pwd">
+                  <table id="memPwd_table">
+                    <tbody id="memPwd_tbody">
+                      <tr>
+                        <th>新密碼</th>
+                        <td>
+                          <div class="flex">
+                            <div class="col-1">
+                              <input type="password" id="newPwdOne">
+                            </div>
+                            <div class="col-2">
+                              <span class="memPwd_msg">密碼只能是英文字母、數字，且長度必須在8到25之間</span>
+                            </div>
+                          </div>
+                          <div class="errBlock" id="errNewPwdOne">
+                            <!-- <span class="err">錯誤訊息</span> -->
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>請再輸入一次新密碼</th>
+                        <td>
+                          <div class="flex">
+                            <div class="col-1">
+                              <input type="password" id="newPwdTwo">
+                            </div>
+                          </div>
+                          <div class="errBlock" id="errNewPwdTwo">
+                            <!-- <span class="err">錯誤訊息</span> -->
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="memPwd_btn">
+                  <button type="button" id="memPwd_btn_submit">確定修改</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="/okaeri/front-end/mem/vendors/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
+    <script src="forget-pwd.js"></script>
+</body>
+
+</html>

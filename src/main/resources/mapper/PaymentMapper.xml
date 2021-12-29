@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="paid" resultType="ManagementPaymentVO">
-		select PAY_NO,PAY_PERIOD, PAY_AMOUNT,PAY_DEADLINE,PAY_STATE from MANAGEMENT_PAYMENT 
+		select PAY_NO,PAY_PERIOD, PAY_AMOUNT,PAY_DATE,PAY_WAY from MANAGEMENT_PAYMENT 
 		where PAY_STATE = 1 and MEM_ACCT = #{memAcct}
 	</select>
 	
@@ -47,6 +47,14 @@
 			PAY_WAY = #{payWay},
 			PAY_STATE = #{payState}
 		where PAY_NO = #{payNo}
+	</update>
+	
+	<update id="updatePayState">
+		update Management_Payment SET
+			PAY_WAY = "信用卡",
+			PAY_DATE = #{payDate},
+			PAY_STATE = 1
+		where MEM_ACCT = #{memAcct}
 	</update>
 	
 </mapper>
