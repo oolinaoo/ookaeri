@@ -54,4 +54,11 @@ public class ForumReportController {
 		return core;
 	}
 
+	@PostMapping(path = "updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Core updateState(@RequestBody ForumReport report) {
+		Core core = new Core();
+		core.setSuccess(mapper.updateState(report) > 0);
+		return core;
+	}
 }

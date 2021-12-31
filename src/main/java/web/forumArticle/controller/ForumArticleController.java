@@ -104,5 +104,13 @@ public class ForumArticleController {
 		core.setSuccess(mapper.updateViews(article) > 0);
 		return core;
 	}
+	
+	@PostMapping(path = "updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Core updateState(@RequestBody ForumArticle article) {
+		Core core = new Core();
+		core.setSuccess(mapper.updateState(article) > 0);
+		return core;
+	}
 
 }

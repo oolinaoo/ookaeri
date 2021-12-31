@@ -33,7 +33,7 @@ $(function () {
 						  <td class='artTitle'>${item.forArtTitle}</td>
 						  <td class='posttime'>${item.forMsgPosttime}</td>
 						  <td class='mem'>${item.memAcctMsg}</td>
-						  <td class='state'>${item.forMsgState}</td>
+						  <td class='state' ondblclick='editState(this)'>${item.forMsgState == 0 ? "上架" : "下架"}</td>
 						  <td class='modal-father'><a class='whole' href='#'>文章內容
 							  <div class='modal-returned hidden'>
 							  <div class='modal-container dataArray${i}'>
@@ -145,3 +145,44 @@ $("table").click(function(e){
 		});
 	} 
 });
+
+//double click edit
+function editState(e) {
+	select = 
+		`
+		<div class="inputStyle editStateOnly">
+			<select id="editState" onchange="saveState(this)" required style="width: inherit;"> 
+			 	<option value="" disabled selected>狀態</option>
+				<option value="0">上架</option>
+				<option value="1">下架</option>
+			</select>
+		 </div>
+		`
+	$(e).html(select);
+}
+
+// select change event
+function saveState(e) {
+	let svalue = $(e).val();
+	let row = $(e).parent().parent().parent();
+	$(e).parent().parent().html(`${svalue == 0 ? "上架" : "下架" }`);
+	$(function() {
+		const msgId = $(row).find(".id").html();
+		const state = `${$(row).find(".state").html() == "上架" ? "0" : "1"}`;
+		let form_data = {
+			"forMsgNo" : msgId,
+			"forMsgState" : state
+		};
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(xhr);
+			}
+		};
+		xhr.open("POST", "/okaeri/forumMessage/updateState"); // post 告知後端
+		xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+		let data = JSON.stringify(form_data); // 將物件資料轉成字串
+		console.log(data);
+		xhr.send(data); // 送出字串
+	})
+}
