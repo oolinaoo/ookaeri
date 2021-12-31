@@ -9,6 +9,7 @@
 div#facs_body {
   margin: 90px 0 auto;
   min-height: 560px;
+  /* background-color: rgb(255, 224, 224); */
 }
 
 h1.fac_title {

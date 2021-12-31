@@ -179,7 +179,36 @@
         }
       });
     }
-      
+    
+    // 先判斷日期是否小於今天
+			function pastDay(){
+				var tY = sessionStorage.getItem("thisYear");
+				var tM = sessionStorage.getItem("thisMonth");
+				var tD = new Date();
+				console.log(tD);
+				var wY = sessionStorage.getItem("whichYear");
+				var wM = sessionStorage.getItem("whichMonth");
+
+				if(wY < tY){
+					for (var i = 1; i <= 31; i++){
+						$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+					}
+				} else if (wY == tY && wM < tM){
+					for (var i = 1; i <= 31; i++){
+						$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+					}
+				} else if (wY == tY && wM == tM){
+					for(var i = 0; i <= 31; i++){
+						if(i < tD.getDate()){
+							$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+							$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+						}
+					}
+				}
+			}
+
     // 呼叫公設的公休日，先把該日的 a 標籤刪除
     function deleteUnopenDay(facNumber){
       $.ajax({
@@ -197,6 +226,8 @@
             $(`div[data-number='${i}']`).children("a").attr("href", "./facilities_reserve.html").attr("style", "cursor: pointer;");
             $(`div[data-number='${i}']`).css("background-color", "white");
           }
+
+          pastDay();
 
           $.each(data, function(index, item){
             console.log(item);

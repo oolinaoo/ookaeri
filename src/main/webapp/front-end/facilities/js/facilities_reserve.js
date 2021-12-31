@@ -30,6 +30,13 @@ $(function () {
           var allRes = 0;     // 該時段的所有借用人數
           var selfRes = 0;    // 該時段自己借用的人數
 
+          var nowTime = new Date();
+          // 先判斷現在時間早於還是晚於想預約的時段、決定是否關閉預約        
+          if(open_time.attr("data-start") < nowTime.getHours()){
+            open_time.siblings("td").children("select").attr("disabled", "disabled");
+            open_time.siblings("td").children("input").attr("disabled", "disabled");
+          }
+
           $.each(data, function (index, item) {
             if (item.histTime == open_time.text()) {    //比對資料庫的租借時間是否等同於網頁節點的時間值
               
@@ -120,9 +127,9 @@ $(function () {
         var resTable = "";
         $.each(data, function(index, item){
           resTable += `
-              <tr class="reserve_info${index+1}">
+              <tr class="reserve_info${index+1}" >
                 <td class="fac_open_date">${wm}/${wd}</td>
-                <td class="fac_open_time">${item.facOpenTime}</td>
+                <td class="fac_open_time" data-start="${item.startTime}">${item.facOpenTime}</td>
                 <td id="remain${index+1}"></td>
                 <td>
                   <select name="ammount${index+1}" id="amount${index+1}"></select>
@@ -377,7 +384,7 @@ $(function () {
     var preday = new Date(wyNo, wmNo-1, wdNo);
     console.log(preday.getDay());
 
-    // 這邊先比對公休日
+    // 這邊先比對公休日，公休日就直接不載入預約環境
 
 
 
@@ -411,7 +418,7 @@ $(function () {
     var nextday = new Date(wyNo, wmNo-1, wdNo);
     console.log(nextday.getDay());
 
-    // 這邊先比對公休日
+    // 這邊先比對公休日，公休日就直接不載入預約環境
 
 
 
