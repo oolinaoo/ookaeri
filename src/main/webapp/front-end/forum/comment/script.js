@@ -76,7 +76,7 @@ $(function () {
 		            "</div>" 
 		  	);
 		  for (let i = 0; i < data[0].message.length; i++) {
-			  if (data[0].message[i].forMsgContent != null) {
+			  if (data[0].message[i].forMsgContent != null && data[0].message[i].forMsgState != 1) {
 				  $(".refresh-comment").append(
 					 "<div class='comment-wrap comment-message'>" +
 						"<div class='comment-block'>" +

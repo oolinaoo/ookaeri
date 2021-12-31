@@ -55,10 +55,16 @@
 	</insert>
 
 	<update id="update">
-		update FORUM_MESSAGE
+		update FORUM_MESSAGE set
 			MEM_ACCT = #{memAcct},
 			FOR_ART_NO = #{forArtNo},
 			FOR_MSG_CONTENT = #{forMsgContent},
+			FOR_MSG_STATE = #{forMsgState}
+		where FOR_MSG_NO = #{forMsgNo}
+	</update>
+	
+	<update id="updateState">
+		update FORUM_MESSAGE set
 			FOR_MSG_STATE = #{forMsgState}
 		where FOR_MSG_NO = #{forMsgNo}
 	</update>

@@ -13,8 +13,8 @@ function changCss(obj) {
   }
 }
 
-//ARTICLE article ARTICLE article ARTICLE article ARTICLE article
-//json from controller
+// ARTICLE article ARTICLE article ARTICLE article ARTICLE article
+// json from controller
 $(function () {
   $.ajax({
     url: "/okaeri/forumArticle/artJoinTypeJoinMsg",
@@ -34,7 +34,7 @@ $(function () {
 						<td class='posttime'>${item.forArtPosttime}</td>
 						<td class='edittime'>${item.forArtEdittime == null ? "-" : item.forArtEdittime}</td>
 						<td class='mem'>${item.memAcct}</td>
-						<td class='state'>${item.artStateNo}</td>
+						<td class='state' ondblclick='editState(this)'>${item.artStateNo == 0 ? "上架" : (item.artStateNo == 1 ? "下架" : "刪除")}</td>
 						<td class='modal-father'><a class='whole' href='#'>留言內容
 							<div class='modal-returned hidden'>
 							<div class='modal-container dataArray${i}'>
@@ -111,9 +111,9 @@ $(function () {
   });
 });
 
-//LightBox
-//returned cases
-//document.addEventListener("click", function(e){
+// LightBox
+// returned cases
+// document.addEventListener("click", function(e){
 $("table").click(function (e) {
   e.preventDefault();
 
@@ -142,3 +142,44 @@ $("table").click(function (e) {
   }
 });
 
+//double click edit
+function editState(e) {
+	select = 
+		`
+		<div class="inputStyle editStateOnly">
+			<select id="editState" onchange="saveState(this)" required style="width: inherit;"> 
+			 	<option value="" disabled selected>狀態</option>
+				<option value="0">上架</option>
+				<option value="1">下架</option>
+				<option value="2">刪除</option>
+			</select>
+		 </div>
+		`
+	$(e).html(select);
+}
+
+// select change event
+function saveState(e) {
+	let svalue = $(e).val();
+	let row = $(e).parent().parent().parent();
+	$(e).parent().parent().html(`${svalue == 0 ? "上架" : (svalue == 1 ? "下架" : "刪除")}`);
+	$(function() {
+		const artId = $(row).find(".id").html();
+		const state = `${$(row).find(".state").html() == "上架" ? "0" : ($(row).find(".state").html() == "下架" ? "1" : "2")}`;
+		let form_data = {
+			"forArtNo" : artId,
+			"artStateNo" : state
+		};
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(xhr);
+			}
+		};
+		xhr.open("POST", "/okaeri/forumArticle/updateState"); // post 告知後端
+		xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+		let data = JSON.stringify(form_data); // 將物件資料轉成字串
+		console.log(data);
+		xhr.send(data); // 送出字串
+	})
+}

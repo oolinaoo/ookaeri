@@ -12,5 +12,5 @@ public interface ForumMessageMapper {
 	List<ForumMessageBo> msgJoinRept();
 	Integer add(ForumMessage message);
 	Integer update(ForumMessage message);
-
+	Integer updateState(ForumMessage message);
 }

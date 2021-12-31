@@ -40,6 +40,7 @@ $(function () {
 	  let data = JSON.parse(this.responseText);
 	  console.log(data);
 	  for (let i = 0; i < data.length; i++) {
+		if (data[i].newsStateNo != 1) {
 		$("#table tbody").append(
 		  	"<tr><td class='time'>" +
 			data[i].newsTime +
@@ -65,6 +66,7 @@ $(function () {
 			"</td>" +
 			"</tr>"
 		);
+		}
 	  }
 	  var table = $("#table");
 	  var currentPage = 0; // 當前頁默認值為0

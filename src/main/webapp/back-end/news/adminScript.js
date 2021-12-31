@@ -29,7 +29,7 @@ function changCss(obj) {
 	  }
 	}
 
-//json from servlet listallA
+// json from servlet listallA
 $(function init() {
 	var url =
 	  "/okaeri/news/listAllA";
@@ -96,7 +96,7 @@ $(function init() {
 	};
 });
 
-//edit Buttons
+// edit Buttons
 $(document).ready(function() {
 
   $("table").on("click", ".fa-minus-circle", function() {
@@ -174,11 +174,11 @@ $(document).ready(function() {
     				console.log(xhr);
     			}
     		};
-    		xhr.open("POST", "/okaeri/news/update"); //post 告知後端
-    		xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
-    		let data = JSON.stringify(form_data); //將物件資料轉成字串
+    		xhr.open("POST", "/okaeri/news/update"); // post 告知後端
+    		xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+    		let data = JSON.stringify(form_data); // 將物件資料轉成字串
     		console.log(data);
-    		xhr.send(data); //送出字串
+    		xhr.send(data); // 送出字串
     	})
     }
   });
@@ -218,7 +218,7 @@ document.addEventListener("keydown", function (e) {
   }
 });
 
-//Search Filter
+// Search Filter
 (function (document) {
 	"use strict";
 
@@ -238,14 +238,14 @@ document.addEventListener("keydown", function (e) {
 		  });
 		});
 	  }
-
+	  
 	  // 資料篩選函數，顯示包含關鍵字的列，其餘隱藏
 	  function _filter(row) {
 		var text = row.textContent.toLowerCase(),
 		  val = _input.value.toLowerCase();
 		row.style.display = text.indexOf(val) === -1 ? "none" : "table-row";
 	  }
-
+	  
 	  return {
 		// 初始化函數
 		init: function () {
@@ -257,7 +257,7 @@ document.addEventListener("keydown", function (e) {
 		},
 	  };
 	})(Array.prototype);
-
+	
 	// 網頁載入完成後，啟動 LightTableFilter
 	document.addEventListener("readystatechange", function () {
 	  if (document.readyState === "complete") {

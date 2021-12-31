@@ -73,7 +73,7 @@
 
 	<select id="artNoJoinMsg" resultMap="ArtJoinMap">
 		select A.*, M.MEM_ACCT as
-		MAM, M.FOR_MSG_NO, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT
+		MAM, M.FOR_MSG_NO, M.FOR_MSG_POSTTIME, M.FOR_MSG_CONTENT, M.FOR_MSG_STATE
 		from
 		FORUM_ARTICLE A
 		left join FORUM_MESSAGE M
@@ -150,6 +150,12 @@
 	<update id="updateViews">
 		update FORUM_ARTICLE set
 			FOR_ART_VIEW = #{forArtView}
+		where FOR_ART_NO = #{forArtNo}
+	</update>
+	
+	<update id="updateState">
+		update FORUM_ARTICLE set
+			ART_STATE_NO = #{artStateNo}
 		where FOR_ART_NO = #{forArtNo}
 	</update>
 

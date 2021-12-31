@@ -17,5 +17,5 @@ public interface ForumArticleMapper {
 	Integer add(ForumArticle article);
 	Integer update(ForumArticle article);
 	Integer updateViews(ForumArticle article);
-	
+	Integer updateState(ForumArticle article);
 }

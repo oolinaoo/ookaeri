@@ -53,5 +53,13 @@ public class ForumMessageController {
 		core.setSuccess(mapper.update(message) > 0);
 		return core;
 	}
+	
+	@PostMapping(path = "updateState", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Core updateState(@RequestBody ForumMessage message) {
+		Core core = new Core();
+		core.setSuccess(mapper.updateState(message) > 0);
+		return core;
+	}
 
 }

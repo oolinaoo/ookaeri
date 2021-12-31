@@ -12,5 +12,5 @@ public interface ForumReportMapper {
 	List<ForumReport> artJoinAll();
 	Integer add(ForumReport report);
 	Integer update(ForumReport report);
-
+	Integer updateState(ForumReport report);
 }
