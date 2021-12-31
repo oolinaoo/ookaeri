@@ -161,7 +161,7 @@
 						<p class="mapInfoContent">${sessionScope.storeINFO}</p>
 						<form class="buttonFavForm"
 							action="<%=request.getContextPath()%>/controller/ServletController.do">
-							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
 							<input type="hidden" value="inputToFav" name="action" />
@@ -170,7 +170,7 @@
 
 						<form class="buttonDelteFavForm"
 							action="<%=request.getContextPath()%>/controller/ServletController.do">
-							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem">  -->
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem"> 
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
 							<input type="hidden" value="deleteFromFav" name="action" />
@@ -188,6 +188,7 @@
 								type="text" name="comment" style="margin-top: 30px;" value=""
 								placeholder="請輸入留言"> <input type="hidden" name="action"
 								value="inputComment">
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<button type="submit" style="margin-top: 30px;"></button>
 						</form>
 
@@ -219,37 +220,36 @@
 							</tbody>
 						</table>
 						<button class="report" type="button"
-							style="position: relative; left: 140px; bottom: 30px;">檢舉</button>
+							style="position: relative; left: 130px; bottom: 30px;">檢舉</button>
 						<div class="overlay"
-							style="border: 1px solid red; background-color:">
+							style="border: 1px solid red;">
 							<article>
 								<center>
-									<h1>檢舉頁面</h1>
+									<h1 style="color:gray;">檢舉頁面</h1>
 									<form class="reportCommentForm"
 										action="<%=request.getContextPath()%>/controller/reptServletController.do">
-										<input type="text" name="reptMessage" value="" />
-										<!-- 檢舉原因 -->
-										<input type="hidden" name="memAcct" value="gina2" />
+										
+										<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 										<!-- 檢舉者帳戶 -->
-										<!-- 									<input type="hidden" name="memAcct" value="gina2" /> 檢舉者帳戶 -->
+										<input type="hidden" value="${sessionScope.adminAcct}" name="admit">
+										<input type="hidden" name="storeNo"  value="${sessionScope.storeNoUsedInCommentArea}" />
+										<!-- 商家編號 -->
 										<select name="messageNO">
 											<c:forEach var="msg" items="${requestScope.msgList}">
 												<c:if
 													test="${msg.MAP_STORE_NO==sessionScope.storeNoUsedInCommentArea && msg.MAP_MSG_STATE==0}">
 
-													<option value="${msg.MAP_MSG_NO}" />${msg.MAP_MSG_NO}  <!-- 被檢舉留言的編號 -->
+													<option value="${msg.MAP_MSG_NO}"/>${msg.MAP_MSG_NO}  <!-- 被檢舉留言的編號 -->
 
 												</c:if>
 											</c:forEach>
-										</select> <input type="hidden" name="adminAcct" value="gary1" />
-										<!-- 管理者帳戶 -->
-										<input type="hidden" name="storeNo"
-											value="${sessionScope.storeNoUsedInCommentArea}" />
-										<!-- 商家編號 -->
+										</select> 
+										<input type="text" name="reptMessage" value="" style="width:240px; />
+										<!-- 檢舉原因 -->
 										<input type="hidden" name="action" value="reportComments" />
-										<button class="reportButton" type="submit">檢舉</button>
+										<button class="reportButton" type="submit" style="position:relative">檢舉</button>
 									</form>
-									<button type="" class="btn_modal_close">關閉</button>
+									<button type="" class="btn_modal_close" >關閉</button>
 								</center>
 							</article>
 						</div>
@@ -1150,6 +1150,7 @@
     }
   </script>
 	<script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
+ 	<script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>
 	<script async
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdTVkuwmGKvXkgQmAxlAa18fLWpl0dMfA&callback=initMap">
     </script>

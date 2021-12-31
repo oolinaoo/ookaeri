@@ -142,6 +142,7 @@
 							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<input type="hidden" value="inputToFav" name="action" />
 							<button class="buttonFav" type="submit">加入至最愛</button>
 						</form>
@@ -151,6 +152,7 @@
 							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem">  -->
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<input type="hidden" value="deleteFromFav" name="action" />
 							<button class="buttonDelteFav" type="submit">從最愛刪除</button>
 						</form>
@@ -158,20 +160,14 @@
 
 					</div>
 					<div class="message">
+					
+						<p class="favHead"
+							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
+					
 						<form class="inputcomment"
 							action="<%=request.getContextPath()%>/controller/FavServletController.do"
-							METHOD="post" style="margin: auto; max-width: 300px">
-							<input type="hidden" name="storeNoUsedInInputComment"
-								value="${sessionScope.storeNoUsedInCommentArea}"> <input
-								type="text" name="comment" style="margin-top: 30px;" value=""
-								placeholder="請輸入留言"> <input type="hidden" name="action"
-								value="inputComment">
-							<button type="submit" style="margin-top: 30px;"></button>
-						</form>
-						<p class="mapcommentHead"
-							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
-					<center>
-						<table class="comment-area" width="300px">
+							METHOD="post" style="margin: auto;">
+						<table class="fav-area" width="150px">
 							
 							<tbody>
 
@@ -180,9 +176,9 @@
 								<tr>
 									
 										<td>
-											<select size="1" name="pretty-select" >
+											<select size="1" name="selectFav" >
 												<c:forEach var="favVO" items="${Fav.all}">
-													<c:if test="${ favVO.MEM_ACCT==requestScope.userName}">
+													<c:if test="${ favVO.MEM_ACCT==sessionScope.memAcct}">
 														<c:if test="${favVO.MAP_STORE_NO==1}">
 															<option value="萬有全涮羊肉10491台灣台北市中山區南京東路三段223巷8號" >萬有全涮羊肉
 														</c:if>
@@ -249,13 +245,16 @@
 													</c:if>
 												</c:forEach>
 											</select>
+											
 										</td>
 									
 								</tr>
 
 							</tbody>
 						</table>
-					</center>
+						<input type="hidden" value="choseFav" name="action">
+						<input class="decide" type="submit" value="確定">
+					</form>
 
 					</div>
 				</div>
