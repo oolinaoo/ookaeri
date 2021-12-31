@@ -2,7 +2,7 @@ $(function () {
   // 清空各種欄位的函式
   function clean(){
     $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
+    $(`input`).removeAttr("checked");
     $("div.photo").empty();
     $("div").find("input#fphoto").val("");
   }
@@ -145,7 +145,7 @@ $(function () {
   // 新增公設的開放日
   function newFacDate(newestNo){
     for(var i = 1; i <= 7; i++){
-      if($(`input#fdate${i}`).is(":checked")){
+      if($(`input#fdate${i}`).is(":checked") || $(`input#fdate${i}`).attr("checked")=="checked"){
         var od = $(`input#fdate${i}`).val();
 
         $.ajax({
@@ -174,7 +174,7 @@ $(function () {
   // 新增公設的開放時段
   function newFacTime(newestNo){
     for(var i = 1; i <= 7; i++){
-      if($(`input#ftime${i}`).is(":checked")){
+      if($(`input#ftime${i}`).is(":checked") || $(`input#ftime${i}`).attr("checked")=="checked"){
         var fot = $(`input#ftime${i}`).next("label").html();
         var st = Number($(`input#ftime${i}`).val());
         var et = st + 2;

@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -125,7 +126,10 @@ public class FacController {
 	//	新增公設
 	@PostMapping(path = "addNewFac", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Integer addNewFac(@RequestBody FacVO facVO) {
+	public Integer addNewFac(@RequestBody FacVO facVO, HttpSession session) {
+		String adminAcct =(String) session.getAttribute("adminAcct");
+		facVO.setAdminAcct(adminAcct);
+
 		final int insert = mapper.insertNewFac(facVO);
 		if(insert == 1) {
 			facInsertNo = mapper.findNewestFacNo();	

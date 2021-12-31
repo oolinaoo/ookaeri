@@ -46,7 +46,7 @@
 		
 	<insert id="insertNewFac">	
 		insert into FACILITIES
-			(FAC_NAME, FAC_MAX, FAC_STATE, FAC_PHOTO, FAC_ADDR, FAC_FLOOR, FAC_ADDR_NO)
+			(FAC_NAME, FAC_MAX, FAC_STATE, FAC_PHOTO, FAC_ADDR, FAC_FLOOR, FAC_ADDR_NO, ADMIN_ACCT)
 		values(
 			#{facName},
 			#{facMax},
@@ -54,7 +54,8 @@
 			#{facPhoto},
 			#{facAddr},
 			#{facFloor},
-			#{facAddrNo}
+			#{facAddrNo},
+			#{adminAcct}
 		)
 	</insert>
 	
