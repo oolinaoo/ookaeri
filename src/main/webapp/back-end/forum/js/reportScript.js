@@ -35,7 +35,7 @@ $(function () {
 						  <td class='reason'>${data[0].forReptContent}</td>
 						  <td class='mem'>${data[0].memAcctRept}</td>
 						  <td class='admin'>${data[0].adminAcct == null ? "審核中" : data[0].adminAcct}</td>
-						  <td class='state'>${data[0].forReptState}</td>
+						  <td class='state' ondblclick='editState(this)'>${data[0].forReptState == 0 ? "檢舉不成立" : (data[0].forReptState == 1 ? "檢舉成功" : "審核中")}</td>
 						  <td class='modal-father'><a class='whole' href='#'>檢舉原因
 							  <div class='modal-returned hidden'>
 							  <div class='modal-container'>
@@ -76,7 +76,7 @@ $(function () {
 								<td class='reason'>${data[i].forReptContent}</td>
 								<td class='mem'>${data[i].memAcctRept}</td>
 								<td class='admin'>${data[i].adminAcct == null ? "審核中" : data[i].adminAcct}</td>
-								<td class='state'>${data[i].forReptState}</td>
+								<td class='state' ondblclick='editState(this)'>${data[i].forReptState == 0 ? "檢舉不成立" : (data[i].forReptState == 1 ? "檢舉成功" : "審核中")}</td>
 								<td class='modal-father'><a class='whole' href='#'>檢舉原因
 									<div class='modal-returned hidden'>
 									<div class='modal-container'>
@@ -191,3 +191,89 @@ $("table").click(function(e){
 		});
 	} 
 });
+
+//double click edit
+function editState(e) {
+	select = 
+		`
+		<div class="inputStyle editStateOnly">
+			<select id="editState" onchange="saveState(this)" required style="width: inherit;"> 
+			 	<option value="" disabled selected>狀態</option>
+				<option value="0">檢舉不成立</option>
+				<option value="1">檢舉成功</option>
+				<option value="2">審核中</option>
+			</select>
+		 </div>
+		`
+	$(e).html(select);
+}
+
+// select change event
+function saveState(e) {
+	let svalue = $(e).val();
+	let row = $(e).parent().parent().parent();
+	$(e).parent().parent().html(`${svalue == 0 ? "檢舉不成立" : (svalue == 1 ? "檢舉成功" : "審核中") }`);
+	$(row).find(".admin").html($('.menu span span span').html());
+	$(function() {
+		const reptId = $(row).find(".id").html();
+		const admin = $('.menu span span span').html();
+		const state = `${$(row).find(".state").html() == "檢舉不成立" ? "0" : ($(row).find(".state").html() == "檢舉成功" ? "1" : "2")}`;
+		let form_data = {
+			"forReptNo" : reptId,
+			"adminAcct" : admin,
+			"forReptState" : state
+		};
+		let xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(xhr);
+			}
+		};
+		xhr.open("POST", "/okaeri/forumReport/updateState"); // post 告知後端
+		xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+		let data = JSON.stringify(form_data); // 將物件資料轉成字串
+		console.log(data);
+		xhr.send(data); // 送出字串
+	})
+	if ($(row).find(".msgId").html() == "-") {
+		$(function() {
+			const artId = $(row).find(".artId").html();
+			const state = `${$(row).find(".state").html() == "檢舉成功" ? "1" : "0"}`;
+			let form_data = {
+				"forArtNo" : artId,
+				"artStateNo" : state
+			};
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(xhr);
+				}
+			};
+			xhr.open("POST", "/okaeri/forumArticle/updateState"); // post 告知後端
+			xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+			let data = JSON.stringify(form_data); // 將物件資料轉成字串
+			console.log(data);
+			xhr.send(data); // 送出字串
+		})
+	} else {
+		$(function() {
+			const msgId = $(row).find(".msgId").html();
+			const state = `${$(row).find(".state").html() == "檢舉成功" ? "1" : "0"}`;
+			let form_data = {
+				"forMsgNo" : msgId,
+				"forMsgState" : state
+			};
+			let xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					console.log(xhr);
+				}
+			};
+			xhr.open("POST", "/okaeri/forumMessage/updateState"); // post 告知後端
+			xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用JSON格式
+			let data = JSON.stringify(form_data); // 將物件資料轉成字串
+			console.log(data);
+			xhr.send(data); // 送出字串
+		})
+	}
+}

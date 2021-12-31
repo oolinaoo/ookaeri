@@ -16,6 +16,7 @@ $(".forum-type").click(function(e) {
 	  let data = JSON.parse(this.responseText);
 	  console.log(data);
 	  for (let i = 0; i < data.length; i++) {
+		  if (data[i].artStateNo != 1) {
 			  $(".forum-page").append(
 				"<div class='forum-row' >" +
 		          "<div class='forum-row-box' >" +
@@ -43,7 +44,8 @@ $(".forum-type").click(function(e) {
 		            "</div>" +
 		          "</div>" +
 		        "</div>"
-		);
+			  	);
+		  }	  
 	  }
 	  var table = $(".forum-page");
 	  var currentPage = 0; // 當前頁默認值為0

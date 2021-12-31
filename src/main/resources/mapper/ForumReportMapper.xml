@@ -56,9 +56,16 @@
 	</insert>
 
 	<update id="update">
-		update FORUM_REPORT
+		update FORUM_REPORT set
 			MEM_ACCT = #{memAcct},
 			FOR_REPT_STATE = #{forReptState}
+		where FOR_REPT_NO = #{forReptNo}
+	</update>
+	
+	<update id="updateState">
+		update FORUM_REPORT set
+			FOR_REPT_STATE = #{forReptState},
+			ADMIN_ACCT = #{adminAcct}
 		where FOR_REPT_NO = #{forReptNo}
 	</update>
 
