@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="style.css" />
 <link rel="icon" href="images/logo2.png" />
 <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
+<link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
 	integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+"
@@ -158,6 +159,21 @@
 		<div class="forum-page" id="clear">
 		</div>
 	</section>
+	<div class="chatroom">
+		<div class="friendlist"></div>
+		<div class="chatarea">
+			<div class="statusOutput"></div>
+			<div class="msgbox">
+				<ul id="area"></ul>
+				<input type="text" class="textbox"> <input type="submit"
+					class="send" value="送出">
+			</div>
+		</div>
+	</div>
+	<button class="msgicon">
+		<img class="msgicon" src="/okaeri/chatroom/images/messenger.png">
+	</button>
+	<span class="acct" style="display: none;"></span>
 	<div class="footer">
 		<a class="footer_link" href="#">サイトついて</a> <a class="footer_link"
 			href="#">最新情報</a> <a class="footer_link" href="#">トッポページ</a>
@@ -166,6 +182,8 @@
 	<script src="script.js" charset="UTF-8"></script>
 	<script src="typeList.js" charset="UTF-8"></script>
 	<script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
+	<script src="heartCollect.js" charset="UTF-8"></script>
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
 </body>
 </html>

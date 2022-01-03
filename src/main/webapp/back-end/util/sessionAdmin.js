@@ -31,6 +31,7 @@ $("#logout").on("click", function()  {
 		let data = JSON.parse(this.responseText);
 		console.log(data);
 		 if (data == true) {
+		 alert("您已登出");
 		 window.location = "/okaeri/login/login.html"
 		 }
 	};
