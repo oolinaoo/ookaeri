@@ -264,8 +264,6 @@ input[disabled = "disabled"] ~  div.customcheck > div.checkitem {
   background-color: rgb(230, 230, 230);
 }
 
-
-
 /* ========  預約確認鈕  ======== */
 
 
@@ -310,6 +308,18 @@ a.next_reserve_day > img {
 }
 
 /* ========  前一天、下一天  ======== */
+
+
+div.closed{
+  text-align: center;
+}
+
+div.closed img{
+  display: inline-block;
+  width: 400px;
+}
+
+
 
 /**********************************
  ****                          ****

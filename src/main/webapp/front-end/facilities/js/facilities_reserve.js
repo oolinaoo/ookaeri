@@ -1,5 +1,10 @@
 $(function () {
-  // ajax 的 data 之後要改成動態載入的！！
+  var ty = sessionStorage.getItem("thisYear");
+  var tm = sessionStorage.getItem("thisMonth");
+  var td = sessionStorage.getItem("thisDay");
+  var nowDate = new Date(ty, tm-1, td);
+  var nowTime = new Date();
+
   var wd = sessionStorage.getItem("whichDay");
   var wm = sessionStorage.getItem("whichMonth");
   var wy = sessionStorage.getItem("whichYear");
@@ -8,8 +13,9 @@ $(function () {
   var memAcct = "";
 
   // 這邊要載入設施當前的預約資料 
-  function facResHist(resdate) {
+  function facResHist(wy, wm, wd) {
     memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
+    resdate = `${wy}-${wm}-${wd}`;
 
     $.ajax({
       url: "/okaeri/fachist/facResTimeHist",
@@ -30,9 +36,15 @@ $(function () {
           var allRes = 0;     // 該時段的所有借用人數
           var selfRes = 0;    // 該時段自己借用的人數
 
-          var nowTime = new Date();
-          // 先判斷現在時間早於還是晚於想預約的時段、決定是否關閉預約        
-          if(open_time.attr("data-start") < nowTime.getHours()){
+          var whichDate = new Date(wy, wm-1, wd);
+
+          // 先判斷現在時間及日期是早於還是晚於想預約的時段、決定是否關閉預約
+          if(nowDate > whichDate){
+            open_time.siblings("td").children("select").attr("disabled", "disabled");
+            open_time.siblings("td").children("input").attr("disabled", "disabled");
+          } else if(nowDate < whichDate){
+            //
+          } else if(open_time.attr("data-start") <= nowTime.getHours()){
             open_time.siblings("td").children("select").attr("disabled", "disabled");
             open_time.siblings("td").children("input").attr("disabled", "disabled");
           }
@@ -103,8 +115,7 @@ $(function () {
         console.log(xhr);
       },
       complete: function(xhr) {
-        resdate = `${wy}-${wm}-${wd}`;
-        facResHist(resdate);
+        facResHist(wy, wm, wd);
       }
     });
   }
@@ -125,27 +136,27 @@ $(function () {
       },
       success: function (data) {
         var resTable = "";
+
         $.each(data, function(index, item){
           resTable += `
-              <tr class="reserve_info${index+1}" >
-                <td class="fac_open_date">${wm}/${wd}</td>
-                <td class="fac_open_time" data-start="${item.startTime}">${item.facOpenTime}</td>
-                <td id="remain${index+1}"></td>
-                <td>
-                  <select name="ammount${index+1}" id="amount${index+1}"></select>
-                </td>
-                <td>
-                  <input type="checkbox" name="switch"/>
-                  <div class="customcheck">
-                    <div class="checkitem"></div>
-                  </div>
-                </td>
-                <td class="edit"></td>
-              </tr>`;
-          timeLong = index + 1;
-        });
-
-        $("tbody").append(resTable);
+            <tr class="reserve_info${index+1}" >
+              <td class="fac_open_date">${wm}/${wd}</td>
+              <td class="fac_open_time" data-start="${item.startTime}">${item.facOpenTime}</td>
+              <td id="remain${index+1}"></td>
+              <td>
+                <select name="ammount${index+1}" id="amount${index+1}"></select>
+              </td>
+              <td>
+                <input type="checkbox" name="switch"/>
+                <div class="customcheck">
+                  <div class="checkitem"></div>
+                </div>
+              </td>
+              <td class="edit"></td>
+            </tr>`;
+            timeLong = index + 1;
+          });
+          $("tbody").append(resTable);
       },
       error: function (xhr) {
         console.log("error");
@@ -169,7 +180,6 @@ $(function () {
     var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
     var resAmt = $(that).closest("td").siblings("td").children("select").val();
     memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
-    console.log(resdate);
 
     $.ajax({
       url: "/okaeri/fachist/facReserve",
@@ -186,7 +196,6 @@ $(function () {
         "Content-Type": "application/json",
       },
       success: function (data) {
-        console.log(data);
         alert("預約成功！");
         location.reload();
       },
@@ -201,7 +210,6 @@ $(function () {
   function resDelete(that){
     var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
     memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
-    console.log(resdate);
 
     $.ajax({
       url: "/okaeri/fachist/fachistDelete",
@@ -217,7 +225,6 @@ $(function () {
         "Content-Type": "application/json",
       },
       success: function (data) {
-        console.log(data);
         alert("成功取消預約！");
         location.reload();
       },
@@ -232,7 +239,6 @@ $(function () {
   function resUpdate(that, newAmt){
     var resTime = $(that).closest("td").siblings("td.fac_open_time").html();
     memAcct = $("div#header").find("span#navbar_profile_memAcct_span").html();
-    console.log(resdate);
 
     $.ajax({
       url: "/okaeri/fachist/fachistAmtUpdate",
@@ -361,13 +367,13 @@ $(function () {
   $("a.prev_reserve_day").on("click", function(){
     // 先清空表格
     $("table#reserve_list").children("tbody").empty();
+    $("div.closed").remove();
     // 如果日 - 1 = 0，要到前一個月、甚至前一年
     // 執行判斷天數
     var wyNo = Number(sessionStorage.getItem("whichYear"));
     var wmNo = Number(sessionStorage.getItem("whichMonth"));
     var wdNo = Number(sessionStorage.getItem("whichDay"));
     dayQty = daysInMonth(wmNo, wyNo);
-    console.log(dayQty);
 
     if(wdNo - 1 == 0){
       if(wmNo - 1 == 0){
@@ -382,25 +388,40 @@ $(function () {
     }
 
     var preday = new Date(wyNo, wmNo-1, wdNo);
-    console.log(preday.getDay());
-
     // 這邊先比對公休日，公休日就直接不載入預約環境
+    var todayClosed = 0;
+    // 先取出公休日轉回數字陣列
+    var uODJ = sessionStorage.getItem("uODO");
+    var uODO = JSON.parse(uODJ);
+    var uODA = uODO.unOpenDayArray;
+    for(var i = 0; i < uODA.length; i++){
+      if(preday.getDay() == uODA[i]){
+        todayClosed += 1;
+      }
+    }
 
-
-
-    // 執行載入環境
-    facDateTime(facNumber, wyNo, wmNo, wdNo);
+    if(todayClosed==0){
+      // 執行載入環境
+      facDateTime(facNumber, wyNo, wmNo, wdNo);
+    } else {
+      sessionStorage.setItem("whichDay", wdNo);
+      sessionStorage.setItem("whichMonth", wmNo);
+      sessionStorage.setItem("whichYear", wyNo);
+      $("table#reserve_list").after(
+        "<div class='closed'><img src='./images/closed-sign.png' alt='今日公休' title='今日公休'></div>"
+      );
+    }
   });
 
   $("a.next_reserve_day").on("click", function(){
     // 先清空表格
     $("table#reserve_list").children("tbody").empty();
+    $("div.closed").remove();
     // 執行判斷天數
     var wyNo = Number(sessionStorage.getItem("whichYear"));
     var wmNo = Number(sessionStorage.getItem("whichMonth"));
     var wdNo = Number(sessionStorage.getItem("whichDay"));
     dayQty = daysInMonth(wmNo, wyNo);
-    console.log(dayQty);
 
     // 如果超出最後一天、要到下一天、甚至下一年
     if(wdNo + 1 > dayQty){
@@ -416,18 +437,30 @@ $(function () {
     }
 
     var nextday = new Date(wyNo, wmNo-1, wdNo);
-    console.log(nextday.getDay());
-
     // 這邊先比對公休日，公休日就直接不載入預約環境
+    var todayClosed = 0;
+    // 先取出公休日轉回數字陣列
+    var uODJ = sessionStorage.getItem("uODO");
+    var uODO = JSON.parse(uODJ);
+    var uODA = uODO.unOpenDayArray;
+    for(var i = 0; i < uODA.length; i++){
+      if(nextday.getDay() == uODA[i]){
+        todayClosed += 1;
+      }
+    }
 
-
-
-    // 執行載入環境
-    facDateTime(facNumber, wyNo, wmNo, wdNo);
+    if(todayClosed==0){
+      // 執行載入環境
+      facDateTime(facNumber, wyNo, wmNo, wdNo);
+    } else {
+      sessionStorage.setItem("whichDay", wdNo);
+      sessionStorage.setItem("whichMonth", wmNo);
+      sessionStorage.setItem("whichYear", wyNo);
+      $("table#reserve_list").after(
+        "<div class='closed'><img src='./images/closed-sign.png' alt='今日公休' title='今日公休'></div>"
+      );
+    }
   });
-
-
-
 
   // END
 });

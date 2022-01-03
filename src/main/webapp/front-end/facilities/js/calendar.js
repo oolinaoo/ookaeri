@@ -45,6 +45,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 
 			sessionStorage.setItem("thisYear", currentYear);
 			sessionStorage.setItem("thisMonth", currentMonth);
+			sessionStorage.setItem("thisDay", currentDay);
 
 			if (options.maxWidth !== false) {
 				$(parent).css("maxWidth", options.maxWidth);
@@ -486,15 +487,23 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 					
 				  pastDay();
 
+				  // 將公休日存入 session，因為可能是陣列，所以先用物件轉成 JSON 字串
+				  var unOpenDayObject = {};
+				  var unOpenDayArray = [];
+				  sessionStorage.removeItem("uODO");
 				  $.each(data, function(index, item){
-				    console.log(item);
+					unOpenDayArray.push(item);
+				    console.log(unOpenDayArray);
+
 					for(var i = 1; i <= 31; i++){
 					  if($(`div[data-number='${i}']`).children("a").attr("data-day") == item){
 						$(`div[data-number='${i}']`).css("background-color", "#F2F2F2");
 						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
 					  }
 					}
-				  });	
+				  });
+				  unOpenDayObject.unOpenDayArray = unOpenDayArray;
+				  sessionStorage.setItem("uODO", JSON.stringify(unOpenDayObject));
 				},
 				error: function (xhr) {
 				  console.log("error");
