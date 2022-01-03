@@ -30,6 +30,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"  type="text/css" href="<%=request.getContextPath()%>/front-end/pack/css/notify.css" />
+<link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
 <title>美食地圖我的最愛</title>
 <link rel="icon" href="<%=request.getContextPath()%>/front-end/map/images/logo2.png" />
 </head>
@@ -265,7 +266,22 @@
 			</div>
 		</div>
 	</div>
-
+<!-- 	<!--- 聊天室 ---> -->
+<!-- 	<div class="chatroom"> -->
+<!--     	<div class="friendlist"> -->
+    		
+<!--     	</div> -->
+<!--     	<div class="chatarea"> -->
+<!--     		<div class="statusOutput"></div> -->
+<!--     		<div class="msgbox"> -->
+<!--     			<ul id="area"></ul> -->
+<!--     			<input type="text" class="textbox"> -->
+<!--     			<input type="submit" class="send" value="送出"> -->
+<!--     		</div> -->
+<!--     	</div> -->
+<!--     </div> -->
+    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+    <span class="acct" style="display:none;"></span>
 
 	<script>
     function initMap() {
@@ -1138,7 +1154,7 @@
     </script>
     <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
-    
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
 </body>
 
 </html>
