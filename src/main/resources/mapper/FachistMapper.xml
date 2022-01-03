@@ -49,8 +49,8 @@
 			HIST_DATE, FAC_NO, sum(HIST_AMOUNT) as TOTAL
 		from 
 			FACILITIES_HISTORY
-		where 
-			FAC_NO = #{facNo}  and month(HIST_DATE) = #{month}
+		where
+			FAC_NO = #{facNo} and month(HIST_DATE) = #{month} and year(HIST_DATE) = ${year}
 		group by
 			HIST_DATE, FAC_NO
 		order by

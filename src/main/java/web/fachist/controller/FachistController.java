@@ -72,8 +72,9 @@ public class FachistController{
 	@RequestMapping(path = "facResDateHist", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	@Transactional(readOnly = true)
-	public List<Map> facResDateHist(@RequestParam(value = "facNo") Integer facNo, @RequestParam(value = "month") Integer month ){
-		List<Map> facMonth = mapper.listFacDateHistByMonth(facNo, month);
+	public List<Map> facResDateHist(
+			@RequestParam(value = "facNo") Integer facNo, @RequestParam(value = "month") Integer month, @RequestParam(value = "year") Integer year){
+		List<Map> facMonth = mapper.listFacDateHistByMonth(facNo, month, year);
 		return facMonth;
 	}
 	
