@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/facilities.css" />
     <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
   </head>
 
   <body>
@@ -113,10 +114,6 @@
       </ul>
     </div>
 
-
-
-
-
       <!-- =============================== body content =============================== -->
       
       <div id="facs_body">
@@ -138,9 +135,6 @@
       </div>
       <div class="go_top">Top</div>
 
-
-
-
       <!-- =============================== footer =============================== -->
       <div class="footer">
         <a class="footer_link" href="#">サイトついて</a>
@@ -148,7 +142,24 @@
         <a class="footer_link" href="#">トッポページ</a>
         <p class="copyright">© 2021 okaeri</p>
       </div>
-
+      
+      <!-- ================  聊天室 =============== -->
+      <div class="chatroom">
+        <div class="friendlist">
+            
+        </div>
+        <div class="chatarea">
+          <div class="statusOutput"></div>
+          <div class="msgbox">
+            <ul id="area"></ul>
+            <input type="text" class="textbox">
+            <input type="submit" class="send" value="送出">
+          </div>
+        </div>
+      </div>
+      <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+      <span class="acct" style="display:none;"></span>  
+      
       <!-- =============================== Script =============================== -->
       <script src="./vendor/jquery-3.6.0.min.js"></script>
       <script src="./js/facilities.js"></script>
@@ -156,6 +167,7 @@
       <script src="./vendor/sort-table.js"></script>
       <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
       <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
+      <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
       
     </div>
   </body>

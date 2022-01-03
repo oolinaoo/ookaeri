@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/front-all.css" />
     <link rel="stylesheet" href="css/mem-pwd.css" />
     <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Montserrat:wght@100&family=Sacramento&display=swap"
       rel="stylesheet" />
@@ -195,6 +196,22 @@
         </div>
       </div>
 
+	<div class="chatroom">
+	    	<div class="friendlist">
+	    		
+	    	</div>
+	    	<div class="chatarea">
+	    		<div class="statusOutput"></div>
+	    		<div class="msgbox">
+	    			<ul id="area"></ul>
+	    			<input type="text" class="textbox">
+	    			<input type="submit" class="send" value="送出">
+	    		</div>
+	    	</div>
+	    </div>
+	    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+	<span class="acct" style="display:none;"></span>
+
     <div class="footer">
         <a class="footer_link" href="#">サイトついて</a>
         <a class="footer_link" href="#">最新情報</a>
@@ -204,6 +221,7 @@
 
     <script src="vendors/jquery/jquery-3.6.0.min.js"></script>
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
     <!-- <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script> -->
     <script src="js/mem-pwd-ajax.js"></script>
 </body>
