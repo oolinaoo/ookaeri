@@ -46,6 +46,8 @@ function refreshNotify() {
     } else {
       $(".dropdown-content").removeClass("view");
     }
+	console.log("我來刪東西囉");
+    $("div#badge").attr("style","display:none;");
    /*未讀消息變更為已讀*/
   var dataUrl =
 	  "/okaeri/notify/updateNotifyState";
@@ -62,6 +64,7 @@ function refreshNotify() {
     $(".dropdown-content").removeClass("view");
   });
   $(" body div.dropdown_selector div:nth-child(odd)").addClass("color");
+  
   
 })(document); 
 

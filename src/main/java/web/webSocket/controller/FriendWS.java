@@ -44,9 +44,16 @@ public class FriendWS {
 	@ResponseBody
 	public String adminAcct(HttpSession session) {
 		String adminAcct =(String) session.getAttribute("adminAcct");
+		String memAcct =(String) session.getAttribute("memAcct");
+		System.out.println("adminAcct================"+adminAcct);
+		System.out.println("memAcct================"+memAcct);
+		if(adminAcct !=null) {
+			return adminAcct; 
+		}else if(memAcct !=null) {
+			return memAcct;
+		}
 		System.out.println("有進入訊息通知");
-		System.out.println("adminAcct============================="+adminAcct);
-		return adminAcct; 
+		return null; 
 	}
 	
 	@OnOpen

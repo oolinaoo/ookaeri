@@ -378,7 +378,7 @@ select {
 
 /*button
 =============================================*/
-.newPost-button {
+a#newPost-button{
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -412,10 +412,10 @@ select {
 /*search bar
 =============================================*/
 .search-bar {
-  width: 35%;
+  width: 90%;
   margin: 0 auto;
   margin-bottom: 20px;
-  margin-left: 600px;
+  text-align:right;
 }
 .search-bar label {
   font-size: 18px;
