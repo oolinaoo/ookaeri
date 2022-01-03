@@ -37,36 +37,6 @@ function famMemsList(famMemsList){
 }
 
 
-//ajax get login mem
-let memAcct;
-function getMemAcct(){
-	$.ajax({
-	  url: "/okaeri/login/getMemSession",
-	  type: "GET",
-	  data: "",
-	  dataType: "json",
-	  success: function (data) {
-		console.log(data);
-    memAcct = data.memAcct;
-    init();   //呼叫載入所有資料的函式
-		$("#navbar_profile_memAcct").append(
-				`
-					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
-				`
-			);
-		$("#navbar_profile_memAcct_span").after(
-				`
-					<span hidden>${data.memName}</span>
-				`
-			);
-	  },
-	    error: function (xhr) {
-	      console.log("error");
-	    },
-	});
-}
-
-
 //================載入住戶資料================//
 function init(){
 
@@ -142,6 +112,10 @@ $(function(){
 
 //================ 住戶修改資料 formData版===============//
 $("#memProfile_btn_submit").on("click", function(){
+  let r = confirm("確認修改？");
+  if(!r){
+   return;  //按「取消」，就直接結束程式
+  }
   let memPhoto = document.getElementById("memUploadPic_file").files[0];
   let memName = $("#memName").val().trim();
   let memSex;
@@ -387,143 +361,3 @@ $('#memBirthday').datetimepicker({
         }
         return [true, ""];
 }});
-
-//================ 住戶修改資料 無formData版 start===============//
-// $("#memProfile_btn_submit").on("click", function(){
-//   let memName = $("#memName").val().trim();
-//   let memSex;
-//   for(let i = 0; i <= $("input.memSex").length; i++){
-//     if($("input.memSex").eq(i).prop("checked")){  // 判斷有無勾選
-//       memSex = $("input.memSex").eq(i).val(); // 男/女/其他
-//       //console.log(memSex);
-//     }
-//   }
-//   let memBirthday = $("#memBirthday").val().trim();
-//   let memEmail = $("#memEmail").val().trim();
-//   let memPhone = $("#memPhone").val().trim();
-
-//   let famMems = new Array();
-//   for(let i = 0; i < $("input.famMems").length; i++){
-//     let aFam = $("input.famMems").eq(i).val().trim();
-//     famMems[i] = aFam;
-//   }
-//   //去除為空字串的元素
-//   famMems = famMems.filter(function(item){
-//     return item !== "";
-//   });
-//   console.log(famMems);
-//   famMems = JSON.stringify(famMems);
-
-//   let memPwd = $("#memPwd").val().trim();
-
-//   //如果沒有上傳新的圖片 img_base64 就會是undefined
-//   if(img_base64 == undefined){
-//     img_base64 = "NoUpload";
-//   }
-
-//   let data = {
-//     "action": "profile_update",
-//     "memAcct": memAcct,
-//     "memName": memName,
-//     "memSex": memSex,
-//     "memBirthday": memBirthday,
-//     "memEmail": memEmail,
-//     "memPhone": memPhone,
-//     "famMems": famMems,
-//     "memPwd": memPwd,
-//     "memPhoto": img_base64
-//   };
-
-//   // let path = window.location.pathname; //webapp的專案路徑
-//   // let src = `
-//   //   ${path.substring(0, path.indexOf("/mem-", 1))}/MemberServlet.do
-//   // `
-
-//   $.ajax({
-//     url: "http://localhost:8081/Okaeri/front-end/mem/MemberServlet.do",
-//     type: "POST",
-//     data: data,
-//     dataType: "json",
-//     success:function(data){
-
-//       if(data.msg == "success"){
-
-//         //data.memPhoto為base64
-//         let img_html = `
-//           <img src="${data.memPhoto}" class="mem_uploadPic">
-//         `;
-//         $("div.profilePic_preview").empty();
-//         $("div.profilePic_preview").append(img_html);
-
-//         //帳號不可更改，因此傳回的帳號應跟修改前的相同，這邊只是用來方便做最後的alert()
-//         $("#memAcct").val(data.memAcct); 
-//         $("#memName").val(data.memName);
-
-//         let memSex = data.memSex;
-//         switch(memSex){
-//           case "男":
-//             $("#male").prop("checked", true);
-//             break;
-//           case "女":
-//             $("#female").prop("checked", true);
-//             break;
-//           case "其他":
-//             $("#other").prop("checked", true);
-//             break;
-//         }
-
-//         $("#memBirthday").val(data.memBirthday);
-//         $("#memEmail").val(data.memEmail);
-//         $("#memPhone").val(data.memPhone);
-        
-//         //console.log(typeof(data.famMems)); //陣列的Json字串
-//         let famMemsList = JSON.parse(data.famMems); //陣列的Json字串轉陣列物件
-//         //console.log(famMemsList);
-//         if(famMemsList.length == 0){
-//           let famMemList_html = ``;
-//           famMemList_html = `
-//             <div class="famMem_block">
-//               <div class="plus_minus_btn">
-//                   <span class="minus">-</span>
-//                   <span class="plus">+</span>
-//               </div>
-//               <input type="text" value="" class="famMems" style="width:75px;">
-//             </div>
-//           `;
-//           $("div.famMemList").empty();
-//           $("div.famMemList").append(famMemList_html);
-//         }else{
-//           let famMemList_html = ``;
-//           for(var i = 0; i < famMemsList.length; i++){
-//             famMemList_html+=`
-//             <div class="famMem_block">
-//               <div class="plus_minus_btn">
-//                   <span class="minus">-</span>
-//                   <span class="plus">+</span>
-//               </div>
-//               <input type="text" value="${famMemsList[i]}" class="famMems" style="width:75px;">
-//             </div>
-//             `;
-//           }
-//           $("div.famMemList").empty();
-//           $("div.famMemList").append(famMemList_html);
-//         }
-//         alert(`住戶帳號${data.memAcct} 資料更新成功`);
-
-//       }else if(data.mag=="errorMsg"){
-
-
-//       }else if(data.msg=="wrongPwd"){
-
-//       }
-
-//     },
-//     error: function(xhr, textStatus, errorThrown){   
-//       alert("更新失敗");
-//       console.log("error");
-//       console.log(xhr);
-//     }
-//   });
-
-// });
-//================ 住戶修改資料 無formData版 end===============//

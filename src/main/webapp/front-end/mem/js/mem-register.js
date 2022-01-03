@@ -238,7 +238,7 @@ $("button.submitBtn").on("click", function () {
 
                 famMems = JSON.parse(famMems);
                 famMemsList(famMems);
-                
+                alert("資料格式有誤，請查看！");
             }else if(data.msg == "fail"){
                 alert(`住戶帳號註冊失敗！`); 
             }

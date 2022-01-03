@@ -4,39 +4,6 @@ var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
 // let memAcct = "gina1";
 
-//ajax get login mem
-let memAcct;
-let memData;
-function getMemAcct(){
-	$.ajax({
-	  url: "/okaeri/login/getMemSession",
-	  type: "GET",
-	  data: "",
-	  dataType: "json",
-	  success: function (data) {
-		console.log(data);
-    memAcct = data.memAcct;
-    memData = {"memAcct": memAcct};
-    memData = JSON.stringify(memData);
-    console.log(memData);
-    init();   //呼叫載入所有資料的函式
-		$("#navbar_profile_memAcct").append(
-				`
-					<span id="navbar_profile_memAcct_span">${data.memAcct}</span>
-				`
-			);
-		$("#navbar_profile_memAcct_span").after(
-				`
-					<span hidden>${data.memName}</span>
-				`
-			);
-	  },
-	    error: function (xhr) {
-	      console.log("error");
-	    },
-	});
-}
-
 //================載入所有資料================//
 function init() {
   $.ajax({
