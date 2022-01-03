@@ -32,7 +32,7 @@ $(function () {
             if(item.facState == 0){
               fac.attr("data-title", `${item.facName}`);
               fac.children("div").empty();
-              fac.children("div").append(`${item.facName}`);
+              fac.children("div").append(`${item.facName}`).removeAttr("style");
               fac.attr("data-facno", `${item.facNo}`);
               fac.attr("data-state", `${item.facState}`);
             } else {
@@ -418,7 +418,7 @@ $(function () {
 
   // 按下修改確認修改資料
   $("div.edit").find("input.confirm").on("click", function(){
-    if($("div.overlay").find("input#fname").val().match(nameRE) != null){
+    if($("div.edit").find("input#fname").val().match(nameRE) != null){
       $("div.edit").fadeOut();
       // 呼叫修改的主函式 
       facilitiesUpdate(facNoEdit);
