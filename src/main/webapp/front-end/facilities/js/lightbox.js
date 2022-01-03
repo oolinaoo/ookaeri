@@ -166,10 +166,27 @@
             var date = new Date(item.histDate);
    
             for(var i = 1; i <= 31; i++){
-              if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+              var zeroHistMonth;
+              var zeroHistDate;
+
+              if(histMonth < 10){
+                zeroHistMonth = `0${histMonth}`;
+              } else {
+                zeroHistMonth = histMonth;
+              }
+
+              if(i < 10){
+                zeroHistDate = `0${i}`;
+              } else {
+                zeroHistDate = i;
+              }
+
+              if(date.getDate() == $(`div.dt${histYear}-${zeroHistMonth}-${zeroHistDate}`).attr("data-number")){
                 $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
                 $(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
-              } 
+              } else {
+                console.log("格式不對");
+              }
             }
           });
         },

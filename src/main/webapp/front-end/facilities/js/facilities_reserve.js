@@ -8,9 +8,15 @@ $(function () {
   var wd = sessionStorage.getItem("whichDay");
   var wm = sessionStorage.getItem("whichMonth");
   var wy = sessionStorage.getItem("whichYear");
+  var whichDate = new Date(wy, wm-1, wd);
   var resdate = `${wy}-${wm}-${wd}`;
   var facNumber = sessionStorage.getItem("facNumber");
   var memAcct = "";
+
+  // 先取出公休日轉回數字陣列
+  var uODJ = sessionStorage.getItem("uODO");
+  var uODO = JSON.parse(uODJ);
+  var uODA = uODO.unOpenDayArray;
 
   // 這邊要載入設施當前的預約資料 
   function facResHist(wy, wm, wd) {
@@ -36,7 +42,7 @@ $(function () {
           var allRes = 0;     // 該時段的所有借用人數
           var selfRes = 0;    // 該時段自己借用的人數
 
-          var whichDate = new Date(wy, wm-1, wd);
+          whichDate = new Date(wy, wm-1, wd);
 
           // 先判斷現在時間及日期是早於還是晚於想預約的時段、決定是否關閉預約
           if(nowDate > whichDate){
@@ -51,9 +57,7 @@ $(function () {
 
           $.each(data, function (index, item) {
             if (item.histTime == open_time.text()) {    //比對資料庫的租借時間是否等同於網頁節點的時間值
-              
-              allRes = allRes + item.histAmount;
-              
+              allRes = allRes + item.histAmount;            
               if(item.memAcct == memAcct){      // 如果該筆資料是自己的
                 open_time.siblings("td").children("select").attr("disabled", "disabled");
                 open_time.siblings("td").children("input").attr("disabled", "disabled");
@@ -88,6 +92,12 @@ $(function () {
       error: function (xhr) {
         console.log("error");
         console.log(xhr);
+      },
+      complete: function (xhr) {
+        if(nowDate > whichDate){
+          alert("已過可預約日期");
+          $("td.edit").empty();
+        }
       }
     });
   }
@@ -109,6 +119,7 @@ $(function () {
       success: function (data) {   
         facMax = data.facMax;
         $("div#reserve_fac").html(data.facName);
+        sessionStorage.setItem("facName", data.facName);
       },
       error: function (xhr) {
         console.log("error");
@@ -171,8 +182,26 @@ $(function () {
       }
     });
   }
-  facDateTime(facNumber, wy, wm, wd);
 
+  // ========================== 初次環境及重整按鈕載入頁面 =======================
+  var reloadDay = new Date(wy, wm-1, wd);
+  var reloadClosed = 0;
+  for(var i = 0; i < uODA.length; i++){
+    if(reloadDay.getDay() == uODA[i]){
+      reloadClosed += 1;
+    }
+  }
+
+  if(reloadClosed == 0){
+    facDateTime(facNumber, wy, wm, wd);
+  } else {
+    $("div#reserve_fac").html(sessionStorage.getItem("facName"));
+    $("div.closed").remove();
+    $("table#reserve_list").after(
+      "<div class='closed'><img src='./images/closed-sign.png' alt='今日公休' title='今日公休'></div>"
+    );
+  }
+  ///////////////////////////////////////////////////////
 
   // 這邊可以先寫新增和刪除的ajax，底下再來呼叫
   // 租借
@@ -390,10 +419,7 @@ $(function () {
     var preday = new Date(wyNo, wmNo-1, wdNo);
     // 這邊先比對公休日，公休日就直接不載入預約環境
     var todayClosed = 0;
-    // 先取出公休日轉回數字陣列
-    var uODJ = sessionStorage.getItem("uODO");
-    var uODO = JSON.parse(uODJ);
-    var uODA = uODO.unOpenDayArray;
+
     for(var i = 0; i < uODA.length; i++){
       if(preday.getDay() == uODA[i]){
         todayClosed += 1;
@@ -439,10 +465,7 @@ $(function () {
     var nextday = new Date(wyNo, wmNo-1, wdNo);
     // 這邊先比對公休日，公休日就直接不載入預約環境
     var todayClosed = 0;
-    // 先取出公休日轉回數字陣列
-    var uODJ = sessionStorage.getItem("uODO");
-    var uODO = JSON.parse(uODJ);
-    var uODA = uODO.unOpenDayArray;
+
     for(var i = 0; i < uODA.length; i++){
       if(nextday.getDay() == uODA[i]){
         todayClosed += 1;

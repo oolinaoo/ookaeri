@@ -316,7 +316,9 @@ div.closed{
 
 div.closed img{
   display: inline-block;
-  width: 400px;
+  width: 38%;
+  opacity: 0.8;
+  transform: rotate(355deg);
 }
 
 
