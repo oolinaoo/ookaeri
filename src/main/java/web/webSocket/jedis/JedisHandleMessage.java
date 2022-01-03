@@ -4,11 +4,12 @@ import java.util.List;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import util.JedisUtil;
 
 public class JedisHandleMessage {
 	// 此範例key的設計為(發送者名稱:接收者名稱)，實際應採用(發送者會員編號:接收者會員編號)
 
-	private static JedisPool pool = JedisPoolUtil.getJedisPool();
+	private static JedisPool pool = JedisUtil.getJedisPool();
 
 	public static List<String> getHistoryMsg(String sender, String receiver) {
 		String key = new StringBuilder(sender).append(":").append(receiver).toString();
