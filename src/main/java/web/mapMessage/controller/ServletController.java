@@ -40,8 +40,8 @@ public class ServletController extends HttpServlet {
 
 		if ("inputToFav".equals(action)) {
 			String no = req.getParameter("storeNo");
-//			String mem = req.getParameter("mem");
-			String mem = "gina2";
+			String mem = req.getParameter("mem");
+			
 			
 			if (no.trim().isEmpty()) {
 				System.out.println("請選擇店家");
@@ -95,8 +95,8 @@ public class ServletController extends HttpServlet {
 		if("deleteFromFav".equals(action))
 		{
 			String no = req.getParameter("storeNo");
-//			String mem = req.getParameter("mem");
-			String mem = "gina2";
+			String mem = req.getParameter("mem");
+			
 			if(no.trim().isEmpty())
 			{
 				System.out.println("請選擇店家");
@@ -161,7 +161,7 @@ public class ServletController extends HttpServlet {
 
 		}
 		if ("inputComment".equals(action)) {
-//			String mem = req.getParameter("mem");
+			String mem = req.getParameter("mem");
 			String storeNoUsedInInputComment = req.getParameter("storeNoUsedInInputComment");
 			String commentContent = req.getParameter("comment");
 			if (storeNoUsedInInputComment.trim().isEmpty()) {
@@ -178,7 +178,7 @@ public class ServletController extends HttpServlet {
 
 			} else {
 				
-				String name = "gina1";
+			
 				Map_MessageService dao = new Map_MessageService();
 			
 			
@@ -187,7 +187,7 @@ public class ServletController extends HttpServlet {
 				
 					Long dateTime=System.currentTimeMillis();
 					Timestamp timestamp = new Timestamp(dateTime);
-					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, name, commentContent, timestamp, 0);
+					dao.addMap_MessageVO(messageId, storeNoUsedInInputComment, mem, commentContent, timestamp, 0);
 					req.setAttribute("commentRepeatOrNot", "commentNoRepeat");
 					RequestDispatcher good = req.getRequestDispatcher("/front-end/map/map_message/foodmap.jsp");
 					good.forward(req, res);

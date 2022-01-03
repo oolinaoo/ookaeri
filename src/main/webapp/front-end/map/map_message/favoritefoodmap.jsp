@@ -30,6 +30,7 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet"  type="text/css" href="<%=request.getContextPath()%>/front-end/pack/css/notify.css" />
+<link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
 <title>美食地圖我的最愛</title>
 <link rel="icon" href="<%=request.getContextPath()%>/front-end/map/images/logo2.png" />
 </head>
@@ -142,6 +143,7 @@
 							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem"> -->
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<input type="hidden" value="inputToFav" name="action" />
 							<button class="buttonFav" type="submit">加入至最愛</button>
 						</form>
@@ -151,6 +153,7 @@
 							<!-- 							<input type="hidden" value="MEM_ACCT" name="mem">  -->
 							<input type="hidden"
 								value="${sessionScope.storeNoUsedInCommentArea}" name="storeNo" />
+							<input type="hidden" value="${sessionScope.memAcct}" name="mem">
 							<input type="hidden" value="deleteFromFav" name="action" />
 							<button class="buttonDelteFav" type="submit">從最愛刪除</button>
 						</form>
@@ -158,20 +161,14 @@
 
 					</div>
 					<div class="message">
+					
+						<p class="favHead"
+							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
+					
 						<form class="inputcomment"
 							action="<%=request.getContextPath()%>/controller/FavServletController.do"
-							METHOD="post" style="margin: auto; max-width: 300px">
-							<input type="hidden" name="storeNoUsedInInputComment"
-								value="${sessionScope.storeNoUsedInCommentArea}"> <input
-								type="text" name="comment" style="margin-top: 30px;" value=""
-								placeholder="請輸入留言"> <input type="hidden" name="action"
-								value="inputComment">
-							<button type="submit" style="margin-top: 30px;"></button>
-						</form>
-						<p class="mapcommentHead"
-							style="margin-top: 0px; margin-bottom: 0px;">我的最愛</p>
-					<center>
-						<table class="comment-area" width="300px">
+							METHOD="post" style="margin: auto;">
+						<table class="fav-area" width="150px">
 							
 							<tbody>
 
@@ -180,9 +177,9 @@
 								<tr>
 									
 										<td>
-											<select size="1" name="pretty-select" >
+											<select size="1" name="selectFav" >
 												<c:forEach var="favVO" items="${Fav.all}">
-													<c:if test="${ favVO.MEM_ACCT==requestScope.userName}">
+													<c:if test="${ favVO.MEM_ACCT==sessionScope.memAcct}">
 														<c:if test="${favVO.MAP_STORE_NO==1}">
 															<option value="萬有全涮羊肉10491台灣台北市中山區南京東路三段223巷8號" >萬有全涮羊肉
 														</c:if>
@@ -249,13 +246,16 @@
 													</c:if>
 												</c:forEach>
 											</select>
+											
 										</td>
 									
 								</tr>
 
 							</tbody>
 						</table>
-					</center>
+						<input type="hidden" value="choseFav" name="action">
+						<input class="decide" type="submit" value="確定">
+					</form>
 
 					</div>
 				</div>
@@ -266,7 +266,22 @@
 			</div>
 		</div>
 	</div>
-
+<!-- 	<!--- 聊天室 ---> -->
+<!-- 	<div class="chatroom"> -->
+<!--     	<div class="friendlist"> -->
+    		
+<!--     	</div> -->
+<!--     	<div class="chatarea"> -->
+<!--     		<div class="statusOutput"></div> -->
+<!--     		<div class="msgbox"> -->
+<!--     			<ul id="area"></ul> -->
+<!--     			<input type="text" class="textbox"> -->
+<!--     			<input type="submit" class="send" value="送出"> -->
+<!--     		</div> -->
+<!--     	</div> -->
+<!--     </div> -->
+    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+    <span class="acct" style="display:none;"></span>
 
 	<script>
     function initMap() {
@@ -1139,7 +1154,7 @@
     </script>
     <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
-    
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
 </body>
 
 </html>

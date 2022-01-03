@@ -26,6 +26,7 @@
     <title>地圖商家資料</title>
     <link rel="icon" href="<%=request.getContextPath()%>/back-end/map/images/logo2.png">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/back-end/map/css/adminStyle.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
@@ -116,9 +117,26 @@
         </table>
       </div>
     </div>
-  
+    <!-- 聊天室 -->
+  <div class="chatroom">
+    	<div class="friendlist">
+    		
+    	</div>
+    	<div class="chatarea">
+    		<div class="statusOutput"></div>
+    		<div class="msgbox">
+    			<ul id="area"></ul>
+    			<input type="text" class="textbox">
+    			<input type="submit" class="send" value="送出">
+    		</div>
+    	</div>
+    </div>
+    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+    <span class="acct" style="display:none;"></span>
     <script src="<%=request.getContextPath()%>/back-end/map/vendor/jquery-3.6.0.min.js"></script>
     <script src="<%=request.getContextPath()%>/back-end/map/js/adminScript.js" charset="UTF-8"></script>
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
     <script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>
+    
   </body>
 </html>
