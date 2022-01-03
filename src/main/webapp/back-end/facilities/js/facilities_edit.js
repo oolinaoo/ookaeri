@@ -2,7 +2,7 @@ $(function () {
   // 清空各種欄位的函式
   function clean(){
     $("form#fac_details")[0].reset();
-    $(`input`).attr("checked", false);
+    $(`input`).removeAttr("checked");
     $("div.photo").empty();
     $("div").find("input#fphoto").val("");
   }
@@ -145,8 +145,9 @@ $(function () {
   // 新增公設的開放日
   function newFacDate(newestNo){
     for(var i = 1; i <= 7; i++){
-      if($(`input#fdate${i}`).is(":checked")){
+      if($(`input#fdate${i}`).is(":checked") || $(`input#fdate${i}`).attr("checked")=="checked"){
         var od = $(`input#fdate${i}`).val();
+        console.log($(`input#fdate${i}`).prop("checked"));
 
         $.ajax({
           url: "/okaeri/fac/addNewFacDate",
@@ -174,7 +175,7 @@ $(function () {
   // 新增公設的開放時段
   function newFacTime(newestNo){
     for(var i = 1; i <= 7; i++){
-      if($(`input#ftime${i}`).is(":checked")){
+      if($(`input#ftime${i}`).is(":checked") || $(`input#ftime${i}`).attr("checked")=="checked"){
         var fot = $(`input#ftime${i}`).next("label").html();
         var st = Number($(`input#ftime${i}`).val());
         var et = st + 2;
@@ -251,6 +252,10 @@ $(function () {
   // **************************  編輯公設  *********************//
   // 編輯時，列出公設資料的 ajax
   function editFac(facNoEdit){
+    for(var i = 1; i<=7; i++){
+      $("div.edit").find(`input#fdate${i}`).prop("checked", false);
+      $("div.edit").find(`input#ftime${i}`).prop("checked", false);
+    }
     $.ajax({
       url: "/okaeri/fac/listFacDetail",
       type: "POST",
@@ -270,10 +275,10 @@ $(function () {
         for(var i = 1; i <= 7; i++ ){
           $.each(data, function(index, item){
             if($("div.edit").find(`input#fdate${i}`).val()==item.facOpenDate){
-              $("div.edit").find(`input#fdate${i}`).attr("checked", true);  
+              $("div.edit").find(`input#fdate${i}`).prop("checked", true);  
             }
             if($("div.edit").find(`input#ftime${i}`).val()==item.startTime){
-              $("div.edit").find(`input#ftime${i}`).attr("checked", true);
+              $("div.edit").find(`input#ftime${i}`).prop("checked", true);
             }             
           });
         }
@@ -354,7 +359,9 @@ $(function () {
       },
       complete: function (xhr){
         facilitiesMap(addr);
-        clean();
+        // clean();
+        $("div.photo").empty();
+        $("div").find("input#fphoto").val("");
       }
     });
   }
@@ -409,4 +416,13 @@ $(function () {
     // 呼叫修改的主函式 
     facilitiesUpdate(facNoEdit);
   });
+
+  // // 
+  // $("input").on("click", function(){
+  //   console.log(this);
+  //   $(this).attr("checked") == "checked" ? $(this).attr("checked", false) : $(this).attr("checked","checked");
+  // });
+
+
+
 });

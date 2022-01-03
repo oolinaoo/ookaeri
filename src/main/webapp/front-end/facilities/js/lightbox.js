@@ -166,10 +166,27 @@
             var date = new Date(item.histDate);
    
             for(var i = 1; i <= 31; i++){
-              if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+              var zeroHistMonth;
+              var zeroHistDate;
+
+              if(histMonth < 10){
+                zeroHistMonth = `0${histMonth}`;
+              } else {
+                zeroHistMonth = histMonth;
+              }
+
+              if(i < 10){
+                zeroHistDate = `0${i}`;
+              } else {
+                zeroHistDate = i;
+              }
+
+              if(date.getDate() == $(`div.dt${histYear}-${zeroHistMonth}-${zeroHistDate}`).attr("data-number")){
                 $(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
                 $(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
-              } 
+              } else {
+                console.log("格式不對");
+              }
             }
           });
         },
@@ -179,7 +196,36 @@
         }
       });
     }
-      
+    
+    // 先判斷日期是否小於今天
+			function pastDay(){
+				var tY = sessionStorage.getItem("thisYear");
+				var tM = sessionStorage.getItem("thisMonth");
+				var tD = new Date();
+				console.log(tD);
+				var wY = sessionStorage.getItem("whichYear");
+				var wM = sessionStorage.getItem("whichMonth");
+
+				if(wY < tY){
+					for (var i = 1; i <= 31; i++){
+						$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+					}
+				} else if (wY == tY && wM < tM){
+					for (var i = 1; i <= 31; i++){
+						$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+						$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+					}
+				} else if (wY == tY && wM == tM){
+					for(var i = 0; i <= 31; i++){
+						if(i < tD.getDate()){
+							$(`div[data-number='${i}']`).css("background-color", "rgb(255, 245, 230)");
+							$(`div[data-number='${i}']`).children("a").attr("href", "###").attr("style", "cursor: not-allowed;");
+						}
+					}
+				}
+			}
+
     // 呼叫公設的公休日，先把該日的 a 標籤刪除
     function deleteUnopenDay(facNumber){
       $.ajax({
@@ -198,8 +244,16 @@
             $(`div[data-number='${i}']`).css("background-color", "white");
           }
 
+          pastDay();
+
+				  // 將公休日存入 session，因為可能是陣列，所以先用物件轉成 JSON 字串
+				  var unOpenDayObject = {};
+				  var unOpenDayArray = [];
+				  sessionStorage.removeItem("uODO");
           $.each(data, function(index, item){
-            console.log(item);
+					  unOpenDayArray.push(item);
+				    console.log(unOpenDayArray);
+					  
             for(var i = 1; i <= 31; i++){
               if($(`div[data-number='${i}']`).children("a").attr("data-day") == item){
                 $(`div[data-number='${i}']`).css("background-color", "#F2F2F2");
@@ -207,7 +261,8 @@
               }
             }
           });
-          
+          unOpenDayObject.unOpenDayArray = unOpenDayArray;
+				  sessionStorage.setItem("uODO", JSON.stringify(unOpenDayObject));
         },
         error: function (xhr) {
           console.log("error");

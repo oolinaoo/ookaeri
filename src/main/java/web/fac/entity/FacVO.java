@@ -9,6 +9,7 @@ public class FacVO {
 	private String facAddr;
 	private String facFloor;
 	private Integer facAddrNo;
+	private String adminAcct; 
 	
 	private String facOpenDate;
 	private String facOpenTime;
@@ -24,7 +25,7 @@ public class FacVO {
 
 	public FacVO(Integer facNo, String facName, Integer facMax, Integer facState, byte[] facPhoto, String facAddr,
 			String facFloor, Integer facAddrNo, String facOpenDate, String facOpenTime, Integer startTime,
-			Integer endTime, String allOpenDate, String allOpenTime) {
+			Integer endTime, String allOpenDate, String allOpenTime, String adminAcct) {
 		super();
 		this.facNo = facNo;
 		this.facName = facName;
@@ -34,6 +35,7 @@ public class FacVO {
 		this.facAddr = facAddr;
 		this.facFloor = facFloor;
 		this.facAddrNo = facAddrNo;
+		this.adminAcct = adminAcct;
 		this.facOpenDate = facOpenDate;
 		this.facOpenTime = facOpenTime;
 		this.startTime = startTime;
@@ -104,6 +106,14 @@ public class FacVO {
 
 	public void setFacAddrNo(Integer facAddrNo) {
 		this.facAddrNo = facAddrNo;
+	}
+
+	public String getAdminAcct() {
+		return adminAcct;
+	}
+
+	public void setAdminAcct(String adminAcct) {
+		this.adminAcct = adminAcct;
 	}
 
 	public String getFacOpenDate() {
