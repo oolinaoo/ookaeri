@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="./images/logo.png" />
     <link rel="bookmark" href="./images/logo.png" />
     <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -126,8 +127,8 @@
 
   <body>
     <!-- ==================header start====================== -->
-    <div class="circle1"></div>
-    <div class="circle2"></div>
+   <!-- <div class="circle1"></div>
+    <div class="circle2"></div>-->
     <div id="header">
       <p class="header_logo">
         <a href="/okaeri/front-end/homepage/homepage.html">
@@ -275,6 +276,22 @@
       <p class="copyright">© 2021 okaeri</p>
     </div>
     <!-- ==================footer end====================== -->
+     <!-- ==================聊天室====================== -->
+    <div class="chatroom">
+    	<div class="friendlist">
+    		
+    	</div>
+    	<div class="chatarea">
+    		<div class="statusOutput"></div>
+    		<div class="msgbox">
+    			<ul id="area"></ul>
+    			<input type="text" class="textbox">
+    			<input type="submit" class="send" value="送出">
+    		</div>
+    	</div>
+    </div>
+    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+    <span class="acct" style="display:none;"></span>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
@@ -288,5 +305,7 @@
     <script src="./JS/search.js"></script>
     <!-- ==============住戶包裹頁面JS===================== -->
     <script src="./JS/listpack.js"></script>
+    <!-- ==============聊天室JS===================== -->
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
   </body>
 </html>

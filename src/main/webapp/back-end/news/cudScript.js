@@ -3,10 +3,10 @@ $(".save")
 .on(
 		"click",
 		function() {
-			var admin = $("#admin").val();
-			var type = $("#type").val();
-			var title = $("#title").val();
-			var content = $("#content").val();
+			const admin = $('.menu span span span').html();
+			const type = $("#type").val();
+			const title = $("#title").val();
+			const content = $("#content").val();
 			let form_data = {
 				"adminAcct" : admin,
 				"newsTypeNo" : type,
@@ -24,7 +24,7 @@ $(".save")
 			var data = JSON.stringify(form_data); //將物件資料轉成字串
 			console.log(data);
 			xhr.send(data); //送出字串
-			lert("新增成功");
+			alert("新增成功");
 			$("#admin, #title, #content").val("");
 			$(".modal-returned, .overlay-returned").fadeOut();
 		});

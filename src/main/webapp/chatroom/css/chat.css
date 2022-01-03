@@ -73,6 +73,7 @@ ul#area{
 	padding-left:0;
 	max-width:350px;
 	max-height:216px;
+	min-height:215px;
 }
 li.me{
 	text-align:right;

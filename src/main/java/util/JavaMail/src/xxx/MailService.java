@@ -41,6 +41,7 @@ public class MailService {
 		   //給他一個token放進連結
 		   String token = UUID.randomUUID().toString().replace("-", "");
 		   StringBuilder messageText = new StringBuilder();
+		   messageText.append("<p>請點選以下連結進行修改，提醒您連結將於3分鐘後失效</p>");
 		   messageText.append("<a href='http://localhost:8080/okaeri/"); // need to change localhost once we use GCP
 		   messageText.append(controller);
 		   messageText.append("?token=");
@@ -63,7 +64,7 @@ public class MailService {
 		   Jedis jedis = new Jedis("localhost", 6379);
 		   jedis.set(token, memAcct);
 		   System.out.println(token);
-		   jedis.expire(token, 120); // setting timeout time (jedis will delete this token)
+		   jedis.expire(token, 180); // setting timeout time (jedis will delete this token)
 		   System.out.println("傳送成功!");
 		   jedis.close();
      }catch (MessagingException e){
