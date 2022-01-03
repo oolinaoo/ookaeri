@@ -7,6 +7,7 @@
     <title>管理包裹</title>
     <link rel="icon" href="logo2.png" >
     <link rel="stylesheet" href="./css/adminStyle.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.0.10/js/all.js"
@@ -67,12 +68,13 @@
       <h3>包裹管理</h3>
       <div class="search-bar">
         <label>search</label>
-        <input
+       <input
           type="text"
           class="searchTerm light-table-filter"
           placeholder="What are you looking for?"
           data-table="order-table"
-        />
+        /> 
+<!--         <input type="text" class="searchTerm" id="myInput" onkeyup="myFunction()" placeholder="What are you looking for?"> -->
         <a href="#" class="newPost-button">新增 </a>
       </div>
       <!-- 新增的表單 -->
@@ -154,7 +156,24 @@
         </table>
       </div>
     </div>
+    <div class="chatroom">
+    	<div class="friendlist">
+    		
+    	</div>
+    	<div class="chatarea">
+    		<div class="statusOutput"></div>
+    		<div class="msgbox">
+    			<ul id="area"></ul>
+    			<input type="text" class="textbox">
+    			<input type="submit" class="send" value="送出">
+    		</div>
+    	</div>
+    </div>
+    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+    <span class="acct" style="display:none;"></span>
+    
     <script src="./js/adminScript.js" charset="UTF-8"></script>
     <script src="/okaeri/back-end/util/sessionAdmin.js" charset="UTF-8"></script>
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
   </body>
 </html>

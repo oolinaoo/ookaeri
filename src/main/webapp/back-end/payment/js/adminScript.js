@@ -47,9 +47,9 @@ $(function () {
 			data[i].payDate = "";
 		}
 		if(data[i].payState == 0 ){
-			data[i].payState = "已繳費";
-		}else if(data[i].payState == 1){
 			data[i].payState = "未繳費";
+		}else if(data[i].payState == 1){
+			data[i].payState = "已繳費";
 		} 
 		$("table tbody").append(
 				"<tr><td class='payNo' contenteditable='false'>" + data[i].payNo +"</td>"
@@ -366,9 +366,9 @@ $("table").on("click",".fa-save", function() {
 	var tr = $(this).closest("tr");
 	var td = tr.find("td:eq(10)").text();
 	if(td == "已繳費"){
-		td = 0;
+		td = 1;
 	}else{
-		td= 1;
+		td= 0;
 	}
 	$.ajax({
 		url:"/okaeri/payment/update",
@@ -394,6 +394,7 @@ $("table").on("click",".fa-save", function() {
 		success: function(data){
 				//成功的話，執行此區塊
 		        alert("success");
+				refresh();
 		    	},
 		});
 		

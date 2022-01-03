@@ -498,3 +498,51 @@ function refresh() {
 	  pagess[0].style.color = "#ffffff";
 	};
 }
+//************ 搜尋框 ************
+/*function myFunction(){
+  let input, filter, tr, td, txtValue, flag;
+  input = document.getElementById("myInput");
+  input = input.value.trim();
+  //console.log(input);
+
+  //如果沒有輸入東西，就重新呼叫分頁函式，回到原本載入所有資料的狀態
+  if(input == ""){
+    $("div.page").remove();
+    paging();
+    //$("#nav a.active").click();
+    return; //結束程式
+  }
+
+  //如果有輸入東西，就把分頁移除
+  $("div.page").remove();
+  
+  filter = input.toUpperCase(); //如有英文字則全部轉為大寫，如為中文字就會維持原本的中文字
+  tr = document.getElementsByTagName("tr");
+  for(let i = 1; i < tr.length; i++){
+    flag = 0;
+    td = tr[i].getElementsByTagName("td");
+
+    // td.length要 -1 是因為最後一個td都是編輯按鈕
+    for(let j = 0; j < td.length-1; j++){
+      
+      txtValue = td[j].textContent || td[j].innerText;
+      //console.log(txtValue);  
+
+      // 如果大於 -1，表示該 td標籤中的文字 有包含 關鍵字
+      if(txtValue.toUpperCase().indexOf(filter) > -1){ 
+        flag = 1; 
+        break;
+      }
+    }
+    // 若 flag == 1 表示該tr標籤中有包含關鍵字，就顯示該tr
+    if(flag == 1){
+      tr[i].style.display = "table-row";
+      tr[i].style.opacity = 1;
+    }else{
+      tr[i].style.display = "none";
+      tr[i].style.opacity = 0;
+    }
+
+  }
+  
+}*/
