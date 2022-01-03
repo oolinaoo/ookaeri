@@ -56,10 +56,15 @@ public class reptServletController extends HttpServlet {
 			}
 			
 			int report=1;//0.不創造檢舉物件 1.創造檢舉物件
-			String memAcct=req.getParameter("memAcct");//檢舉者帳號
-			String adminAcct=req.getParameter("adminAcct");//管理者帳號
+			String memAcct=req.getParameter("mem");//檢舉者帳號
+			System.out.println("檢舉者帳號:" +memAcct);
+//			String adminAcct="gary1";//管理者帳號
+			String adminAcct=req.getParameter("admit");//管理者帳號
+			System.out.println("管理者帳號:" +adminAcct);
 			Integer messageNO =Integer.valueOf(req.getParameter("messageNO"));//被檢舉的留言編號
+			System.out.println("被檢舉的留言編號:" +messageNO);
 			String reptMessage= req.getParameter("reptMessage");//被檢舉原因
+			System.out.println("被檢舉原因:" +reptMessage);
 			Map_ReportService dao= new Map_ReportService();
 			List<Map_ReportVO> allMes=dao.getAll();
 			Iterator<Map_ReportVO> it =allMes.iterator();
