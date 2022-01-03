@@ -36,11 +36,53 @@ public class FavServletController extends HttpServlet {
 		String action = req.getParameter("action");
 
 		System.out.println("送出指令:" + action);
+		
+		
+		if ("choseFav".equals(action)) {
+
+			String selectFav = req.getParameter("selectFav");
+			if(selectFav.trim().isEmpty())
+			{
+				RequestDispatcher failure = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
+				failure.forward(req, res);
+				return;
+			}
+		
+			Map_Store_InfoService dao = new Map_Store_InfoService();
+			List<Map_Store_InfoVO> allStoreInfo = dao.getAll();
+			Iterator<Map_Store_InfoVO> it = allStoreInfo.iterator();
+
+			while (it.hasNext()) {
+				
+				String storeNo="";
+				String completeInfo="";
+				
+				Map_Store_InfoVO storeInfo = it.next();
+				completeInfo = storeInfo.getMAP_STORE_NAME()+storeInfo.getMAP_STORE_ADDR();
+				
+			
+
+				if (selectFav.equals(completeInfo)) {
+
+				
+					HttpSession session = req.getSession();
+					completeInfo=storeInfo.getMAP_STORE_NAME()+storeInfo.getMAP_STORE_ADDR();
+					session.setAttribute("storeINFO", completeInfo);// 將商家資訊存在setAttribute並藉由forward回傳給JSP
+					storeNo = storeInfo.getMAP_STORE_NO();
+					session.setAttribute("storeNoUsedInCommentArea", storeNo);// 將商家編號存在setAttribute並藉由forward回傳給JSP
+
+					break;
+				}
+			}
+			RequestDispatcher success = req.getRequestDispatcher("/front-end/map/map_message/favoritefoodmap.jsp");
+			success.forward(req, res);
+
+		}
 
 		if ("inputToFav".equals(action)) {
 			String no = req.getParameter("storeNo");
-//			String mem = req.getParameter("mem");
-			String mem = "gina2";
+			String mem = req.getParameter("mem");
+		
 			
 			if (no.trim().isEmpty()) {
 				System.out.println("請選擇店家");
@@ -94,8 +136,8 @@ public class FavServletController extends HttpServlet {
 		if("deleteFromFav".equals(action))
 		{
 			String no = req.getParameter("storeNo");
-//			String mem = req.getParameter("mem");
-			String mem = "gina2";
+			String mem = req.getParameter("mem");
+			
 			if(no.trim().isEmpty())
 			{
 				System.out.println("請選擇店家");
