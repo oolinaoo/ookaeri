@@ -3,6 +3,7 @@ $(function () {
   function clean(){
     $("form#fac_details")[0].reset();
     $(`input`).removeAttr("checked");
+    $(`input`).prop("checked", false);
     $("div.photo").empty();
     $("div").find("input#fphoto").val("");
   }
@@ -31,7 +32,7 @@ $(function () {
             if(item.facState == 0){
               fac.attr("data-title", `${item.facName}`);
               fac.children("div").empty();
-              fac.children("div").append(`${item.facName}`);
+              fac.children("div").append(`${item.facName}`).removeAttr("style");
               fac.attr("data-facno", `${item.facNo}`);
               fac.attr("data-state", `${item.facState}`);
             } else {
@@ -403,18 +404,27 @@ $(function () {
     $("div.photo").empty();
   });
 
+  var nameRE = /^[\u4e00-\u9fa5_a-zA-Z()（）]{1,7}/;
   // 按下確認新增資料
   $("div.overlay").find("input.confirm").on("click", function(){
-    $("div.overlay").fadeOut();
-    // 呼叫新增公設的主函式，再由主函式呼叫兩個時間表的新增
-    facilitiesAdd();
+    if($("div.overlay").find("input#fname").val().match(nameRE) != null){
+      $("div.overlay").fadeOut();
+      // 呼叫新增公設的主函式，再由主函式呼叫兩個時間表的新增
+      facilitiesAdd(); 
+    } else {
+      alert("設施名稱格式有誤！");
+    }
   });
 
   // 按下修改確認修改資料
   $("div.edit").find("input.confirm").on("click", function(){
-    $("div.edit").fadeOut();
-    // 呼叫修改的主函式 
-    facilitiesUpdate(facNoEdit);
+    if($("div.edit").find("input#fname").val().match(nameRE) != null){
+      $("div.edit").fadeOut();
+      // 呼叫修改的主函式 
+      facilitiesUpdate(facNoEdit);
+    } else {
+      alert("設施名稱格式有誤！");
+    }
   });
 
   // // 

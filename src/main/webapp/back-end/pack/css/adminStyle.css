@@ -378,7 +378,7 @@ select {
 
 /*button
 =============================================*/
-a.newPost-button {
+a#newPost-button {
   -webkit-border-radius: 20px !important;
   -moz-border-radius: 20px !important;
   border-radius: 20px !important;
@@ -386,18 +386,18 @@ a.newPost-button {
   font-family: Verdana !important;
   font-size: 15px !important;
   font-weight: 300 !important;
-  padding: 10px !important;
-  background-color: #df905e !important;
-  -webkit-box-shadow: 3px 2px 5px 1px #948a8a !important;
-  -moz-box-shadow: 3px 2px 5px 1px #948a8a !important;
-  box-shadow: 3px 2px 5px 1px #948a8a !important;
-  text-decoration: none !important;
-  display: inline-block !important;
-  position: flex !important;
-  cursor: pointer !important;
-  text-align: center !important;
-  width: 50px !important;
-  margin-left: 30px !important;
+  padding: 10px;
+  background-color: #df905e;
+  -webkit-box-shadow: 3px 2px 5px 1px #948a8a;
+  -moz-box-shadow: 3px 2px 5px 1px #948a8a;
+  box-shadow: 3px 2px 5px 1px #948a8a;
+  text-decoration: none;
+  display: inline-block;
+  position: flex;
+  cursor: pointer;
+  text-align: center;
+  width: 50px;
+  margin-left: 30px;
 }
 
 .newPost-button:hover {
@@ -412,10 +412,10 @@ a.newPost-button {
 /*search bar
 =============================================*/
 .search-bar {
-  width: 35%;
+  width: 90%;
   margin: 0 auto;
   margin-bottom: 20px;
-  margin-left: 600px;
+  text-align:right;
 }
 .search-bar label {
   font-size: 18px;

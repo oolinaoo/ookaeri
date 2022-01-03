@@ -523,7 +523,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				type: "GET",
 				data: {
 					"facNo": facNumber,
-					"month": histMonth
+					"month": histMonth,
+					"year": histYear
 				},
 				dataType: "json",
 				headers: {
@@ -534,7 +535,22 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 						var date = new Date(item.histDate);
 			
 						for(var i = 1; i <= 31; i++){
-							if(date.getDate() == $(`div.dt${histYear}-${histMonth}-${i}`).attr("data-number")){
+							var zeroHistMonth = 0;
+							var zeroHistDate = 0;
+			  
+							if(histMonth < 10){
+							  zeroHistMonth = `0${histMonth}`;
+							} else {
+							  zeroHistMonth = histMonth;
+							}
+			  
+							if(i < 10){
+							  zeroHistDate = `0${i}`;
+							} else {
+							  zeroHistDate = i;
+							}
+
+							if(date.getDate() == $(`div.dt${histYear}-${zeroHistMonth}-${zeroHistDate}`).attr("data-number")){
 								$(`div[data-number='${i}']`).find("div.monthly-frequence").empty();
 								$(`div[data-number='${i}']`).find("div.monthly-frequence").prepend(`<div class='green'></div>`);
 							} 

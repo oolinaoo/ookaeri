@@ -266,20 +266,20 @@
 			</div>
 		</div>
 	</div>
-<!-- 	<!--- 聊天室 ---> -->
-<!-- 	<div class="chatroom"> -->
-<!--     	<div class="friendlist"> -->
+	<!--- 聊天室 - -->
+	<div class="chatroom">
+    	<div class="friendlist">
     		
-<!--     	</div> -->
-<!--     	<div class="chatarea"> -->
-<!--     		<div class="statusOutput"></div> -->
-<!--     		<div class="msgbox"> -->
-<!--     			<ul id="area"></ul> -->
-<!--     			<input type="text" class="textbox"> -->
-<!--     			<input type="submit" class="send" value="送出"> -->
-<!--     		</div> -->
-<!--     	</div> -->
-<!--     </div> -->
+    	</div>
+    	<div class="chatarea">
+    		<div class="statusOutput"></div>
+    		<div class="msgbox">
+    			<ul id="area"></ul>
+    			<input type="text" class="textbox">
+    			<input type="submit" class="send" value="送出">
+    		</div>
+    	</div>
+    </div>
     <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
     <span class="acct" style="display:none;"></span>
 

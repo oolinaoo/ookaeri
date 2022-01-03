@@ -155,7 +155,8 @@
         type: "GET",
         data: {
           "facNo": facNumber,
-          "month": histMonth
+          "month": histMonth,
+					"year": histYear
         },
         dataType: "json",
         headers: {
@@ -166,8 +167,8 @@
             var date = new Date(item.histDate);
    
             for(var i = 1; i <= 31; i++){
-              var zeroHistMonth;
-              var zeroHistDate;
+              var zeroHistMonth = 0;
+              var zeroHistDate = 0;
 
               if(histMonth < 10){
                 zeroHistMonth = `0${histMonth}`;
