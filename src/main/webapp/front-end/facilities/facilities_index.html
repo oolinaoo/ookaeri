@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./css/calendar.css" />
     <link rel="stylesheet" href="./css/facilities.css" />
     <link rel="stylesheet" href="/okaeri/front-end/pack/css/notify.css" />
+    <link rel="stylesheet" href="/okaeri/chatroom/css/chat.css" />
   </head>
 
   <body>
@@ -232,7 +233,22 @@
       <p class="copyright">© 2021 okaeri</p>
     </div>
 
-    <!-- =============================== 聊天室 =============================== -->
+      <!-- ================  聊天室 =============== -->
+      <div class="chatroom">
+        <div class="friendlist">
+            
+        </div>
+        <div class="chatarea">
+          <div class="statusOutput"></div>
+          <div class="msgbox">
+            <ul id="area"></ul>
+            <input type="text" class="textbox">
+            <input type="submit" class="send" value="送出">
+          </div>
+        </div>
+      </div>
+      <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
+      <span class="acct" style="display:none;"></span>  
 
     <!-- =============================== Script =============================== -->
 
@@ -244,6 +260,7 @@
     <script src="./js/lightbox.js"></script>
     <script src="/okaeri/front-end/pack/JS/notify.js" charset="UTF-8"></script>
 	  <script src="/okaeri/front-end/util/sessionMem.js" charset="UTF-8"></script>
+    <script src="/okaeri/chatroom/js/chat.js" charset="UTF-8"></script>
 	
     <script type="text/javascript">
       var sampleEvents = {
