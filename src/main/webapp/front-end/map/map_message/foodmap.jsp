@@ -244,8 +244,8 @@
 												</c:if>
 											</c:forEach>
 										</select> 
-										<input type="text" name="reptMessage" value="" style="width:240px; />
-										<!-- 檢舉原因 -->
+										<input type="text" name="reptMessage" value="" style="width:240px;" />
+										
 										<input type="hidden" name="action" value="reportComments" />
 										<button class="reportButton" type="submit" style="position:relative">檢舉</button>
 									</form>
