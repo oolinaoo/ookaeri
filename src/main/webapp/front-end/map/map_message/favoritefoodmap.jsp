@@ -280,8 +280,8 @@
 <!--     		</div> -->
 <!--     	</div> -->
 <!--     </div> -->
-    <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button>
-    <span class="acct" style="display:none;"></span>
+<!--     <button class="msgicon"><img class="msgicon"  src="/okaeri/chatroom/images/messenger.png"></button> -->
+<!--     <span class="acct" style="display:none;"></span> -->
 
 	<script>
     function initMap() {
