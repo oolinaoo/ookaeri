@@ -242,7 +242,6 @@ const btnsOpenModalReturned = document.querySelectorAll(".newPost-button");
 //按新增顯示視窗
 $(function () {
     $(".newPost-button").on("click", function () {
-    	console.log("111");
       $("div.hidden_form").css("display", "block");
       $("div.hidden_form").fadeIn;
       //接收後端資料到前端顯示
