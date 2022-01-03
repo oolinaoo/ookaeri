@@ -378,26 +378,26 @@ select {
 
 /*button
 =============================================*/
-.newPost-button {
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  border-radius: 20px;
-  color: #ffffff;
-  font-family: Verdana;
-  font-size: 15px;
-  font-weight: 300;
-  padding: 10px;
-  background-color: #df905e;
-  -webkit-box-shadow: 3px 2px 5px 1px #948a8a;
-  -moz-box-shadow: 3px 2px 5px 1px #948a8a;
-  box-shadow: 3px 2px 5px 1px #948a8a;
-  text-decoration: none;
-  display: inline-block;
-  position: flex;
-  cursor: pointer;
-  text-align: center;
-  width: 50px;
-  margin-left: 30px;
+a.newPost-button {
+  -webkit-border-radius: 20px !important;
+  -moz-border-radius: 20px !important;
+  border-radius: 20px !important;
+  color: #ffffff !important;
+  font-family: Verdana !important;
+  font-size: 15px !important;
+  font-weight: 300 !important;
+  padding: 10px !important;
+  background-color: #df905e !important;
+  -webkit-box-shadow: 3px 2px 5px 1px #948a8a !important;
+  -moz-box-shadow: 3px 2px 5px 1px #948a8a !important;
+  box-shadow: 3px 2px 5px 1px #948a8a !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  position: flex !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  width: 50px !important;
+  margin-left: 30px !important;
 }
 
 .newPost-button:hover {
@@ -412,7 +412,7 @@ select {
 /*search bar
 =============================================*/
 .search-bar {
-  width: 90%;
+  width: 35%;
   margin: 0 auto;
   margin-bottom: 20px;
   margin-left: 600px;
