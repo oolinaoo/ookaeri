@@ -71,7 +71,7 @@ var overlay = `
                     <tr>
                         <th>住戶帳號</th>
                         <td>
-                            <input type="text" id="memAcct" value="gina86666">
+                            <input type="text" id="memAcct" value="">
                             <div class="errorMsg" id="errAcct">
                             </div>
                         </td>
@@ -79,7 +79,7 @@ var overlay = `
                     <tr>
                         <th>密碼</th>
                         <td>
-                            <input type="text" id="memPwd" value="pwdpwd123">
+                            <input type="text" id="memPwd" value="">
                             <div class="errorMsg" id="errPwd">
                             </div>
                         </td>
@@ -87,7 +87,7 @@ var overlay = `
                     <tr>
                         <th>姓名</th>
                         <td>
-                            <input type="text" id="memName" value="居小居">
+                            <input type="text" id="memName" value="">
                             <div class="errorMsg" id="errName">
                             </div>
                         </td>
@@ -95,7 +95,7 @@ var overlay = `
                     <tr>
                         <th>生日</th>
                         <td>
-                            <input id="memBirthday" type="text" autocomplete="off" placeholder="請選擇日期" value="1997-10-10">
+                            <input id="memBirthday" type="text" autocomplete="off" placeholder="請選擇日期" value="">
                             <div class="errorMsg" id="errBirthday">
                             </div>
                         </td>
@@ -103,7 +103,7 @@ var overlay = `
                     <tr>
                         <th>身分證字號</th>
                         <td>
-                            <input type="text" id="memId" value="B222222222">
+                            <input type="text" id="memId" value="">
                             <div class="errorMsg" id="errId">
                             </div>
                         </td>
@@ -124,7 +124,7 @@ var overlay = `
                     <tr>
                         <th>聯絡電話(手機)</th>
                         <td>
-                            <input type="text" id="memPhone" value="0988888888">
+                            <input type="text" id="memPhone" value="">
                             <div class="errorMsg" id="errPhone">
                             </div>
                         </td>
@@ -132,7 +132,7 @@ var overlay = `
                     <tr>
                         <th>電子信箱</th>
                         <td>
-                            <input type="text" id="memEmail" value="gina86666@gmail.com">
+                            <input type="text" id="memEmail" value="">
                             <div class="errorMsg" id="errEmail">
                             </div>
                         </td>
@@ -159,7 +159,7 @@ var overlay = `
                                         <span class="minus">-</span>
                                         <span class="plus">+</span>
                                     </div>
-                                    <input type="text" class="famMems" value="居大居" style="width:65px;" >
+                                    <input type="text" class="famMems" value="" style="width:65px;" >
                                 </div>
                             </div>
                             <div class="errorMsg" id="errFams">
@@ -427,7 +427,6 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
                         <td>${memBuild}棟${memFloor}樓${memRoom}房</td>
                         <td>${memState}</td>
                         <td class='del_edit_btn'>
-                            <i class='fa fa-minus-circle'></i> 
                             <i class='fa fa-edit'></i> 
                             <div class="member_overlay" style="border: 1px solid red;"></div>
                         </td>
@@ -501,7 +500,7 @@ $("div.member_overlay").on("click", "button.mem_btnConfirmAdd", function () {
 
                 famMems = JSON.parse(famMems);
                 famMemsList(famMems);
-                
+                alert(`資料格式有誤，請查看！`); 
             }else if(data.msg == "fail"){
                 alert(`住戶帳號新增失敗！`); 
             }
@@ -770,7 +769,7 @@ $("#addr_table").on("click", "button.mem_btnConfirmEdit", function () {
     
                 famMems = JSON.parse(famMems);
                 famMemsList(famMems);
-
+                alert(`資料格式有誤，請查看！`); 
             }else if(data.msg == "fail"){
                 alert(`住戶帳號更新失敗！`); 
             }

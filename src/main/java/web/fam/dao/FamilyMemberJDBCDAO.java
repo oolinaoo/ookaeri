@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import util.Util;
 import web.fam.entity.FamilyMemberVO;
 import web.fam.service.FamilyMemberService;
@@ -25,14 +30,23 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 	private static final String GET_ALL_STMT = 
 			"SELECT FAM_MEM_NO, MEM_ACCT, FAM_MEM_NAME FROM OKAERI.FAMILY_MEMBER order by FAM_MEM_NO";
 	
+	private static DataSource dataSource;
+	static {
+		  try {
+		   Context ctx = new InitialContext();
+		   dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/OKAERI");
+		  } catch (NamingException e) {
+		   e.printStackTrace();
+		  }
+	 }
+	
 	@Override
 	public void insert(FamilyMemberVO family_memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, family_memberVO.getMemAcct());
@@ -41,9 +55,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			pstmt.executeUpdate();
 			System.out.println("新增成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
@@ -109,8 +121,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, family_memberVO.getMemAcct());
@@ -120,9 +131,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			pstmt.executeUpdate();
 			//System.out.println("更新成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
@@ -201,8 +210,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setInt(1, fam_mem_no);
@@ -210,8 +218,6 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			pstmt.executeUpdate();
 			//System.out.println("刪除成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -304,8 +310,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, fam_mem_no);
@@ -321,8 +326,6 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			}
 			//System.out.println("查詢成功");
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -362,8 +365,7 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			rs = pstmt.executeQuery();
@@ -377,8 +379,6 @@ public class FamilyMemberJDBCDAO implements FamilyMemberDAO_interface{
 			}
 			//System.out.println("查詢成功");
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {

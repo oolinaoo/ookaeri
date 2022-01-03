@@ -22,14 +22,22 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import util.JedisUtil;
 
 
 public class WeatherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static JedisPool pool = null;
+	static {
+		pool = JedisUtil.getJedisPool();
+	 }
+	
 	public static final String WEATHER_URL = "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-061?"
 			+ "Authorization=CWB-5C1ADB17-6D5F-4A9D-BDBA-4869653D1148&"
 			+ "format=JSON&"
-			+ "locationName=大安區&"
+			+ "locationName=中山區&"
 			+ "elementName=Wx,PoP6h,T";
 	
 	Timer timer;
@@ -45,7 +53,7 @@ public class WeatherServlet extends HttpServlet {
 					HttpURLConnection con = (HttpURLConnection)url.openConnection();
 					con.setRequestMethod("GET");
 					if (con.getResponseCode() == 200) {
-						jedis = new Jedis("localhost", 6379);
+						jedis = pool.getResource();
 						is = con.getInputStream();
 						isr = new InputStreamReader(is);
 						br = new BufferedReader(isr);
@@ -130,6 +138,7 @@ public class WeatherServlet extends HttpServlet {
 	public void destroy() {
 		timer.cancel();
 		System.out.println("天氣已移除排程!");  
+		JedisUtil.shutdownJedisPool();
 	}
 
 }

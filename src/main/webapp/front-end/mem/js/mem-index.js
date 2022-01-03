@@ -3,9 +3,46 @@ let path = window.location.pathname; //webapp的專案路徑
 var projectPath = path.substring(0, path.indexOf("/", 1)); // /Okaeri
 
 
+//ajax to logout
+$("#profile_logout").on("click", function()  {
+	console.log("enter");
+	let url = "/okaeri/login/logout";
+	let xhr = new XMLHttpRequest();
+	xhr.open("GET", url);
+	xhr.send(); 
+	xhr.onload = function() {
+		let data = JSON.parse(this.responseText);
+		console.log(data);
+		 if (data == true) {
+		 window.location = "/okaeri/login/login.html"
+		 }
+	};
+});
+
+
 //ajax get login mem
 var user_id;
 function getMemAcct(){
+
+
+	$.ajax({
+		url: "/okaeri/login/getUserPhoto",
+	    type: "GET",
+	    data: "",
+	    dataType: "json",
+	    success: function (data) {
+	      console.log(data);
+	      $("#navbar_profile_memAcct").prepend(`
+		  	<img class="profile_photo" src="data:image/jpeg;base64,${data.memPhoto}" alt="user" />
+	      `);
+	    },
+	    error: function (xhr) {
+	        console.log("error");
+	    },
+		
+	});
+
+
 	$.ajax({
 	  url: "/okaeri/login/getMemSession",
 	  type: "GET",

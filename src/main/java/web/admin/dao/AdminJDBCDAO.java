@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import util.Util;
 import web.admin.entity.AdminVO;
 
@@ -23,14 +28,23 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 	private static final String GET_ALL_STMT = 
 			"SELECT ADMIN_ACCT, ADMIN_PWD, ADMIN_NAME, ADMIN_POS, ADMIN_STATE, ADMIN_PHONE FROM OKAERI.ADMIN order by ADMIN_ACCT";
 	
+	private static DataSource dataSource;
+	static {
+		  try {
+		   Context ctx = new InitialContext();
+		   dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/OKAERI");
+		  } catch (NamingException e) {
+		   e.printStackTrace();
+		  }
+	 }
+	
 	@Override
 	public void insert(AdminVO adminVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, adminVO.getAdminAcct());
@@ -42,9 +56,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
@@ -71,8 +83,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, adminVO.getAdminPwd());
@@ -84,9 +95,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
@@ -114,16 +123,13 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		Integer affectedRows = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, admin_acct);
 			affectedRows = pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
@@ -155,8 +161,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setString(1, admin_acct);
@@ -173,9 +178,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 				adminVO.setAdminPhone(rs.getString("ADMIN_PHONE"));
 			}
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
-		} catch (SQLException se) {
+		}catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
 			if (rs != null) {
@@ -213,11 +216,8 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
-
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
@@ -231,8 +231,6 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 				list.add(adminVO);
 			}
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -263,10 +261,10 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		
 	}
 	
-	public static void main(String[] args) {
-		AdminJDBCDAO dao = new AdminJDBCDAO();
-		
-		//新增
+//	public static void main(String[] args) {
+//		AdminJDBCDAO dao = new AdminJDBCDAO();
+//		
+//		//新增
 //		AdminVO adminVO1 = new AdminVO();
 //		adminVO1.setAdminAcct("Tina4321");
 //		adminVO1.setAdminPwd("pwd12345");
@@ -275,8 +273,8 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 //		adminVO1.setAdminState(0);
 //		adminVO1.setAdminPhone("0987654321");
 //		dao.insert(adminVO1);
-		
-		//修改
+//		
+//		//修改
 //		AdminVO adminVO2 = new AdminVO();
 //		adminVO2.setAdminAcct("Tina1234");
 //		adminVO2.setAdminPwd("pwd54321");
@@ -285,11 +283,11 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 //		adminVO2.setAdminState(0);
 //		adminVO2.setAdminPhone("0987654321");
 //		dao.update(adminVO2);
-		
-		//刪除
+//		
+//		//刪除
 //		dao.delete("Tina1234");
-		
-		//查詢
+//		
+//		//查詢
 //		AdminVO adminVO3 = dao.findByPrimaryKey("Tina4321");
 //		System.out.print( adminVO3.getAdminAcct() + ",");
 //		System.out.print( adminVO3.getAdminPwd()+ ",");
@@ -298,20 +296,20 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 //		System.out.print( adminVO3.getAdminState() + ",");
 //		System.out.println( adminVO3.getAdminPhone());
 //		System.out.println("---------------------");
-		
-		//查詢多筆
-		List<AdminVO> list = dao.getAll();
-		for(AdminVO aAdmin : list) {
-			System.out.print( aAdmin.getAdminAcct() + ",");
-			System.out.print( aAdmin.getAdminPwd()+ ",");
-			System.out.print( aAdmin.getAdminName() + ",");
-			System.out.print( aAdmin.getAdminPos() + ",");
-			System.out.print( aAdmin.getAdminState() + ",");
-			System.out.print( aAdmin.getAdminPhone());
-			System.out.println();
-		}
-		
-	}
+//		
+//		//查詢多筆
+//		List<AdminVO> list = dao.getAll();
+//		for(AdminVO aAdmin : list) {
+//			System.out.print( aAdmin.getAdminAcct() + ",");
+//			System.out.print( aAdmin.getAdminPwd()+ ",");
+//			System.out.print( aAdmin.getAdminName() + ",");
+//			System.out.print( aAdmin.getAdminPos() + ",");
+//			System.out.print( aAdmin.getAdminState() + ",");
+//			System.out.print( aAdmin.getAdminPhone());
+//			System.out.println();
+//		}
+//		
+//	}
 
 
 }

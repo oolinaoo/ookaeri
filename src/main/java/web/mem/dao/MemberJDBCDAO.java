@@ -12,6 +12,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import util.Util;
 import web.fam.dao.FamilyMemberJDBCDAO;
 import web.fam.entity.FamilyMemberVO;
@@ -31,14 +36,23 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 	private static final String GET_ALL_STMT = 
 			"SELECT MEM_ACCT, MEM_PWD, MEM_NAME, MEM_ID, MEM_SEX, MEM_EMAIL, MEM_BIRTHDAY, ADDR_NO, MEM_PHOTO, MEM_PHONE, ACCT_CREATETIME, MEM_STATE FROM OKAERI.MEMBER order by ADDR_NO";
 	
+	private static DataSource dataSource;
+	static {
+		  try {
+		   Context ctx = new InitialContext();
+		   dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/OKAERI");
+		  } catch (NamingException e) {
+		   e.printStackTrace();
+		  }
+	 }
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, memberVO.getMemAcct());
@@ -56,8 +70,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.executeUpdate();
 			//System.out.println("新增成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -87,8 +99,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			
 			con.setAutoCommit(false);
 			
@@ -120,9 +131,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			System.out.println("新增住戶帳號" + memberVO.getMemAcct() + "時,共有同住家人" + famMemVOList.size()
 			+ "人同時被新增");
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			if(con != null) {
 				try {
@@ -162,8 +170,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, memberVO.getMemPwd());
@@ -180,8 +187,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			pstmt.executeUpdate();
 			//System.out.println("更新成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -213,8 +218,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		Integer affectedRows = null;
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement("UPDATE OKAERI.MEMBER set MEM_PWD=? where MEM_ACCT = ?");
 			
 			pstmt.setString(1, memberVO.getMemPwd());
@@ -222,8 +226,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			affectedRows = pstmt.executeUpdate();
 			//System.out.println("更新成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -253,8 +255,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			
 			con.setAutoCommit(false);
 			
@@ -280,9 +281,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			System.out.println("更新住戶帳號" + memberVO.getMemAcct() + "時,共有同住家人" + famMemAryList.size()
 			+ "人同時被新增");
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 		} catch (SQLException se) {
 			if(con != null) {
 				try {
@@ -322,8 +320,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		Integer affectedRows = null;
 		
 		try {
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, mem_acct);
@@ -331,8 +328,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			affectedRows = pstmt.executeUpdate();
 			//System.out.println("刪除成功");
 			
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -405,8 +400,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setString(1, mem_acct);
@@ -430,8 +424,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			}
 			//System.out.println("查詢成功");
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -472,8 +464,7 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 		
 		try {
 
-			Class.forName(Util.DRIVER);
-			con = DriverManager.getConnection(Util.URL, Util.USER, Util.PASSWORD);
+			con = dataSource.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			rs = pstmt.executeQuery();
@@ -496,8 +487,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 			}
 			//System.out.println("查詢成功");
 
-		} catch (ClassNotFoundException ce) {
-			ce.printStackTrace();
 		} catch (SQLException se) {
 			se.printStackTrace();
 		} finally {
@@ -620,11 +609,6 @@ public class MemberJDBCDAO implements MemberDAO_interface{
 //		
 //		
 //	}
-	
-	
-	
-
-	
 
 
 }

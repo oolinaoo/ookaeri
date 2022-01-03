@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,6 +22,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sql.DataSource;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,6 +30,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import util.JedisUtil;
 import web.addr.entity.AddressVO;
 import web.addr.service.AddressService;
 import web.fam.entity.FamilyMemberVO;
@@ -38,12 +44,21 @@ import web.mem.service.MemberService;
 
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private static JedisPool pool = null;
+	static {
+		pool = JedisUtil.getJedisPool();
+	 }
+	
+	public void destroy() {
+		JedisUtil.shutdownJedisPool();
+	}
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		doPost(req, res);
 	}
-
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse res) 
 			throws ServletException, IOException {
 		
@@ -457,7 +472,7 @@ public class MemberServlet extends HttpServlet {
 			if( memId == null || memId.trim().length() == 0 ) {
 				returnJobject.addProperty("errId", "身分證欄位請勿空白");
 			}else if(!memId.trim().matches(idReg)) {
-				returnJobject.addProperty("errId", "不符合身分證格式");
+				returnJobject.addProperty("errId", "不符合身分證字號格式");
 			}
 			
 			String memSex = req.getParameter("memSex");
@@ -866,7 +881,8 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				//jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				String user_id = req.getParameter("user_id");
 				String jArrayStr = jedis.get("user_id:"+ user_id);
 				//如果Redis資料庫沒有該帳號的資料，就幫該用戶創一個，並放入空的JsonArray
@@ -891,7 +907,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				Gson gson = new Gson();
 				
 				String user_id = req.getParameter("user_id"); 
@@ -937,7 +953,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				
 				String user_id = req.getParameter("user_id");
 				String sort_item = req.getParameter("data"); //為欲更新的item_id 與 排序數值
@@ -990,10 +1006,10 @@ public class MemberServlet extends HttpServlet {
 		}
 		
 		//****************** 住戶中心首頁(前台)：刪除單筆待辦事項 *******************
-		if("delOneToDo".equals(action)) {
+		if("delOneToDo".equals(action)) {		
 			Jedis jedis = null;
 			try {
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				res.setContentType("text/plain; charset=UTF-8");
 				String user_id = req.getParameter("user_id");
 				String item_id = req.getParameter("item_id"); //欲刪除的待辦事項的item_id
@@ -1038,7 +1054,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				String user_id = req.getParameter("user_id");
 				JsonArray jArray = new JsonArray();
 				//用空的JsonArray覆蓋原來在資料庫中所有的待辦事項
@@ -1062,7 +1078,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				Gson gson = new Gson();
 				
 				String user_id = req.getParameter("user_id");
@@ -1106,7 +1122,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				Gson gson = new Gson();
 				String user_id = req.getParameter("user_id");
 				String item_id = req.getParameter("item_id");
@@ -1144,7 +1160,7 @@ public class MemberServlet extends HttpServlet {
 			Jedis jedis = null;
 			try {
 				res.setContentType("text/plain; charset=UTF-8");
-				jedis = new Jedis("localhost", 6379);
+				jedis = pool.getResource();
 				Gson gson = new Gson();
 				
 				String tStr = jedis.get("weather:t"); //溫度
