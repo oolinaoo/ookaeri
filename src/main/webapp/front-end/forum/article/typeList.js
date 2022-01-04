@@ -8,10 +8,11 @@ $(".forum-type").click(function(e) {
 	}
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url);
-	xhr.setRequestHeader("Content-type", "application/json"); //告訴後端是用 JSON 格式
-	let type = JSON.stringify(type_data); //將物件資料轉成字串
+	xhr.setRequestHeader("Content-type", "application/json"); // 告訴後端是用 JSON
+																// 格式
+	let type = JSON.stringify(type_data); // 將物件資料轉成字串
 	console.log(type);
-	xhr.send(type); //送出字串
+	xhr.send(type); // 送出字串
 	xhr.onload = function () {
 	  let data = JSON.parse(this.responseText);
 	  console.log(data);
@@ -25,6 +26,8 @@ $(".forum-type").click(function(e) {
 		                "<a href='../comment/comment.html?forArtNo=" + data[i].forArtNo + "' target='_blank'>" +
 		                data[i].forArtTitle + "</a>" +
 		              "</h3>" +
+		              "<span style='float:right;'><a href='#' id='forum-heart' onclick='collection(this)'><i class='fa fa-heart dataHeart" + data[i].forArtNo + "'></i></a>" +
+		              "</span>" +
 		            "</div>" +
 		            "<div class='forum-content'>" +
 		              "<p>" +
@@ -45,7 +48,24 @@ $(".forum-type").click(function(e) {
 		          "</div>" +
 		        "</div>"
 			  	);
-		  }	  
+		  }
+		  $.ajax({
+	    	    url: "/okaeri/forumCollections/findByMem",
+	    	    type: "POST",
+	    	    data: "",
+	    	    dataType: "json",
+	    	    contentType : 'application/json;charset=UTF-8',
+	    	    success: function (hdata) {
+	    	      $.each(hdata, function (k, item) {
+	    				if(`${item.forArtNo}` == data[i].forArtNo) {
+	    					$(`.dataHeart${data[i].forArtNo}`).css("color", "rgb(123, 20, 20)")
+	    				}
+	    			});
+	    	    },
+	    	    error: function (xhr) {
+	    	      console.log("error");
+	    	    },
+	    	  });
 	  }
 	  var table = $(".forum-page");
 	  var currentPage = 0; // 當前頁默認值為0
