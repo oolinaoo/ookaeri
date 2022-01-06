@@ -42,7 +42,7 @@ public class MailService {
 		   String token = UUID.randomUUID().toString().replace("-", "");
 		   StringBuilder messageText = new StringBuilder();
 		   messageText.append("<p>請點選以下連結進行修改，提醒您連結將於3分鐘後失效</p>");
-		   messageText.append("<a href='http://localhost:8080/okaeri/"); // need to change localhost once we use GCP
+		   messageText.append("<a href='http://35.194.162.170:8443/okaeri/"); // need to change localhost once we use GCP
 		   messageText.append(controller);
 		   messageText.append("?token=");
 		   messageText.append(token);
